@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: red;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.javafxml2.controller.HelloController">
+   <children>
+      <Button fx:id="incrementar" layoutX="138.0" layoutY="154.0" mnemonicParsing="false" onAction="#incrementar" prefHeight="52.0" prefWidth="94.0" text="+" textFill="#111010" />
+      <Label fx:id="contador" layoutX="284.0" layoutY="236.0" prefHeight="64.0" prefWidth="111.0" text="0" />
+      <Button fx:id="actualizar" layoutX="359.0" layoutY="154.0" mnemonicParsing="false" onAction="#actualizar" prefHeight="52.0" prefWidth="94.0" style="-fx-background-color: black;" text="0" textFill="#f5f2f2" />
+      <Button fx:id="reducir" layoutX="245.0" layoutY="154.0" mnemonicParsing="false" onAction="#reducir" prefHeight="52.0" prefWidth="94.0" text="-" />
+      <ProgressBar fx:id="barra" layoutX="144.0" layoutY="82.0" prefHeight="20.0" prefWidth="295.0" progress="0.0" style="-fx-background-color: blue;" />
+      <Button fx:id="aplicar" layoutX="246.0" layoutY="331.0" mnemonicParsing="false" onAction="#aplicar" prefHeight="41.0" prefWidth="76.0" text="Aplicar" />
+      <TextField fx:id="texto" layoutX="219.0" layoutY="28.0" onAction="#cambiarValor" />
+   </children>
+</Pane>
