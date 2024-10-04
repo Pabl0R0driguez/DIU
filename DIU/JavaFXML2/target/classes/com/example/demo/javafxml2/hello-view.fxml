@@ -13,7 +13,7 @@
       <Button fx:id="actualizar" layoutX="359.0" layoutY="154.0" mnemonicParsing="false" onAction="#actualizar" prefHeight="52.0" prefWidth="94.0" style="-fx-background-color: black;" text="0" textFill="#f5f2f2" />
       <Button fx:id="reducir" layoutX="245.0" layoutY="154.0" mnemonicParsing="false" onAction="#reducir" prefHeight="52.0" prefWidth="94.0" text="-" />
       <ProgressBar fx:id="barra" layoutX="144.0" layoutY="82.0" prefHeight="20.0" prefWidth="295.0" progress="0.0" style="-fx-background-color: blue;" />
-      <Button fx:id="aplicar" layoutX="246.0" layoutY="331.0" mnemonicParsing="false" onAction="#aplicar" prefHeight="41.0" prefWidth="76.0" text="Aplicar" />
-      <TextField fx:id="texto" layoutX="219.0" layoutY="28.0" onAction="#cambiarValor" />
+      <Button fx:id="aplicar" layoutX="246.0" layoutY="331.0" mnemonicParsing="false"  prefHeight="41.0" prefWidth="76.0" text="Aplicar" />
+      <TextField fx:id="texto" layoutX="219.0" layoutY="28.0"  />
    </children>
 </Pane>
