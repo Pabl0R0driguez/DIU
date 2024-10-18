@@ -12,7 +12,8 @@ module com.example.conversormonedas {
 	requires com.almasb.fxgl.all;
 	requires AccesoBBDDMoneda;
 	requires java.sql;
+    requires java.desktop;
 
-	opens com.example.conversormonedas to javafx.fxml;
+    opens com.example.conversormonedas to javafx.fxml;
 	exports com.example.conversormonedas;
 }
