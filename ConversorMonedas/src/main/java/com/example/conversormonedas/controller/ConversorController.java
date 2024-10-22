@@ -17,6 +17,7 @@ public class ConversorController {
     }
 
     public void cambiar(){
+        euros_caja
 
     }
 
