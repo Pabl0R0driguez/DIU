@@ -1,22 +1,38 @@
 package com.example.agenda.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class PersonaVO {
+    int codigo;
     String nombre;
     String apellido;
     String calle;
     int codigoPostal;
     String ciudad;
-    Date fechaNacimiento;
+    LocalDate fechaNacimiento;
 
-    public PersonaVO(String nombre, String apellido, String calle, int codigoPostal, String ciudad, Date fechaNacimiento) {
+    public PersonaVO(String nombre, String apellido, String calle, int codigoPostal, String ciudad, LocalDate fechaNacimiento) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.calle = calle;
         this.codigoPostal = codigoPostal;
         this.ciudad = ciudad;
         this.fechaNacimiento = fechaNacimiento;
+    }
+    public PersonaVO(int codigo,String nombre, String apellido, String calle, int codigoPostal, String ciudad, LocalDate fechaNacimiento) {
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.calle = calle;
+        this.codigoPostal = codigoPostal;
+        this.ciudad = ciudad;
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+
+    public int getCodigo() {
+        return codigo;
     }
 
     public String getNombre() {
@@ -59,11 +75,11 @@ public class PersonaVO {
         this.ciudad = ciudad;
     }
 
-    public Date getFechaNacimiento() {
+    public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 

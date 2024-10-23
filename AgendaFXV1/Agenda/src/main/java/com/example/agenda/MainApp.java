@@ -1,5 +1,7 @@
 package com.example.agenda;
 
+import com.example.agenda.model.AgendaModelo;
+import com.example.agenda.model.ExcepcionPersona;
 import com.example.agenda.model.repository.PersonaRepository;
 import java.io.IOException;
 import java.sql.Connection;
@@ -9,6 +11,7 @@ import com.example.agenda.controller.BirthdayStatisticsController;
 import com.example.agenda.controller.PersonEditDialogController;
 import com.example.agenda.controller.PersonOverviewController;
 import com.example.agenda.model.repository.impl.ConexionBD;
+import com.example.agenda.model.repository.impl.PersonaRepositoryImpl;
 import com.example.agenda.view.Person;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -167,7 +170,13 @@ public class MainApp extends Application {
 	}
 
 	// Metodo principal de la aplicación
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) throws SQLException, ExcepcionPersona {
+
+		PersonaRepositoryImpl personaRepository = new PersonaRepositoryImpl();
+		personaRepository.ObtenerListaPersonas();
+
+		AgendaModelo agendaModelo = new AgendaModelo();
+		agendaModelo.setPersonaRepository(new PersonaRepositoryImpl());
 
 
 

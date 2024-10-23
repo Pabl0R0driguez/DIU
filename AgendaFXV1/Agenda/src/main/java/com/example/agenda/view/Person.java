@@ -1,5 +1,6 @@
 package com.example.agenda.view;
 import java.time.LocalDate;
+import java.util.Date;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -43,8 +44,18 @@ public class Person {
         this.street = new SimpleStringProperty("some street");
         this.postalCode = new SimpleIntegerProperty(1234);
         this.city = new SimpleStringProperty("some city");
-        this.birthday = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));
+        this.birthday = new SimpleObjectProperty<>(LocalDate.of(1999, 2, 21));
     }
+
+    public Person(String nombre, String apellido, String calle, int codigoPostal, String ciudad, LocalDate fechaNacimiento) {
+   this.firstName = new SimpleStringProperty(nombre);
+   this.lastName = new SimpleStringProperty(apellido);
+   this.street = new SimpleStringProperty(calle);
+   this.postalCode = new SimpleIntegerProperty(codigoPostal);
+   this.city = new SimpleStringProperty(ciudad);
+   this.birthday = new SimpleObjectProperty<>(LocalDate.of(2005,05,02));
+    }
+
 
     public String getFirstName() {
         return firstName.get();
@@ -114,7 +125,5 @@ public class Person {
         this.birthday.set(birthday);
     }
 
-    public ObjectProperty<LocalDate> birthdayProperty() {
-        return birthday;
-    }
+
 }
