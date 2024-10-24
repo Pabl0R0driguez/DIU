@@ -24,7 +24,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MainApp extends Application {
-
+//ddddd
 	// Lista observable de objetos Person que es accesible desde otros controladores
 	private static ObservableList<Person> personData = FXCollections.observableArrayList();
 
