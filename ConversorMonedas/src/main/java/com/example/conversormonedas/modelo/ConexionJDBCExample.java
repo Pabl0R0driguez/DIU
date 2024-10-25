@@ -1,4 +1,4 @@
-package modelo;
+package com.example.conversormonedas.modelo;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -31,7 +31,6 @@ public class ConexionJDBCExample {
 			}
 			return conn;
 		}
-
 
 
 	}
