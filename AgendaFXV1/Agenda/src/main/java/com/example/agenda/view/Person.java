@@ -1,6 +1,5 @@
 package com.example.agenda.view;
 import java.time.LocalDate;
-import java.util.Date;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -61,9 +60,10 @@ public class Person {
         return firstName.get();
     }
 
-    public void setFirstName(String firstName) {
+    public String setFirstName(String firstName) {
         this.firstName.set(firstName);
-    }
+		return firstName;
+	}
 
     public StringProperty firstNameProperty() {
         return firstName;
@@ -73,9 +73,10 @@ public class Person {
         return lastName.get();
     }
 
-    public void setLastName(String lastName) {
+    public String setLastName(String lastName) {
         this.lastName.set(lastName);
-    }
+		return lastName;
+	}
 
     public StringProperty lastNameProperty() {
         return lastName;
@@ -85,9 +86,10 @@ public class Person {
         return street.get();
     }
 
-    public void setStreet(String street) {
+    public String setStreet(String street) {
         this.street.set(street);
-    }
+		return street;
+	}
 
     public StringProperty streetProperty() {
         return street;
@@ -97,9 +99,10 @@ public class Person {
         return postalCode.get();
     }
 
-    public void setPostalCode(int postalCode) {
+    public String setPostalCode(int postalCode) {
         this.postalCode.set(postalCode);
-    }
+		return String.valueOf(postalCode);
+	}
 
     public IntegerProperty postalCodeProperty() {
         return postalCode;

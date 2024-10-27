@@ -25,6 +25,7 @@ private PersonaVO persona;
     public ArrayList<PersonaVO> ObtenerListaPersonas() throws ExcepcionPersona {
         try {
             Connection conn = this.conexion.conectarBD();
+			System.out.println("Conexión exitosa con la base de datos");
             this.personas = new ArrayList();
             this.stmt = conn.createStatement();
             this.sentencia = "SELECT * FROM contactos";
@@ -36,7 +37,7 @@ private PersonaVO persona;
                 String c = rs.getString("calle");
                 Integer codigoPostal = rs.getInt("codigoPostal");
                 String ci = rs.getString("ciudad");
-                LocalDate fechaNacimiento = rs.getDate("fechaNacimiento").toLocalDate();
+                LocalDate fechaNacimiento = rs.getDate("cumpleaños").toLocalDate();
 
 
                 this.persona = new PersonaVO(m, a,c,codigoPostal,ci,fechaNacimiento);
@@ -55,7 +56,7 @@ private PersonaVO persona;
         try {
             Connection conn = this.conexion.conectarBD();
             this.stmt = conn.createStatement();
-            this.sentencia = "INSERT INTO contactos (nombre, apellidos, calle,codigoPostal, ciudad, cumpleaños) VALUES ('" + var1.getNombre() + "','" + var1.getApellido() + "','" + var1.getCalle() + "','" + var1.getCodigoPostal() + "','" + var1.getCiudad() + "','" + var1.getFechaNacimiento()+ "');";
+            this.sentencia = "INSERT INTO contactos (nombre, apellido, calle,codigoPostal, ciudad, cumpleaños) VALUES ('" + var1.getNombre() + "','" + var1.getApellido() + "','" + var1.getCalle() + "','" + var1.getCodigoPostal() + "','" + var1.getCiudad() + "','" + var1.getFechaNacimiento()+ "');";
             this.stmt.executeUpdate(this.sentencia);
             this.stmt.close();
             this.conexion.desconectarBD(conn);
@@ -97,7 +98,8 @@ private PersonaVO persona;
                 Connection conn = this.conexion.conectarBD();
                 Statement comando = conn.createStatement();
 
-                for(ResultSet registro = comando.executeQuery("SELECT id FROM contactos ORDER BY codigo DESC LIMIT 1"); registro.next(); lastPersonaId = registro.getInt("id")) {
+                for(ResultSet registro = comando.executeQuery("SELECT id FROM contactos ORDER BY id DESC LIMIT 1"); registro.next(); lastPersonaId = registro.getInt("id")) {
+
                 }
 
                 return lastPersonaId;
@@ -105,5 +107,7 @@ private PersonaVO persona;
                 throw new ExcepcionPersona("No se ha podido realizar la busqueda del ID");
             }
         }
+
+
     }
 

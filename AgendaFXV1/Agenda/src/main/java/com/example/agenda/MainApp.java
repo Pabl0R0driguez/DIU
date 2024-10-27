@@ -1,16 +1,15 @@
 package com.example.agenda;
 
-import com.example.agenda.model.AgendaModelo;
 import com.example.agenda.model.ExcepcionPersona;
-import com.example.agenda.model.repository.PersonaRepository;
+import com.example.agenda.model.PersonaVO;
+
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.example.agenda.controller.BirthdayStatisticsController;
-import com.example.agenda.controller.PersonEditDialogController;
+import com.example.agenda.controller.PersonAddDialogController;
 import com.example.agenda.controller.PersonOverviewController;
-import com.example.agenda.model.repository.impl.ConexionBD;
 import com.example.agenda.model.repository.impl.PersonaRepositoryImpl;
 import com.example.agenda.view.Person;
 import javafx.application.Application;
@@ -111,7 +110,7 @@ public class MainApp extends Application {
 		try {
 			// Carga el archivo FXML y crea un nuevo escenario para el diálogo
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("/com/example/agenda/PersonEditDialog.fxml"));
+			loader.setLocation(MainApp.class.getResource("/com/example/agenda/PersonAddDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 
 			// Crea el escenario del diálogo
@@ -123,7 +122,7 @@ public class MainApp extends Application {
 			dialogStage.setScene(scene);
 
 			// Establece la persona en el controlador del diálogo
-			PersonEditDialogController controller = loader.getController();
+			PersonAddDialogController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
 			controller.setPerson(person);
 
@@ -172,11 +171,29 @@ public class MainApp extends Application {
 	// Metodo principal de la aplicación
 	public static void main(String[] args) throws SQLException, ExcepcionPersona {
 
+		//Para obtener una lista de personas
+		//Instanciamos la clase PersonaRepositoryImpl y creamos un arraylist para recoger los datos
+		//de los contactos que tenemos en nuestra base de datos
 		PersonaRepositoryImpl personaRepository = new PersonaRepositoryImpl();
-		personaRepository.ObtenerListaPersonas();
+	try{
+		ArrayList<PersonaVO> listaPersonas  = personaRepository.ObtenerListaPersonas();
 
-		AgendaModelo agendaModelo = new AgendaModelo();
-		agendaModelo.setPersonaRepository(new PersonaRepositoryImpl());
+		// Imprimir la lista de personas
+		for (PersonaVO persona : listaPersonas) {
+			System.out.println("Nombre: " + persona.getNombre() +
+					", Apellido: " + persona.getApellido() +
+					", Calle: " + persona.getCalle() +
+					", Código Postal: " + persona.getCodigoPostal() +
+					", Ciudad: " + persona.getCiudad() +
+					", Cumpleaños: " + persona.getFechaNacimiento());
+		}
+	} catch (ExcepcionPersona e) {
+		System.err.println("Error al obtener la lista de personas: " + e.getMessage());
+	}
+
+
+	//Metodo para añadir mediante la interfaz personas a la base de datos
+
 
 
 

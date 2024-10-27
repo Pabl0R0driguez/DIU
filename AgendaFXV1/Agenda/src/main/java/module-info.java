@@ -11,8 +11,9 @@ module com.example.agenda {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.sql;
+	requires java.desktop;
 
-    opens com.example.agenda to javafx.fxml;
+	opens com.example.agenda to javafx.fxml;
     exports com.example.agenda.controller;
     opens com.example.agenda.controller to javafx.fxml;
     exports com.example.agenda.model;
