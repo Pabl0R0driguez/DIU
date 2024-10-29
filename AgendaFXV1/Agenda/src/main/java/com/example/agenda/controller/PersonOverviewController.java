@@ -1,5 +1,6 @@
 package com.example.agenda.controller;
 import com.example.agenda.MainApp;
+import com.example.agenda.model.AgendaModelo;
 import com.example.agenda.model.ExcepcionPersona;
 import com.example.agenda.model.PersonaVO;
 import com.example.agenda.model.repository.impl.PersonaRepositoryImpl;
@@ -102,43 +103,15 @@ public class PersonOverviewController {
     }
 
 
-	@FXML
-	private void handleNewPerson() {
-		// 1. Crea un objeto temporal Person
-		Person tempPerson = new Person();
+    @FXML
+    private void handleNewPerson() {
+        Person tempPerson = new Person();
+        boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
+        if (okClicked) {
+            mainApp.getPersonData().add(tempPerson);
+        }
+    }
 
-		// 2. Abre un diálogo de edición de persona
-		boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
-
-		// 3. Añade el objeto Person a la lista de personas del controlador
-		mainApp.getPersonData().add(tempPerson);
-
-		// 4. Convertir a PersonaVO usando PersonUtil y agregar a la base de datos
-		try {
-			// Convierte el objeto Person a PersonaVO
-			PersonaVO nuevaPersonaVO = PersonUtil.parse2(new ArrayList<>(List.of(tempPerson))).get(0);
-
-			// Crea una instancia del repositorio
-			PersonaRepositoryImpl personaRepository = new PersonaRepositoryImpl();
-			System.out.println("Añadiendo persona: " + nuevaPersonaVO);
-
-			// Intenta añadir la nueva persona a la base de datos
-			personaRepository.addPersona(nuevaPersonaVO);
-		} catch (ExcepcionPersona e) {
-
-			// Manejo de errores: muestra un mensaje si ocurre una excepción
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setTitle("Error al añadir persona");
-			alert.setHeaderText("No se pudo añadir la persona");
-			alert.setContentText(e.getMessage());
-			alert.showAndWait();
-		}
-
-		// 5. (Este bloque nunca se alcanzará si ocurre una excepción en el bloque try)
-		if (okClicked) {
-			mainApp.getPersonData().add(tempPerson);
-		}
-	}
 
 
 	/**
@@ -150,29 +123,22 @@ public class PersonOverviewController {
         Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
         if (selectedPerson != null) {
             boolean okClicked = mainApp.showPersonEditDialog(selectedPerson);
+
+            try {
+                AgendaModelo.editarPersona(selectedPerson);
+            } catch (ExcepcionPersona e) {
+                throw new RuntimeException(e);
+            }
             if (okClicked) {
-				try{
-					ArrayList<PersonaVO> nuevaPersonaVO = PersonUtil.parse2(new ArrayList<>(List.of(selectedPerson)));
-					PersonaVO nuevaPersona = nuevaPersonaVO.get(0); // Obtener el primer elemento
-					PersonaRepositoryImpl personaRepository = new PersonaRepositoryImpl();
-					personaRepository.editPersona(nuevaPersona);
-				} catch (ExcepcionPersona e) {
-					Alert alert = new Alert(Alert.AlertType.ERROR);
-					alert.setTitle("Error");
-					alert.setHeaderText("No se pudo editar la persona");
-					alert.setContentText(e.getMessage());
-					alert.showAndWait();
-					throw new RuntimeException(e);
-				}
-				showPersonDetails(selectedPerson);
+                showPersonDetails(selectedPerson);
             }
 
         } else {
             // Nothing selected.
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("No seleccionado");
-            alert.setHeaderText("Persona no selccionada");
-            alert.setContentText("Porfavor selecciona una persona de la tabla");
+            alert.setHeaderText("No hay persona seleccionada");
+            alert.setContentText("Porfavor selecciona una persona en la tabla");
             alert.showAndWait();
         }
     }

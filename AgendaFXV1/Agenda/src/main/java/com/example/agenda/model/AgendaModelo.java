@@ -25,6 +25,19 @@ public class AgendaModelo {
         return PersonUtil.parse(personasVO);
     }
 
+    public static void editarPersona(Person person) throws ExcepcionPersona {
+    }
+
+    public static void añadirPersona(Person person) throws ExcepcionPersona {
+
+    }
+
+    public static void borrarPersona(Person person) throws ExcepcionPersona {
+
+    }
+
+
+
 
 }
 

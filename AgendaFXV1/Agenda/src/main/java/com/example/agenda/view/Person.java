@@ -1,5 +1,6 @@
 package com.example.agenda.view;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -8,6 +9,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+
 /**
  * Model class for a Person.
  *
@@ -15,6 +17,7 @@ import javafx.beans.property.StringProperty;
  */
 public class Person {
 
+    private  IntegerProperty codigo = null;
     private final StringProperty firstName;
     private final StringProperty lastName;
     private final StringProperty street;
@@ -22,37 +25,39 @@ public class Person {
     private final StringProperty city;
     private final ObjectProperty<LocalDate> birthday;
 
-    /**
-     * Default constructor.
-     */
-    public Person() {
-        this(null, null);
+
+    // Formato para la fecha
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+    public Person( String nombre, String apellido) {
+
+    this.firstName = new SimpleStringProperty(nombre);
+    this.lastName = new SimpleStringProperty(apellido);
+    this.street = new SimpleStringProperty("calle");
+    this.postalCode = new SimpleIntegerProperty(1234);
+    this.city = new SimpleStringProperty("ciudad");
+    this.birthday = new SimpleObjectProperty<>(LocalDate.of(2005,05,02));
     }
 
-    /**
-     * Constructor with some initial data.
-     *
-     * @param firstName
-     * @param lastName
-     */
-    public Person(String firstName, String lastName) {
+    public Person(IntegerProperty codigo, String firstName, String lastName, String street, int postalCode, String city, LocalDate birthday) {
+        this.codigo = codigo;
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
-
-        // Some initial dummy data, just for convenient testing.
         this.street = new SimpleStringProperty("some street");
         this.postalCode = new SimpleIntegerProperty(1234);
         this.city = new SimpleStringProperty("some city");
         this.birthday = new SimpleObjectProperty<>(LocalDate.of(1999, 2, 21));
     }
 
-    public Person(String nombre, String apellido, String calle, int codigoPostal, String ciudad, LocalDate fechaNacimiento) {
-   this.firstName = new SimpleStringProperty(nombre);
-   this.lastName = new SimpleStringProperty(apellido);
-   this.street = new SimpleStringProperty(calle);
-   this.postalCode = new SimpleIntegerProperty(codigoPostal);
-   this.city = new SimpleStringProperty(ciudad);
-   this.birthday = new SimpleObjectProperty<>(LocalDate.of(2005,05,02));
+    // Constructor vacío (inicializa todas las propiedades con valores predeterminados)
+    public Person() {
+        this.codigo=new SimpleIntegerProperty(0);
+        this.firstName = new SimpleStringProperty("");
+        this.lastName = new SimpleStringProperty("");
+        this.street = new SimpleStringProperty("");
+        this.postalCode = new SimpleIntegerProperty(0);
+        this.city = new SimpleStringProperty("");
+        this.birthday = new SimpleObjectProperty<>(LocalDate.now());
     }
 
 

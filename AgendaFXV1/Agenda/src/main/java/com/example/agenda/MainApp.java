@@ -1,5 +1,6 @@
 package com.example.agenda;
 
+import com.example.agenda.controller.PersonEditDialogController;
 import com.example.agenda.model.ExcepcionPersona;
 import com.example.agenda.model.PersonaVO;
 
@@ -8,7 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.example.agenda.controller.BirthdayStatisticsController;
-import com.example.agenda.controller.PersonAddDialogController;
 import com.example.agenda.controller.PersonOverviewController;
 import com.example.agenda.model.repository.impl.PersonaRepositoryImpl;
 import com.example.agenda.view.Person;
@@ -110,7 +110,7 @@ public class MainApp extends Application {
 		try {
 			// Carga el archivo FXML y crea un nuevo escenario para el diálogo
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("/com/example/agenda/PersonAddDialog.fxml"));
+			loader.setLocation(MainApp.class.getResource("/com/example/agenda/PersonEditDialog.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 
 			// Crea el escenario del diálogo
@@ -122,7 +122,7 @@ public class MainApp extends Application {
 			dialogStage.setScene(scene);
 
 			// Establece la persona en el controlador del diálogo
-			PersonAddDialogController controller = loader.getController();
+			PersonEditDialogController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
 			controller.setPerson(person);
 
@@ -175,7 +175,9 @@ public class MainApp extends Application {
 		//Instanciamos la clase PersonaRepositoryImpl y creamos un arraylist para recoger los datos
 		//de los contactos que tenemos en nuestra base de datos
 		PersonaRepositoryImpl personaRepository = new PersonaRepositoryImpl();
-	try{
+		PersonOverviewController personOverviewController = new PersonOverviewController();
+
+		try{
 		ArrayList<PersonaVO> listaPersonas  = personaRepository.ObtenerListaPersonas();
 
 		// Imprimir la lista de personas
@@ -186,15 +188,10 @@ public class MainApp extends Application {
 					", Código Postal: " + persona.getCodigoPostal() +
 					", Ciudad: " + persona.getCiudad() +
 					", Cumpleaños: " + persona.getFechaNacimiento());
-		}
-	} catch (ExcepcionPersona e) {
-		System.err.println("Error al obtener la lista de personas: " + e.getMessage());
 	}
-
-
-	//Metodo para añadir mediante la interfaz personas a la base de datos
-
-
+} catch (ExcepcionPersona e) {
+		System.err.println("Error al obtener la lista de personas: " + e.getMessage());
+		}
 
 
 		launch(args); // Inicia la aplicación JavaFX

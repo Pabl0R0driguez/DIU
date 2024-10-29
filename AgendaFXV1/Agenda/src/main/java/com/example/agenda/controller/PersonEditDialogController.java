@@ -1,4 +1,5 @@
 package com.example.agenda.controller;
+import com.example.agenda.model.AgendaModelo;
 import com.example.agenda.model.PersonaVO;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -36,8 +37,9 @@ public class PersonEditDialogController {
 
 
 	private Stage dialogStage;
-	private Person person;
+	private Person c;
 	private boolean okClicked = false;
+	private AgendaModelo agendaModelo;
 
 	/**
 	 * Initializes the controller class. This method is automatically called
@@ -56,27 +58,23 @@ public class PersonEditDialogController {
 		this.dialogStage = dialogStage;
 	}
 
+	public void setAgendaModelo(AgendaModelo m){
+		this.agendaModelo=m;
+	}
+
 	/**
 	 * Sets the person to be edited in the dialog.
 	 *
-	 * @param person
 	 */
-	public void setPerson(Person person) {
+	public void setPerson(Person c) {
+		this.c = c;
 
-		Person tempPerson = new Person();
-		PersonaVO nuevaPersonaVO = PersonUtil.parse2(new ArrayList<>(List.of(tempPerson))).get(0);
-
-
-		firstNameField.setText(tempPerson.setFirstName(String.valueOf(nuevaPersonaVO.getNombre())));
-		lastNameField.setText(tempPerson.setLastName(String.valueOf(nuevaPersonaVO)));
-		streetField.setText(tempPerson.setStreet(String.valueOf(nuevaPersonaVO.getCalle())));
-		postalCodeField.setText(Integer.toString(nuevaPersonaVO.getCodigoPostal()));
-		cityField.setText(tempPerson.setLastName(String.valueOf(nuevaPersonaVO)));
-		// Formatear y establecer la fecha de cumpleaños
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-		birthdayField.setText(nuevaPersonaVO.getFechaNacimiento().format(formatter));
-
-		// Establecer el texto del prompt
+		firstNameField.setText(c.getFirstName());
+		lastNameField.setText(c.getLastName());
+		streetField.setText(c.getStreet());
+		postalCodeField.setText(Integer.toString(c.getPostalCode()));
+		cityField.setText(c.getCity());
+		birthdayField.setText(DateUtil.format(c.getBirthday()));
 		birthdayField.setPromptText("dd.mm.yyyy");
 	}
 
@@ -93,26 +91,25 @@ public class PersonEditDialogController {
 	 * Called when the user clicks ok.
 	 */
 	@FXML
-	private void handleEditOk() {
+	private void handleOk() {
 		if (isInputValid()) {
-			person.setFirstName(firstNameField.getText());
-			person.setLastName(lastNameField.getText());
-			person.setStreet(streetField.getText());
-			person.setPostalCode(Integer.parseInt(postalCodeField.getText()));
-			person.setCity(cityField.getText());
-			person.setBirthday(DateUtil.parse(birthdayField.getText()));
+			c.setFirstName(firstNameField.getText());
+			c.setLastName(lastNameField.getText());
+			c.setStreet(streetField.getText());
+			c.setPostalCode(Integer.parseInt(postalCodeField.getText()));
+			c.setCity(cityField.getText());
+			c.setBirthday(DateUtil.parse(birthdayField.getText()));
 
 			okClicked = true;
 			dialogStage.close();
 		}
 	}
 
-
 	/**
 	 * Called when the user clicks cancel.
 	 */
 	@FXML
-	private void handleEditCancel() {
+	private void handleCancel() {
 		dialogStage.close();
 	}
 
@@ -124,36 +121,36 @@ public class PersonEditDialogController {
 	private boolean isInputValid() {
 		String errorMessage = "";
 
-		if (firstNameField.getText() == null || firstNameField.getText().length() == 0) {
-			errorMessage += "Nombre incorrecto!\n";
+		if (firstNameField.getText() == null || firstNameField.getText().isEmpty()) {
+			errorMessage += "No valid first name!\n";
 		}
-		if (lastNameField.getText() == null || lastNameField.getText().length() == 0) {
-			errorMessage += "Apellido incorrecto!\n";
+		if (lastNameField.getText() == null || lastNameField.getText().isEmpty()) {
+			errorMessage += "No valid last name!\n";
 		}
-		if (streetField.getText() == null || streetField.getText().length() == 0) {
-			errorMessage += "Calle incorrecta!\n";
+		if (streetField.getText() == null || streetField.getText().isEmpty()) {
+			errorMessage += "No valid street!\n";
 		}
 
-		if (postalCodeField.getText() == null || postalCodeField.getText().length() == 0) {
-			errorMessage += "Código Postal incorrecto!\n";
+		if (postalCodeField.getText() == null || postalCodeField.getText().isEmpty()) {
+			errorMessage += "No valid postal code!\n";
 		} else {
 			// try to parse the postal code into an int.
 			try {
 				Integer.parseInt(postalCodeField.getText());
 			} catch (NumberFormatException e) {
-				errorMessage += "Código Postal incorrecto (debe ser un integer)!\n";
+				errorMessage += "No valid postal code (must be an integer)!\n";
 			}
 		}
 
-		if (cityField.getText() == null || cityField.getText().length() == 0) {
-			errorMessage += "Ciudad incorrecta!\n";
+		if (cityField.getText() == null || cityField.getText().isEmpty()) {
+			errorMessage += "No valid city!\n";
 		}
 
-		if (birthdayField.getText() == null || birthdayField.getText().length() == 0) {
-			errorMessage += "Fecha de Nacimiento incorrecta!\n";
+		if (birthdayField.getText() == null || birthdayField.getText().isEmpty()) {
+			errorMessage += "No valid birthday!\n";
 		} else {
 			if (!DateUtil.validDate(birthdayField.getText())) {
-				errorMessage += "Fecha de Nacimiento incorrecta. Usa el formato dd.mm.yyyy!\n";
+				errorMessage += "No valid birthday. Use the format dd.mm.yyyy!\n";
 			}
 		}
 
@@ -161,11 +158,12 @@ public class PersonEditDialogController {
 			return true;
 		} else {
 			// Show the error message.
-			Alert alert = new Alert(Alert.AlertType.WARNING);
-			alert.setTitle("Campos incorrectos");
-			alert.setHeaderText("Porfavor introduce campos correctos");
-			alert.setContentText("Campos incorrectos");
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("Invalid Fields");
+			alert.setHeaderText("Please correct invalid fields");
+			alert.setContentText(errorMessage);
 			alert.showAndWait();
+
 			return false;
 		}
 	}
