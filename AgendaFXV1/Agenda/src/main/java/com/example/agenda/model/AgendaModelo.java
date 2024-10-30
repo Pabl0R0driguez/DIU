@@ -17,16 +17,17 @@ public class AgendaModelo {
     }
 
 
-    //Recupera la lista de personas y la convierte en el tipo de persona
+
+	public PersonaRepository getPersonaRepository(){
+		return personaRepository;
+	}
+
+
+    //Recupera la lista de personaVO y la convierte en el persona para la interfaz
     public ArrayList<Person> setPerson() throws ExcepcionPersona {
         personas= personaRepository.ObtenerListaPersonas();
         //Devolvemos una lista de personas
         return PersonUtil.parseToPerson(personas);
-    }
-
-
-    public void editarPersona(Person p) throws ExcepcionPersona{
-        personaRepository.editPersona(PersonUtil.parseToPersonVO(p));
     }
 
 }

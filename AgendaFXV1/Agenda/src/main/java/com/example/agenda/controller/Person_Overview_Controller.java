@@ -1,13 +1,9 @@
 package com.example.agenda.controller;
 import com.example.agenda.MainApp;
 import com.example.agenda.model.AgendaModelo;
-import com.example.agenda.model.AgendaModelo;
 import com.example.agenda.model.ExcepcionPersona;
-import com.example.agenda.model.ExcepcionPersona;
-import com.example.agenda.model.repository.PersonaRepository;
 import com.example.agenda.model.repository.impl.PersonaRepositoryImpl;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.beans.property.IntegerProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -15,7 +11,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 import com.example.agenda.view.Person;
-import com.example.agenda.util.DateUtil;
+import util.DateUtil;
+import util.PersonUtil;
 
 public class Person_Overview_Controller {
 	@FXML
@@ -94,13 +91,20 @@ public class Person_Overview_Controller {
 			cityLabel.setText("");
 			birthdayLabel.setText("");
 		}
+
 	}
 
 	//Cuando pulsas el boton de borrar se eliminara la persona de la lista
 	@FXML
-	private void handleDeletePerson() {
+	private void handleDeletePerson() throws ExcepcionPersona {
 		int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
+		int codigo = personTable.getSelectionModel().getSelectedItem().getCodigo();
+
 		if (selectedIndex >= 0) {
+			//
+			mainApp.getAgenda().getPersonaRepository().deletePersona(selectedIndex);
+			mainApp.getAgenda().getPersonaRepository().deletePersona(codigo);
+
 			personTable.getItems().remove(selectedIndex);
 		} else {
 			Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -113,11 +117,19 @@ public class Person_Overview_Controller {
 
 	//Cuando pulsas el boton de añadir se añadirá  la persona de la lista
 	@FXML
-	private void handleNewPerson() {
+	private void handleNewPerson() throws ExcepcionPersona {
 		Person tempPerson = new Person();
 		boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
 		if (okClicked) {
+
+			//Añadir la persona a la base de datos
+			//Transformamos la Persona en PersonaVO((PersonUtil.parseToPersonVO(tempPerson));)
+			//Añadimos la PersonaVO a la BD (mainApp.getAgenda().getPersonaRepository().addPersona)
+			//mainApp.getAgenda() nos devuelve la agenda que contiene tanto la lista de PersonaVO como la conexión a la base de datos
+			//.getPersonaRepository() nos devuelve la conexión a la base de datos
+			mainApp.getAgenda().getPersonaRepository().addPersona(PersonUtil.parseToPersonVO(tempPerson));
 			mainApp.getPersonData().add(tempPerson);
+
 		}
 	}
 
@@ -127,17 +139,15 @@ public class Person_Overview_Controller {
 	 */
 
 	@FXML
-	private void handleEditPerson() {
+	private void handleEditPerson() throws ExcepcionPersona {
+
 		Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
 		if (selectedPerson != null) {
 			boolean okClicked = mainApp.showPersonEditDialog(selectedPerson);
 
-			try {
-				modeloAgenda.editarPersona(selectedPerson);
-			} catch (ExcepcionPersona e) {
-				throw new RuntimeException(e);
-			}
 			if (okClicked) {
+				mainApp.getAgenda().getPersonaRepository().editPersona(PersonUtil.parseToPersonVO(selectedPerson));
+				mainApp.getPersonData().setAll(selectedPerson);
 				showPersonDetails(selectedPerson);
 			}
 
@@ -145,8 +155,8 @@ public class Person_Overview_Controller {
 			// Nothing selected.
 			Alert alert = new Alert(Alert.AlertType.WARNING);
 			alert.setTitle("No seleccionado");
-			alert.setHeaderText("No hay persona seleccionada");
-			alert.setContentText("Porfavor selecciona una persona en la tabla");
+			alert.setHeaderText("Persona no selccionada");
+			alert.setContentText("Porfavor selecciona una persona de la tabla");
 			alert.showAndWait();
 		}
 	}

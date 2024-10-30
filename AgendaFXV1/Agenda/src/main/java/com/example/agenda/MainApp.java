@@ -53,6 +53,10 @@ public class MainApp extends Application {
 		return personData;
 	}
 
+	public AgendaModelo getAgenda(){
+		return agenda;
+	}
+
 	@Override
 	public void start(Stage primaryStage) {
 		// Guardamos la referencia del escenario principal

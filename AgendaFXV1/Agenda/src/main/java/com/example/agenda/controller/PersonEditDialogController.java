@@ -1,24 +1,11 @@
 package com.example.agenda.controller;
-import com.example.agenda.MainApp;
-import com.example.agenda.model.AgendaModelo;
-import com.example.agenda.model.ExcepcionPersona;
-import com.example.agenda.model.repository.PersonaRepository;
-import com.example.agenda.model.repository.impl.PersonaRepositoryImpl;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 
 import com.example.agenda.view.Person;
-import com.example.agenda.util.DateUtil;
+import util.DateUtil;
 import javafx.stage.Stage;
-import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import java.awt.*;
 
 /**
  * Dialog to edit details of a person.

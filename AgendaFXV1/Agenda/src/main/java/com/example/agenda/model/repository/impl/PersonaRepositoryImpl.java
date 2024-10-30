@@ -72,7 +72,7 @@
             Connection conn = this.conexion.conectarBD();
             this.stmt = conn.createStatement();
             Statement comando = conn.createStatement();
-            String sql = String.format("DELETE FROM contactos WHERE codigo = %d", var1);
+            String sql = String.format("DELETE FROM contactos WHERE id = %d", var1);
             comando.executeUpdate(sql);
             this.conexion.desconectarBD(conn);
         } catch (SQLException var5) {
@@ -85,7 +85,7 @@
         try {
             Connection conn = this.conexion.conectarBD();
             this.stmt = conn.createStatement();
-            String sql = String.format("UPDATE contactos SET nombre = '%s', apellido = '%s'  , calle = '%s', codigoPostal = '%s', ciudad = '%s', cumpleaños = '%s' WHERE id = %d", var1.getNombre(), var1.getApellido() ,var1.getCalle() ,var1.getCodigoPostal() ,var1.getCiudad() ,var1.getFechaNacimiento());
+            String sql = String.format("UPDATE contactos SET nombre = '%s', apellido = '%s'  , calle = '%s', codigoPostal = '%s', ciudad = '%s', cumpleaños = '%s' WHERE id = %d", var1.getNombre(), var1.getApellido() ,var1.getCalle() ,var1.getCodigoPostal() ,var1.getCiudad() ,var1.getFechaNacimiento(),var1.getCodigo());
             this.stmt.executeUpdate(sql);
         } catch (Exception var4) {
             throw new ExcepcionPersona("No se ha podido relaizr la edición");
