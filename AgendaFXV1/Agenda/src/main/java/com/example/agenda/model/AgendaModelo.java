@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public class AgendaModelo {
     private PersonaRepository personaRepository;
     ArrayList<PersonaVO> personas = new ArrayList<>();
-    ArrayList<PersonaVO> personasVO = new ArrayList<>();
 
 
     //Interactuar con la bd
@@ -20,20 +19,14 @@ public class AgendaModelo {
 
     //Recupera la lista de personas y la convierte en el tipo de persona
     public ArrayList<Person> setPerson() throws ExcepcionPersona {
-        personasVO= personaRepository.ObtenerListaPersonas();
+        personas= personaRepository.ObtenerListaPersonas();
         //Devolvemos una lista de personas
-        return PersonUtil.parse(personasVO);
+        return PersonUtil.parseToPerson(personas);
     }
 
-    public static void editarPersona(Person person) throws ExcepcionPersona {
-    }
 
-    public static void añadirPersona(Person person) throws ExcepcionPersona {
-
-    }
-
-    public static void borrarPersona(Person person) throws ExcepcionPersona {
-
+    public void editarPersona(Person p) throws ExcepcionPersona{
+        personaRepository.editPersona(PersonUtil.parseToPersonVO(p));
     }
 
 

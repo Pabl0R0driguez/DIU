@@ -32,15 +32,16 @@
                 ResultSet rs = this.stmt.executeQuery(this.sentencia);
 
                 while(rs.next()) {
-                    String m = rs.getString("nombre");
-                    String a = rs.getString("apellidos");
-                    String c = rs.getString("calle");
+                    Integer id = rs.getInt("id");
+                    String nombre = rs.getString("nombre");
+                    String apellidos = rs.getString("apellidos");
+                    String calle = rs.getString("calle");
                     Integer codigoPostal = rs.getInt("codigoPostal");
-                    String ci = rs.getString("ciudad");
+                    String ciudad = rs.getString("ciudad");
                     LocalDate fechaNacimiento = rs.getDate("cumpleaños").toLocalDate();
 
 
-                    this.persona = new PersonaVO(m, a,c,codigoPostal,ci,fechaNacimiento);
+                    this.persona = new PersonaVO(id,nombre, apellidos,calle,ciudad,codigoPostal,fechaNacimiento);
                     this.personas.add(this.persona);
                 }
 
@@ -56,7 +57,7 @@
         try {
             Connection conn = this.conexion.conectarBD();
             this.stmt = conn.createStatement();
-            this.sentencia = "INSERT INTO contactos (nombre, apellido, calle,codigoPostal, ciudad, cumpleaños) VALUES ('" + var1.getNombre() + "','" + var1.getApellido() + "','" + var1.getCalle() + "','" + var1.getCodigoPostal() + "','" + var1.getCiudad() + "','" + var1.getFechaNacimiento()+ "');";
+            this.sentencia = "INSERT INTO contactos (nombre, apellidos, calle,codigoPostal, ciudad, cumpleaños) VALUES ('" + var1.getNombre() + "','" + var1.getApellido() + "','" + var1.getCalle() + "','" + var1.getCodigoPostal() + "','" + var1.getCiudad() + "','" + var1.getFechaNacimiento()+ "');";
             this.stmt.executeUpdate(this.sentencia);
             this.stmt.close();
             this.conexion.desconectarBD(conn);

@@ -5,7 +5,7 @@ import javafx.beans.property.*;
 import java.time.LocalDate;
 import java.util.Date;
 
-public class PersonaVO {
+public class PersonVO {
     IntegerProperty codigo;
     StringProperty nombre;
     StringProperty apellido ;
@@ -15,7 +15,7 @@ public class PersonaVO {
     ObjectProperty<LocalDate> fechaNacimiento;
 
 
-    public PersonaVO(Integer codigo, String nombre, String apellido, String calle, String ciudad, Integer codigoPostal, LocalDate fechaNacimiento) {
+    public PersonVO(Integer codigo, String nombre, String apellido, String calle, String ciudad, Integer codigoPostal, LocalDate fechaNacimiento) {
         this.codigo = new SimpleIntegerProperty(codigo) ;
         this.nombre = new SimpleStringProperty(nombre);
         this.apellido = new SimpleStringProperty(apellido);
@@ -25,7 +25,7 @@ public class PersonaVO {
         this.fechaNacimiento = new SimpleObjectProperty<LocalDate>(fechaNacimiento);
     }
 
-    public PersonaVO(String nombre, String calle, String apellido, String ciudad, Integer codigoPostal, LocalDate fechaNacimiento) {
+    public PersonVO(String nombre, String calle, String apellido, String ciudad, Integer codigoPostal, LocalDate fechaNacimiento) {
         this.nombre = new SimpleStringProperty(nombre);
         this.apellido = new SimpleStringProperty(apellido);
         this.calle = new SimpleStringProperty(calle);

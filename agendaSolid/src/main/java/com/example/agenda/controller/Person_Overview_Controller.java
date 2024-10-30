@@ -1,23 +1,21 @@
 package com.example.agenda.controller;
-import com.example.agenda.MainApp;
-import com.example.agenda.model.AgendaModelo;
-import com.example.agenda.model.ExcepcionPersona;
-import com.example.agenda.model.PersonaVO;
-import com.example.agenda.model.repository.impl.PersonaRepositoryImpl;
-import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+    import com.example.agenda.MainApp;
+    import com.example.agenda.model.AgendaModel;
+    import com.example.agenda.model.ExcepcionPerson;
+    import com.example.agenda.model.repository.PersonRepository;
+    import com.example.agenda.model.repository.impl.PersonRepositoryImpl;
+    import javafx.collections.FXCollections;
+    import javafx.collections.ObservableList;
+    import javafx.fxml.FXML;
+    import javafx.scene.control.Alert;
+    import javafx.scene.control.Label;
+    import javafx.scene.control.TableColumn;
+    import javafx.scene.control.TableView;
 
-import com.example.agenda.view.Person;
-import util.DateUtil;
-import util.PersonUtil;
+    import com.example.agenda.view.Person;
+    import com.example.agenda.util.DateUtil;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class PersonOverviewController {
+public class Person_Overview_Controller {
     @FXML
     private TableView<Person> personTable;
     @FXML
@@ -40,12 +38,17 @@ public class PersonOverviewController {
 
     // Reference to the main application.
     private MainApp mainApp;
-
+    private AgendaModel modeloAgenda;
     /**
      * The constructor.
      * The constructor is called before the initialize() method.
      */
-    public PersonOverviewController() {
+
+    public void setAgendaModelo(AgendaModel modeloAgenda)  throws ExcepcionPerson{
+        this.modeloAgenda = modeloAgenda;
+    }
+
+    public Person_Overview_Controller() {
     }
 
     /**
@@ -112,12 +115,11 @@ public class PersonOverviewController {
         }
     }
 
-
-
-	/**
+    /**
      * Called when the user clicks the edit button. Opens a dialog to edit
      * details for the selected person.
      */
+
     @FXML
     private void handleEditPerson() {
         Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
@@ -125,8 +127,8 @@ public class PersonOverviewController {
             boolean okClicked = mainApp.showPersonEditDialog(selectedPerson);
 
             try {
-                AgendaModelo.editarPersona(selectedPerson);
-            } catch (ExcepcionPersona e) {
+                modeloAgenda.editarPersona(selectedPerson);
+            } catch (ExcepcionPerson e) {
                 throw new RuntimeException(e);
             }
             if (okClicked) {
