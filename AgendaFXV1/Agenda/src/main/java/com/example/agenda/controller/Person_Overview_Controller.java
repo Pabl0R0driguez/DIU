@@ -46,12 +46,14 @@ public class Person_Overview_Controller {
 	 * The constructor is called before the initialize() method.
 	 */
 
-	public void setAgendaModelo(AgendaModelo modeloAgenda)  throws ExcepcionPersona {
-		this.modeloAgenda = modeloAgenda;
+	public void setAgendaModelo(AgendaModelo modeloAgenda) {
+		if (modeloAgenda != null) {
+			this.modeloAgenda = modeloAgenda;
+		} else {
+			throw new IllegalArgumentException("modeloAgenda no puede ser nulo");
+		}
 	}
 
-	public Person_Overview_Controller() {
-	}
 
 	/**
 	 * Initializes the controller class. This method is automatically called
@@ -71,7 +73,8 @@ public class Person_Overview_Controller {
 
 	}
 
-
+//Metodo para actualizar las etiquetas de detalles de la persona.
+// Este metodo recibe un objeto Person y actualiza las etiquetas con la información de esa persona.
 	private void showPersonDetails(Person person) {
 		if (person != null) {
 			// Fill the labels with info from the person object.
@@ -83,7 +86,7 @@ public class Person_Overview_Controller {
 			birthdayLabel.setText(DateUtil.format(person.getBirthday()));
 
 		} else {
-			// Person is null, remove all the text.
+			//Si la persona es nula borra todo el texto
 			firstNameLabel.setText("");
 			lastNameLabel.setText("");
 			streetLabel.setText("");
@@ -93,6 +96,7 @@ public class Person_Overview_Controller {
 		}
 	}
 
+	//Cuando pulsas el boton de borrar se eliminara la persona de la lista
 	@FXML
 	private void handleDeletePerson() {
 		int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
@@ -107,7 +111,7 @@ public class Person_Overview_Controller {
 		}
 	}
 
-
+	//Cuando pulsas el boton de añadir se añadirá  la persona de la lista
 	@FXML
 	private void handleNewPerson() {
 		Person tempPerson = new Person();
@@ -146,6 +150,7 @@ public class Person_Overview_Controller {
 			alert.showAndWait();
 		}
 	}
+
 	/**
 	 * Is called by the main application to give a reference back to itself.
 	 *
@@ -157,4 +162,6 @@ public class Person_Overview_Controller {
 		// Add observable list data to the table
 		personTable.setItems(mainApp.getPersonData());
 	}
+
+
 }

@@ -34,7 +34,7 @@
                 while(rs.next()) {
                     Integer id = rs.getInt("id");
                     String nombre = rs.getString("nombre");
-                    String apellidos = rs.getString("apellidos");
+                    String apellidos = rs.getString("apellido");
                     String calle = rs.getString("calle");
                     Integer codigoPostal = rs.getInt("codigoPostal");
                     String ciudad = rs.getString("ciudad");
@@ -57,7 +57,7 @@
         try {
             Connection conn = this.conexion.conectarBD();
             this.stmt = conn.createStatement();
-            this.sentencia = "INSERT INTO contactos (nombre, apellidos, calle,codigoPostal, ciudad, cumpleaños) VALUES ('" + var1.getNombre() + "','" + var1.getApellido() + "','" + var1.getCalle() + "','" + var1.getCodigoPostal() + "','" + var1.getCiudad() + "','" + var1.getFechaNacimiento()+ "');";
+            this.sentencia = "INSERT INTO contactos (nombre, apellido, calle,codigoPostal, ciudad, cumpleaños) VALUES ('" + var1.getNombre() + "','" + var1.getApellido() + "','" + var1.getCalle() + "','" + var1.getCodigoPostal() + "','" + var1.getCiudad() + "','" + var1.getFechaNacimiento()+ "');";
             this.stmt.executeUpdate(this.sentencia);
             this.stmt.close();
             this.conexion.desconectarBD(conn);
@@ -85,7 +85,7 @@
         try {
             Connection conn = this.conexion.conectarBD();
             this.stmt = conn.createStatement();
-            String sql = String.format("UPDATE contactos SET nombre = '%s', apellidos = '%s'  , calle = '%s', codigoPostal = '%s', ciudad = '%s', cumpleaños = '%s' WHERE id = %d", var1.getNombre(), var1.getApellido() ,var1.getCalle() ,var1.getCodigoPostal() ,var1.getCiudad() ,var1.getFechaNacimiento());
+            String sql = String.format("UPDATE contactos SET nombre = '%s', apellido = '%s'  , calle = '%s', codigoPostal = '%s', ciudad = '%s', cumpleaños = '%s' WHERE id = %d", var1.getNombre(), var1.getApellido() ,var1.getCalle() ,var1.getCodigoPostal() ,var1.getCiudad() ,var1.getFechaNacimiento());
             this.stmt.executeUpdate(sql);
         } catch (Exception var4) {
             throw new ExcepcionPersona("No se ha podido relaizr la edición");

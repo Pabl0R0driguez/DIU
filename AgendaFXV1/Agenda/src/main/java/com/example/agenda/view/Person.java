@@ -38,17 +38,15 @@ public class Person {
      * @param lastName
      */
     public Person(String firstName, String lastName) {
-        this.codigo = new SimpleIntegerProperty();
-
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
-
         // Some initial dummy data, just for convenient testing.
         this.street = new SimpleStringProperty("some street");
         this.postalCode = new SimpleIntegerProperty(1234);
         this.city = new SimpleStringProperty("some city");
         this.birthday = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));
-    }
+		this.codigo = new SimpleIntegerProperty();
+	}
 
     public Person(Integer codigo, String firstName, String lastName, String street, String city, Integer postalCode,  LocalDate birthday) {
         this.codigo = new SimpleIntegerProperty(codigo);

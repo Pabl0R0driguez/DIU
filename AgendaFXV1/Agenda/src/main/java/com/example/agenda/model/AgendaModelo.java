@@ -12,7 +12,7 @@ public class AgendaModelo {
 
 
     //Interactuar con la bd
-    public void setPersonaRepository(PersonaRepository personaRepository)  throws ExcepcionPersona{
+    public void setPersonaRepository(PersonaRepository personaRepository) throws ExcepcionPersona{
         this.personaRepository = personaRepository;
     }
 
@@ -28,9 +28,6 @@ public class AgendaModelo {
     public void editarPersona(Person p) throws ExcepcionPersona{
         personaRepository.editPersona(PersonUtil.parseToPersonVO(p));
     }
-
-
-
 
 }
 
