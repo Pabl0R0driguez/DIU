@@ -25,15 +25,6 @@ public class PersonaVO {
         this.fechaNacimiento = new SimpleObjectProperty<LocalDate>(fechaNacimiento);
     }
 
-    public PersonaVO(String nombre, String calle, String apellido, String ciudad, Integer codigoPostal, LocalDate fechaNacimiento) {
-        this.nombre = new SimpleStringProperty(nombre);
-        this.apellido = new SimpleStringProperty(apellido);
-        this.calle = new SimpleStringProperty(calle);
-        this.ciudad = new SimpleStringProperty(ciudad);
-        this.codigoPostal = new SimpleIntegerProperty(codigoPostal);
-        this.fechaNacimiento = new SimpleObjectProperty<LocalDate>(fechaNacimiento);
-    }
-
     public int getCodigo() {
         return codigo.get();
     }

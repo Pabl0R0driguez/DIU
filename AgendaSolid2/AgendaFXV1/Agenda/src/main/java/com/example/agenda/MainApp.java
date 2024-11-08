@@ -44,11 +44,7 @@ public class MainApp extends Application {
 
 		try {
 			agenda.setPersonaRepository(agendaRepository);
-<<<<<<< HEAD
-			personData.addAll(agenda.setPerson()); // Añadimos los datos a la lista observable transformados a Person
-=======
 			personData.addAll(agenda.setPerson()); // Cambiar `setPerson` a `getPerson` si es necesario
->>>>>>> 8c78aaa64f22ecb9a434bfabf6689615cbec3a9e
 		} catch (ExcepcionPersona e) {
 			throw new RuntimeException(e);
 		} catch (SQLException e) {

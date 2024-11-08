@@ -30,10 +30,6 @@
                 this.personas = new ArrayList();
                 this.stmt = conn.createStatement();
                 this.sentencia = "SELECT * FROM contactos";
-<<<<<<< HEAD
-
-=======
->>>>>>> 8c78aaa64f22ecb9a434bfabf6689615cbec3a9e
                 ResultSet rs = this.stmt.executeQuery(this.sentencia);
 
                 while(rs.next()) {
@@ -96,15 +92,8 @@
         try {
             Connection conn = this.conexion.conectarBD();
             this.stmt = conn.createStatement();
-<<<<<<< HEAD
-            System.out.println("persona modificada:" + var1  );
             String sql = String.format("UPDATE contactos SET nombre = '%s', apellido = '%s'  , calle = '%s', codigoPostal = '%s', ciudad = '%s', cumpleaños = '%s' WHERE id = %d", var1.getNombre(), var1.getApellido() ,var1.getCalle() ,var1.getCodigoPostal() ,var1.getCiudad() ,var1.getFechaNacimiento(), var1.getCodigo());
             this.stmt.executeUpdate(sql);
-            this.conexion.desconectarBD(conn);
-=======
-            String sql = String.format("UPDATE contactos SET nombre = '%s', apellido = '%s'  , calle = '%s', codigoPostal = '%s', ciudad = '%s', cumpleaños = '%s' WHERE id = %d", var1.getNombre(), var1.getApellido() ,var1.getCalle() ,var1.getCodigoPostal() ,var1.getCiudad() ,var1.getFechaNacimiento(), var1.getCodigo());
-            this.stmt.executeUpdate(sql);
->>>>>>> 8c78aaa64f22ecb9a434bfabf6689615cbec3a9e
         } catch (Exception var4) {
             throw new ExcepcionPersona("No se ha podido realizar la edición");
         }
@@ -128,11 +117,7 @@
         }
 
         @Override
-<<<<<<< HEAD
-        public int contarPersonas() throws SQLException {
-=======
         public int contarPersonas() throws ExcepcionPersona, SQLException {
->>>>>>> 8c78aaa64f22ecb9a434bfabf6689615cbec3a9e
             Connection conn = this.conexion.conectarBD();
             this.stmt = conn.createStatement();
             int contadorpersonas = 0;

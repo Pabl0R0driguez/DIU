@@ -23,7 +23,7 @@ public class PersonUtil {
     //Metodo para cambiar la lista de Persona  a PersonVO
     public static PersonaVO parseToPersonVO(Person persona) {
 
-        PersonaVO p= new PersonaVO(persona.getCodigo(), persona.getFirstName(), persona.getLastName(), persona.getStreet(), persona.getCity(), persona.getPostalCode(), persona.getBirthday());
+        PersonaVO p = new PersonaVO(persona.getCodigo(), persona.getFirstName(), persona.getLastName(), persona.getStreet(), persona.getCity(), persona.getPostalCode(), persona.getBirthday());
 
         return p;
     }
