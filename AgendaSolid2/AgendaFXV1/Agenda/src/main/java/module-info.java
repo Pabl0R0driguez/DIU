@@ -12,8 +12,9 @@ module com.example.agenda {
     requires com.almasb.fxgl.all;
     requires java.sql;
 	requires java.desktop;
+    requires mysql.connector.j;
 
-	opens com.example.agenda to javafx.fxml;
+    opens com.example.agenda to javafx.fxml;
     exports com.example.agenda.controller;
     opens com.example.agenda.controller to javafx.fxml;
     exports com.example.agenda.model;

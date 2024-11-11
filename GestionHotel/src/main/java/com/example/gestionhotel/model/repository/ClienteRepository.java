@@ -8,17 +8,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface ClienteRepository  {
-    ArrayList<ClienteVO> ObtenerListaPersonas() throws ExcepcionCliente;
+    ArrayList<ClienteVO> ObtenerListaPersonas() throws ExcepcionCliente, SQLException;
 
-    void addPersona(ClienteVO var1) throws ExcepcionCliente;
+    void addPersona(ClienteVO var1) throws ExcepcionCliente, SQLException;
 
-    void deletePersona(Integer var1) throws ExcepcionCliente;
+    void deletePersona(String var1) throws ExcepcionCliente, SQLException;
 
     void editPersona(ClienteVO var1) throws ExcepcionCliente;
 
-    int lastId() throws ExcepcionCliente;
-
-    int  contarPersonas() throws ExcepcionCliente, SQLException;
 
 }
 

@@ -11,15 +11,15 @@ public class ClienteVO {
   StringProperty apellidos;
   StringProperty direccion;
   StringProperty localidad;
-  StringProperty provinica;
+  StringProperty provincia;
 
-    public ClienteVO(String dni, String nombre, String apellidos, String direccion, String localidad, String provinica) {
+    public ClienteVO(String dni, String nombre, String apellidos, String direccion, String localidad, String provincia) {
         this.DNI = new SimpleStringProperty(dni);
         this.nombre = new SimpleStringProperty(nombre);
         this.apellidos = new SimpleStringProperty(apellidos);
         this.direccion = new SimpleStringProperty(direccion);
         this.localidad = new SimpleStringProperty(localidad);
-        this.provinica = new SimpleStringProperty(provinica);
+        this.provincia = new SimpleStringProperty(provincia);
     }
 
 
@@ -62,11 +62,11 @@ public class ClienteVO {
         return localidad;
     }
 
-    public String getProvinica() {
-        return provinica.get();
+    public String getProvincia() {
+        return provincia.get();
     }
 
-    public StringProperty provinicaProperty() {
-        return provinica;
+    public StringProperty provinciaProperty() {
+        return provincia;
     }
 }

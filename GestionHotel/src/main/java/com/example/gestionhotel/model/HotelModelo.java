@@ -8,23 +8,24 @@ import java.util.ArrayList;
 
 public class HotelModelo {
     private ClienteRepository clienteRepository;
-    ArrayList<ClienteVO> cliente = new ArrayList<>();
+    private ArrayList<ClienteVO> clientesVO = new ArrayList<>();
 
-
-
-
+    // Setear el repositorio de clientes
     public void setClienteRepository(ClienteRepository clienteRepository) {
         this.clienteRepository = clienteRepository;
     }
 
+    // Obtener el repositorio de clientes
     public ClienteRepository getClienteRepository() {
         return clienteRepository;
     }
 
+    // Renombrado el método para que sea más claro
     public ArrayList<Cliente> setCliente() throws ExcepcionCliente, SQLException {
-        cliente = clienteRepository.ObtenerListaPersonas();
-        //Devolvemos lista de personas cambiada de PersonVO a Person
-        return ClienteUtil.parseToCliente(cliente);
-    }
+        // Obtenemos la lista de clientes desde el repositorio
+        clientesVO = clienteRepository.ObtenerListaPersonas();
 
+        // Convertimos la lista de ClienteVO a Cliente usando el método de utilidad
+        return ClienteUtil.parseToCliente(clientesVO);
+    }
 }

@@ -1,6 +1,9 @@
 package com.example.gestionhotel.controller;
 
+import com.example.gestionhotel.MainApp;
+import com.example.gestionhotel.model.HotelModelo;
 import com.example.gestionhotel.view.Cliente;
+import com.sun.tools.javac.Main;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent; // <-- Asegúrate de usar javafx.event.ActionEvent
 import javafx.scene.control.Label;
@@ -35,6 +38,10 @@ public class InterfazPrincipalController {
 
     @FXML
     private Label provinciaLabel;
+
+
+    private MainApp mainApp;
+    private HotelModelo hotelModelo;
 
     @FXML
     private void initialize() {
@@ -77,6 +84,7 @@ public class InterfazPrincipalController {
 
     }
 
+
     @FXML
     void btBorrar(ActionEvent event) {
         int selectedIndex = tablaPersonas.getSelectionModel().getSelectedIndex();
@@ -91,6 +99,14 @@ public class InterfazPrincipalController {
     void btAñadir(ActionEvent event) {
 
 
+    }
+
+
+    public void setMainApp(MainApp mainApp) {
+        this.mainApp = mainApp;
+
+        // Add observable list data to the table
+        tablaPersonas.setItems(mainApp.getClienteLista());
     }
 
 }

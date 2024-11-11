@@ -14,7 +14,7 @@ public class ClienteUtil {
             ArrayList<Cliente> clientes = new ArrayList<>();
             for (ClienteVO clienteVO : lista) {
 
-                clientes.add(new Cliente(clienteVO.getDNI(), clienteVO.getNombre(),clienteVO.getApellidos(), clienteVO.getDireccion(), clienteVO.getLocalidad(), clienteVO.getProvinica()));
+                clientes.add(new Cliente(clienteVO.getDNI(), clienteVO.getNombre(),clienteVO.getApellidos(), clienteVO.getDireccion(), clienteVO.getLocalidad(), clienteVO.getProvincia()));
             }
             return clientes;
         }
