@@ -28,17 +28,17 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        primaryStage = stage;
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("InterfazDatos.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
-        stage.show();
+        // Guardamos la referencia del escenario principal
+        this.primaryStage = stage;
+        this.primaryStage.setTitle("Gestión Hotel");
 
+        // Inicializamos el diseño raíz
         initRootLayout();
-        showPersonOverview();
-    }
 
+        // Muestra la vista de las personas
+        showPersonOverview();
+
+    }
     public MainApp() throws SQLException {
         ClienteRepositoryImpl clienteRepository = new ClienteRepositoryImpl();
 
@@ -68,7 +68,7 @@ public class MainApp extends Application {
     public void initRootLayout() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/com/example/gestionhotel/InterfazPrincipal.fxml"));
+            loader.setLocation(MainApp.class.getResource("/com/example/gestionhotel/DiseñoRaiz.fxml"));
             rootLayout = (BorderPane) loader.load();
 
             Scene scene = new Scene(rootLayout);
@@ -81,19 +81,21 @@ public class MainApp extends Application {
 
     public void showPersonOverview() {
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/com/example/gestionhotel/InterfazDatos.fxml"));
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/com/example/gestionhotel/InterfazPrincipal.fxml"));
 
             AnchorPane personOverview = (AnchorPane) loader.load();
 
+            // Establece la vista de personas en el centro del diseño raíz
             rootLayout.setCenter(personOverview);
 
+            // Proporciona acceso al controlador a la instancia de MainApp
             InterfazPrincipalController controller = loader.getController();
             controller.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     public static void main(String[] args) {
         launch();

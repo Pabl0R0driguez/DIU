@@ -11,9 +11,13 @@ public class ConexionBD {
 
     public Connection conectarBD() throws SQLException {
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/ReservaHoteles?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ReservaHoteles?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
             Class.forName("com.mysql.cj.jdbc.Driver");
             return conn;
+
+
+
+
         } catch (SQLException var2) {
             SQLException ex = var2;
             System.out.println("\n--- SQLException capturada ---\n");
