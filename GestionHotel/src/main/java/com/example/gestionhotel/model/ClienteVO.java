@@ -1,29 +1,32 @@
-package model;
+package com.example.gestionhotel.model;
 
-import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 
 public class ClienteVO {
 
-    private final String DNI;
-    private final StringProperty nombre;
-    private final StringProperty apellidos;
-    private final StringProperty direccion;
-    private final StringProperty localidad;
-    private final StringProperty provinica;
+  StringProperty DNI;
+  StringProperty nombre;
+  StringProperty apellidos;
+  StringProperty direccion;
+  StringProperty localidad;
+  StringProperty provinica;
 
-    public ClienteVO(String dni, StringProperty nombre, StringProperty apellidos, StringProperty direccion, StringProperty localidad, StringProperty provinica) {
-        this.DNI = dni;
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.direccion = direccion;
-        this.localidad = localidad;
-        this.provinica = provinica;
+    public ClienteVO(String dni, String nombre, String apellidos, String direccion, String localidad, String provinica) {
+        this.DNI = new SimpleStringProperty(dni);
+        this.nombre = new SimpleStringProperty(nombre);
+        this.apellidos = new SimpleStringProperty(apellidos);
+        this.direccion = new SimpleStringProperty(direccion);
+        this.localidad = new SimpleStringProperty(localidad);
+        this.provinica = new SimpleStringProperty(provinica);
     }
 
 
-    public String getDNI() {
+    public String getDNI(){
+        return DNI.get();
+    }
+    public StringProperty dniProperty() {
         return DNI;
     }
 

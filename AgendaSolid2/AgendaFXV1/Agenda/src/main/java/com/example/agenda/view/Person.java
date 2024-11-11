@@ -50,6 +50,8 @@ public class Person {
 		this.codigo = new SimpleIntegerProperty();
 	}
 
+
+
     public Person(Integer codigo, String firstName, String lastName, String street, String city, Integer postalCode,  LocalDate birthday) {
         this.codigo = new SimpleIntegerProperty(codigo);
         this.firstName = new SimpleStringProperty(firstName);

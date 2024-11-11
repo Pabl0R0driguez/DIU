@@ -1,6 +1,5 @@
 package com.example.gestionhotel.controller;
 
-import com.example.gestionhotel.MainApp;
 import com.example.gestionhotel.view.Cliente;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent; // <-- Asegúrate de usar javafx.event.ActionEvent
@@ -8,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-public class InterfazPrincipal {
+public class InterfazPrincipalController {
 
     @FXML
     private TableColumn<Cliente, String> apellidoColumna;
@@ -40,8 +39,8 @@ public class InterfazPrincipal {
     @FXML
     private void initialize() {
         // Initialize the person table with the two columns.
-        nombreColumna.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
-        apellidoColumna.setCellValueFactory(cellData -> cellData.getValue().apellidosProperty());
+        nombreColumna.setCellValueFactory(cellData -> cellData.getValue().getNombreProperty());
+        apellidoColumna.setCellValueFactory(cellData -> cellData.getValue().getApellidosProperty());
 
         showClienteDetails(null);
         // Listen for selection changes and show the person details when changed.
@@ -57,8 +56,8 @@ public class InterfazPrincipal {
             apellidosLabel.setText(cliente.getApellidos());
             direccionLabel.setText(cliente.getDireccion());
             localidadLabel.setText(cliente.getLocalidad());
-            provinciaLabel.setText(cliente.getProvincia());
-            dniLabel.setText(cliente.getDNI());
+            provinciaLabel.setText(cliente.getProvinica());
+            dniLabel.setText(cliente.getDni());
 
         } else {
             // Si el objeto Cliente es nulo, borra todo el texto.
@@ -83,15 +82,14 @@ public class InterfazPrincipal {
         int selectedIndex = tablaPersonas.getSelectionModel().getSelectedIndex();
 
         // Obtener el id de la persona a borrar
-        int idPersona = Integer.parseInt(tablaPersonas.getSelectionModel().getSelectedItem().getDNI());
 
         System.out.println("indice: " + selectedIndex);
-        System.out.println("código de la persona: " + idPersona);
 
     }
 
     @FXML
     void btAñadir(ActionEvent event) {
+
 
     }
 

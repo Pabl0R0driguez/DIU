@@ -5,97 +5,105 @@ import javafx.beans.property.StringProperty;
 
 public class Cliente {
 
-    private final String DNI;
-    private final StringProperty nombre;
-    private final StringProperty apellidos;
-    private final StringProperty direccion;
-    private final StringProperty localidad;
-    private final StringProperty provincia;
+    private final StringProperty dniProperty;
+    private final StringProperty nombreProperty;
+    private final StringProperty apellidosProperty;
+    private final StringProperty direccionProperty;
+    private final StringProperty localidadProperty;
+    private final StringProperty provinicaProperty;
+
+    public Cliente(){
+        this(null,null);
+    }
+
+    // Constructor con solo nombre y apellidos (se inicializa también el DNI)
+    public Cliente(String nombre, String apellidos) {
+        this.dniProperty = new SimpleStringProperty(""); // Valor predeterminado para DNI
+        this.nombreProperty = new SimpleStringProperty(nombre);
+        this.apellidosProperty = new SimpleStringProperty(apellidos);
+        this.direccionProperty = new SimpleStringProperty("Introduce dirección");
+        this.localidadProperty = new SimpleStringProperty("Introduce localidad");
+        this.provinicaProperty = new SimpleStringProperty("Introduce provincia");
+    }
+
 
     // Constructor completo
     public Cliente(String dni, String nombre, String apellidos, String direccion, String localidad, String provincia) {
-        this.DNI = dni;
-        this.nombre = new SimpleStringProperty(nombre);
-        this.apellidos = new SimpleStringProperty(apellidos);
-        this.direccion = new SimpleStringProperty(direccion);
-        this.localidad = new SimpleStringProperty(localidad);
-        this.provincia = new SimpleStringProperty(provincia);
-    }
-
-    // Constructor con solo nombre y apellidos (con valores predeterminados para otros campos)
-    public Cliente(String nombre, String apellidos) {
-        this.DNI = "";
-        this.nombre = new SimpleStringProperty(nombre);
-        this.apellidos = new SimpleStringProperty(apellidos);
-        this.direccion = new SimpleStringProperty("Introduce dirección");
-        this.localidad = new SimpleStringProperty("Introduce localidad");
-        this.provincia = new SimpleStringProperty("Introduce provincia");
+        this.dniProperty = new SimpleStringProperty(dni);
+        this.nombreProperty = new SimpleStringProperty(nombre);
+        this.apellidosProperty = new SimpleStringProperty(apellidos);
+        this.direccionProperty = new SimpleStringProperty(direccion);
+        this.localidadProperty = new SimpleStringProperty(localidad);
+        this.provinicaProperty = new SimpleStringProperty(provincia);
     }
 
     // Getters
-    public String getDNI() {
-        return DNI;
+    public String getDni() {
+        return dniProperty.get();
+    }
+
+    public StringProperty getDniProperty() {
+        return dniProperty;
     }
 
     public String getNombre() {
-        return nombre.get();
+        return nombreProperty.get();
     }
 
-    public StringProperty nombreProperty() {
-        return nombre;
+    public StringProperty getNombreProperty() {
+        return nombreProperty;
     }
 
     public String getApellidos() {
-        return apellidos.get();
+        return apellidosProperty.get();
     }
 
-    public StringProperty apellidosProperty() {
-        return apellidos;
+    public StringProperty getApellidosProperty() {
+        return apellidosProperty;
     }
 
     public String getDireccion() {
-        return direccion.get();
+        return direccionProperty.get();
     }
 
-    public StringProperty direccionProperty() {
-        return direccion;
+    public StringProperty getDireccionProperty() {
+        return direccionProperty;
     }
 
     public String getLocalidad() {
-        return localidad.get();
+        return localidadProperty.get();
     }
 
-    public StringProperty localidadProperty() {
-        return localidad;
+    public StringProperty getLocalidadProperty() {
+        return localidadProperty;
     }
 
-    public String getProvincia() {
-        return provincia.get();
+    public String getProvinica() {
+        return provinicaProperty.get();
     }
 
-    public StringProperty provinciaProperty() {
-        return provincia;
+    public StringProperty getProvinicaProperty() {
+        return provinicaProperty;
     }
 
     // Setters
-    public void setNombre(String nombre) {
-        this.nombre.set(nombre);
+    public void setNombreProperty(String nombreProperty) {
+        this.nombreProperty.set(nombreProperty);
     }
 
-    public void setApellidos(String apellidos) {
-        this.apellidos.set(apellidos);
+    public void setApellidosProperty(String apellidosProperty) {
+        this.apellidosProperty.set(apellidosProperty);
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion.set(direccion);
+    public void setDireccionProperty(String direccionProperty) {
+        this.direccionProperty.set(direccionProperty);
     }
 
-    public void setLocalidad(String localidad) {
-        this.localidad.set(localidad);
+    public void setLocalidadProperty(String localidadProperty) {
+        this.localidadProperty.set(localidadProperty);
     }
 
-    public void setProvincia(String provincia) {
-        this.provincia.set(provincia);
+    public void setProvinicaProperty(String provinicaProperty) {
+        this.provinicaProperty.set(provinicaProperty);
     }
 }
-
