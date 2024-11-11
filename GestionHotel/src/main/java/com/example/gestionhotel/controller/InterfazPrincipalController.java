@@ -2,6 +2,7 @@ package com.example.gestionhotel.controller;
 
 import com.example.gestionhotel.MainApp;
 import com.example.gestionhotel.model.HotelModelo;
+import com.example.gestionhotel.util.ClienteUtil;
 import com.example.gestionhotel.view.Cliente;
 import com.sun.tools.javac.Main;
 import javafx.fxml.FXML;
@@ -9,6 +10,8 @@ import javafx.event.ActionEvent; // <-- Asegúrate de usar javafx.event.ActionEv
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+
+import java.sql.SQLException;
 
 public class InterfazPrincipalController {
 
@@ -90,14 +93,17 @@ public class InterfazPrincipalController {
         int selectedIndex = tablaPersonas.getSelectionModel().getSelectedIndex();
 
         // Obtener el id de la persona a borrar
-
         System.out.println("indice: " + selectedIndex);
 
     }
 
     @FXML
-    void btAñadir(ActionEvent event) {
-
+    void btAñadir() throws SQLException {
+    Cliente clienteTemporal = new Cliente();
+    boolean onClicked = mainApp.mostrarInteraccionPersona(clienteTemporal);
+    if(onClicked){
+    mainApp.getHotelModelo().getClienteRepository().addPersona(ClienteUtil.parseToClienteVO(clienteTemporal));
+    }
 
     }
 
