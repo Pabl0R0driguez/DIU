@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="background" stylesheets="@../../../../../../../AgendaSolid2/AgendaFXV1/Agenda/src/main/resources/com/example/agenda/styles/DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.agenda.controller.PersonEditDialogController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionhotel.controller.PersonEditDialogController">
    <children>
       <GridPane layoutX="40.0" layoutY="43.0" prefHeight="235.0" prefWidth="520.0">
          <children>
@@ -38,7 +38,7 @@
       </GridPane>
       <HBox layoutX="349.0" layoutY="313.0" spacing="15.0">
          <children>
-            <Button defaultButton="true" layoutX="324.0" layoutY="320.0" mnemonicParsing="false" onAction="#botonOk" prefWidth="100.0" text="Ok" />
+            <Button defaultButton="true" layoutX="324.0" layoutY="320.0" mnemonicParsing="false" onAction="#botonOk" prefHeight="33.0" prefWidth="98.0" text="Ok" />
             <Button layoutX="396.0" layoutY="320.0" mnemonicParsing="false" onAction="#botonCancelar" prefHeight="36.0" prefWidth="108.0" text="Cancelar" />
          </children>
       </HBox>

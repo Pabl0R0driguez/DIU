@@ -53,7 +53,7 @@ public class ClienteRepositoryImpl implements ClienteRepository {
     }
 
     @Override
-    public void addPersona(ClienteVO var1) throws ExcepcionCliente, SQLException {
+    public void addPersona(ClienteVO var1) throws ExcepcionCliente {
     try{
     Connection conn = this.conexion.conectarBD();
     this.stmt = conn.createStatement();
@@ -75,12 +75,13 @@ public class ClienteRepositoryImpl implements ClienteRepository {
 
 
     @Override
-    public void deletePersona(String var1) throws ExcepcionCliente, SQLException {
+    public void deletePersona(String var1) throws ExcepcionCliente {
         try {
         Connection conn = this.conexion.conectarBD();
         this.stmt = conn.createStatement();
         Statement comando = conn.createStatement();
-        String sql = String.format("DELETE FROM Clientes WHERE DNI = %s", var1);
+//        System.out.println(var1);
+        String sql = String.format("DELETE FROM Clientes WHERE DNI = '%s'", var1);
         comando.executeUpdate(sql);
 
         this.conexion.desconectarBD(conn);

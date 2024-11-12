@@ -3,6 +3,7 @@ package com.example.gestionhotel;
 import com.example.gestionhotel.controller.InterfazPrincipalController;
 import com.example.gestionhotel.controller.PersonEditDialogController;
 import com.example.gestionhotel.model.ClienteVO;
+import com.example.gestionhotel.model.ExcepcionCliente;
 import com.example.gestionhotel.model.HotelModelo;
 import com.example.gestionhotel.model.repository.impl.ClienteRepositoryImpl;
 import com.example.gestionhotel.view.Cliente;
@@ -28,6 +29,29 @@ public class MainApp extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
 
+
+    public MainApp() throws SQLException, ExcepcionCliente {
+        ClienteRepositoryImpl clienteRepository = new ClienteRepositoryImpl();
+
+        //Obterner lista de personas en la base de datos
+        ArrayList<ClienteVO> lista = clienteRepository.ObtenerListaPersonas();
+        for(ClienteVO cliente : lista) {
+            System.out.println("Cliente: " + cliente.getNombre() + " " + cliente.getApellidos());
+        }
+
+        hotelModelo = new HotelModelo();
+        try {
+            hotelModelo.setClienteRepository(clienteRepository);
+            clienteLista.addAll(hotelModelo.setCliente());
+        } catch (SQLException e) {
+            System.err.println("Error al establecer la lista de clientes: " + e.getMessage());
+            e.printStackTrace();
+        } catch (ExcepcionCliente e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     @Override
     public void start(Stage stage) throws IOException {
         // Guardamos la referencia del escenario principal
@@ -43,32 +67,17 @@ public class MainApp extends Application {
 
 
     }
-    public MainApp() throws SQLException {
-        ClienteRepositoryImpl clienteRepository = new ClienteRepositoryImpl();
 
-        //Obterner lista de personas en la base de datos
-        ArrayList<ClienteVO> lista = clienteRepository.ObtenerListaPersonas();
-        for(ClienteVO cliente : lista) {
-            System.out.println("Cliente: " + cliente.getNombre() + " " + cliente.getApellidos());
-        }
-
-      hotelModelo = new HotelModelo();
-      try {
-          hotelModelo.setClienteRepository(clienteRepository);
-          clienteLista.addAll(hotelModelo.setCliente());
-       } catch (SQLException e) {
-           System.err.println("Error al establecer la lista de clientes: " + e.getMessage());
-           e.printStackTrace();
-      }
+    //Metodo para recuperar lista de clientes
+    public ObservableList<Cliente> getClientesData(){
+        return clienteLista;
     }
+
 
     public HotelModelo getHotelModelo() {
         return hotelModelo;
     }
 
-    public ObservableList<Cliente> getClienteLista() {
-        return clienteLista;
-    }
 
     public void iniciarDiseñoRaiz() {
         try {

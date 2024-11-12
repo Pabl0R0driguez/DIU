@@ -106,4 +106,8 @@ public class Cliente {
     public void setProvinicaProperty(String provinicaProperty) {
         this.provinicaProperty.set(provinicaProperty);
     }
+
+    public void setDniProperty(String dniProperty){
+        this.dniProperty.set(dniProperty);
+    }
 }

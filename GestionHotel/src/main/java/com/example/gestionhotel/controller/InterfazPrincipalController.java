@@ -1,12 +1,14 @@
 package com.example.gestionhotel.controller;
 
 import com.example.gestionhotel.MainApp;
+import com.example.gestionhotel.model.ExcepcionCliente;
 import com.example.gestionhotel.model.HotelModelo;
 import com.example.gestionhotel.util.ClienteUtil;
 import com.example.gestionhotel.view.Cliente;
 import com.sun.tools.javac.Main;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent; // <-- Asegúrate de usar javafx.event.ActionEvent
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -82,26 +84,57 @@ public class InterfazPrincipalController {
 
 
     @FXML
-    void btModificar(ActionEvent event) {
+    void btModificar(ActionEvent event) throws ExcepcionCliente {
+        Cliente clienteSeleccionado = tablaPersonas.getSelectionModel().getSelectedItem();
+        if (clienteSeleccionado != null) {
+            boolean onClick = mainApp.mostrarInteraccionPersona(clienteSeleccionado);
+            if (onClick) {
+                //Actualizamos el cliente en nuestra lista observable
+                showClienteDetails(clienteSeleccionado);
+                //Actualizamos registro en la base de datos
+                mainApp.getHotelModelo().getClienteRepository().editPersona(ClienteUtil.parseToClienteVO(clienteSeleccionado));
+            } else {
+                // Nothing selected.
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("No seleccionado");
+                alert.setHeaderText("No hay cliente seleccionado");
+                alert.setContentText("Porfavor selecciona un cliente de la tabla");
+                alert.showAndWait();
+            }
 
-
+        }
     }
 
 
     @FXML
-    void btBorrar(ActionEvent event) {
-        int selectedIndex = tablaPersonas.getSelectionModel().getSelectedIndex();
+    void btBorrar(ActionEvent event) throws SQLException, ExcepcionCliente {
 
-        // Obtener el id de la persona a borrar
-        System.out.println("indice: " + selectedIndex);
+        int indexSeleccionado = tablaPersonas.getSelectionModel().getSelectedIndex();
+
+            String dniPersona = tablaPersonas.getSelectionModel().getSelectedItem().getDni();
+             if(indexSeleccionado >= 0){
+                 tablaPersonas.getItems().remove(indexSeleccionado);
+                 mainApp.getHotelModelo().getClienteRepository().deletePersona(dniPersona);
+
+             } else {
+                 Alert alert = new Alert(Alert.AlertType.WARNING);
+                 alert.setTitle("No Seleccionado");
+                 alert.setHeaderText("No hay persona seleccionada");
+                 alert.setContentText("Porfavor selecciona una persona en la tabla");
+                 alert.showAndWait();
+             }
+
+
 
     }
 
     @FXML
-    void btAñadir() throws SQLException {
+    private void btAñadir() throws ExcepcionCliente {
     Cliente clienteTemporal = new Cliente();
     boolean onClicked = mainApp.mostrarInteraccionPersona(clienteTemporal);
     if(onClicked){
+    //Interfaz
+    mainApp.getClientesData().add(clienteTemporal);
     mainApp.getHotelModelo().getClienteRepository().addPersona(ClienteUtil.parseToClienteVO(clienteTemporal));
     }
 
@@ -112,7 +145,7 @@ public class InterfazPrincipalController {
         this.mainApp = mainApp;
 
         // Add observable list data to the table
-        tablaPersonas.setItems(mainApp.getClienteLista());
+        tablaPersonas.setItems(mainApp.getClientesData());
     }
 
 }

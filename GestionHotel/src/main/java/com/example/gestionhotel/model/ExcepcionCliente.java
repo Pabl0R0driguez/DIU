@@ -1,6 +1,6 @@
 package com.example.gestionhotel.model;
 
-public class ExcepcionCliente extends RuntimeException {
+public class ExcepcionCliente extends Exception {
     private String mensaje;
 
     public ExcepcionCliente() {

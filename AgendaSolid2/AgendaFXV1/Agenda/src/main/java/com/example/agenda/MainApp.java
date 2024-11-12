@@ -52,15 +52,6 @@ public class MainApp extends Application {
 		}
 	}
 
-	// Metodo para obtener la lista de personas
-	public ObservableList<Person> getPersonData() {
-		return personData;
-	}
-
-
-	public AgendaModelo getAgenda() {
-		return agenda;
-	}
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -75,6 +66,18 @@ public class MainApp extends Application {
 
 		showPersonOverview();
 	}
+
+
+	// Metodo para obtener la lista de personas
+	public ObservableList<Person> getPersonData() {
+		return personData;
+	}
+
+	public AgendaModelo getAgenda() {
+		return agenda;
+	}
+
+
 
 	// Inicializamos el diseño raíz cargando el archivo FXML correspondiente
 	public void initRootLayout() {

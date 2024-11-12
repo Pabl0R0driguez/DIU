@@ -43,6 +43,13 @@ public class PersonEditDialogController {
     private boolean okClicked = false;
 
 
+    public void setBarraIndicador(Stage dialogStage) {
+     this.dialogStage = dialogStage;
+    }
+
+    public void setBarraProgreso(double barraProgreso) {
+        this.barraIndicador.setProgress(barraProgreso);    }
+
     @FXML
     private void initialize() {
     }
@@ -70,12 +77,14 @@ public class PersonEditDialogController {
 
     @FXML
     public void botonOk() {
-        if(isOkClicked()) {
+        if(isInputValid()) {
             cliente.setNombreProperty(nombreField.getText());
             cliente.setApellidosProperty(apellidosField.getText());
             cliente.setDireccionProperty(direccionField.getText());
             cliente.setLocalidadProperty(localidadField.getText());
             cliente.setProvinicaProperty(provinciaField.getText());
+            cliente.setDniProperty(dniField.getText());
+
         }
         okClicked = true;
         dialogStage.close();
