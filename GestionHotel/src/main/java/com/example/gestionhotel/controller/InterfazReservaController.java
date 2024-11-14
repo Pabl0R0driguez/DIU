@@ -96,5 +96,10 @@ public class InterfazReservaController {
 
         }
 
+    public void setMainApp(MainApp mainApp) {
+        this.mainApp = mainApp;
+
+    }
+
     }
 

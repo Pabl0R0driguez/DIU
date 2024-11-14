@@ -136,6 +136,7 @@ public class InterfazPrincipalController {
     if(onClicked){
     //Interfaz
     mainApp.getClientesData().add(clienteTemporal);
+
     mainApp.getHotelModelo().getClienteRepository().addPersona(ClienteUtil.parseToClienteVO(clienteTemporal));
     }
 

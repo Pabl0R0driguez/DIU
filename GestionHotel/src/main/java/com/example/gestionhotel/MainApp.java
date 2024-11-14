@@ -7,6 +7,7 @@ import com.example.gestionhotel.model.ClienteVO;
 import com.example.gestionhotel.model.ExcepcionCliente;
 import com.example.gestionhotel.model.HotelModelo;
 import com.example.gestionhotel.model.repository.impl.ClienteRepositoryImpl;
+import com.example.gestionhotel.model.repository.impl.ReservaRepositoryImpl;
 import com.example.gestionhotel.view.Cliente;
 import com.example.gestionhotel.view.Reserva;
 import javafx.application.Application;
@@ -34,6 +35,8 @@ public class MainApp extends Application {
 
     public MainApp() throws SQLException, ExcepcionCliente {
         ClienteRepositoryImpl clienteRepository = new ClienteRepositoryImpl();
+//        ReservaRepositoryImpl  reservaRepository = new ReservaRepositoryImpl();  SEGUIR
+
 
         //Obterner lista de personas en la base de datos
         ArrayList<ClienteVO> lista = clienteRepository.ObtenerListaPersonas();
@@ -163,7 +166,8 @@ public class MainApp extends Application {
         dialogStage.setScene(scene);
 
         InterfazReservaController controller = loader.getController();
-        controller.setDialogStage(dialogStage);
+            controller.setMainApp(this);
+            controller.setDialogStage(dialogStage);
 
         // Creamos el objeto reserva para guardar los datos de la interfaz
         Reserva reserva = new Reserva(cliente.getDni());
