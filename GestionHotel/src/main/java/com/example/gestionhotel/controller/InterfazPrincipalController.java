@@ -146,6 +146,7 @@ public class InterfazPrincipalController {
         System.out.println(clienteSeleccionado.toString());
         boolean onClicked = mainApp.mostrarReservas(clienteSeleccionado);
         if(onClicked){
+            mainApp.mostrarReservas(clienteSeleccionado);
         }
 
     }

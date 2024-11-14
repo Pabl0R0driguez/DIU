@@ -1,5 +1,6 @@
 package com.example.gestionhotel.model;
 
+import com.example.gestionhotel.model.repository.ReservaRepository;
 import com.example.gestionhotel.util.ClienteUtil;
 import com.example.gestionhotel.view.Cliente;
 import com.example.gestionhotel.model.repository.ClienteRepository;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 
 public class HotelModelo {
     private ClienteRepository clienteRepository;
+    private ReservaRepository reservaRepository;
     private ArrayList<ClienteVO> clientesVO = new ArrayList<>();
 
     // Setear el repositorio de clientes
@@ -19,6 +21,15 @@ public class HotelModelo {
     public ClienteRepository getClienteRepository() {
         return clienteRepository;
     }
+
+    public void setReservaRepository(ReservaRepository reservaRepository) {
+        this.reservaRepository = reservaRepository;
+    }
+
+    public ReservaRepository getReservaRepository() {
+        return reservaRepository;
+    }
+
 
     // Renombrado el método para que sea más claro
     public ArrayList<Cliente> setCliente() throws ExcepcionCliente, SQLException {

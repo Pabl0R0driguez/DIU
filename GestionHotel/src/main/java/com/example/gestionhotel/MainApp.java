@@ -1,6 +1,7 @@
 package com.example.gestionhotel;
 
 import com.example.gestionhotel.controller.InterfazPrincipalController;
+import com.example.gestionhotel.controller.InterfazReservaController;
 import com.example.gestionhotel.controller.PersonEditDialogController;
 import com.example.gestionhotel.model.ClienteVO;
 import com.example.gestionhotel.model.ExcepcionCliente;
@@ -159,7 +160,7 @@ public class MainApp extends Application {
         dialogStage.initOwner(primaryStage);
         Scene scene = new Scene(page);
         dialogStage.setScene(scene);
-        PersonEditDialogController controller = loader.getController();
+        InterfazReservaController controller = loader.getController();
         controller.setDialogStage(dialogStage);
         controller.setCliente(cliente);
 
