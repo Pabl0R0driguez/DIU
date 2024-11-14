@@ -110,4 +110,16 @@ public class Cliente {
     public void setDniProperty(String dniProperty){
         this.dniProperty.set(dniProperty);
     }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "dniProperty=" + dniProperty +
+                ", nombreProperty=" + nombreProperty +
+                ", apellidosProperty=" + apellidosProperty +
+                ", direccionProperty=" + direccionProperty +
+                ", localidadProperty=" + localidadProperty +
+                ", provinicaProperty=" + provinicaProperty +
+                '}';
+    }
 }

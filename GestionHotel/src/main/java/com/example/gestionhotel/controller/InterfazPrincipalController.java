@@ -5,7 +5,6 @@ import com.example.gestionhotel.model.ExcepcionCliente;
 import com.example.gestionhotel.model.HotelModelo;
 import com.example.gestionhotel.util.ClienteUtil;
 import com.example.gestionhotel.view.Cliente;
-import com.sun.tools.javac.Main;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent; // <-- Asegúrate de usar javafx.event.ActionEvent
 import javafx.scene.control.Alert;
@@ -13,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class InterfazPrincipalController {
@@ -140,8 +140,13 @@ public class InterfazPrincipalController {
 
     }
 
-    public void reserva(Cliente cliente) throws ExcepcionCliente {
-        cliente.getDni();
+    @FXML
+    public void reserva(ActionEvent event) throws ExcepcionCliente, IOException {
+        Cliente clienteSeleccionado = tablaPersonas.getSelectionModel().getSelectedItem();
+        System.out.println(clienteSeleccionado.toString());
+        boolean onClicked = mainApp.mostrarReservas(clienteSeleccionado);
+        if(onClicked){
+        }
 
     }
 

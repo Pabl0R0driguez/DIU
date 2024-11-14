@@ -2,6 +2,7 @@ package com.example.gestionhotel.model.repository.impl;
 
 import com.example.gestionhotel.model.ClienteVO;
 import com.example.gestionhotel.model.ExcepcionCliente;
+import com.example.gestionhotel.model.ReservaVO;
 import com.example.gestionhotel.model.repository.ClienteRepository;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -103,6 +104,7 @@ public class ClienteRepositoryImpl implements ClienteRepository {
         throw new ExcepcionCliente("No se ha podido realizar la edición");
         }
 }
-    }
+
+}
 
 
