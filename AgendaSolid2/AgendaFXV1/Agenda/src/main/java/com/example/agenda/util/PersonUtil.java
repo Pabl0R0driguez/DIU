@@ -5,7 +5,7 @@ import com.example.agenda.view.Person;
 
 import java.util.ArrayList;
 
-public class PersonUtil {
+public class    PersonUtil {
 
     //Metodo para cambiar la lista de PersonaVO  a Person
     public static ArrayList<Person> parseToPerson(ArrayList<PersonaVO> lista) {

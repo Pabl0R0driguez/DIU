@@ -10,14 +10,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="601.0"  xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionhotel.controller.InterfazPrincipalController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionhotel.controller.InterfazPrincipalController">
    <children>
-      <Text layoutX="301.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Datos del Cliente" underline="true">
+      <Text layoutX="316.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Datos del Cliente" underline="true">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <GridPane layoutX="249.0" layoutY="82.0" prefHeight="215.0" prefWidth="337.0">
+      <GridPane layoutX="268.0" layoutY="106.0" prefHeight="183.0" prefWidth="319.0">
          <children>
             <Label fx:id="dni" text="DNI" />
             <Label fx:id="dniLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" />
@@ -45,9 +45,9 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <Button layoutX="411.0" layoutY="354.0" mnemonicParsing="false" onAction="#btModificar" text="Modificar" />
-      <Button layoutX="498.0" layoutY="354.0" mnemonicParsing="false" onAction="#btBorrar" text="Borrar" />
-      <Button layoutX="340.0" layoutY="354.0" mnemonicParsing="false" onAction="#btAñadir" text="Añadir " />
+      <Button layoutX="364.0" layoutY="354.0" mnemonicParsing="false" onAction="#btModificar" text="Modificar" />
+      <Button layoutX="460.0" layoutY="354.0" mnemonicParsing="false" onAction="#btBorrar" prefHeight="29.0" prefWidth="62.0" text="Borrar" />
+      <Button layoutX="285.0" layoutY="354.0" mnemonicParsing="false" onAction="#btAñadir" text="Añadir " />
 
       <TableView fx:id="tablaPersonas" layoutX="-1.0" prefHeight="420.0" prefWidth="238.0">
          <columnResizePolicy>
@@ -58,5 +58,6 @@
             <TableColumn fx:id="apellidoColumna" prefWidth="75.0" text="Apellido" />
          </columns>
       </TableView>
+      <Button layoutX="504.0" layoutY="50.0" mnemonicParsing="false" onAction="#reserva" prefHeight="29.0" prefWidth="76.0" text="Reservas" />
    </children>
 </AnchorPane>

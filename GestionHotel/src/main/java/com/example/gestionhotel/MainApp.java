@@ -145,6 +145,8 @@ public class MainApp extends Application {
         }
     }
 
+    public boolean mostrarReservas
+
 
 
 

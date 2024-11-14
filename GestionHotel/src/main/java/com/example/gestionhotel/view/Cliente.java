@@ -16,7 +16,7 @@ public class Cliente {
         this(null,null);
     }
 
-    // Constructor con solo nombre y apellidos (se inicializa también el DNI)
+    // Constructor con solo nombre y apellidos
     public Cliente(String nombre, String apellidos) {
         this.dniProperty = new SimpleStringProperty(""); // Valor predeterminado para DNI
         this.nombreProperty = new SimpleStringProperty(nombre);

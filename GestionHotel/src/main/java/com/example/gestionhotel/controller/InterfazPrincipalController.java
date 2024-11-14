@@ -140,6 +140,10 @@ public class InterfazPrincipalController {
 
     }
 
+    public void reserva(Cliente cliente) throws ExcepcionCliente {
+        cliente.getDni();
+
+    }
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;

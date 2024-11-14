@@ -46,7 +46,7 @@ public class Person {
         this.street = new SimpleStringProperty("some street");
         this.postalCode = new SimpleIntegerProperty(1234);
         this.city = new SimpleStringProperty("some city");
-        this.birthday = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));
+        this.birthday = new SimpleObjectProperty<>(LocalDate.of(1999, 2, 21));
 		this.codigo = new SimpleIntegerProperty();
 	}
 
@@ -59,7 +59,7 @@ public class Person {
         this.street = new SimpleStringProperty(street);
         this.city = new SimpleStringProperty(city);
         this.postalCode = new SimpleIntegerProperty(postalCode);
-        this.birthday = new SimpleObjectProperty<LocalDate>(birthday);
+        this.birthday = new SimpleObjectProperty<>(birthday);
     }
 
 
