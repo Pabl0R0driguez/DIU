@@ -39,4 +39,8 @@ public class HotelModelo {
         // Convertimos la lista de ClienteVO a Cliente usando el método de utilidad
         return ClienteUtil.parseToCliente(clientesVO);
     }
+
+
+
+
 }

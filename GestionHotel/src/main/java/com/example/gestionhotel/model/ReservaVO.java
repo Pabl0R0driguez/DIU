@@ -3,15 +3,17 @@ package com.example.gestionhotel.model;
 import com.example.gestionhotel.view.RegimenAlojamiento;
 import com.example.gestionhotel.view.TipoHabitacion;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class ReservaVO {
 
     private int idReserva;
-    private Date fechaLlegada;
-    private Date fechaSalida;
+    private LocalDate fechaLlegada;
+    private LocalDate fechaSalida;
     private int numeroHabitaciones;
     private boolean fumador;
+    private String DNI;
 
 
     // Atributos con los enums
@@ -19,8 +21,8 @@ public class ReservaVO {
     private RegimenAlojamiento regimenAlojamiento;
 
     // Constructor
-    public ReservaVO(int idReserva, Date fechaLlegada, Date fechaSalida, int numeroHabitaciones,
-                     TipoHabitacion tipoHabitacion, boolean fumador, RegimenAlojamiento regimenAlojamiento) {
+    public ReservaVO(int idReserva, LocalDate fechaLlegada, LocalDate fechaSalida, int numeroHabitaciones,
+                     TipoHabitacion tipoHabitacion, boolean fumador, RegimenAlojamiento regimenAlojamiento, String DNI) {
         this.idReserva = idReserva;
         this.fechaLlegada = fechaLlegada;
         this.fechaSalida = fechaSalida;
@@ -28,6 +30,7 @@ public class ReservaVO {
         this.tipoHabitacion = tipoHabitacion;
         this.fumador = fumador;
         this.regimenAlojamiento = regimenAlojamiento;
+        this.DNI = DNI;
     }
 
     // Getters y setters
@@ -39,19 +42,19 @@ public class ReservaVO {
         this.idReserva = idReserva;
     }
 
-    public Date getFechaLlegada() {
+    public LocalDate getFechaLlegada() {
         return fechaLlegada;
     }
 
-    public void setFechaLlegada(Date fechaLlegada) {
+    public void setFechaLlegada(LocalDate fechaLlegada) {
         this.fechaLlegada = fechaLlegada;
     }
 
-    public Date getFechaSalida() {
+    public LocalDate getFechaSalida() {
         return fechaSalida;
     }
 
-    public void setFechaSalida(Date fechaSalida) {
+    public void setFechaSalida(LocalDate fechaSalida) {
         this.fechaSalida = fechaSalida;
     }
 
@@ -85,6 +88,13 @@ public class ReservaVO {
 
     public void setRegimenAlojamiento(RegimenAlojamiento regimenAlojamiento) {
         this.regimenAlojamiento = regimenAlojamiento;
+    }
+
+    public String getDNI() {
+        return DNI;
+    }
+    public void setDNI(String DNI) {
+        this.DNI = DNI;
     }
 
     @Override

@@ -8,6 +8,7 @@ import com.example.gestionhotel.model.ExcepcionCliente;
 import com.example.gestionhotel.model.HotelModelo;
 import com.example.gestionhotel.model.repository.impl.ClienteRepositoryImpl;
 import com.example.gestionhotel.view.Cliente;
+import com.example.gestionhotel.view.Reserva;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -148,7 +149,7 @@ public class MainApp extends Application {
 
     public boolean mostrarReservas(Cliente cliente) throws IOException {
         try{
-        // Cargar la interfaz FXML para la edición del cliente
+        // Cargar la interfaz FXML para la edición de la reserva
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApp.class.getResource("/com/example/gestionhotel/InterfazReserva.fxml"));
         AnchorPane page = (AnchorPane) loader.load();
@@ -160,9 +161,15 @@ public class MainApp extends Application {
         dialogStage.initOwner(primaryStage);
         Scene scene = new Scene(page);
         dialogStage.setScene(scene);
+
         InterfazReservaController controller = loader.getController();
         controller.setDialogStage(dialogStage);
-        controller.setCliente(cliente);
+
+        // Creamos el objeto reserva para guardar los datos de la interfaz
+        Reserva reserva = new Reserva(cliente.getDni());
+        controller.setReserva(reserva);
+            System.out.println(reserva);
+
 
         // Mostrar la ventana del diálogo y esperar a que se cierre
         dialogStage.showAndWait();

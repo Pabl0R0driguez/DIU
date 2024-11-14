@@ -40,12 +40,7 @@
         </Spinner>
         <ComboBox fx:id="tipoHabitacion" layoutX="371.0" layoutY="129.0" prefHeight="29.0" prefWidth="94.0">
         <items>
-            <FXCollections fx:factory="observableArrayList">
-                <String fx:value="Doble" />
-                <String fx:value="Suite" />
-                <String fx:value="Junior Suite" />
-                <String fx:value="Doble uso individual" />
-            </FXCollections>
+            <FXCollections fx:factory="observableArrayList"/>
         </items>
         </ComboBox>
     </children>

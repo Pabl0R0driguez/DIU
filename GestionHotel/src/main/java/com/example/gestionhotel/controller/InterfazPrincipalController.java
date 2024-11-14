@@ -5,6 +5,7 @@ import com.example.gestionhotel.model.ExcepcionCliente;
 import com.example.gestionhotel.model.HotelModelo;
 import com.example.gestionhotel.util.ClienteUtil;
 import com.example.gestionhotel.view.Cliente;
+import com.example.gestionhotel.view.Reserva;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent; // <-- Asegúrate de usar javafx.event.ActionEvent
 import javafx.scene.control.Alert;
@@ -140,9 +141,11 @@ public class InterfazPrincipalController {
 
     }
 
+
     @FXML
     public void reserva(ActionEvent event) throws ExcepcionCliente, IOException {
         Cliente clienteSeleccionado = tablaPersonas.getSelectionModel().getSelectedItem();
+
         System.out.println(clienteSeleccionado.toString());
         boolean onClicked = mainApp.mostrarReservas(clienteSeleccionado);
         if(onClicked){

@@ -2,29 +2,33 @@ package com.example.gestionhotel.view;
 
 import javafx.beans.property.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Reserva {
 
 
     private final IntegerProperty idReservaProperty;
-    private final ObjectProperty<Date> fechaLlegadaProperty;
-    private final ObjectProperty<Date> fechaSalidaProperty;
+    private final ObjectProperty<LocalDate> fechaLlegadaProperty;
+    private final ObjectProperty<LocalDate> fechaSalidaProperty;
     private final IntegerProperty numeroHabitacionesProperty;
     private final ObjectProperty<TipoHabitacion> tipoHabitacionProperty;
     private final BooleanProperty fumadorProperty;
     private final ObjectProperty<RegimenAlojamiento> regimenAlojamientoProperty;
-
+    private String DNI;
 
 
     // Constructor sin parámetros
-    public Reserva() {
-        this(0, null, null, 0, TipoHabitacion.DOBLE, false, RegimenAlojamiento.ALOJAMIENTO_DESAYUNO);
+    public Reserva(String DNI) {
+        this(0, null, null, 0, TipoHabitacion.DOBLE, false, RegimenAlojamiento.ALOJAMIENTO_DESAYUNO, DNI);
     }
 
+
+
+
     // Constructor completo
-    public Reserva(int idReserva, Date fechaLlegada, Date fechaSalida, int numeroHabitaciones,
-                   TipoHabitacion tipoHabitacion, boolean fumador, RegimenAlojamiento regimenAlojamiento) {
+    public Reserva(int idReserva, LocalDate fechaLlegada, LocalDate fechaSalida, int numeroHabitaciones,
+                   TipoHabitacion tipoHabitacion, boolean fumador, RegimenAlojamiento regimenAlojamiento,String DNI) {
         this.idReservaProperty = new SimpleIntegerProperty(idReserva);
         this.fechaLlegadaProperty = new SimpleObjectProperty<>(fechaLlegada);
         this.fechaSalidaProperty = new SimpleObjectProperty<>(fechaSalida);
@@ -32,7 +36,10 @@ public class Reserva {
         this.tipoHabitacionProperty = new SimpleObjectProperty<>(tipoHabitacion);
         this.fumadorProperty = new SimpleBooleanProperty(fumador);
         this.regimenAlojamientoProperty = new SimpleObjectProperty<>(regimenAlojamiento);
+        this.DNI = DNI;
     }
+
+
 
 
     // Getters
@@ -44,19 +51,19 @@ public class Reserva {
         return idReservaProperty;
     }
 
-    public Date getFechaLlegada2() {
+    public LocalDate getFechaLlegada2() {
         return fechaLlegadaProperty.get();
     }
 
-    public ObjectProperty<Date> fechaLlegadaProperty() {
+    public ObjectProperty<LocalDate> fechaLlegadaProperty() {
         return fechaLlegadaProperty;
     }
 
-    public Date getFechaSalida2() {
+    public LocalDate getFechaSalida2() {
         return fechaSalidaProperty.get();
     }
 
-    public ObjectProperty<Date> fechaSalidaProperty() {
+    public ObjectProperty<LocalDate> fechaSalidaProperty() {
         return fechaSalidaProperty;
     }
 
@@ -88,6 +95,14 @@ public class Reserva {
         return regimenAlojamientoProperty.get();
     }
 
+    public String getDNI() {
+        return DNI;
+    }
+
+    public void setDNI(String DNI) {
+        this.DNI = DNI;
+    }
+
     public ObjectProperty<RegimenAlojamiento> regimenAlojamientoProperty() {
         return regimenAlojamientoProperty;
     }
@@ -97,11 +112,11 @@ public class Reserva {
         this.idReservaProperty.set(idReserva);
     }
 
-    public void setFechaLlegada(Date fechaLlegada) {
+    public void setFechaLlegada(LocalDate fechaLlegada) {
         this.fechaLlegadaProperty.set(fechaLlegada);
     }
 
-    public void setFechaSalida(Date fechaSalida) {
+    public void setFechaSalida(LocalDate fechaSalida) {
         this.fechaSalidaProperty.set(fechaSalida);
     }
 
@@ -123,14 +138,15 @@ public class Reserva {
 
     @Override
     public String toString() {
-        return "ReservaVO{" +
-                "idReserva=" + getIdReserva2() +
-                ", fechaLlegada=" + getFechaLlegada2() +
-                ", fechaSalida=" + getFechaSalida2() +
-                ", numeroHabitaciones=" + getNumeroHabitaciones2() +
-                ", tipoHabitacion=" + getTipoHabitacion2() +
-                ", fumador=" + isFumador2() +
-                ", regimenAlojamiento=" + getRegimenAlojamiento2() +
+        return "Reserva{" +
+                "idReservaProperty=" + idReservaProperty +
+                ", fechaLlegadaProperty=" + fechaLlegadaProperty +
+                ", fechaSalidaProperty=" + fechaSalidaProperty +
+                ", numeroHabitacionesProperty=" + numeroHabitacionesProperty +
+                ", tipoHabitacionProperty=" + tipoHabitacionProperty +
+                ", fumadorProperty=" + fumadorProperty +
+                ", regimenAlojamientoProperty=" + regimenAlojamientoProperty +
+                ", DNI='" + DNI + '\'' +
                 '}';
     }
 }

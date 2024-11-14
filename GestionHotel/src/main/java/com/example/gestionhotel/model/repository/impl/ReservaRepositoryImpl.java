@@ -21,13 +21,14 @@ public class ReservaRepositoryImpl implements ReservaRepository {
             this.stmt = conn.createStatement();
 
             // Preparar la sentencia SQL para insertar los datos de la reserva
-            this.sentencia = "INSERT INTO Reserva (fechaLlegada, fechaSalida, numeroHabitaciones, tipoHabitacion, fumador, regimenAlojamiento) VALUES ('" +
+            this.sentencia = "INSERT INTO Reserva (fechaLlegada, fechaSalida, numeroHabitaciones, tipoHabitacion, fumador, regimenAlojamiento,DNI_cliente) VALUES ('" +
                     var1.getFechaLlegada() + "', '" +
                     var1.getFechaSalida() + "', '" +
                     var1.getNumeroHabitaciones() + "', '" +
                     var1.getTipoHabitacion() + "', '" +
                     var1.isFumador() + "', '" +
-                    var1.getRegimenAlojamiento() + "');";
+                    var1.getRegimenAlojamiento() +
+                    var1.getDNI() + "');";
 
             // Ejecutar la sentencia SQL
             this.stmt.executeUpdate(this.sentencia);

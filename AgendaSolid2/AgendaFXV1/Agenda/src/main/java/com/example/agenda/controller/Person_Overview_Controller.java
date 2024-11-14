@@ -145,8 +145,6 @@ public class Person_Overview_Controller {
 			mainApp.getPersonData().add(tempPerson);
 			// guardar en la base de datos
 			mainApp.getAgenda().getPersonaRepository().addPersona(PersonUtil.parseToPersonVO(tempPerson));
-
-
 		}
 	}
 

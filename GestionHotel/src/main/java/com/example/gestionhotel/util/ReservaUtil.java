@@ -16,14 +16,14 @@ public class ReservaUtil {
         ArrayList<Reserva> reserva = new ArrayList<>();
         for (ReservaVO reservaVO : listaReservaVO) {
 
-        reserva.add(new Reserva(reservaVO.getIdReserva(), reservaVO.getFechaLlegada(),reservaVO.getFechaSalida(),reservaVO.getNumeroHabitaciones(),reservaVO.getTipoHabitacion(),reservaVO.isFumador(),reservaVO.getRegimenAlojamiento()));
+        reserva.add(new Reserva(reservaVO.getIdReserva(), reservaVO.getFechaLlegada(),reservaVO.getFechaSalida(),reservaVO.getNumeroHabitaciones(),reservaVO.getTipoHabitacion(),reservaVO.isFumador(),reservaVO.getRegimenAlojamiento(),reservaVO.getDNI()));
         }
         return reserva;
     }
     }
 
     public static ReservaVO parseToReservaVO(Reserva reserva) {
-        ReservaVO reservaVO = new ReservaVO(reserva.getIdReserva2(),reserva.getFechaSalida2(),reserva.getFechaLlegada2(), reserva.getNumeroHabitaciones2(), reserva.getTipoHabitacion2(),reserva.isFumador2(),reserva.getRegimenAlojamiento2());
+        ReservaVO reservaVO = new ReservaVO(reserva.getIdReserva2(),reserva.getFechaSalida2(),reserva.getFechaLlegada2(), reserva.getNumeroHabitaciones2(), reserva.getTipoHabitacion2(),reserva.isFumador2(),reserva.getRegimenAlojamiento2(),reserva.getDNI());
         return reservaVO;
         }
 }
