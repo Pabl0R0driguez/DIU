@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<?import javafx.collections.FXCollections?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionhotel.controller.InterfazReservaController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionhotel.controller.InterfazReservaController">
     <children>
         <DatePicker fx:id="fechaLlegada" layoutX="51.0" layoutY="82.0" />
         <DatePicker fx:id="fechaSalida" layoutX="323.0" layoutY="82.0" />
@@ -24,9 +23,12 @@
                 <Font size="17.0" />
             </font>
         </Label>
-        <RadioButton layoutX="37.0" layoutY="245.0" mnemonicParsing="false" text="Alojamiento y desayuno" />
-        <RadioButton layoutX="37.0" layoutY="273.0" mnemonicParsing="false" text="Media pension" />
-        <RadioButton layoutX="38.0" layoutY="303.0" mnemonicParsing="false" text="Pension completa" />
+        <RadioButton fx:id="aloj_des" layoutX="37.0" layoutY="245.0" mnemonicParsing="false" text="Alojamiento y desayuno">
+         <toggleGroup>
+            <ToggleGroup fx:id="grupoRegimen" />
+         </toggleGroup></RadioButton>
+        <RadioButton fx:id="media" layoutX="37.0" layoutY="273.0" mnemonicParsing="false" selected="true" text="Media pension" toggleGroup="$grupoRegimen" />
+        <RadioButton fx:id="completa" layoutX="38.0" layoutY="303.0" mnemonicParsing="false" text="Pension completa" toggleGroup="$grupoRegimen" />
         <Label layoutX="315.0" layoutY="237.0" prefHeight="73.0" prefWidth="222.0" text="En virtud de la ley de sanidad se informa a los clientes de que solo podran fumar en las habitaciones reservadas para tal fin" />
         <Button layoutX="75.0" layoutY="338.0" mnemonicParsing="false" onAction="#Limpiar" text="Limpiar" />
         <Button layoutX="465.0" layoutY="334.0" mnemonicParsing="false" onAction="#Cancelar" text="Cancelar" />
@@ -40,7 +42,7 @@
         </Spinner>
         <ComboBox fx:id="tipoHabitacion" layoutX="371.0" layoutY="129.0" prefHeight="29.0" prefWidth="94.0">
         <items>
-            <FXCollections fx:factory="observableArrayList"/>
+            <FXCollections fx:factory="observableArrayList" />
         </items>
         </ComboBox>
     </children>

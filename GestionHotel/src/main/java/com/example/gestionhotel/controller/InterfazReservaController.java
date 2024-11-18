@@ -2,14 +2,11 @@ package com.example.gestionhotel.controller;
 
 import com.example.gestionhotel.MainApp;
 import com.example.gestionhotel.util.ReservaUtil;
-import com.example.gestionhotel.view.Cliente;
+import com.example.gestionhotel.view.RegimenAlojamiento;
 import com.example.gestionhotel.view.Reserva;
 import com.example.gestionhotel.view.TipoHabitacion;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Spinner;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
@@ -26,19 +23,36 @@ public class InterfazReservaController {
     @FXML
     private ComboBox<String> tipoHabitacion;
 
+    @FXML
+    private ToggleGroup grupo;
+
+    @FXML
+    private RadioButton aloj_des;
+
+    @FXML
+    private RadioButton media;
+
+    @FXML
+    private RadioButton completa;
+
 
    private Reserva reserva;
+
     private MainApp mainApp;
 
     @FXML
     private void initialize() {
         // Asegúrate de que el ComboBox contenga los valores de enum
         tipoHabitacion.getItems().addAll(
-                TipoHabitacion.DOBLE.name(),
-                TipoHabitacion.SUITE.name(),
-                TipoHabitacion.JUNIOR_SUITE.name(),
-                TipoHabitacion.DOBLE_USO_INDIVIDUAL.name()
+               "Doble" , "Suite" , "Junior Suite" , "Doble uso Individual"
         );
+
+        grupo = new ToggleGroup();
+        aloj_des.setToggleGroup(grupo);
+        media.setToggleGroup(grupo);
+        completa.setToggleGroup(grupo);
+
+
     }
 
 
@@ -85,16 +99,53 @@ public class InterfazReservaController {
         reserva.setFumador(fumador.isSelected());
         reserva.setNumeroHabitaciones(numeroHabitaciones.getValue());
         // Obtén el tipo de habitación seleccionado y conviértelo a TipoHabitacion
+
+
         String tipoSeleccionado = tipoHabitacion.getValue();
+        System.out.println("tipo hab seleccionado: " + tipoSeleccionado);
         if (tipoSeleccionado != null) {
-            reserva.setTipoHabitacion(TipoHabitacion.valueOf(tipoSeleccionado));
+            switch (tipoSeleccionado) {
+                case "Doble":
+                    reserva.setTipoHabitacion(TipoHabitacion.DOBLE);
+                    break;
+                case "Suite":
+                    reserva.setTipoHabitacion(TipoHabitacion.SUITE);
+                    break;
+                case "Junior Suite":
+                    reserva.setTipoHabitacion(TipoHabitacion.JUNIORSUITE);
+                    break;
+                case "Doble uso Individual":
+                    reserva.setTipoHabitacion(TipoHabitacion.DOBLEUSOINDIVIDUAL);
+                    break;
+            }
         }
-        System.out.println("reserva al aceptar " + reserva.toString());
-        mainApp.getHotelModelo().getReservaRepository().añadirReserva(ReservaUtil.parseToReservaVO(reserva));
 
+            RadioButton seleccionado = (RadioButton) grupo.getSelectedToggle();
+            if (seleccionado != null) {
+                String regimenSeleccionado = seleccionado.getText();
+                System.out.println("tipo seleccionado" + regimenSeleccionado);
+
+                switch (regimenSeleccionado) {
+                    case "Alojamiento y desayuno":
+                        reserva.setRegimenAlojamiento(RegimenAlojamiento.ALOJAMIENTO_DESAYUNO);
+                        break;
+                    case "Media pension":
+                        reserva.setRegimenAlojamiento(RegimenAlojamiento.MEDIAPENSION);
+                        break;
+                    case "Pension completa":
+                        reserva.setRegimenAlojamiento(RegimenAlojamiento.PENSIONCOMPLETA);
+                        break;
+                }
+
+            }
+
+
+            System.out.println("reserva al aceptar " + reserva.toString());
+            mainApp.getHotelModelo().getReservaRepository().añadirReserva(ReservaUtil.parseToReservaVO(reserva));
 
 
         }
+
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;

@@ -34,8 +34,9 @@ public class MainApp extends Application {
 
 
     public MainApp() throws SQLException, ExcepcionCliente {
+        //Instanciamos los dos IMpl para conectar con la base de datos
         ClienteRepositoryImpl clienteRepository = new ClienteRepositoryImpl();
-//        ReservaRepositoryImpl  reservaRepository = new ReservaRepositoryImpl();  SEGUIR
+        ReservaRepositoryImpl  reservaRepository = new ReservaRepositoryImpl();
 
 
         //Obterner lista de personas en la base de datos
@@ -44,16 +45,24 @@ public class MainApp extends Application {
             System.out.println("Cliente: " + cliente.getNombre() + " " + cliente.getApellidos());
         }
 
+
+
         hotelModelo = new HotelModelo();
+
         try {
+
             hotelModelo.setClienteRepository(clienteRepository);
             clienteLista.addAll(hotelModelo.setCliente());
+
+            hotelModelo.setReservaRepository(reservaRepository);
         } catch (SQLException e) {
             System.err.println("Error al establecer la lista de clientes: " + e.getMessage());
             e.printStackTrace();
         } catch (ExcepcionCliente e) {
             throw new RuntimeException(e);
         }
+
+
     }
 
 

@@ -12,7 +12,7 @@ public class HotelModelo {
     private ReservaRepository reservaRepository;
     private ArrayList<ClienteVO> clientesVO = new ArrayList<>();
 
-    // Setear el repositorio de clientes
+    // MOdificar el repositorio de clientes
     public void setClienteRepository(ClienteRepository clienteRepository) {
         this.clienteRepository = clienteRepository;
     }
