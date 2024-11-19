@@ -1,143 +1,79 @@
-.background {
-    -fx-background-color: #1d1d1d;
+/* Fondo azul oscuro para el fondo de la pantalla */
+AnchorPane {
+    -fx-background-color: #003366; /* Azul oscuro */
 }
 
-.label {
-    -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: white;
-    -fx-opacity: 0.6;
+SplitPane{
+    -fx-background-color: #005288; /* Azul oscuro */
+
 }
 
-.label-bright {
-    -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: white;
-    -fx-opacity: 1;
+/* Cambiar el color de los textos de los Label dentro del GridPane */
+GridPane Label {
+    -fx-text-fill: white; /* Color blanco para el texto de los Label */
+
 }
 
-.label-header {
-    -fx-font-size: 32pt;
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
-    -fx-opacity: 1;
+Label{
+   -fx-text-fill: white;
+    -fx-font-size: 10pt;
 }
 
+GridPane Text {
+    -fx-fill: white; /* Para cambiar el color del texto de los elementos Text */
+}
+
+GridPane TextField {
+    -fx-text-fill: white; /* Cambiar el color de los textos dentro de los campos de texto */
+}
+
+/* Fondo azul para la tabla */
 .table-view {
-    -fx-base: #1d1d1d;
-    -fx-control-inner-background: #1d1d1d;
-    -fx-background-color: #1d1d1d;
-    -fx-table-cell-border-color: transparent;
-    -fx-table-header-border-color: transparent;
-    -fx-padding: 5;
+    -fx-background-color: #005288; /* Fondo oscuro para la tabla */
+    -fx-control-inner-background: #005288;
+    -fx-base: #005288;
 }
 
-.table-view .column-header-background {
-    -fx-background-color: transparent;
-}
-
-.table-view .column-header, .table-view .filler {
-    -fx-size: 35;
-    -fx-border-width: 0 0 1 0;
-    -fx-background-color: transparent;
-    -fx-border-color:
-            transparent
-            transparent
-            derive(-fx-base, 80%)
-            transparent;
-    -fx-border-insets: 0 10 1 0;
-}
-
-.table-view .column-header .label {
-    -fx-font-size: 20pt;
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
-    -fx-alignment: center-left;
-    -fx-opacity: 1;
-}
-
-.table-view:focused .table-row-cell:filled:focused:selected {
-    -fx-background-color: -fx-focus-color;
-}
-
-.split-pane:horizontal > .split-pane-divider {
-    -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
-    -fx-background-color: transparent, derive(#1d1d1d,20%);
-}
-
-.split-pane {
-    -fx-padding: 1 0 0 0;
-}
-
-.menu-bar {
-    -fx-background-color: derive(#1d1d1d,20%);
-}
-
-.context-menu {
-    -fx-background-color: derive(#1d1d1d,50%);
-}
-
-.menu-bar .label {
-    -fx-font-size: 14pt;
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
-    -fx-opacity: 0.9;
-}
-
-.menu .left-container {
-    -fx-background-color: black;
-}
-
-.text-field {
-    -fx-font-size: 12pt;
-    -fx-font-family: "Segoe UI Semibold";
-}
-
-/*
- * Metro style Push Button
- * Author: Pedro Duque Vieira
- * http://pixelduke.wordpress.com/2012/10/23/jmetro-windows-8-controls-on-java/
- */
+/* Estilo de los botones: fondo azul oscuro y texto blanco */
 .button {
-    -fx-padding: 5 22 5 22;
-    -fx-border-color: #e2e2e2;
-    -fx-border-width: 2;
-    -fx-background-radius: 0;
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #003366; /* Azul oscuro */
+    -fx-text-fill: white;
+    -fx-font-size: 10pt;
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
-    -fx-font-size: 11pt;
-    -fx-text-fill: #d8d8d8;
-    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+    -fx-padding: 10 20 10 20;
+    -fx-border-radius: 5;
 }
 
 .button:hover {
-    -fx-background-color: #3a3a3a;
+    -fx-background-color: #005288; /* Azul más claro para el hover */
 }
 
-.button:pressed, .button:default:hover:pressed {
-    -fx-background-color: white;
-    -fx-text-fill: #1d1d1d;
+.button:pressed {
+    -fx-background-color: #0a4a77; /* Azul aún más oscuro para cuando se presiona */
 }
 
-.button:focused {
-    -fx-border-color: white, white;
-    -fx-border-width: 1, 1;
-    -fx-border-style: solid;
-    -fx-border-radius: 0, 0;
-    -fx-border-insets: 1 1 1 1, 0;
-}
-
-.button:disabled, .button:default:disabled {
-    -fx-opacity: 0.4;
-    -fx-background-color: #1d1d1d;
+/* Fondo de las celdas de la tabla */
+.table-view .cell {
+    -fx-background-color: #005288;
     -fx-text-fill: white;
 }
 
-.button:default {
-    -fx-background-color: -fx-focus-color;
-    -fx-text-fill: #ffffff;
+/* Fondo de las cabeceras de la tabla */
+.table-view .column-header {
+    -fx-background-color: #003366; /* Azul oscuro para la cabecera */
+    -fx-text-fill: white;
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
-.button:default:hover {
-    -fx-background-color: derive(-fx-focus-color,30%);
+/* Fondo de la barra de división en SplitPane */
+.split-pane:horizontal > .split-pane-divider {
+    -fx-background-color: white; /* Azul oscuro para la barra divisoria */
+    -fx-pref-width: 1px; /* Ancho de la barra divisoria (ajusta este valor para hacerlo más fino o grueso) */
+
+}
+
+/* Fondo del VBox (específico para el contenedor de la derecha) */
+.vbox {
+    -fx-background-color: #003366; /* Azul oscuro para el contenedor */
 }

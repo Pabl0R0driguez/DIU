@@ -6,16 +6,22 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionhotel.controller.DiseñoRaizController">
+<BorderPane prefHeight="400.0" prefWidth="600.0" stylesheets="@styles/estilos_datos.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionhotel.controller.DiseñoRaizController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
          <menus>
+            <Menu mnemonicParsing="false" text="Buscar por DNI" onAction="#buscarDNI">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="DNI" onAction="#buscarDNI" />
+               </items>
+            </Menu>
+
             <Menu mnemonicParsing="false" text="Archivo">
                <items>
                   <MenuItem mnemonicParsing="false" text="Close" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false"  text="Estadisticas">
+            <Menu mnemonicParsing="false" text="Estadisticas">
                <items>
                   <MenuItem mnemonicParsing="false" text="Mostrar" />
                </items>

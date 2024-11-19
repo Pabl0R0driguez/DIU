@@ -28,6 +28,7 @@ public class MainApp extends Application {
 
     private static ObservableList<Cliente> clienteLista = FXCollections.observableArrayList();
     private HotelModelo hotelModelo;
+    private InterfazPrincipalController interfazPrincipalController;
 
     private Stage primaryStage;
     private BorderPane rootLayout;
@@ -36,7 +37,7 @@ public class MainApp extends Application {
     public MainApp() throws SQLException, ExcepcionCliente {
         //Instanciamos los dos IMpl para conectar con la base de datos
         ClienteRepositoryImpl clienteRepository = new ClienteRepositoryImpl();
-        ReservaRepositoryImpl  reservaRepository = new ReservaRepositoryImpl();
+        ReservaRepositoryImpl reservaRepository = new ReservaRepositoryImpl();
 
 
         //Obterner lista de personas en la base de datos
@@ -44,7 +45,6 @@ public class MainApp extends Application {
         for (ClienteVO cliente : lista) {
             System.out.println("Cliente: " + cliente.getNombre() + " " + cliente.getApellidos());
         }
-
 
 
         hotelModelo = new HotelModelo();
@@ -79,7 +79,6 @@ public class MainApp extends Application {
         mostrarInterfazPrincipal();
 
 
-
     }
 
     //Metodo para recuperar lista de clientes
@@ -91,6 +90,17 @@ public class MainApp extends Application {
     public HotelModelo getHotelModelo() {
         return hotelModelo;
     }
+
+
+
+    //Metodo para obtener la interfaz prinicpal lo usarmos para la busqueda del dni en el diseño raiz
+    private InterfazPrincipalController getInterfazPrincipalController() {
+        return interfazPrincipalController;
+    }
+
+
+
+
 
 
     public void iniciarDiseñoRaiz() {
@@ -107,23 +117,33 @@ public class MainApp extends Application {
         }
     }
 
-    //La usaré a la hora de añadir clientes en InterfazPrincipalController
+
+
     public void mostrarInterfazPrincipal() {
         try {
+            // Cargar el archivo FXML de la interfaz principal
             FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/com/example/gestionhotel/InterfazPrincipal.fxml"));
-
             AnchorPane personOverview = (AnchorPane) loader.load();
 
-            // Establece la vista de personas en el centro del diseño raíz
+            // Establecer la vista de personas en el centro del diseño raíz
             rootLayout.setCenter(personOverview);
 
-            // Proporciona acceso al controlador a la instancia de MainApp
+            // Proporcionar acceso al controlador a la instancia de MainApp
             InterfazPrincipalController controller = loader.getController();
             controller.setMainApp(this);
+
+            // Cambiar el tamaño de la ventana principal
+            primaryStage.setWidth(850);  // Establece el ancho de la ventana principal
+            primaryStage.setHeight(480); // Establece el alto de la ventana principal
+
+            // Opcional: Configurar si la ventana principal es redimensionable
+            primaryStage.setResizable(true);  // Puede ser false si no deseas que el usuario redimensione la ventana
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
 
     // Muestra un diálogo para editar un cliente
@@ -140,8 +160,10 @@ public class MainApp extends Application {
             dialogStage.initModality(Modality.NONE);  // Puedes probar con Modality.APPLICATION_MODAL si lo deseas
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
 
+            dialogStage.setScene(scene);
+            dialogStage.setWidth(600);  // Establece el ancho de la ventana
+            dialogStage.setHeight(1000); // Establece el alto de la ventana
             // Obtener el controlador de la vista y configurarlo
             PersonEditDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
