@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
 
-public class InterfazReservaController {
+public class ReservaController {
     @FXML
     private DatePicker fechaLlegada;
     @FXML
