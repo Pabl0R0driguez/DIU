@@ -1,11 +1,14 @@
 package com.example.gestionhotel;
 
 import com.example.gestionhotel.controller.InterfazPrincipalController;
+import com.example.gestionhotel.controller.InterfazReservasController;
 import com.example.gestionhotel.controller.ReservaController;
 import com.example.gestionhotel.controller.PersonEditDialogController;
 import com.example.gestionhotel.model.ClienteVO;
 import com.example.gestionhotel.model.ExcepcionCliente;
 import com.example.gestionhotel.model.HotelModelo;
+import com.example.gestionhotel.model.ReservaVO;
+import com.example.gestionhotel.model.repository.ReservaRepository;
 import com.example.gestionhotel.model.repository.impl.ClienteRepositoryImpl;
 import com.example.gestionhotel.model.repository.impl.ReservaRepositoryImpl;
 import com.example.gestionhotel.view.Cliente;
@@ -28,7 +31,8 @@ public class MainApp extends Application {
 
     private static ObservableList<Cliente> clienteLista = FXCollections.observableArrayList();
     private HotelModelo hotelModelo;
-    private InterfazPrincipalController interfazPrincipalController;
+    private static ObservableList<Reserva> reservaLista = FXCollections.observableArrayList();
+    private ReservaRepository reservaRepository;
 
     private Stage primaryStage;
     private BorderPane rootLayout;
@@ -47,6 +51,8 @@ public class MainApp extends Application {
         }
 
 
+
+
         hotelModelo = new HotelModelo();
 
         try {
@@ -55,6 +61,7 @@ public class MainApp extends Application {
             clienteLista.addAll(hotelModelo.setCliente());
 
             hotelModelo.setReservaRepository(reservaRepository);
+
         } catch (SQLException e) {
             System.err.println("Error al establecer la lista de clientes: " + e.getMessage());
             e.printStackTrace();
@@ -93,14 +100,6 @@ public class MainApp extends Application {
 
 
 
-    //Metodo para obtener la interfaz prinicpal lo usarmos para la busqueda del dni en el diseño raiz
-    private InterfazPrincipalController getInterfazPrincipalController() {
-        return interfazPrincipalController;
-    }
-
-
-
-
 
 
     public void iniciarDiseñoRaiz() {
@@ -116,7 +115,6 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
-
 
 
     public void mostrarInterfazPrincipal() {
@@ -143,7 +141,6 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
-
 
 
     // Muestra un diálogo para editar un cliente
@@ -182,73 +179,93 @@ public class MainApp extends Application {
     }
 
     public boolean mostrarReservas(Cliente cliente) throws IOException {
-        try{
-        // Cargar la interfaz FXML para la edición de la reserva
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainApp.class.getResource("/com/example/gestionhotel/Reserva.fxml"));
-        AnchorPane page = (AnchorPane) loader.load();
+        try {
+            // Cargar la interfaz FXML para la edición de la reserva
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/com/example/gestionhotel/Reserva.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
 
-        // Crear una nueva ventana (Stage) para el diálogo
-        Stage dialogStage = new Stage();
-        dialogStage.setTitle("Reservas");
-        dialogStage.initModality(Modality.NONE);  // Puedes probar con Modality.APPLICATION_MODAL si lo deseas
-        dialogStage.initOwner(primaryStage);
+            // Crear una nueva ventana (Stage) para el diálogo
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Reservas");
+            dialogStage.initModality(Modality.NONE);  // Puedes probar con Modality.APPLICATION_MODAL si lo deseas
+            dialogStage.initOwner(primaryStage);
             primaryStage.setWidth(850);  // Establece el ancho de la ventana principal
             primaryStage.setHeight(480);
             Scene scene = new Scene(page);
-        dialogStage.setScene(scene);
+            dialogStage.setScene(scene);
 
-        ReservaController controller = loader.getController();
+            ReservaController controller = loader.getController();
             controller.setMainApp(this);
             controller.setDialogStage(dialogStage);
 
 
-        // Creamos el objeto reserva para guardar los datos de la interfaz
-        Reserva reserva = new Reserva(cliente.getDni());
-        controller.setReserva(reserva);
+            // Creamos el objeto reserva para guardar los datos de la interfaz
+            Reserva reserva = new Reserva(cliente.getDni());
+            controller.setReserva(reserva);
             System.out.println(reserva);
 
 
-        // Mostrar la ventana del diálogo y esperar a que se cierre
-        dialogStage.showAndWait();
+            // Mostrar la ventana del diálogo y esperar a que se cierre
+            dialogStage.showAndWait();
 
-        // Devolver si el usuario hizo clic en el botón "OK" en el diálogo
-        return controller.isOkClicked();
+            // Devolver si el usuario hizo clic en el botón "OK" en el diálogo
+            return controller.isOkClicked();
 
-
-    }catch(IOException e)
-
-    {
-        e.printStackTrace();
-        return false;
-    }
-}
-
-    public void mostrarInterfazReservas(Cliente cliente) {
-        try {
-            // Cargar el archivo FXML de la interfaz principal
-            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/com/example/gestionhotel/InterfazReservas.fxml"));
-            AnchorPane personOverview = (AnchorPane) loader.load();
-
-            // Establecer la vista de personas en el centro del diseño raíz
-            rootLayout.setCenter(personOverview);
-
-            // Proporcionar acceso al controlador a la instancia de MainApp
-            InterfazPrincipalController controller = loader.getController();
-            controller.setMainApp(this);
-
-            // Cambiar el tamaño de la ventana principal
-            primaryStage.setWidth(850);  // Establece el ancho de la ventana principal
-            primaryStage.setHeight(480); // Establece el alto de la ventana principal
-
-            // Opcional: Configurar si la ventana principal es redimensionable
-            primaryStage.setResizable(true);  // Puede ser false si no deseas que el usuario redimensione la ventana
 
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
     }
 
+    public boolean mostrarInterfazReservas(Cliente cliente) throws IOException {
+        try {
+
+
+            // Cargar la interfaz FXML para la edición de la reserva
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/com/example/gestionhotel/InterfazReservas.fxml"));
+
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Crear una nueva ventana (Stage) para el diálogo
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Reservas");
+            dialogStage.initModality(Modality.NONE);  // Puedes probar con Modality.APPLICATION_MODAL si lo deseas
+            dialogStage.initOwner(primaryStage);
+            primaryStage.setWidth(850);  // Establece el ancho de la ventana principal
+            primaryStage.setHeight(480);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            InterfazReservasController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setDialogStage(dialogStage);
+
+
+//            ArrayList<ReservaVO> listaReserva = hotelModelo.getReservaRepository().listarReservas(cliente.getDni());
+//            System.out.println(listaReserva);
+
+            reservaLista.addAll(hotelModelo.setReserva(cliente));
+
+
+            // Mostrar la ventana del diálogo y esperar a que se cierre
+            dialogStage.showAndWait();
+
+            // Devolver si el usuario hizo clic en el botón "OK" en el diálogo
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        return false;
+    }
 
 
 

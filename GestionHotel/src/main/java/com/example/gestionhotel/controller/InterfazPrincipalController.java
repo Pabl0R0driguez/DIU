@@ -148,9 +148,9 @@ public class InterfazPrincipalController {
         Cliente clienteSeleccionado = tablaPersonas.getSelectionModel().getSelectedItem();
 
         System.out.println(clienteSeleccionado.toString());
-        boolean onClicked = mainApp.mostrarReservas(clienteSeleccionado);
+        boolean onClicked = mainApp.mostrarInterfazReservas(clienteSeleccionado);
         if(onClicked){
-            mainApp.mostrarReservas(clienteSeleccionado);
+            mainApp.mostrarInterfazReservas(clienteSeleccionado);
         }
 
     }
