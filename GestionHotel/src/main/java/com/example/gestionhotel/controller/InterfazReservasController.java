@@ -3,6 +3,8 @@ package com.example.gestionhotel.controller;
 import com.example.gestionhotel.MainApp;
 import com.example.gestionhotel.view.Cliente;
 import com.example.gestionhotel.view.Reserva;
+import eu.hansolo.toolbox.observables.ObservableList;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -55,6 +57,7 @@ public class InterfazReservasController {
         fechaSalida.setCellValueFactory(cellData -> cellData.getValue().fechaSalidaProperty());
 
         showReservasDetails(null);
+
         // Listen for selection changes and show the person details when changed.
         tablaReservas.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showReservasDetails(newValue));
@@ -65,13 +68,23 @@ public class InterfazReservasController {
         if (reserva != null) {
             // Rellena las etiquetas con información del objeto Reserva.
             salidaLabel.setText(String.valueOf(reserva.getFechaSalida2()));
-            llegadaLabel.setText(String.valueOf(reserva.getFechaSalida2()));
+            llegadaLabel.setText(String.valueOf(reserva.getFechaLlegada2()));
+            numeroHabLabel.setText(String.valueOf(reserva.getNumeroHabitaciones2()));
+            tipoHabLabel.setText(String.valueOf(reserva.getTipoHabitacion2()));
+            fuamadorLabel.setText(String.valueOf(reserva.isFumador2()));
+            regimenLabel.setText(String.valueOf(reserva.getRegimenAlojamiento2()));
+
 
 
         } else {
             // Si el objeto Cliente es nulo, borra todo el texto.
             salidaLabel.setText("");
             llegadaLabel.setText("");
+            numeroHabLabel.setText("");
+            tipoHabLabel.setText("");
+            fuamadorLabel.setText("");
+            regimenLabel.setText("");
+
             }
     }
 
@@ -91,8 +104,11 @@ public class InterfazReservasController {
 
         }
 
+
+
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
+        tablaReservas.setItems(mainApp.getReservasData());
 
     }
     public void setDialogStage(Stage dialogStage) {

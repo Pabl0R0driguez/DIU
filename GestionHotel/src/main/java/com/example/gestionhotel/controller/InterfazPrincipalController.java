@@ -177,11 +177,13 @@ public class InterfazPrincipalController {
         }
     }
 
+
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
 
-        // Add observable list data to the table
+        // Añadimos la lista observable a la interfaz
         tablaPersonas.setItems(mainApp.getClientesData());
+
     }
 
 }

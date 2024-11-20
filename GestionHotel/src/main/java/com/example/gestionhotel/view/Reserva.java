@@ -17,14 +17,20 @@ public class Reserva {
     private final ObjectProperty<RegimenAlojamiento> regimenAlojamientoProperty;
     private String DNI;
 
-
-    // Constructor sin parámetros
-    public Reserva(String DNI) {
-        this(0, null, null, 0, TipoHabitacion.DOBLE, false, RegimenAlojamiento.ALOJAMIENTO_DESAYUNO, DNI);
+    public Reserva(){
+        this(null,null);
     }
 
-
-
+    // Constructor con solo nombre y apellidos
+    public Reserva(LocalDate fechaLlegada, LocalDate fechaSalida) {
+        this.idReservaProperty = new SimpleIntegerProperty(0);
+        this.fechaLlegadaProperty = new SimpleObjectProperty(fechaLlegada);
+        this.fechaSalidaProperty = new SimpleObjectProperty(fechaSalida);
+        this.numeroHabitacionesProperty = new SimpleIntegerProperty(0);
+        this.tipoHabitacionProperty = new SimpleObjectProperty(TipoHabitacion.DOBLE);
+        this.fumadorProperty = new SimpleBooleanProperty(true);
+        this.regimenAlojamientoProperty = new SimpleObjectProperty(RegimenAlojamiento.ALOJAMIENTO_DESAYUNO);
+    }
 
     // Constructor completo
     public Reserva(int idReserva, LocalDate fechaLlegada, LocalDate fechaSalida, int numeroHabitaciones,
@@ -39,6 +45,10 @@ public class Reserva {
         this.DNI = DNI;
     }
 
+    // Constructor sin parámetros
+    public Reserva(String DNI) {
+        this(0, null, null, 0, TipoHabitacion.DOBLE, false, RegimenAlojamiento.ALOJAMIENTO_DESAYUNO, DNI);
+    }
 
 
 
@@ -135,6 +145,8 @@ public class Reserva {
     public void setRegimenAlojamiento(RegimenAlojamiento regimenAlojamiento) {
         this.regimenAlojamientoProperty.set(regimenAlojamiento);
     }
+
+
 
     @Override
     public String toString() {

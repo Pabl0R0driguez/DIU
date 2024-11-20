@@ -87,6 +87,9 @@ public class MainApp extends Application {
     public ObservableList<Cliente> getClientesData() {
         return clienteLista;
     }
+    public ObservableList<Reserva> getReservasData() {
+        return reservaLista;
+    }
 
 
     public HotelModelo getHotelModelo() {
@@ -229,6 +232,8 @@ public class MainApp extends Application {
     public boolean mostrarInterfazReservas(Cliente cliente) throws IOException {
         try {
 
+            //Limpia la lista cuando cierra la pantalla
+            reservaLista.clear();
 
             // Cargar la interfaz FXML para la edición de la reserva
             FXMLLoader loader = new FXMLLoader();

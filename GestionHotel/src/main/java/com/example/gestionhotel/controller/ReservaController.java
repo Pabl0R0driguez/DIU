@@ -139,7 +139,6 @@ public class ReservaController {
 
             }
 
-
             System.out.println("reserva al aceptar " + reserva.toString());
             mainApp.getHotelModelo().getReservaRepository().añadirReserva(ReservaUtil.parseToReservaVO(reserva));
 
