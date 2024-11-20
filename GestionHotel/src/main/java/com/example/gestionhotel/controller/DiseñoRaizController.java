@@ -10,9 +10,8 @@ import java.util.Optional;
 public class DiseñoRaizController {
     private MainApp mainApp;
 
-    public void setMainApp(MainApp mainApp) {
-        this.mainApp = mainApp;
-    }
+
+
 
     @FXML
     public void buscarDNI() {
@@ -23,10 +22,17 @@ public class DiseñoRaizController {
 
         Optional<String> result = dialog.showAndWait();
 
-        result.ifPresent(dni -> {
+        result.ifPresent(dni -> { mainApp.setDniSeleccionado(dni);
 
+            InterfazPrincipalController interfazPrincipalController = mainApp.getInterfazPrincipalController();
+            interfazPrincipalController.seleccionarClientePorDni(dni);
         });
+    }
+    public void setMainApp(MainApp mainApp) {
+        this.mainApp = mainApp;
+    }
+
 
     }
 
-}
+

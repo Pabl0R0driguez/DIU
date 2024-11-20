@@ -155,6 +155,28 @@ public class InterfazPrincipalController {
 
     }
 
+
+
+    public void seleccionarClientePorDni(String dni) {
+        boolean bandera = false;
+        for (Cliente cliente : tablaPersonas.getItems()) {
+            if (cliente.getDni().equals(dni)) {
+                tablaPersonas.getSelectionModel().select(cliente);
+                showClienteDetails(cliente);
+                bandera = true;
+                break;
+            }
+        }
+
+        if (!bandera) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("DNI no encontrado");
+            alert.setHeaderText("Por favor, inténtelo de nuevo");
+            alert.setContentText("No existe un cliente con el siguiente DNI: " + dni);
+            alert.showAndWait();
+        }
+    }
+
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
 

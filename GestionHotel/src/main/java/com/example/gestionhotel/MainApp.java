@@ -1,9 +1,6 @@
 package com.example.gestionhotel;
 
-import com.example.gestionhotel.controller.InterfazPrincipalController;
-import com.example.gestionhotel.controller.InterfazReservasController;
-import com.example.gestionhotel.controller.ReservaController;
-import com.example.gestionhotel.controller.PersonEditDialogController;
+import com.example.gestionhotel.controller.*;
 import com.example.gestionhotel.model.ClienteVO;
 import com.example.gestionhotel.model.ExcepcionCliente;
 import com.example.gestionhotel.model.HotelModelo;
@@ -36,6 +33,7 @@ public class MainApp extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
+    InterfazPrincipalController interfazPrincipalController;
 
 
     public MainApp() throws SQLException, ExcepcionCliente {
@@ -49,9 +47,6 @@ public class MainApp extends Application {
         for (ClienteVO cliente : lista) {
             System.out.println("Cliente: " + cliente.getNombre() + " " + cliente.getApellidos());
         }
-
-
-
 
         hotelModelo = new HotelModelo();
 
@@ -99,6 +94,15 @@ public class MainApp extends Application {
     }
 
 
+    private String dniSeleccionado;
+
+    public void setDniSeleccionado(String dniSeleccionado) {
+        this.dniSeleccionado = dniSeleccionado;
+    }
+
+    public InterfazPrincipalController getInterfazPrincipalController() {
+        return interfazPrincipalController;
+    }
 
 
 
@@ -107,6 +111,9 @@ public class MainApp extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("/com/example/gestionhotel/DiseñoRaiz.fxml"));
             rootLayout = (BorderPane) loader.load();
+
+            DiseñoRaizController controller = loader.getController();
+            controller.setMainApp(this);
 
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
