@@ -51,22 +51,63 @@ public class ArticuloRepositoryImpl implements ArticuloRepository {
 }
 
     @Override
-    public void insertarArticulo(Articulo articulo) throws ExcepcionArticulo {
-
+    public void insertarArticulo(ArticuloVO articulo) throws ExcepcionArticulo {
+        try {
+            Connection conn = this.conexion.conectarBD();
+            this.stmt = conn.createStatement();
+            this.sentencia = "INSERT INTO articulo (nombre, descripcion, precio, stock) VALUES ('" + articulo.getNombre()  + "','"+ articulo.getDescripcion() + "','"+ articulo.getPrecio() + "','"+ articulo.getStock() + "');";
+            this.stmt.executeUpdate(this.sentencia);
+            this.stmt.close();
+            Articulo.setContadorArticulos(Articulo.getContadorArticulos() + 1);
+            this.conexion.desconectarBD(conn);
+        } catch (SQLException var3) {
+            throw new ExcepcionArticulo("No se ha podido realizar la operación");
+        }
     }
 
     @Override
-    public void actualizarArticulo(Articulo articulo) throws ExcepcionArticulo {
+    public void actualizarArticulo(ArticuloVO articuloVO) throws ExcepcionArticulo {
+        try {
+            Connection conn = this.conexion.conectarBD(); // Conecta a la base de datos.
+            this.stmt = conn.createStatement(); // Prepara la ejecución de sentencias SQL.
+            String sql = String.format(
+                    "UPDATE articulo SET nombre = '%s', descripcion = '%s', precio = '%s', stock = '%s' WHERE id = %d",
+                    articuloVO.getNombre(), articuloVO.getDescripcion(), articuloVO.getPrecio(), articuloVO.getStock(), articuloVO.getId());
+            this.stmt.executeUpdate(sql); // Ejecuta la sentencia SQL para actualizar.
+        } catch (SQLException var4) {
+            throw new ExcepcionArticulo("No se ha podido realizar la edición");
+        }
+    }
 
+
+
+    @Override
+    public void eliminarArticulo(Integer idArticulo) throws ExcepcionArticulo {
+        try {
+            Connection conn = this.conexion.conectarBD(); // Conecta a la base de datos.
+            this.stmt = conn.createStatement(); // Prepara la ejecución de sentencias SQL.
+            String sql = String.format("DELETE FROM articulo WHERE id = %d", idArticulo); // Sentencia SQL para eliminar.
+            this.stmt.executeUpdate(sql); // Ejecuta la sentencia SQL.
+            this.conexion.desconectarBD(conn); // Cierra la conexión con la base de datos.
+        } catch (SQLException var5) {
+            throw new ExcepcionArticulo("No se ha podido realizar la eliminación");
+        }
     }
 
     @Override
-    public void eliminarArticulo(Integer posicion) throws ExcepcionArticulo {
+    public int lastId() throws ExcepcionArticulo {
+        int lastPersonaId = 0;
 
-    }
+        try {
+            Connection conn = this.conexion.conectarBD();
+            Statement comando = conn.createStatement();
 
-    @Override
-    public void lastId() throws ExcepcionArticulo {
+            for(ResultSet registro = comando.executeQuery("SELECT id FROM articulo ORDER BY id DESC LIMIT 1"); registro.next(); lastPersonaId = registro.getInt("id")) {
+            }
 
+            return lastPersonaId;
+        } catch (SQLException var5) {
+            throw new ExcepcionArticulo("No se ha podido realizar la busqueda del ID");
+        }
     }
 }

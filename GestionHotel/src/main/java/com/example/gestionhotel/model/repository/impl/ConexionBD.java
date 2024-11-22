@@ -16,8 +16,6 @@ public class ConexionBD {
             return conn;
 
 
-
-
         } catch (SQLException var2) {
             SQLException ex = var2;
             System.out.println("\n--- SQLException capturada ---\n");

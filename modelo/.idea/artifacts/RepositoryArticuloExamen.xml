@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="RepositoryArticuloExamen">
+    <output-path>$PROJECT_DIR$/out/artifacts/RepositoryArticuloExamen</output-path>
+    <root id="archive" name="Modelo.jar">
+      <element id="module-output" name="Modelo" />
+      <element id="extracted-dir" path="$USER_HOME$/Google Drive/mysql-connector-java-8.0.12.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

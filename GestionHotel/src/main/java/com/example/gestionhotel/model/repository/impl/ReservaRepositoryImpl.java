@@ -32,16 +32,21 @@ public class ReservaRepositoryImpl implements ReservaRepository {
             this.stmt = conn.createStatement();
             System.out.println("Añadir persona: " + var1);
             // Preparar la sentencia SQL para insertar los datos de la reserva
-            this.sentencia = "INSERT INTO Reserva (fechaLlegada, fechaSalida, numeroHabitaciones, tipoHabitacion, fumador, regimenAlojamiento,DNI_cliente) VALUES ('" +
+            // Supongamos que var1 es un objeto de la clase Cliente
+            String dni = var1.getDNI();  // Esto obtiene el valor real de la propiedad dniProperty como un String
+
+// Y luego lo usas en tu sentencia SQL
+            this.sentencia = "INSERT INTO Reserva (fechaLlegada, fechaSalida, numeroHabitaciones, tipoHabitacion, fumador, regimenAlojamiento, DNI_cliente) VALUES ('" +
                     var1.getFechaLlegada() + "', '" +
                     var1.getFechaSalida() + "', '" +
                     var1.getNumeroHabitaciones() + "', '" +
                     var1.getTipoHabitacion() + "', '" +
                     (var1.isFumador() ? 1 : 0) + "', '" +
                     var1.getRegimenAlojamiento() + "', '" +
-                    var1.getDNI() + "');";
+                    dni + "');";
 
-//Ejemplo
+
+
 //            this.sentencia = "INSERT INTO Reserva (fechaLlegada, fechaSalida, numeroHabitaciones, tipoHabitacion, fumador, regimenAlojamiento, DNI_cliente) " +
 //                    "VALUES ('2024-11-18', '2024-11-20', 2, 'doble', false, 'mediaPension', '12345687D');";
 
@@ -80,13 +85,14 @@ public class ReservaRepositoryImpl implements ReservaRepository {
             while (rs.next()) {
                 // Obtener los datos de la reserva desde el ResultSet
                 int idReserva = rs.getInt("id_reserva");
-                String dniCliente = rs.getString("DNI_cliente");
                 LocalDate fechaLlegada = LocalDate.parse(rs.getString("fechaLlegada"));
                 LocalDate fechaSalida = LocalDate.parse(rs.getString("fechaSalida"));
                 TipoHabitacion tipoHabitacion = DOBLE; //TipoHabitacion.valueOf(rs.getString("tipoHabitacion"));
                 int numHabitaciones = rs.getInt("numeroHabitaciones");
                 boolean fumador = rs.getBoolean("fumador");
                 RegimenAlojamiento regimen =  RegimenAlojamiento.ALOJAMIENTO_DESAYUNO;//RegimenAlojamiento.valueOf(rs.getString("regimenAlojamiento"));
+                String dniCliente = rs.getString("DNI_cliente");
+
                 System.out.println("sssss");
 
                 // Crear un objeto ReservaVO con los datos obtenidos

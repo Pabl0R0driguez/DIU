@@ -34,6 +34,9 @@ public class MainApp extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     InterfazPrincipalController interfazPrincipalController;
+    Cliente cliente;
+    Reserva reserva;
+
 
 
     public MainApp() throws SQLException, ExcepcionCliente {
@@ -105,6 +108,15 @@ public class MainApp extends Application {
 
     public InterfazPrincipalController getInterfazPrincipalController() {
         return interfazPrincipalController;
+    }
+    // Metodo para obtener el cliente seleccionado
+
+    public Cliente getClienteSeleccionado() {
+        return cliente;
+    }
+
+    public Cliente setClienteSeleccionado(Cliente cliente) {
+        return cliente;
     }
 
 
@@ -258,7 +270,10 @@ public class MainApp extends Application {
 
 //            ArrayList<ReservaVO> listaReserva = hotelModelo.getReservaRepository().listarReservas(cliente.getDni());
 //            System.out.println(listaReserva);
-
+            // Creamos el objeto reserva para guardar los datos de la interfaz
+            Reserva reserva = new Reserva(cliente.getDni());
+            controller.setReserva(reserva);
+            System.out.println(reserva);
             reservaLista.addAll(hotelModelo.setReserva(cliente));
 
 

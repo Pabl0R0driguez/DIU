@@ -1,6 +1,8 @@
 package com.example.gestionhotel.controller;
 
 import com.example.gestionhotel.MainApp;
+import com.example.gestionhotel.util.ClienteUtil;
+import com.example.gestionhotel.util.ReservaUtil;
 import com.example.gestionhotel.view.Cliente;
 import com.example.gestionhotel.view.Reserva;
 import eu.hansolo.toolbox.observables.ObservableList;
@@ -88,14 +90,36 @@ public class InterfazReservasController {
             }
     }
 
-        @FXML
-        void btAñadir(ActionEvent event) throws IOException {
-           mainApp.mostrarReservas(cliente);
+    @FXML
+    void btAñadir(ActionEvent event) throws IOException {
+        // Obtener el cliente previamente seleccionado
+        Cliente clienteSeleccionado = mainApp.getClienteSeleccionado(); // Este debe ser el cliente previamente seleccionado
+        if (clienteSeleccionado != null) {
+            // Si el cliente está seleccionado, entonces puedes asociarlo con la reserva
+            System.out.println("Cliente seleccionado: " + clienteSeleccionado);
 
+            // Crea una nueva reserva y añade el cliente a la reserva
+            Reserva reservaTemporal = new Reserva();
+            reservaTemporal.setDNI(clienteSeleccionado.getDniProperty().get()); // Asocia el DNI del cliente a la reserva
+
+            // Mostrar las reservas y agregar la nueva reserva
+            boolean onClicked = mainApp.mostrarReservas(clienteSeleccionado);
+            if (onClicked) {
+                mainApp.getReservasData().add(reservaTemporal);
+                mainApp.getHotelModelo().getReservaRepository().añadirReserva(ReservaUtil.parseToReservaVO(reservaTemporal));
+            }
+        } else {
+            // Si no hay cliente seleccionado, mostrar un mensaje o advertencia
+            System.out.println("No se ha seleccionado un cliente");
         }
+    }
 
-        @FXML
+
+
+    @FXML
         void btModificar (ActionEvent event){
+
+
 
         }
 

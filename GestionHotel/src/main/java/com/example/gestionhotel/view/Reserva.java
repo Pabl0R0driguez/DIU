@@ -3,7 +3,6 @@ package com.example.gestionhotel.view;
 import javafx.beans.property.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Reserva {
 
@@ -15,7 +14,7 @@ public class Reserva {
     private final ObjectProperty<TipoHabitacion> tipoHabitacionProperty;
     private final BooleanProperty fumadorProperty;
     private final ObjectProperty<RegimenAlojamiento> regimenAlojamientoProperty;
-    private String DNI;
+    private String DNI = String.valueOf(new SimpleStringProperty());
 
     public Reserva(){
         this(null,null);
@@ -42,7 +41,7 @@ public class Reserva {
         this.tipoHabitacionProperty = new SimpleObjectProperty<>(tipoHabitacion);
         this.fumadorProperty = new SimpleBooleanProperty(fumador);
         this.regimenAlojamientoProperty = new SimpleObjectProperty<>(regimenAlojamiento);
-        this.DNI = DNI;
+        this.DNI = String.valueOf(new SimpleStringProperty(DNI));
     }
 
     // Constructor sin parámetros

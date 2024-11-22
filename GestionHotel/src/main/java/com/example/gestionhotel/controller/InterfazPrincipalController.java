@@ -136,7 +136,6 @@ public class InterfazPrincipalController {
     if(onClicked){
     //Interfaz
     mainApp.getClientesData().add(clienteTemporal);
-
     mainApp.getHotelModelo().getClienteRepository().addPersona(ClienteUtil.parseToClienteVO(clienteTemporal));
     }
 
@@ -145,14 +144,24 @@ public class InterfazPrincipalController {
 
     @FXML
     public void reserva(ActionEvent event) throws ExcepcionCliente, IOException {
+// Obtenemos el cliente seleccionado de la tabla
         Cliente clienteSeleccionado = tablaPersonas.getSelectionModel().getSelectedItem();
 
-        System.out.println(clienteSeleccionado.toString());
-        boolean onClicked = mainApp.mostrarInterfazReservas(clienteSeleccionado);
-        if(onClicked){
-            mainApp.mostrarInterfazReservas(clienteSeleccionado);
-        }
+        // Verificamos que un cliente haya sido seleccionado
+        if (clienteSeleccionado != null) {
+            System.out.println("Cliente seleccionado: " + clienteSeleccionado.toString());
 
+            // Ahora, pasamos el cliente seleccionado a la interfaz de reservas
+            boolean onClicked = mainApp.mostrarInterfazReservas(clienteSeleccionado);
+
+            // Si el usuario hace clic en aceptar en la interfaz de reservas, mostramos la interfaz
+            if (onClicked) {
+                mainApp.mostrarInterfazReservas(clienteSeleccionado);
+            }
+        } else {
+            // Si no se ha seleccionado un cliente, mostramos un mensaje de error o advertencia
+            System.out.println("Por favor, seleccione un cliente de la lista.");
+        }
     }
 
 

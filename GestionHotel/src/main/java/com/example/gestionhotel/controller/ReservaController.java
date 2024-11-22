@@ -2,6 +2,7 @@ package com.example.gestionhotel.controller;
 
 import com.example.gestionhotel.MainApp;
 import com.example.gestionhotel.util.ReservaUtil;
+import com.example.gestionhotel.view.Cliente;
 import com.example.gestionhotel.view.RegimenAlojamiento;
 import com.example.gestionhotel.view.Reserva;
 import com.example.gestionhotel.view.TipoHabitacion;
@@ -39,6 +40,8 @@ public class ReservaController {
    private Reserva reserva;
 
     private MainApp mainApp;
+
+
 
     @FXML
     private void initialize() {
@@ -91,18 +94,17 @@ public class ReservaController {
 
     @FXML
     void Aceptar(ActionEvent event) {
-
+        // Primero, asegurarte de que la reserva está completa
         System.out.println("reserva antes " + reserva.toString());
 
+        // Rellenar los campos de la reserva
         reserva.setFechaSalida(fechaSalida.getValue());
         reserva.setFechaLlegada(fechaLlegada.getValue());
         reserva.setFumador(fumador.isSelected());
         reserva.setNumeroHabitaciones(numeroHabitaciones.getValue());
-        // Obtén el tipo de habitación seleccionado y conviértelo a TipoHabitacion
 
-
+        // Obtener el tipo de habitación seleccionado y asignarlo a la reserva
         String tipoSeleccionado = tipoHabitacion.getValue();
-        System.out.println("tipo hab seleccionado: " + tipoSeleccionado);
         if (tipoSeleccionado != null) {
             switch (tipoSeleccionado) {
                 case "Doble":
@@ -120,30 +122,19 @@ public class ReservaController {
             }
         }
 
-            RadioButton seleccionado = (RadioButton) grupo.getSelectedToggle();
-            if (seleccionado != null) {
-                String regimenSeleccionado = seleccionado.getText();
-                System.out.println("tipo seleccionado" + regimenSeleccionado);
-
-                switch (regimenSeleccionado) {
-                    case "Alojamiento y desayuno":
-                        reserva.setRegimenAlojamiento(RegimenAlojamiento.ALOJAMIENTO_DESAYUNO);
-                        break;
-                    case "Media pension":
-                        reserva.setRegimenAlojamiento(RegimenAlojamiento.MEDIAPENSION);
-                        break;
-                    case "Pension completa":
-                        reserva.setRegimenAlojamiento(RegimenAlojamiento.PENSIONCOMPLETA);
-                        break;
-                }
-
-            }
-
-            System.out.println("reserva al aceptar " + reserva.toString());
-            mainApp.getHotelModelo().getReservaRepository().añadirReserva(ReservaUtil.parseToReservaVO(reserva));
-
-
+        // Asocia la reserva al cliente
+        Cliente clienteSeleccionado = mainApp.getClienteSeleccionado(); // Obtén el cliente seleccionado
+        if (clienteSeleccionado != null) {
+            reserva.setDNI(clienteSeleccionado.getDniProperty().get()); // Asocia el DNI del cliente a la reserva
         }
+
+        // Guardar la nueva reserva en la base de datos
+        mainApp.getHotelModelo().getReservaRepository().añadirReserva(ReservaUtil.parseToReservaVO(reserva));
+
+        // Asegúrate de actualizar la interfaz con la nueva reserva
+        System.out.println("reserva al aceptar " + reserva.toString());
+    }
+
 
 
     public void setMainApp(MainApp mainApp) {
