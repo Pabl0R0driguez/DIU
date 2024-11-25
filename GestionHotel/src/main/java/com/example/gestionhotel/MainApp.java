@@ -19,7 +19,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -36,6 +35,7 @@ public class MainApp extends Application {
     InterfazPrincipalController interfazPrincipalController;
     Cliente cliente;
     Reserva reserva;
+    PersonEditDialogController personEditDialogController;
 
 
 
@@ -93,6 +93,8 @@ public class MainApp extends Application {
     public ObservableList<Reserva> getReservasData() {
         return reservaLista;
     }
+
+
 
 
     public HotelModelo getHotelModelo() {
@@ -187,6 +189,8 @@ public class MainApp extends Application {
             PersonEditDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setCliente(cliente);
+
+            controller.setBarraProgreso((double)Cliente.getContadorClientes() / (double)Cliente.getTotalClientes());
 
             // Mostrar la ventana del diálogo y esperar a que se cierre
             dialogStage.showAndWait();

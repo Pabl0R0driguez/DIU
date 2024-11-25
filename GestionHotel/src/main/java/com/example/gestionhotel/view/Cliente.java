@@ -12,6 +12,9 @@ public class Cliente {
     private final StringProperty localidadProperty;
     private final StringProperty provinicaProperty;
 
+    private static final int totalClientes = 50;
+    private static int contadorClientes = 0;
+
     public Cliente(){
         this(null,null);
     }
@@ -35,6 +38,18 @@ public class Cliente {
         this.direccionProperty = new SimpleStringProperty(direccion);
         this.localidadProperty = new SimpleStringProperty(localidad);
         this.provinicaProperty = new SimpleStringProperty(provincia);
+    }
+
+    public static int getContadorClientes() {
+        return contadorClientes;
+    }
+
+    public static int getTotalClientes() {
+        return totalClientes;
+    }
+
+    public int getContadorPersonas(){
+        return contadorClientes;
     }
 
     // Getters
