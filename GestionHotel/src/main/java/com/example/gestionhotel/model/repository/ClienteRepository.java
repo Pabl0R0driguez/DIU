@@ -17,6 +17,8 @@ public interface ClienteRepository  {
 
     void editPersona(ClienteVO var1) throws ExcepcionCliente;
 
+    int contarClientes() throws SQLException;
+
 
 }
 

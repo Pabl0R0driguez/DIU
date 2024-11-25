@@ -38,7 +38,6 @@ public class MainApp extends Application {
     PersonEditDialogController personEditDialogController;
 
 
-
     public MainApp() throws SQLException, ExcepcionCliente {
         //Instanciamos los dos IMpl para conectar con la base de datos
         ClienteRepositoryImpl clienteRepository = new ClienteRepositoryImpl();
@@ -90,11 +89,10 @@ public class MainApp extends Application {
     public ObservableList<Cliente> getClientesData() {
         return clienteLista;
     }
+
     public ObservableList<Reserva> getReservasData() {
         return reservaLista;
     }
-
-
 
 
     public HotelModelo getHotelModelo() {
@@ -111,15 +109,17 @@ public class MainApp extends Application {
     public InterfazPrincipalController getInterfazPrincipalController() {
         return interfazPrincipalController;
     }
-    // Metodo para obtener el cliente seleccionado
 
+    // Metodo para obtener el cliente seleccionado
     public Cliente getClienteSeleccionado() {
         return cliente;
     }
 
-    public Cliente setClienteSeleccionado(Cliente cliente) {
-        return cliente;
+    // Metodo para cambiar el cliente seleccionado
+    public void setClienteSeleccionado(Cliente cliente) {
+        this.cliente = cliente;
     }
+
 
 
 
@@ -191,6 +191,7 @@ public class MainApp extends Application {
             controller.setCliente(cliente);
 
             controller.setBarraProgreso((double)Cliente.getContadorClientes() / (double)Cliente.getTotalClientes());
+            controller.setBarraIndicador((double)Cliente.getContadorClientes() / (double)Cliente.getTotalClientes());
 
             // Mostrar la ventana del diálogo y esperar a que se cierre
             dialogStage.showAndWait();

@@ -48,6 +48,12 @@ public class Cliente {
         return totalClientes;
     }
 
+    public static void setContadorClientes(int contadorClientes) {
+        Cliente.contadorClientes = contadorClientes;
+    }
+
+
+
     public int getContadorPersonas(){
         return contadorClientes;
     }

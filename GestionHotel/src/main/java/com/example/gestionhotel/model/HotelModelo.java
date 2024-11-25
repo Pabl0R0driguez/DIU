@@ -40,6 +40,9 @@ public class HotelModelo {
         // Obtenemos la lista de clientes desde el repositorio
         clientesVO = clienteRepository.ObtenerListaPersonas();
 
+        //Guardar clientes de la base de datos
+        Cliente.setContadorClientes(clienteRepository.contarClientes());
+
         // Convertimos la lista de ClienteVO a Cliente usando el método de utilidad
         return ClienteUtil.parseToCliente(clientesVO);
     }

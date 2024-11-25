@@ -133,7 +133,7 @@ public class MainApp extends Application {
 			controller.setPerson(person);
 
 			//Editar barra progreso
-			controller.setProgreso((double)Person.getContadorPersonas() / (double)Person.getTotalPersonas());
+			controller.setPxrogreso((double)Person.getContadorPersonas() / (double)Person.getTotalPersonas());
 			controller.setProgresoIndicador((double)Person.getContadorPersonas() / (double)Person.getTotalPersonas());
 
 

@@ -4,6 +4,8 @@ import com.example.gestionhotel.model.ClienteVO;
 import com.example.gestionhotel.model.ExcepcionCliente;
 import com.example.gestionhotel.model.ReservaVO;
 import com.example.gestionhotel.model.repository.ClienteRepository;
+import com.example.gestionhotel.view.Cliente;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -55,56 +57,77 @@ public class ClienteRepositoryImpl implements ClienteRepository {
 
     @Override
     public void addPersona(ClienteVO var1) throws ExcepcionCliente {
-    try{
-    Connection conn = this.conexion.conectarBD();
-    this.stmt = conn.createStatement();
-    this.sentencia = "INSERT INTO Clientes (DNI, nombre, apellidos, direccion, localidad, provincia) VALUES ('" +
-                var1.getDNI() + "', '" +
-                var1.getNombre() + "', '" +
-                var1.getApellidos() + "', '" +
-                var1.getDireccion() + "', '" +
-                var1.getLocalidad() + "', '" +
-                var1.getProvincia() + "');";
+        try {
+            Connection conn = this.conexion.conectarBD();
+            this.stmt = conn.createStatement();
+            this.sentencia = "INSERT INTO Clientes (DNI, nombre, apellidos, direccion, localidad, provincia) VALUES ('" +
+                    var1.getDNI() + "', '" +
+                    var1.getNombre() + "', '" +
+                    var1.getApellidos() + "', '" +
+                    var1.getDireccion() + "', '" +
+                    var1.getLocalidad() + "', '" +
+                    var1.getProvincia() + "');";
 
-    this.stmt.executeUpdate(this.sentencia);
-    this.stmt.close();
-    this.conexion.desconectarBD(conn);
+            this.stmt.executeUpdate(this.sentencia);
+            this.stmt.close();
+            Cliente.setContadorClientes(Cliente.getContadorClientes() + 1);
+            this.conexion.desconectarBD(conn);
 
-    }catch (Exception e){
-    throw new ExcepcionCliente("No se pudo agregar la persona");}
+
+        } catch (Exception e) {
+            throw new ExcepcionCliente("No se pudo agregar la persona");
+        }
     }
 
 
     @Override
     public void deletePersona(String var1) throws ExcepcionCliente {
         try {
-        Connection conn = this.conexion.conectarBD();
-        this.stmt = conn.createStatement();
-        Statement comando = conn.createStatement();
+            Connection conn = this.conexion.conectarBD();
+            this.stmt = conn.createStatement();
+            Statement comando = conn.createStatement();
 //        System.out.println(var1);
-        String sql = String.format("DELETE FROM Clientes WHERE DNI = '%s'", var1);
-        comando.executeUpdate(sql);
+            String sql = String.format("DELETE FROM Clientes WHERE DNI = '%s'", var1);
+            comando.executeUpdate(sql);
 
-        this.conexion.desconectarBD(conn);
+            Cliente.setContadorClientes(Cliente.getContadorClientes() - 1);
+            this.conexion.desconectarBD(conn);
 
-    }catch (Exception e){
-        throw new ExcepcionCliente("No se pudo borrar la persona");}
+        } catch (Exception e) {
+            throw new ExcepcionCliente("No se pudo borrar la persona");
+        }
     }
 
 
     @Override
     public void editPersona(ClienteVO var1) throws ExcepcionCliente {
-    try{
+        try {
+            Connection conn = this.conexion.conectarBD();
+            this.stmt = conn.createStatement();
+            String sql = String.format("UPDATE Clientes SET nombre = '%s', apellidos = '%s', direccion = '%s', localidad = '%s', provincia = '%s' WHERE DNI = '%s'",
+                    var1.getNombre(), var1.getApellidos(), var1.getDireccion(), var1.getLocalidad(), var1.getProvincia(), var1.getDNI());
+            this.stmt.executeUpdate(sql);
+        } catch (Exception var4) {
+            throw new ExcepcionCliente("No se ha podido realizar la edición");
+        }
+    }
+
+
+    public int contarClientes() throws SQLException {
+
         Connection conn = this.conexion.conectarBD();
         this.stmt = conn.createStatement();
-        String sql = String.format("UPDATE Clientes SET nombre = '%s', apellidos = '%s', direccion = '%s', localidad = '%s', provincia = '%s' WHERE DNI = '%s'",
-                var1.getNombre(), var1.getApellidos(), var1.getDireccion(), var1.getLocalidad(), var1.getProvincia(), var1.getDNI());
-        this.stmt.executeUpdate(sql);
-    } catch (Exception var4) {
-        throw new ExcepcionCliente("No se ha podido realizar la edición");
+        int contadorpersonas = 0;
+        Statement comando = conn.createStatement();
+        String sql = String.format("SELECT count(*) AS contador FROM Clientes;");
+        ResultSet registro = comando.executeQuery(sql);
+
+        while(registro.next()) {
+            contadorpersonas = registro.getInt("contador");
         }
-}
+        this.conexion.desconectarBD(conn);
+        return contadorpersonas;
+    }
 
 }
-
 

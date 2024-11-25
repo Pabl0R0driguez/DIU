@@ -8,8 +8,6 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import javafx.event.ActionEvent;
-
 public class PersonEditDialogController {
 
     @FXML
@@ -43,12 +41,12 @@ public class PersonEditDialogController {
     private boolean okClicked = false;
 
 
-    public void setBarraIndicador(Stage dialogStage) {
-     this.dialogStage = dialogStage;
+    public void setBarraIndicador(double progreso) {
+    barraProgreso.setProgress(progreso);
     }
 
     public void setBarraProgreso(double barraProgreso) {
-        this.barraIndicador.setProgress(barraProgreso);    }
+      barraIndicador.setProgress(barraProgreso);    }
 
     @FXML
     private void initialize() {

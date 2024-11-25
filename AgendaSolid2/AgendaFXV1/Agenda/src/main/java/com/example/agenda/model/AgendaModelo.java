@@ -34,10 +34,6 @@ public class AgendaModelo {
     }
 
 
-    public void editarPersona(Person p) throws ExcepcionPersona{
-        personaRepository.editPersona(PersonUtil.parseToPersonVO(p));
-    }
-
 }
 
 

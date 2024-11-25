@@ -67,7 +67,7 @@ public class PersonEditDialogController {
     }
 
     //Barra
-    public void setProgreso (double progreso){
+    public void setPxrogreso (double progreso){
         barraProgreso.setProgress(progreso);
     }
 

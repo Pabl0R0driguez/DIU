@@ -41,6 +41,8 @@ public class ReservaController {
 
     private MainApp mainApp;
 
+    private Stage stage;
+
 
 
     @FXML
@@ -61,6 +63,7 @@ public class ReservaController {
 
 
     public void setDialogStage(Stage dialogStage) {
+        this.stage = dialogStage;
     }
 
 
@@ -133,6 +136,9 @@ public class ReservaController {
 
         // Asegúrate de actualizar la interfaz con la nueva reserva
         System.out.println("reserva al aceptar " + reserva.toString());
+
+        stage.close();
+
     }
 
 

@@ -8,6 +8,7 @@ import com.example.gestionhotel.view.Reserva;
 import eu.hansolo.toolbox.observables.ObservableList;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -52,7 +53,6 @@ public class InterfazReservasController {
     Reserva reserva;
 
 
-
     @FXML
     private void initialize() {
         fechaLlegada.setCellValueFactory(cellData -> cellData.getValue().fechaLlegadaProperty());
@@ -77,7 +77,6 @@ public class InterfazReservasController {
             regimenLabel.setText(String.valueOf(reserva.getRegimenAlojamiento2()));
 
 
-
         } else {
             // Si el objeto Cliente es nulo, borra todo el texto.
             salidaLabel.setText("");
@@ -87,8 +86,9 @@ public class InterfazReservasController {
             fuamadorLabel.setText("");
             regimenLabel.setText("");
 
-            }
+        }
     }
+
 
     @FXML
     void btAñadir(ActionEvent event) throws IOException {
@@ -105,8 +105,8 @@ public class InterfazReservasController {
             // Mostrar las reservas y agregar la nueva reserva
             boolean onClicked = mainApp.mostrarReservas(clienteSeleccionado);
             if (onClicked) {
+                //Añadimos a la lista de reserva
                 mainApp.getReservasData().add(reservaTemporal);
-                mainApp.getHotelModelo().getReservaRepository().añadirReserva(ReservaUtil.parseToReservaVO(reservaTemporal));
             }
         } else {
             // Si no hay cliente seleccionado, mostrar un mensaje o advertencia
@@ -115,18 +115,56 @@ public class InterfazReservasController {
     }
 
 
-
     @FXML
-        void btModificar (ActionEvent event){
-
-
+    void btModificar(ActionEvent event) throws IOException {
+        Cliente clienteSeleccionado = mainApp.getClienteSeleccionado(); // Este debe ser el cliente previamente seleccionado
+        Reserva reservaSeleccionada = tablaReservas.getSelectionModel().getSelectedItem();
+        if (reservaSeleccionada != null) {
+            boolean onClick = mainApp.mostrarReservas(clienteSeleccionado);//??????????
+            if (onClick) {
+                //Actualizamos el cliente en nuestra lista observable
+                showReservasDetails(reservaSeleccionada);
+                //Actualizamos registro en la base de datos
+                mainApp.getHotelModelo().getReservaRepository().modificarReserva(ReservaUtil.parseToReservaVO(reservaSeleccionada));
+            }
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No seleccionado");
+            alert.setHeaderText("No hay persona seleccionada");
+            alert.setContentText("Porfavor selecciona una persona en la tabla");
+            alert.showAndWait();
 
         }
+    }
 
         @FXML
         void btBorrar (ActionEvent event){
+            int selectedIndex = tablaReservas.getSelectionModel().getSelectedIndex();
 
+            // Obtener el id de la persona a borrar
+            int idreserva = tablaReservas.getSelectionModel().getSelectedItem().getIdReserva2();
+
+            System.out.println("indice: " + selectedIndex);
+            System.out.println("código de la persona: " + idreserva);
+
+
+            if (selectedIndex >= 0) {
+                // Eliminar de la lista observable
+                tablaReservas.getItems().remove(selectedIndex);
+
+                // eliminar de la base de datos
+                mainApp.getHotelModelo().getReservaRepository().eliminarReserva(idreserva);
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("No Seleccionado");
+                alert.setHeaderText("No hay persona seleccionada");
+                alert.setContentText("Porfavor selecciona una persona en la tabla");
+                alert.showAndWait();
+            }
         }
+
+
 
 
 
@@ -143,7 +181,7 @@ public class InterfazReservasController {
     public void setReserva(Reserva reserva) {
         this.reserva = reserva;
 
+    }
+    }
 
-    }
-    }
 

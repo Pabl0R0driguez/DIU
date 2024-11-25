@@ -117,7 +117,7 @@
         }
 
         @Override
-        public int contarPersonas() throws ExcepcionPersona, SQLException {
+        public int contarPersonas() throws SQLException {
             Connection conn = this.conexion.conectarBD();
             this.stmt = conn.createStatement();
             int contadorpersonas = 0;

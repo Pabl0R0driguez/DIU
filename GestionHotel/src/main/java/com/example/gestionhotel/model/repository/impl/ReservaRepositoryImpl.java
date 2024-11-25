@@ -71,6 +71,37 @@ public class ReservaRepositoryImpl implements ReservaRepository {
     }
 
     @Override
+    public void modificarReserva(ReservaVO var1) throws ExcepcionReserva {
+        try {
+            Connection conn = this.conexion.conectarBD();
+            this.stmt = conn.createStatement();
+            String sql = String.format("UPDATE Reservas SET fechaLLegada = '%s', fechaSalida = '%s'  , numeroHabitaciones = '%s', tipoHabitacion = '%s', fumador = '%s', regimenAlojamiento = '%s' , , DNI_cliente = '%s'WHERE id_reserva = %d", var1.getFechaLlegada(), var1.getFechaSalida() ,var1.getNumeroHabitaciones() ,var1.getTipoHabitacion() ,var1.isFumador() ,var1.getRegimenAlojamiento(), var1.getDNI());
+
+            this.stmt.executeUpdate(sql);
+        } catch (Exception var4) {
+            throw new ExcepcionReserva("No se ha podido realizar la edición");
+        }
+    }
+
+    @Override
+    public void eliminarReserva(int var1) throws ExcepcionReserva {
+    try{
+        Connection conn = this.conexion.conectarBD();
+        this.stmt = conn.createStatement();
+        Statement comando = conn.createStatement();
+        String sql = String.format("DELETE FROM Reserva WHERE id_reserva = %d", var1);
+        comando.executeUpdate(sql);
+        //
+
+        this.conexion.desconectarBD(conn);
+    } catch (SQLException var5) {
+        throw new ExcepcionReserva("No se ha podido relaizr la eliminación");
+    }
+        }
+
+
+
+    @Override
     public ArrayList<ReservaVO> listarReservas(String DNI) throws ExcepcionReserva {
         try {
             Connection conn = this.conexion.conectarBD();

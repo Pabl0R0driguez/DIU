@@ -9,6 +9,9 @@ import java.util.ArrayList;
 public interface ReservaRepository {
 
     void añadirReserva(ReservaVO var1) throws ExcepcionReserva;
+    void modificarReserva(ReservaVO var1) throws ExcepcionReserva;
+    void eliminarReserva(int var1) throws ExcepcionReserva;
     ArrayList<ReservaVO> listarReservas(String var1) throws ExcepcionReserva;
+
 
 }
