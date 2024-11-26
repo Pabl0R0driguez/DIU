@@ -43,6 +43,7 @@ public class ReservaController {
 
     private Stage stage;
 
+    private boolean onClick = false;
 
 
     @FXML
@@ -88,6 +89,10 @@ public class ReservaController {
     @FXML
    public void Limpiar(ActionEvent event) {
 
+        fechaLlegada.setValue(null);
+        fechaSalida.setValue(null);
+        fumador.setSelected(false);
+        tipoHabitacion.getSelectionModel().clearSelection();
     }
 
     @FXML
@@ -97,6 +102,8 @@ public class ReservaController {
 
     @FXML
     void Aceptar(ActionEvent event) {
+
+
         // Primero, asegurarte de que la reserva está completa
         System.out.println("reserva antes " + reserva.toString());
 
@@ -123,6 +130,7 @@ public class ReservaController {
                     reserva.setTipoHabitacion(TipoHabitacion.DOBLEUSOINDIVIDUAL);
                     break;
             }
+
         }
 
         // Asocia la reserva al cliente
@@ -130,13 +138,7 @@ public class ReservaController {
         if (clienteSeleccionado != null) {
             reserva.setDNI(clienteSeleccionado.getDniProperty().get()); // Asocia el DNI del cliente a la reserva
         }
-
-        // Guardar la nueva reserva en la base de datos
-        mainApp.getHotelModelo().getReservaRepository().añadirReserva(ReservaUtil.parseToReservaVO(reserva));
-
-        // Asegúrate de actualizar la interfaz con la nueva reserva
-        System.out.println("reserva al aceptar " + reserva.toString());
-
+        onClick = true;
         stage.close();
 
     }

@@ -92,6 +92,7 @@ public class InterfazReservasController {
 
     @FXML
     void btAñadir(ActionEvent event) throws IOException {
+
         // Obtener el cliente previamente seleccionado
         Cliente clienteSeleccionado = mainApp.getClienteSeleccionado(); // Este debe ser el cliente previamente seleccionado
         if (clienteSeleccionado != null) {

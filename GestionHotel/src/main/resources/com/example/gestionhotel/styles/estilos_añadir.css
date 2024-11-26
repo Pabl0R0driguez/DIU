@@ -1,0 +1,84 @@
+/* Fondo del AnchorPane */
+AnchorPane {
+    -fx-background-color: #005288; /* Fondo azul */
+}
+
+/* Botones con fondo azul oscuro y letras blancas */
+.button {
+    -fx-background-color: #003366; /* Azul oscuro */
+    -fx-text-fill: white;
+    -fx-font-size: 10pt;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-padding: 10 20 10 20;
+    -fx-border-radius: 5;
+}
+
+.label {
+    -fx-font-size: 2pt;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-padding: 10 20 10 20;
+    -fx-border-radius: 5;
+}
+
+/* Etiquetas con letras blancas */
+.label {
+    -fx-text-fill: white; /* Letras blancas */
+    -fx-font-size: 14px;
+}
+
+/* Estilo para el DatePicker: Fondo azul y texto blanco en el campo de texto */
+.date-picker {
+    -fx-background-color: #003366; /* Fondo azul */
+    -fx-font-size: 14px;
+}
+
+.date-picker .text-field {
+    -fx-background-color: #003366; /* Fondo azul */
+    -fx-text-fill: white; /* Texto blanco */
+}
+
+/* Estilo para el calendario desplegable (popup) */
+.date-picker .popup {
+    -fx-background-color: #003366; /* Fondo azul para el calendario desplegable */
+}
+
+.date-picker .calendar-popup {
+    -fx-background-color: #003366; /* Fondo azul oscuro para el calendario */
+}
+
+/* Estilo para las celdas del calendario */
+.date-picker .day-cell {
+    -fx-background-color: #003366; /* Fondo azul de las celdas */
+    -fx-text-fill: white; /* Texto blanco para los días */
+}
+
+/* Estilo cuando el ratón pasa sobre una celda del calendario */
+.date-picker .day-cell:hover {
+    -fx-background-color: #005288; /* Azul más claro cuando se pasa el ratón */
+}
+
+/* Estilo para una celda seleccionada del calendario */
+.date-picker .day-cell.selected {
+    -fx-background-color: #005288; /* Fondo azul más claro para el día seleccionado */
+    -fx-text-fill: white; /* Texto blanco */
+}
+
+/* Cambiar el color de las etiquetas dentro del DatePicker */
+.date-picker .label {
+    -fx-text-fill: black; /* Deja las etiquetas dentro del DatePicker con texto negro */
+}
+
+
+
+
+/* Spinner con estilo */
+.spinner .text-field {
+    -fx-text-fill: white;
+    -fx-background-color: #003366;
+}
+
+/* ComboBox con estilo */
+.combo-box {
+    -fx-background-color: #003366;
+    -fx-text-fill: white;
+}
