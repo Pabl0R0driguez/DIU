@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionhotel.controller.ReservaController">
+    <children>
+        <DatePicker fx:id="fechaLlegada" layoutX="51.0" layoutY="82.0" />
+        <DatePicker fx:id="fechaSalida" layoutX="323.0" layoutY="82.0" />
+        <Label layoutX="214.0" layoutY="21.0" text="Datos de la reserva" underline="true">
+            <font>
+                <Font size="19.0" />
+            </font>
+        </Label>
+        <Label layoutX="51.0" layoutY="133.0" prefHeight="19.0" prefWidth="152.0" text="Numero habitaciones" />
+        <Label layoutX="268.0" layoutY="134.0" text="Tipo habitacion" />
+        <CheckBox fx:id="fumador" layoutX="481.0" layoutY="133.0" mnemonicParsing="false" text="Fumador" />
+        <Label layoutX="78.0" layoutY="200.0" text="Regimen" underline="true">
+            <font>
+                <Font size="17.0" />
+            </font>
+        </Label>
+        <RadioButton fx:id="aloj_des" layoutX="37.0" layoutY="245.0" mnemonicParsing="false" text="Alojamiento y desayuno">
+         <toggleGroup>
+            <ToggleGroup fx:id="grupoRegimen" />
+         </toggleGroup></RadioButton>
+        <RadioButton fx:id="media" layoutX="37.0" layoutY="273.0" mnemonicParsing="false" selected="true" text="Media pension" toggleGroup="$grupoRegimen" />
+        <RadioButton fx:id="completa" layoutX="38.0" layoutY="303.0" mnemonicParsing="false" text="Pension completa" toggleGroup="$grupoRegimen" />
+        <Label layoutX="315.0" layoutY="237.0" prefHeight="73.0" prefWidth="222.0" text="En virtud de la ley de sanidad se informa a los clientes de que solo podran fumar en las habitaciones reservadas para tal fin" />
+        <Button layoutX="75.0" layoutY="338.0" mnemonicParsing="false" onAction="#Limpiar" text="Limpiar" />
+        <Button layoutX="465.0" layoutY="334.0" mnemonicParsing="false" onAction="#Cancelar" text="Cancelar" />
+        <Button layoutX="352.0" layoutY="334.0" mnemonicParsing="false" onAction="#Aceptar" text="Aceptar" />
+
+        <!-- Spinner -->
+        <Spinner fx:id="numeroHabitaciones" layoutX="196.0" layoutY="130.0" prefHeight="26.0" prefWidth="65.0">
+            <valueFactory>
+                <SpinnerValueFactory.IntegerSpinnerValueFactory initialValue="1" max="10" min="1" />
+            </valueFactory>
+        </Spinner>
+        <ComboBox fx:id="tipoHabitacion" layoutX="371.0" layoutY="129.0" prefHeight="29.0" prefWidth="94.0">
+        <items>
+            <FXCollections fx:factory="observableArrayList" />
+        </items>
+        </ComboBox>
+    </children>
+</AnchorPane>
