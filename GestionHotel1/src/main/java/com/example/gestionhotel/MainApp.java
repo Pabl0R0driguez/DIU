@@ -148,7 +148,7 @@ public class MainApp extends Application {
             AnchorPane personOverview = (AnchorPane) loader.load();
 
             // Establecer la vista de personas en el centro del diseño raíz
-            rootLayout.setCenter(personOverview);
+            rootLayout.setCenter(personOverview); //f
 
             // Proporcionar acceso al controlador a la instancia de MainApp
             InterfazPrincipalController controller = loader.getController();
