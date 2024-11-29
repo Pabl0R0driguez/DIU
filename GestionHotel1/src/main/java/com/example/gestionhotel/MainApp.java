@@ -189,6 +189,7 @@ public class MainApp extends Application {
             PersonEditDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setCliente(cliente);
+            controller.setMainApp(this);
 
             controller.setBarraProgreso((double)Cliente.getContadorClientes() / (double)Cliente.getTotalClientes());
 

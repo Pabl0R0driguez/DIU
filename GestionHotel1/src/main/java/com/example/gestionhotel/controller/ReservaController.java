@@ -84,8 +84,8 @@ public class ReservaController {
         // Se carga en la interfaz gráfica los valores del objeto
 
 //        System.out.println("setReserva " + reserva);
-        fechaLlegada.setValue(fechaSalida.getValue());
-        fechaSalida.setValue(fechaLlegada.getValue());
+        fechaLlegada.setValue(fechaLlegada.getValue());
+        fechaSalida.setValue(fechaSalida.getValue());
         fumador.setSelected(false);
         numeroHabitaciones.getValueFactory().setValue(1);
         tipoHabitacion.setItems(tipoHabitacion.getItems());
