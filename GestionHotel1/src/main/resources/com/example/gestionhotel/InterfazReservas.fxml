@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="407.0" prefWidth="778.0" stylesheets="@styles/estilos_datos.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionhotel.controller.InterfazReservasController">
+<AnchorPane prefHeight="407.0" prefWidth="778.0" stylesheets="@styles/estilos_datos.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionhotel.controller.InterfazReservasController">
     <children>
 
         <!-- Label encima del SplitPane -->
@@ -23,8 +20,8 @@
                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                             </columnResizePolicy>
                             <columns>
-                                <TableColumn fx:id="fechaLlegada" text="Fecha Llegada" />
-                        <TableColumn fx:id="fechaSalida" prefWidth="75.0" text="Fecha Salida" />
+                                <TableColumn fx:id="codigo" text="Codigo" />
+                        <TableColumn fx:id="fechaLlegada" prefWidth="75.0" text="Fecha Llegada" />
                             </columns>
                         </TableView>
                     </children>

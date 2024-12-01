@@ -5,7 +5,6 @@ import com.example.gestionhotel.model.ExcepcionCliente;
 import com.example.gestionhotel.model.HotelModelo;
 import com.example.gestionhotel.util.ClienteUtil;
 import com.example.gestionhotel.view.Cliente;
-import com.example.gestionhotel.view.Reserva;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent; // <-- Asegúrate de usar javafx.event.ActionEvent
 import javafx.scene.control.Alert;
@@ -47,7 +46,7 @@ public class InterfazPrincipalController {
 
 
     private MainApp mainApp;
-    private HotelModelo hotelModelo;
+    private ActionEvent event;
 
     @FXML
     private void initialize() {
@@ -99,8 +98,8 @@ public class InterfazPrincipalController {
     void btModificar(ActionEvent event) throws ExcepcionCliente {
         Cliente clienteSeleccionado = tablaPersonas.getSelectionModel().getSelectedItem();
         if (clienteSeleccionado != null) {
-            boolean onClick = mainApp.mostrarInteraccionPersona(clienteSeleccionado);
-            if (onClick) {
+            boolean onClicked = mainApp.mostrarInteraccionPersona(clienteSeleccionado);
+            if (onClicked) {
                 //Actualizamos el cliente en nuestra lista observable
                 showClienteDetails(clienteSeleccionado);
                 //Actualizamos registro en la base de datos
@@ -165,12 +164,18 @@ public class InterfazPrincipalController {
 
 
 
-    public void seleccionarClientePorDni(String dni) {
+    public void seleccionarReservaPorDNI(String dni) throws ExcepcionCliente, IOException {
         boolean bandera = false;
+        System.out.println("DNI introducido: " + dni);
         for (Cliente cliente : tablaPersonas.getItems()) {
+            System.out.println("DNI, cliente lista: " + cliente.getDni());
             if (cliente.getDni().equals(dni)) {
+                // Seleccionamos al cliente de la tabla
                 tablaPersonas.getSelectionModel().select(cliente);
                 showClienteDetails(cliente);
+
+                //Abre las reservas de un Cliente en base a su DNI
+                reserva(event);
                 bandera = true;
                 break;
             }

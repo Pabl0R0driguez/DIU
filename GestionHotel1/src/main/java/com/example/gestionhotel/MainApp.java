@@ -14,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -21,6 +22,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class MainApp extends Application {
 
@@ -66,7 +68,6 @@ public class MainApp extends Application {
             throw new RuntimeException(e);
         }
 
-
     }
 
 
@@ -96,15 +97,22 @@ public class MainApp extends Application {
 
 
 
+
+
     public HotelModelo getHotelModelo() {
         return hotelModelo;
     }
 
 
-    private String dniSeleccionado;
+    private String dniSeleccionado = "";
 
+    //Guardamos el nuevo DNI
     public void setDniSeleccionado(String dniSeleccionado) {
         this.dniSeleccionado = dniSeleccionado;
+    }
+    //Recogemos el nuevo DNI
+    public String getDniSeleccionado() {
+        return dniSeleccionado;
     }
 
     public InterfazPrincipalController getInterfazPrincipalController() {
@@ -154,6 +162,9 @@ public class MainApp extends Application {
             InterfazPrincipalController controller = loader.getController();
             controller.setMainApp(this);
 
+            // Guardamos la referencia del controlador(error de null)
+            this.interfazPrincipalController = controller;
+
             // Cambiar el tamaño de la ventana principal
             primaryStage.setWidth(850);  // Establece el ancho de la ventana principal
             primaryStage.setHeight(480); // Establece el alto de la ventana principal
@@ -164,6 +175,31 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public boolean mostrarBuscarDNI() {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Escribe un DNI");
+        dialog.setHeaderText("Ingrese el DNI del cliente");
+        dialog.setContentText("DNI:");
+
+        // Espera a que el usuario le de al botón de aceptar
+        Optional<String> result = dialog.showAndWait();
+
+        result.ifPresent(DNI -> {
+            setDniSeleccionado(DNI);
+            System.out.println("DNI FFFF: " + DNI);
+//            InterfazPrincipalController interfazPrincipalController = getInterfazPrincipalController();
+//            interfazPrincipalController.seleccionarReservaPorDNI(DNI);
+        });
+
+        // Si el DNI introducido no es cadena vacia, devuelve true, en DRC podemos seguir
+        if (!dniSeleccionado.equals(""))
+            return true;
+        else
+            return false;
+
     }
 
 
@@ -229,8 +265,8 @@ public class MainApp extends Application {
             controller.setDialogStage(dialogStage);
 
 
-            // Creamos el objeto reserva para guardar los datos de la interfaz
-//            Reserva reserva = new Reserva(cliente.getDni());  cambio: ya está creado el objeto reservado y se ha recibido como argumento
+            System.out.println("Mostrar reserva: " +  reserva);
+
             controller.setReserva(reserva);
             System.out.println(reserva);
 

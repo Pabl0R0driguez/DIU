@@ -22,12 +22,18 @@
                 <Font size="17.0" />
             </font>
         </Label>
-        <RadioButton fx:id="aloj_des" layoutX="37.0" layoutY="245.0" mnemonicParsing="false" text="Alojamiento y desayuno">
-         <toggleGroup>
-            <ToggleGroup fx:id="grupoRegimen" />
-         </toggleGroup></RadioButton>
-        <RadioButton fx:id="media" layoutX="37.0" layoutY="273.0" mnemonicParsing="false" selected="true" text="Media pension" toggleGroup="$grupoRegimen" />
-        <RadioButton fx:id="completa" layoutX="38.0" layoutY="303.0" mnemonicParsing="false" text="Pension completa" toggleGroup="$grupoRegimen" />
+
+        <RadioButton fx:id="aloj_des" layoutX="37.0" layoutY="245.0"
+                     mnemonicParsing="false" text="Alojamiento y desayuno"
+                     toggleGroup="$grupoRegimen" userData="Alojamiento y desayuno" />
+        <RadioButton fx:id="media" layoutX="37.0" layoutY="273.0"
+                     mnemonicParsing="false" selected="true"
+                     text="Media pension" toggleGroup="$grupoRegimen" userData="Media pension" />
+        <RadioButton fx:id="completa" layoutX="38.0" layoutY="303.0"
+                     mnemonicParsing="false" text="Pension completa"
+                     toggleGroup="$grupoRegimen" userData="Pension completa" />
+
+
         <Label layoutX="315.0" layoutY="237.0" prefHeight="73.0" prefWidth="222.0" text="En virtud de la ley de sanidad se informa a los clientes de que solo podran fumar en las habitaciones reservadas para tal fin" />
         <Button layoutX="74.0" layoutY="339.0" mnemonicParsing="false" onAction="#Limpiar" text="Limpiar" />
         <Button layoutX="465.0" layoutY="334.0" mnemonicParsing="false" onAction="#Cancelar" text="Cancelar" />

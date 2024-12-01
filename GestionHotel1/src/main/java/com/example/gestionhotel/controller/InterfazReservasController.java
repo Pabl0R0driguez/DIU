@@ -6,6 +6,8 @@ import com.example.gestionhotel.util.ReservaUtil;
 import com.example.gestionhotel.view.Cliente;
 import com.example.gestionhotel.view.Reserva;
 import eu.hansolo.toolbox.observables.ObservableList;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -31,7 +33,7 @@ public class InterfazReservasController {
     private TableColumn<Reserva, LocalDate> fechaLlegada;
 
     @FXML
-    private TableColumn<Reserva, LocalDate> fechaSalida;
+    private TableColumn<Reserva, Integer> codigo;
 
     @FXML
     private TableView<Reserva> tablaReservas;
@@ -48,15 +50,18 @@ public class InterfazReservasController {
     @FXML
     private Label fuamadorLabel;
 
+
+
     MainApp mainApp;
     Cliente cliente;
     Reserva reserva;
+    private Stage dialogstage;
 
 
     @FXML
     private void initialize() {
         fechaLlegada.setCellValueFactory(cellData -> cellData.getValue().fechaLlegadaProperty());
-        fechaSalida.setCellValueFactory(cellData -> cellData.getValue().fechaSalidaProperty());
+        codigo.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().idReservaProperty().get()));
 
         showReservasDetails(null);
 
@@ -97,7 +102,7 @@ public class InterfazReservasController {
             // Si el cliente está seleccionado, entonces puedes asociarlo con la reserva
             System.out.println("Cliente seleccionado: " + clienteSeleccionado);
 
-            // Crea una nueva reserva y añade el cliente a la reserva
+            // Crea una nueva reserva VACIA y añade el cliente a la reserva
             Reserva reservaTemporal = new Reserva();
             reservaTemporal.setDNI(clienteSeleccionado.getDniProperty().get()); // Asocia el DNI del cliente a la reserva
 
@@ -121,13 +126,16 @@ public class InterfazReservasController {
 
         Reserva reservaSeleccionada = tablaReservas.getSelectionModel().getSelectedItem();
 
-        if (reservaSeleccionada != null) {
+        //Si la reserva no es nula y la fecha de salida es despues o igual que ahora se puede modificar
+        if (reservaSeleccionada != null &&
+                (reservaSeleccionada.getFechaSalida2().isAfter(LocalDate.now()) || reservaSeleccionada.getFechaSalida2().isEqual(LocalDate.now()))) {
             // Si una reserva ha sido seleccionada, procedemos con la modificación
             boolean onClick = mainApp.mostrarReservas(reservaSeleccionada);  // Llamada para mostrar la interfaz de reservas
             if (onClick) {
                 // Mostrar los detalles de la reserva seleccionada en la interfaz
-                showReservasDetails(reservaSeleccionada);
 
+                showReservasDetails(reservaSeleccionada);
+                System.out.println("Interfaz reserva controller:" + reservaSeleccionada);
                 // Modificar el registro de la reserva en la base de datos
                 mainApp.getHotelModelo().getReservaRepository().modificarReserva(ReservaUtil.parseToReservaVO(reservaSeleccionada));
             }
@@ -170,6 +178,7 @@ public class InterfazReservasController {
 
     }
     public void setDialogStage(Stage dialogStage) {
+        this.dialogstage = dialogStage;
     }
 
 

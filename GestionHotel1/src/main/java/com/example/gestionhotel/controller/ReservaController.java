@@ -24,8 +24,9 @@ public class ReservaController {
     @FXML
     private ComboBox<String> tipoHabitacion;
 
+
     @FXML
-    private ToggleGroup grupo;
+    private ToggleGroup grupoRegimen;
 
     @FXML
     private RadioButton aloj_des;
@@ -49,6 +50,8 @@ public class ReservaController {
 
 
 
+
+
     @FXML
     private void initialize() {
         // Asegúrate de que el ComboBox contenga los valores de enum
@@ -56,10 +59,12 @@ public class ReservaController {
                 "Doble" , "Suite" , "Junior Suite" , "Doble uso Individual"
         );
 
-        grupo = new ToggleGroup();
-        aloj_des.setToggleGroup(grupo);
-        media.setToggleGroup(grupo);
-        completa.setToggleGroup(grupo);
+
+
+        grupoRegimen = new ToggleGroup();
+        aloj_des.setToggleGroup(grupoRegimen);
+        media.setToggleGroup(grupoRegimen);
+        completa.setToggleGroup(grupoRegimen);
 
 
     }
@@ -89,6 +94,8 @@ public class ReservaController {
         fumador.setSelected(false);
         numeroHabitaciones.getValueFactory().setValue(1);
         tipoHabitacion.setItems(tipoHabitacion.getItems());
+        fumador.setSelected(true);
+        grupoRegimen.selectToggle(grupoRegimen.getSelectedToggle());
 
     }
 
@@ -132,18 +139,33 @@ public class ReservaController {
             }
         }
 
-        // Asocia la reserva al cliente
-        Cliente clienteSeleccionado = mainApp.getClienteSeleccionado(); // Obtén el cliente seleccionado
-        if (clienteSeleccionado != null) {
-            reserva.setDNI(clienteSeleccionado.getDniProperty().get()); // Asocia el DNI del cliente a la reserva
+
+        reserva.setFumador(fumador.isSelected());
+        // Verificar que hay un ToggleButton seleccionado
+        if (grupoRegimen.getSelectedToggle() != null) {
+            // Obtener el valor de userData
+            String regimenSeleccionado = grupoRegimen.getSelectedToggle().getUserData().toString();
+
+            // Asegurarse de que el régimen seleccionado no sea null
+            if (regimenSeleccionado != null) {
+                switch (regimenSeleccionado) {
+                    case "Alojamiento y desayuno":
+                        reserva.setRegimenAlojamiento(RegimenAlojamiento.ALOJAMIENTO_DESAYUNO);
+                        break;
+                    case "Media pension":
+                        reserva.setRegimenAlojamiento(RegimenAlojamiento.MEDIAPENSION);
+                        break;
+                    case "Pension completa":
+                        reserva.setRegimenAlojamiento(RegimenAlojamiento.PENSIONCOMPLETA);
+                        break;
+                    default:
+                        System.out.println("Régimen no reconocido");
+                }
+            }
+        } else {
+            // Si no hay ningún ToggleButton seleccionado
+            System.out.println("No se ha seleccionado ningún régimen.");
         }
-
-        // Guardar la nueva reserva en la base de datos   CAMBIO, se guarda en InterfazReservaController en btAñadir
-//        mainApp.getHotelModelo().getReservaRepository().añadirReserva(ReservaUtil.parseToReservaVO(reserva));
-
-        // Asegúrate de actualizar la interfaz con la nueva reserva
-        System.out.println("reserva al aceptar " + reserva.toString());
-
         // Confirmamos el estado de haber añadido la reserva
         OKClicked=true;
         dialogStage.close();
