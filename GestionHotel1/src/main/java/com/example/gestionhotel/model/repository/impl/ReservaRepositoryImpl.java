@@ -7,18 +7,16 @@ import com.example.gestionhotel.view.RegimenAlojamiento;
 import com.example.gestionhotel.view.Reserva;
 import com.example.gestionhotel.view.TipoHabitacion;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import static com.example.gestionhotel.view.TipoHabitacion.DOBLE;
+import static com.example.gestionhotel.view.TipoHabitacion.*;
 
 public class ReservaRepositoryImpl implements ReservaRepository {
     private final ConexionBD conexion = new ConexionBD();
     private Statement stmt;
+    private PreparedStatement pstmt;
     private String sentencia;
     private ReservaVO reservaVO;
     RegimenAlojamiento regimenAlojamiento;
@@ -45,6 +43,22 @@ public class ReservaRepositoryImpl implements ReservaRepository {
                     var1.getRegimenAlojamiento() + "', '" +
                     dni + "');";
 
+            System.out.println("Total:" + Reserva.getNumeroHabitacionesDobles());
+
+            switch (var1.getTipoHabitacion()){
+
+                case DOBLE:
+                    Reserva.setContadorHabitacionDobles(Reserva.getContadorHabitacionDobles() + 1);
+                    break;
+                case DOBLEUSOINDIVIDUAL:
+                    Reserva.setContadorHabitacionesDoblesIndividual(Reserva.getNumeroHabitacionesDoblesIndividual() + 1);
+                    break;
+                case JUNIORSUITE:
+                    Reserva.setContadorHabitacionesJuniorSuite(Reserva.getNumeroHabitacionesJuniorSuite() + 1);
+                    break;
+                case SUITE:
+                    Reserva.setNumeroHabitacionesJunior(Reserva.getNumeroHabitacionesJunior() + 1);
+            }
 
 
 //            this.sentencia = "INSERT INTO Reserva (fechaLlegada, fechaSalida, numeroHabitaciones, tipoHabitacion, fumador, regimenAlojamiento, DNI_cliente) " +
@@ -104,7 +118,7 @@ public class ReservaRepositoryImpl implements ReservaRepository {
 
 
     @Override
-    public ArrayList<ReservaVO> listarReservas(String DNI) throws ExcepcionReserva {
+    public ArrayList<ReservaVO> listarReservasPorCliente(String DNI) throws ExcepcionReserva {
         try {
             Connection conn = this.conexion.conectarBD();
             System.out.println("Conexión exitosa con la base de datos");
@@ -129,8 +143,6 @@ public class ReservaRepositoryImpl implements ReservaRepository {
                 System.out.println("sssss");
 
                 // Crear un objeto ReservaVO con los datos obtenidos
-//                this.reservaVO = new ReservaVO(idReserva, fechaLlegada, fechaSalida, numHabitaciones, tipoHabitacion, fumador, regimen, dniCliente);
-
                 this.reservaVO = new ReservaVO(idReserva, fechaLlegada, fechaSalida, numHabitaciones, tipoHabitacion, fumador, regimen, dniCliente);
 
                 System.out.println("reserva: " + reservaVO);
@@ -146,5 +158,41 @@ public class ReservaRepositoryImpl implements ReservaRepository {
             throw new ExcepcionReserva("No se pudo conectar");
         }
     }
+
+    public void contarTotalReservas() throws ExcepcionReserva {
+        try {
+            Connection conn = this.conexion.conectarBD();
+            System.out.println("Conexión exitosa con la base de datos");
+
+
+
+            int [] contadores = new int[4];
+            String [] tipoHabitaciones = {DOBLEUSOINDIVIDUAL.toString(),DOBLE.toString(),SUITE.toString(), JUNIORSUITE.toString()};
+            this.sentencia = "SELECT COUNT(*) AS contadorTotalReservas FROM Reserva WHERE tipoHabitacion = ?  AND fechaLlegada <= (select CURRENT_DATE) and fechaSalida >=  (select CURRENT_DATE) "; //
+            this.pstmt = conn.prepareStatement(sentencia); //prepare en lugar de statmemt porque esa parametrizada
+
+            for (int i=0; i<4; i++) {
+                this.pstmt.setString(1, tipoHabitaciones[i]);
+                ResultSet rs = this.pstmt.executeQuery();
+
+                while (rs.next()) {
+                    contadores[i] = rs.getInt("contadorTotalReservas");
+
+                }
+
+            }
+            Reserva.setContadorHabitacionesDoblesIndividual(contadores[0]);
+            Reserva.setContadorHabitacionDobles(contadores[1]);
+            Reserva.setContadorHabitacionesJunior(contadores[2]);
+            Reserva.setContadorHabitacionesJuniorSuite(contadores[3]);
+
+
+            this.conexion.desconectarBD(conn); // Cerrar la conexión a la base de datos
+
+        } catch (Exception e) {
+            throw new ExcepcionReserva("No se pudo conectar");
+        }
+    }
+
 
 }

@@ -12,6 +12,8 @@ import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
 
+import java.time.LocalDate;
+
 public class ReservaController {
     @FXML
     private DatePicker fechaLlegada;
@@ -114,6 +116,16 @@ public class ReservaController {
         // Primero, asegurarte de que la reserva está completa
         System.out.println("reserva antes " + reserva.toString());
 
+
+        while(    !(fechaLlegada.getValue().isBefore(fechaSalida.getValue())  || fechaLlegada.getValue().isEqual(fechaSalida.getValue())  )  &&
+                   (fechaLlegada.getValue().isBefore(LocalDate.now())   ||       fechaLlegada.getValue().isEqual(LocalDate.now())   )   &&
+                   (fechaSalida.getValue().isAfter(LocalDate.now())  ||          fechaSalida.getValue().isEqual(LocalDate.now())) ) {
+            Alert alert = new Alert(Alert.AlertType.ERROR); // Crear un cuadro de diálogo de tipo ERROR
+            alert.setTitle("Fecha errónea");                   // Título del diálogo
+            alert.setContentText("Introduzca una fecha válida ");           // Mensaje principal
+            alert.showAndWait();                     // Mostrar el diálogo y esperar acción del usuario
+            alert.close();
+        }
         // Rellenar los campos de la reserva que se hubieran recogido en la interfaz gráfica
         reserva.setFechaSalida(fechaSalida.getValue());
         reserva.setFechaLlegada(fechaLlegada.getValue());
@@ -138,7 +150,6 @@ public class ReservaController {
                     break;
             }
         }
-
 
         reserva.setFumador(fumador.isSelected());
         // Verificar que hay un ToggleButton seleccionado

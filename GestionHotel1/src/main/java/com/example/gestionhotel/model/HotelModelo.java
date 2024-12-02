@@ -45,7 +45,7 @@ public class HotelModelo {
     }
 
     public ArrayList<Reserva> setReserva(Cliente cliente) throws ExcepcionReserva, SQLException {
-        reservasVO = reservaRepository.listarReservas(cliente.getDni());
+        reservasVO = reservaRepository.listarReservasPorCliente(cliente.getDni());
         return ReservaUtil.parseToReserva(reservasVO);
 
     }

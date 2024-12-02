@@ -13,10 +13,7 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -70,6 +67,30 @@ public class MainApp extends Application {
         } catch (ExcepcionCliente e) {
             throw new RuntimeException(e);
         }
+
+    }
+
+    // Usamos el init antes del start, para inicializar el contador de clientes y el de tipo de habitación
+    @Override
+    public void init() throws Exception {
+
+        // Guardamos en un entero el numero de clientes totales que hay en nuestra bd
+        int totalClientes = getHotelModelo().getClienteRepository().contarClientes();
+        Cliente.setContadorClientes(totalClientes);
+
+        getHotelModelo().getReservaRepository().contarTotalReservas();
+        System.out.println("Total reservas dobles: "+ Reserva.getContadorHabitacionDobles());
+
+        System.out.println("Total reservas doble uso individual: "+ Reserva.getContadorHabitacionesDoblesIndividual());
+
+        System.out.println("Total reservas junior: "+ Reserva.getContadorHabitacionesJunior());
+
+        System.out.println("Total reservas junior suite: "+ Reserva.getContadorHabitacionesJuniorSuite());
+
+
+
+
+
 
     }
 
@@ -367,11 +388,12 @@ public class MainApp extends Application {
         controller.setMainApp(this);
         controller.setDialogStage(dialogStage);
 
-        //Progreso
-        controller.setProgressBar(DobleIndividualController.getContadorHabitaciones() /  DobleIndividualController.getNumeroHabitacionesDobles());
-        controller.setProgressIndicator(DobleIndividualController.getContadorHabitaciones() /  DobleIndividualController.getNumeroHabitacionesDobles());
 
+        System.out.println("Total main:" + Reserva.getNumeroHabitacionesDobles());
 
+        System.out.println("Contador main:" + Reserva.getContadorHabitacionDobles());
+                controller.setProgressBar(Reserva.getContadorHabitacionDobles()/(double)Reserva.getNumeroHabitacionesDobles());
+        controller.setProgressIndicator(Reserva.getContadorHabitacionDobles()/(double)Reserva.getNumeroHabitacionesDobles());
         dialogStage.showAndWait();
 
         return true;

@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 public class Reserva {
 
+
     private final IntegerProperty idReservaProperty;
     private final ObjectProperty<LocalDate> fechaLlegadaProperty;
     private final ObjectProperty<LocalDate> fechaSalidaProperty;
@@ -14,6 +15,86 @@ public class Reserva {
     private final BooleanProperty fumadorProperty;
     private final ObjectProperty<RegimenAlojamiento> regimenAlojamientoProperty;
     private String DNI = String.valueOf(new SimpleStringProperty());
+
+
+    private static int numeroHabitacionesDoblesIndividual = 50;
+    private static int contadorHabitacionesDoblesIndividual = 0;
+
+    private static int numeroHabitacionesDobles = 50;
+    private static int contadorHabitacionDobles = 0;
+
+
+    private static int numeroHabitacionesJunior = 50;
+    private static int contadorHabitacionesJunior = 0;
+
+
+    private static int numeroHabitacionesJuniorSuite = 50;
+    private static int contadorHabitacionesJuniorSuite = 0;
+
+
+    public static int getContadorHabitacionesJuniorSuite() {
+        return contadorHabitacionesJuniorSuite;
+    }
+
+    public static void setContadorHabitacionesJuniorSuite(int contadorHabitacionesJuniorSuite) {
+        Reserva.contadorHabitacionesJuniorSuite = contadorHabitacionesJuniorSuite;
+    }
+
+    public static int getNumeroHabitacionesJuniorSuite() {
+        return numeroHabitacionesJuniorSuite;
+    }
+
+    public static void setNumeroHabitacionesJuniorSuite(int numeroHabitacionesJuniorSuite) {
+        Reserva.numeroHabitacionesJuniorSuite = numeroHabitacionesJuniorSuite;
+    }
+
+    public static int getContadorHabitacionesJunior() {
+        return contadorHabitacionesJunior;
+    }
+
+    public static void setContadorHabitacionesJunior(int contadorHabitacionesJunior) {
+        Reserva.contadorHabitacionesJunior = contadorHabitacionesJunior;
+    }
+
+    public static int getNumeroHabitacionesJunior() {
+        return numeroHabitacionesJunior;
+    }
+
+    public static void setNumeroHabitacionesJunior(int numeroHabitacionesJunior) {
+        Reserva.numeroHabitacionesJunior = numeroHabitacionesJunior;
+    }
+
+    public static int getContadorHabitacionDobles() {
+        return contadorHabitacionDobles;
+    }
+
+    public static void setContadorHabitacionDobles(int contadorHabitacionDobles) {
+        Reserva.contadorHabitacionDobles = contadorHabitacionDobles;
+    }
+
+    public static int getNumeroHabitacionesDobles() {
+        return numeroHabitacionesDobles;
+    }
+
+    public static void setNumeroHabitacionesDobles(int numeroHabitacionesDobles) {
+        Reserva.numeroHabitacionesDobles = numeroHabitacionesDobles;
+    }
+
+    public static int getContadorHabitacionesDoblesIndividual() {
+        return contadorHabitacionesDoblesIndividual;
+    }
+
+    public static void setContadorHabitacionesDoblesIndividual(int contadorHabitacionesDoblesIndividual) {
+        Reserva.contadorHabitacionesDoblesIndividual = contadorHabitacionesDoblesIndividual;
+    }
+
+    public static int getNumeroHabitacionesDoblesIndividual() {
+        return numeroHabitacionesDoblesIndividual;
+    }
+
+    public static void setNumeroHabitacionesDoblesIndividual(int numeroHabitacionesDoblesIndividual) {
+        Reserva.numeroHabitacionesDoblesIndividual = numeroHabitacionesDoblesIndividual;
+    }
 
     public Reserva(){
         this(null,null);
@@ -47,6 +128,10 @@ public class Reserva {
     public Reserva(String DNI) {
         this(0, null, null, 0, TipoHabitacion.DOBLE, false, RegimenAlojamiento.ALOJAMIENTO_DESAYUNO, DNI);
     }
+
+
+
+
 
 
 
