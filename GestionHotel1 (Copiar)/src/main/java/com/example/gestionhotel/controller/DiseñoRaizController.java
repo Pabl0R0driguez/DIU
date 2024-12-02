@@ -3,7 +3,6 @@ package com.example.gestionhotel.controller;
 import com.example.gestionhotel.MainApp;
 import com.example.gestionhotel.model.ExcepcionCliente;
 import javafx.fxml.FXML;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -12,8 +11,7 @@ public class DiseñoRaizController {
     private MainApp mainApp;
     String dni;
     InterfazPrincipalController interfazPrincipalController;
-    boolean onClicked = true;
-    Stage stage;
+
 
     @FXML
     public void buscarDNI() throws ExcepcionCliente, IOException {
@@ -28,17 +26,6 @@ public class DiseñoRaizController {
         }
 
     }
-
-
-    @FXML
-    public void dobleIndividual() throws IOException {
-        if (onClicked) {
-            mainApp.mostrarDobleIndividual();
-        }
-    }
-
-
-
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }

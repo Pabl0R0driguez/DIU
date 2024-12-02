@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@styles/estilos_añadir.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionhotel.controller.ReservaController">
+    <children>
+        <DatePicker fx:id="fechaLlegada" layoutX="51.0" layoutY="82.0" />
+        <DatePicker fx:id="fechaSalida" layoutX="323.0" layoutY="82.0" />
+        <Label layoutX="214.0" layoutY="21.0" text="Datos de la reserva" underline="true">
+            <font>
+                <Font size="19.0" />
+            </font>
+        </Label>
+        <Label layoutX="-4.0" layoutY="125.0" prefHeight="40.0" prefWidth="189.0" text="Numero habitaciones" />
+        <Label layoutX="247.0" layoutY="125.0" text="Tipo habitacion" />
+        <CheckBox fx:id="fumador" layoutX="504.0" layoutY="135.0" mnemonicParsing="false" text="Fumador" />
+        <Label layoutX="78.0" layoutY="200.0" text="Regimen" underline="true">
+            <font>
+                <Font size="17.0" />
+            </font>
+        </Label>
+
+        <RadioButton fx:id="aloj_des" layoutX="37.0" layoutY="245.0"
+                     mnemonicParsing="false" text="Alojamiento y desayuno"
+                     toggleGroup="$grupoRegimen" userData="Alojamiento y desayuno" />
+        <RadioButton fx:id="media" layoutX="37.0" layoutY="273.0"
+                     mnemonicParsing="false" selected="true"
+                     text="Media pension" toggleGroup="$grupoRegimen" userData="Media pension" />
+        <RadioButton fx:id="completa" layoutX="38.0" layoutY="303.0"
+                     mnemonicParsing="false" text="Pension completa"
+                     toggleGroup="$grupoRegimen" userData="Pension completa" />
+
+
+        <Label layoutX="315.0" layoutY="237.0" prefHeight="73.0" prefWidth="222.0" text="En virtud de la ley de sanidad se informa a los clientes de que solo podran fumar en las habitaciones reservadas para tal fin" />
+        <Button layoutX="74.0" layoutY="339.0" mnemonicParsing="false" onAction="#Limpiar" text="Limpiar" />
+        <Button layoutX="465.0" layoutY="334.0" mnemonicParsing="false" onAction="#Cancelar" text="Cancelar" />
+        <Button layoutX="352.0" layoutY="334.0" mnemonicParsing="false" onAction="#Aceptar" text="Aceptar" />
+
+        <!-- Spinner -->
+        <Spinner fx:id="numeroHabitaciones" layoutX="168.0" layoutY="132.0" prefHeight="26.0" prefWidth="65.0">
+            <valueFactory>
+                <SpinnerValueFactory.IntegerSpinnerValueFactory initialValue="1" max="10" min="1" />
+            </valueFactory>
+        </Spinner>
+        <ComboBox fx:id="tipoHabitacion" layoutX="387.0" layoutY="129.0" prefHeight="29.0" prefWidth="94.0">
+        <items>
+            <FXCollections fx:factory="observableArrayList" />
+        </items>
+        </ComboBox>
+    </children>
+</AnchorPane>

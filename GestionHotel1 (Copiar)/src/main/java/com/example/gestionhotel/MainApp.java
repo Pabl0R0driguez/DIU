@@ -13,10 +13,7 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -346,36 +343,6 @@ public class MainApp extends Application {
         return true;
     }
 
-    public boolean mostrarDobleIndividual() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainApp.class.getResource("/com/example/gestionhotel/DobleIndividual.fxml"));
-
-        AnchorPane page = (AnchorPane) loader.load();
-
-        // Crear una nueva ventana (Stage) para el diálogo
-        Stage dialogStage = new Stage();
-        dialogStage.setTitle("Reservas");
-        dialogStage.initModality(Modality.NONE);  // Puedes probar con Modality.APPLICATION_MODAL si lo deseas
-        dialogStage.initOwner(primaryStage);
-        primaryStage.setWidth(850);  // Establece el ancho de la ventana principal
-        primaryStage.setHeight(480);
-        Scene scene = new Scene(page);
-        dialogStage.setScene(scene);
-
-
-        DobleIndividualController controller = loader.getController();
-        controller.setMainApp(this);
-        controller.setDialogStage(dialogStage);
-
-        //Progreso
-        controller.setProgressBar(DobleIndividualController.getContadorHabitaciones() /  DobleIndividualController.getNumeroHabitacionesDobles());
-        controller.setProgressIndicator(DobleIndividualController.getContadorHabitaciones() /  DobleIndividualController.getNumeroHabitacionesDobles());
-
-
-        dialogStage.showAndWait();
-
-        return true;
-    }
 
 
 
