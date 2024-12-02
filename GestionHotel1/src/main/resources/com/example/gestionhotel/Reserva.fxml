@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@styles/estilos_añadir.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionhotel.controller.ReservaController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@styles/estilos_datos_reserva.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionhotel.controller.ReservaController">
     <children>
         <DatePicker fx:id="fechaLlegada" layoutX="51.0" layoutY="82.0" />
         <DatePicker fx:id="fechaSalida" layoutX="323.0" layoutY="82.0" />

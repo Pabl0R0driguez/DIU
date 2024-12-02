@@ -40,6 +40,8 @@ public class Cliente {
         this.provinicaProperty = new SimpleStringProperty(provincia);
     }
 
+
+
     public static int getContadorClientes() {
         return contadorClientes;
     }
@@ -51,6 +53,8 @@ public class Cliente {
     public static void setContadorClientes(int contadorClientes) {
         Cliente.contadorClientes = contadorClientes;
     }
+
+
 
 
 

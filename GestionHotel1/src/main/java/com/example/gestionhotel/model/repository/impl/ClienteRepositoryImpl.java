@@ -71,6 +71,7 @@ public class ClienteRepositoryImpl implements ClienteRepository {
             this.stmt.executeUpdate(this.sentencia);
             this.stmt.close();
             Cliente.setContadorClientes(Cliente.getContadorClientes() + 1);
+            System.out.println("Clientes registrados: " + Cliente.getContadorClientes());
             this.conexion.desconectarBD(conn);
 
 

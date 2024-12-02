@@ -4,7 +4,9 @@ import com.example.gestionhotel.MainApp;
 import com.example.gestionhotel.util.ClienteUtil;
 import com.example.gestionhotel.util.ReservaUtil;
 import com.example.gestionhotel.view.Cliente;
+import com.example.gestionhotel.view.RegimenAlojamiento;
 import com.example.gestionhotel.view.Reserva;
+import com.example.gestionhotel.view.TipoHabitacion;
 import eu.hansolo.toolbox.observables.ObservableList;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -77,9 +79,47 @@ public class InterfazReservasController {
             salidaLabel.setText(String.valueOf(reserva.getFechaSalida2()));
             llegadaLabel.setText(String.valueOf(reserva.getFechaLlegada2()));
             numeroHabLabel.setText(String.valueOf(reserva.getNumeroHabitaciones2()));
-            tipoHabLabel.setText(String.valueOf(reserva.getTipoHabitacion2()));
-            fuamadorLabel.setText(String.valueOf(reserva.isFumador2()));
-            regimenLabel.setText(String.valueOf(reserva.getRegimenAlojamiento2()));
+
+            // Cambiamos los valores de la tabla observable
+            switch (reserva.getTipoHabitacion2().toString()) {
+                case "DOBLE":
+                    tipoHabLabel.setText("Doble");
+                    break;
+                case "SUITE":
+                    tipoHabLabel.setText("Suite");
+                    break;
+                case "JUNIORSUITE":
+                    tipoHabLabel.setText("Junior Suite");
+                    break;
+                case "DOBLEUSOINDIVIDUAL":
+                    tipoHabLabel.setText("Doble uso Individual");
+                    break;
+            }
+
+            // Cambiar texto si es o no fumador
+            if(reserva.isFumador2()== true){
+                fuamadorLabel.setText("Fumador");
+            }else{
+                fuamadorLabel.setText("No fumador");
+            }
+
+
+            switch (reserva.getRegimenAlojamiento2().toString()) {
+                case "ALOJAMIENTO_DESAYUNO":
+                    regimenLabel.setText("Alojamiento y desayuno");
+                    break;
+                case "MEDIAPENSION":
+                    regimenLabel.setText("Media pensión");
+                    break;
+                case "PENSIONCOMPLETA":
+                    regimenLabel.setText("Pensión completa");
+                    break;
+                default:
+                    System.out.println("Régimen no reconocido");
+
+            }
+
+
 
 
         } else {

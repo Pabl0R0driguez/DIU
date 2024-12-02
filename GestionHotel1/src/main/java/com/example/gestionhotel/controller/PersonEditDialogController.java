@@ -18,47 +18,40 @@ public class PersonEditDialogController {
 
     @FXML
     private TextField dniField;
-
-
-
-    @FXML
-    private TextField apellidosField;
-
-    @FXML
-    private ProgressIndicator barraIndicador;
-
-    @FXML
-    private TextField localidadField;
-
-    @FXML
-    private ProgressBar barraProgreso;
-
-    @FXML
-    private TextField direccionField;
-
-    @FXML
-    private TextField provinciaField;
-
     @FXML
     private TextField nombreField;
+    @FXML
+    private TextField apellidosField;
+    @FXML
+    private TextField direccionField;
+    @FXML
+    private TextField localidadField;
+    @FXML
+    private TextField provinciaField;
+    @FXML
+    private ProgressIndicator barraIndicador;
+    @FXML
+    private ProgressBar barraProgreso;
 
     private Stage dialogStage;
     private Cliente cliente;
     private boolean okClicked = false;
-    MainApp mainApp;
+    private MainApp mainApp;
     private static final String LETRAS_DNI = "TRWAGMYFPDXBNJZSQVHLCKE";
 
-
+    private boolean isEditMode; // Variable para determinar si estamos en modo edición
 
     public void setBarraIndicador(double progreso) {
-    barraProgreso.setProgress(progreso);
+        barraProgreso.setProgress(progreso);
     }
 
     public void setBarraProgreso(double barraProgreso) {
-      barraIndicador.setProgress(barraProgreso);    }
+        barraIndicador.setProgress(barraProgreso);
+    }
 
     @FXML
     private void initialize() {
+        dniField.setEditable(!isEditMode); // Establecer la editabilidad del campo DNI
     }
 
     public void setDialogStage(Stage dialogStage) {
@@ -67,157 +60,119 @@ public class PersonEditDialogController {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
-
         dniField.setText(cliente.getDni());
         nombreField.setText(cliente.getNombre());
         apellidosField.setText(cliente.getApellidos());
         direccionField.setText(cliente.getDireccion());
         localidadField.setText(cliente.getLocalidad());
         provinciaField.setText(cliente.getProvinica());
-
     }
 
     public boolean isOkClicked() {
         return okClicked;
     }
+
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }
 
-
+    public void setEditMode(boolean editMode) {
+        this.isEditMode = editMode;
+    }
 
     @FXML
     public void botonOk() throws ExcepcionCliente, SQLException {
-        try {
-            if (!(validarDNI(dniField.getText()))) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("DNI no valido");
-                alert.setHeaderText("Error de datos");
-                alert.setContentText("Lo siento, el DNI no es valido");
-                alert.showAndWait();
-            } else {
-                if (dniExistente(dniField.getText())) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("DNI ya existente");
-                    alert.setHeaderText("Error de datos");
-                    alert.setContentText("Lo siento, el DNI ya esta registrado");
-                    alert.showAndWait();
-                } else {
-                    cliente.setNombreProperty(nombreField.getText());
-                    cliente.setApellidosProperty(apellidosField.getText());
-                    cliente.setDireccionProperty(direccionField.getText());
-                    cliente.setLocalidadProperty(localidadField.getText());
-                    cliente.setProvinicaProperty(provinciaField.getText());
-                    cliente.setDniProperty(dniField.getText());
-
-                    okClicked = true;
-                    dialogStage.close();
-                }
-
+        if (isInputValid()) {
+            if (!validarDNI(dniField.getText())) {
+                showAlert("DNI no válido", "Error de datos", "Lo siento, el DNI no es válido");
+                return;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
 
+            if (dniExistente(dniField.getText())) {
+                showAlert("DNI ya existente", "Error de datos", "Lo siento, el DNI ya está registrado");
+                return;
+            }
+
+            // Asignar valores a las propiedades del cliente
+            cliente.setNombreProperty(nombreField.getText());
+            cliente.setApellidosProperty(apellidosField.getText());
+            cliente.setDireccionProperty(direccionField.getText());
+            cliente.setLocalidadProperty(localidadField.getText());
+            cliente.setProvinicaProperty(provinciaField.getText());
+            cliente.setDniProperty(dniField.getText());
+
+            okClicked = true;
+            dialogStage.close();
         }
     }
+
     @FXML
     public void botonCancelar() {
         dialogStage.close();
-
     }
+
     public static boolean validarDNI(String dni) {
-        // Verifica que el DNI tenga 9 caracteres
         if (dni == null || dni.length() != 9) {
             return false;
         }
 
-        // Divide la parte numérica y la letra
-        String numeroDNI = dni.substring(0, 8); // Los primeros 8 caracteres
-        char letraDNI = Character.toUpperCase(dni.charAt(8)); // El último carácter
+        String numeroDNI = dni.substring(0, 8);
+        char letraDNI = Character.toUpperCase(dni.charAt(8));
 
-        // Verifica que los 8 primeros caracteres sean números
         if (!numeroDNI.matches("\\d+")) {
             return false;
         }
 
-        // Calcula la letra esperada según los números
         int numero = Integer.parseInt(numeroDNI);
         char letraEsperada = LETRAS_DNI.charAt(numero % 23);
-
-        // Compara la letra calculada con la proporcionada
         return letraDNI == letraEsperada;
     }
 
     public boolean dniExistente(String dni) throws ExcepcionCliente, SQLException {
-        ArrayList<ClienteVO> listaPersonas=mainApp.getHotelModelo().getClienteRepository().ObtenerListaPersonas();
-        boolean existe=false;
+        ArrayList<ClienteVO> listaPersonas = mainApp.getHotelModelo().getClienteRepository().ObtenerListaPersonas();
         for (ClienteVO cliente : listaPersonas) {
-            if(cliente.getDNI().equals(dni)) {
-                existe=true;
-                break;
+            if (cliente.getDNI().equals(dni)) {
+                return true;
             }
         }
-        return existe;
+        return false;
     }
-
 
     private boolean isInputValid() {
         String errorMessage = "";
 
-        // Validación del DNI
-        String dni = dniField.getText();
-        if (dni == null || dni.length() == 0) {
+        if (dniField.getText() == null || dniField.getText().length() == 0) {
             errorMessage += "DNI inválido!\n";
-        } else {
-            // Validación del formato del DNI (8 números y una letra)
-            if (!dni.matches("\\d{8}[A-Za-z]")) {
-                errorMessage += "DNI debe tener 8 dígitos seguidos de una letra!\n";
-            }
         }
-
-        // Validación del nombre
-        String nombre = nombreField.getText();
-        if (nombre == null || nombre.length() == 0) {
+        if (nombreField.getText() == null || nombreField.getText().length() == 0) {
             errorMessage += "Nombre inválido!\n";
         }
-
-        // Validación de los apellidos
-        String apellidos = apellidosField.getText();
-        if (apellidos == null || apellidos.length() == 0) {
+        if (apellidosField.getText() == null || apellidosField.getText().length() == 0) {
             errorMessage += "Apellidos inválidos!\n";
         }
-
-        // Validación de la localidad
-        String localidad = direccionField.getText();
-        if (localidad == null || localidad.length() == 0) {
+        if (direccionField.getText() == null || direccionField.getText().length() == 0) {
+            errorMessage += "Dirección inválida!\n";
+        }
+        if (localidadField.getText() == null || localidadField.getText().length() == 0) {
             errorMessage += "Localidad inválida!\n";
         }
-
-        // Validación de la provincia
-        String provincia = localidadField.getText();
-        if (provincia == null || provincia.length() == 0) {
+        if (provinciaField.getText() == null || provinciaField.getText().length() == 0) {
             errorMessage += "Provincia inválida!\n";
         }
 
-        // Validación de la dirección
-        String direccion = provinciaField.getText();
-        if (direccion == null || direccion.length() == 0) {
-            errorMessage += "Dirección inválida!\n";
-        }
-
-        // Si no hay errores, la entrada es válida
         if (errorMessage.length() == 0) {
             return true;
         } else {
-            // Mostrar mensaje de advertencia si hay campos inválidos
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Campos inválidos");
-            alert.setHeaderText("Por favor, introduce campos correctos");
-            alert.setContentText(errorMessage);
-            alert.showAndWait();
+            showAlert("Campos inválidos", "Por favor, introduce campos correctos", errorMessage);
             return false;
         }
     }
 
-
+    private void showAlert(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
 }

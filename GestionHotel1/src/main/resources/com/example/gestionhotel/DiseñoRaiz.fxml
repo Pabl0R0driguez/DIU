@@ -10,15 +10,18 @@
    <top>
       <MenuBar BorderPane.alignment="CENTER">
          <menus>
-            <Menu mnemonicParsing="false" text="Buscar por DNI" onAction="#buscarDNI">
+            <Menu mnemonicParsing="false" onAction="#buscarDNI" text="Buscar por DNI">
                <items>
-                  <MenuItem mnemonicParsing="false" text="DNI" onAction="#buscarDNI" />
+                  <MenuItem mnemonicParsing="false" onAction="#buscarDNI" text="DNI" />
                </items>
             </Menu>
 
-            <Menu mnemonicParsing="false" text="Archivo">
+            <Menu mnemonicParsing="false" text="Habitaciones">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Close" />
+                  <MenuItem mnemonicParsing="false" text="Doble de uso individual" />
+                  <MenuItem mnemonicParsing="false" text="Doble" />
+                  <MenuItem mnemonicParsing="false" text="Junior Suite" />
+                  <MenuItem mnemonicParsing="false" text="Unspecified Action" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Estadisticas">

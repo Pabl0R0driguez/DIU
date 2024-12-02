@@ -1,0 +1,55 @@
+/* Fondo del AnchorPane */
+AnchorPane {
+    -fx-background-color: #005288; /* Fondo azul */
+}
+
+GridPane{
+    -fx-background-color:  #005288; /* Fondo azul */
+
+
+}
+
+/* Estilos para los botones */
+.button {
+    -fx-background-color: #003366; /* Azul oscuro */
+    -fx-text-fill: white; /* Letras blancas */
+    -fx-font-size: 12pt; /* Tamaño de letra */
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif; /* Fuente */
+    -fx-padding: 10 20 10 20; /* Espaciado interno */
+    -fx-border-radius: 5; /* Esquinas redondeadas */
+}
+
+.label {
+    -fx-font-size: 2pt;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-padding: 10 20 10 20;
+    -fx-border-radius: 5;
+}
+
+/* Etiquetas con letras blancas */
+.label {
+    -fx-text-fill: white; /* Letras blancas */
+    -fx-font-size: 12pt; /* Tamaño de letra */
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif; /* Fuente */
+    -fx-padding: 10 20 10 20; /* Espaciado interno */
+    -fx-border-radius: 5; /* Esquinas redondeadas */
+
+}
+
+/* Estilos para TextFields */
+.text-field {
+    -fx-text-fill: black; /* Letras blancas */
+    -fx-font-size: 12pt; /* Tamaño de letra */
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif; /* Fuente */
+    -fx-padding: 10 20 10 20; /* Espaciado interno */
+    -fx-border-radius: 5; /* Esquinas redondeadas */
+}
+
+/* Estilo para el ProgressBar y ProgressIndicator */
+.progress-bar {
+    -fx-accent: #005288; /* Color de la barra de progreso */
+}
+
+.progress-indicator {
+    -fx-accent: #005288; /* Color del indicador de progreso */
+}
