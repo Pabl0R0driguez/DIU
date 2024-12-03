@@ -86,9 +86,10 @@ public class InterfazPrincipalController {
 
     @FXML
     private void btAñadir() throws ExcepcionCliente {
+        mainApp.setAñadirCliente(true);
         Cliente clienteTemporal = new Cliente();
-        boolean onClicked = mainApp.mostrarInteraccionPersona(clienteTemporal);
-        if(onClicked){
+        boolean onClicked = mainApp.mostrarInteraccionPersona(clienteTemporal,false);
+        if(onClicked){ // Cuando le doy un OK
             //Interfaz
             mainApp.getClientesData().add(clienteTemporal);
             mainApp.getHotelModelo().getClienteRepository().addPersona(ClienteUtil.parseToClienteVO(clienteTemporal));
@@ -98,9 +99,10 @@ public class InterfazPrincipalController {
 
     @FXML
     void btModificar(ActionEvent event) throws ExcepcionCliente {
+
         Cliente clienteSeleccionado = tablaPersonas.getSelectionModel().getSelectedItem();
         if (clienteSeleccionado != null) {
-            boolean onClicked = mainApp.mostrarInteraccionPersona(clienteSeleccionado);
+            boolean onClicked = mainApp.mostrarInteraccionPersona(clienteSeleccionado, true);
             if (onClicked) {
                 //Actualizamos el cliente en nuestra lista observable
                 showClienteDetails(clienteSeleccionado);

@@ -38,6 +38,9 @@ public class MainApp extends Application {
     // Reserva reserva;
     PersonEditDialogController personEditDialogController;
 
+    boolean añadirCliente = false;
+    boolean modificarCliente = false;
+
 
     public MainApp() throws SQLException, ExcepcionCliente {
         //Instanciamos los dos IMpl para conectar con la base de datos
@@ -89,6 +92,21 @@ public class MainApp extends Application {
 
     }
 
+    public boolean isModificarCliente() {
+        return modificarCliente;
+    }
+
+    public void setModificarCliente(boolean modificarCliente) {
+        this.modificarCliente = modificarCliente;
+    }
+
+    public boolean isAñadirCliente() {
+        return añadirCliente;
+    }
+
+    public void setAñadirCliente(boolean añadirCliente) {
+        this.añadirCliente = añadirCliente;
+    }
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -220,12 +238,19 @@ public class MainApp extends Application {
 
 
     // Muestra un diálogo para editar un cliente
-    public boolean mostrarInteraccionPersona(Cliente cliente) {
+    public boolean mostrarInteraccionPersona(Cliente cliente, boolean modificarCliente) {
         try {
             // Cargar la interfaz FXML para la edición del cliente
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("/com/example/gestionhotel/InteraccionPersona.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
+
+            PersonEditDialogController controller = loader.getController();
+            // Marcamos un estado que usaremos en el controlador, indicando que se está modificando
+            if(modificarCliente) {
+                controller.setEditMode(true);
+                controller.deshabilitar_dni();
+            }
 
             // Crear una nueva ventana (Stage) para el diálogo
             Stage dialogStage = new Stage();
@@ -238,12 +263,14 @@ public class MainApp extends Application {
             primaryStage.setWidth(850);  // Establece el ancho de la ventana principal
             primaryStage.setHeight(480); // Establece el alto de la ventana
             // Obtener el controlador de la vista y configurarlo
-            PersonEditDialogController controller = loader.getController();
+
+
             controller.setDialogStage(dialogStage);
             controller.setCliente(cliente);
             controller.setMainApp(this);
 
             controller.setBarraIndicador((double) Cliente.getContadorClientes() / (double) Cliente.getTotalClientes());
+
 
             // Mostrar la ventana del diálogo y esperar a que se cierre
             dialogStage.showAndWait();

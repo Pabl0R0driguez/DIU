@@ -39,16 +39,30 @@ public class PersonEditDialogController {
     private MainApp mainApp;
     private static final String LETRAS_DNI = "TRWAGMYFPDXBNJZSQVHLCKE";
 
-    private boolean isEditMode; // Variable para determinar si estamos en modo edición
+    private boolean EditMode; // Variable para determinar si estamos en modo edición
 
     public void setBarraIndicador(double progreso) {
         barraIndicador.setProgress(progreso);
     }
 
+    public boolean isEditMode() {
+        return EditMode;
+    }
+
+    public void setEditMode(boolean editMode) {
+        this.EditMode = editMode;
+    }
 
     @FXML
     private void initialize() {
-        dniField.setEditable(!isEditMode); // Establecer la editabilidad del campo DNI
+
+    }
+
+    public void deshabilitar_dni(){
+        if(isEditMode()){
+            dniField.setDisable(true);
+
+       }
     }
 
     public void setDialogStage(Stage dialogStage) {
@@ -73,35 +87,60 @@ public class PersonEditDialogController {
         this.mainApp = mainApp;
     }
 
-    public void setEditMode(boolean editMode) {
-        this.isEditMode = editMode;
-    }
 
     @FXML
     public void botonOk() throws ExcepcionCliente, SQLException {
-        if (isInputValid()) {
-            if (!validarDNI(dniField.getText())) {
-                showAlert("DNI no válido", "Error de datos", "Lo siento, el DNI no es válido");
-                return;
+
+        if (!isEditMode()) { // Si estamos añadiendo
+            if (isInputValid() && validarDNI(dniField.getText()) && !dniExistente(dniField.getText())) {
+                cliente.setNombreProperty(nombreField.getText());
+                cliente.setApellidosProperty(apellidosField.getText());
+                cliente.setDireccionProperty(direccionField.getText());
+                cliente.setLocalidadProperty(localidadField.getText());
+                cliente.setProvinicaProperty(provinciaField.getText());
+                cliente.setDniProperty(dniField.getText());
+
             }
 
-            if (dniExistente(dniField.getText())) {
-                showAlert("DNI ya existente", "Error de datos", "Lo siento, el DNI ya está registrado");
-                return;
             }
+            else { // Si estoy modificando
+                if (isInputValid()) {
+                    cliente.setNombreProperty(nombreField.getText());
+                    cliente.setApellidosProperty(apellidosField.getText());
+                    cliente.setDireccionProperty(direccionField.getText());
+                    cliente.setLocalidadProperty(localidadField.getText());
+                    cliente.setProvinicaProperty(provinciaField.getText());
+                    cliente.setDniProperty(dniField.getText());
 
-            // Asignar valores a las propiedades del cliente
-            cliente.setNombreProperty(nombreField.getText());
-            cliente.setApellidosProperty(apellidosField.getText());
-            cliente.setDireccionProperty(direccionField.getText());
-            cliente.setLocalidadProperty(localidadField.getText());
-            cliente.setProvinicaProperty(provinciaField.getText());
-            cliente.setDniProperty(dniField.getText());
 
+                }
+            }
             okClicked = true;
             dialogStage.close();
         }
-    }
+
+
+
+//        boolean validarDNI=true;
+//        if (!isEditMode()){  // si se añade un cliente hay que comprobar que el DNI es correcto
+//            validarDNI= validarDNI(dniField.getText()) && (!dniExistente(dniField.getText()));
+//        }
+//
+//        // Si se añade o se modifica se comprueba si todos los campos son válidos.
+//        if (isInputValid()  && validarDNI) {
+//            // Asignar valores a las propiedades del cliente
+//            cliente.setNombreProperty(nombreField.getText());
+//            cliente.setApellidosProperty(apellidosField.getText());
+//            cliente.setDireccionProperty(direccionField.getText());
+//            cliente.setLocalidadProperty(localidadField.getText());
+//            cliente.setProvinicaProperty(provinciaField.getText());
+//            cliente.setDniProperty(dniField.getText());
+//
+//            okClicked = true;
+//            dialogStage.close();
+//       }
+
+
 
     @FXML
     public void botonCancelar() {
@@ -110,6 +149,7 @@ public class PersonEditDialogController {
 
     public static boolean validarDNI(String dni) {
         if (dni == null || dni.length() != 9) {
+            showAlert("DNI inválido", "Error de datos", "Lo siento, el DNI no es válido");
             return false;
         }
 
@@ -117,22 +157,31 @@ public class PersonEditDialogController {
         char letraDNI = Character.toUpperCase(dni.charAt(8));
 
         if (!numeroDNI.matches("\\d+")) {
+            showAlert("DNI inválido", "Error de datos", "Lo siento, el DNI no es válido");
             return false;
         }
 
         int numero = Integer.parseInt(numeroDNI);
         char letraEsperada = LETRAS_DNI.charAt(numero % 23);
-        return letraDNI == letraEsperada;
+        boolean bandera = letraDNI == letraEsperada;
+        if (!bandera) {
+            showAlert("DNI inválido", "Error de datos", "Lo siento, el DNI no es válido");
+        }
+        return bandera;
+
     }
+
 
     public boolean dniExistente(String dni) throws ExcepcionCliente, SQLException {
         ArrayList<ClienteVO> listaPersonas = mainApp.getHotelModelo().getClienteRepository().ObtenerListaPersonas();
         for (ClienteVO cliente : listaPersonas) {
             if (cliente.getDNI().equals(dni)) {
+                showAlert("DNI existente", "Error de datos", "Lo siento, el DNI ya existe");
                 return true;
             }
         }
         return false;
+
     }
 
     private boolean isInputValid() {
@@ -165,7 +214,7 @@ public class PersonEditDialogController {
         }
     }
 
-    private void showAlert(String title, String header, String content) {
+    private static void showAlert(String title, String header, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(header);
