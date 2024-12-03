@@ -1,4 +1,5 @@
 package com.example.agenda.controller;
+
 import java.text.DateFormatSymbols;
 import java.util.Arrays;
 import java.util.List;
@@ -10,8 +11,10 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.XYChart;
-import com.example.agenda.view.Person;
-public class BirthdayStatisticsController {
+
+import com.example.hotel.model.Reservation;
+
+public class HotelStatisticsController {
     @FXML
     private BarChart<String, Integer> barChart;
 
@@ -36,19 +39,20 @@ public class BirthdayStatisticsController {
     }
 
     /**
-     * Sets the persons to show the statistics for.
+     * Sets the reservation data to show the statistics for.
      *
-     * @param persons
+     * @param reservations
      */
-    public void setPersonData(List<Person> persons) {
-        // Count the number of people having their birthday in a specific month.
+    public void setReservationData(List<Reservation> reservations) {
+        // Count the number of reservations for each month.
         int[] monthCounter = new int[12];
-        for (Person p : persons) {
-            int month = p.getBirthday().getMonthValue() - 1;
+        for (Reservation reservation : reservations) {
+            int month = reservation.getReservationDate().getMonthValue() - 1;
             monthCounter[month]++;
         }
 
         XYChart.Series<String, Integer> series = new XYChart.Series<>();
+        series.setName("Reservas por mes");
 
         // Create a XYChart.Data object for each month. Add it to the series.
         for (int i = 0; i < monthCounter.length; i++) {

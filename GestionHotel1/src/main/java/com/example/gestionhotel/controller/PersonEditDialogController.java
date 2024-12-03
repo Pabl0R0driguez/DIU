@@ -42,12 +42,9 @@ public class PersonEditDialogController {
     private boolean isEditMode; // Variable para determinar si estamos en modo edición
 
     public void setBarraIndicador(double progreso) {
-        barraProgreso.setProgress(progreso);
+        barraIndicador.setProgress(progreso);
     }
 
-    public void setBarraProgreso(double barraProgreso) {
-        barraIndicador.setProgress(barraProgreso);
-    }
 
     @FXML
     private void initialize() {

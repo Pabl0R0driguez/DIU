@@ -11,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -47,6 +48,7 @@ public class InterfazPrincipalController {
 
     private MainApp mainApp;
     private ActionEvent event;
+    Stage stage;
 
     @FXML
     private void initialize() {
@@ -174,10 +176,9 @@ public class InterfazPrincipalController {
                 tablaPersonas.getSelectionModel().select(cliente);
                 showClienteDetails(cliente);
 
-                //Abre las reservas de un Cliente en base a su DNI
-                reserva(event);
+                stage.close();
                 bandera = true;
-                break;
+                ;
             }
         }
 

@@ -164,8 +164,6 @@ public class ReservaRepositoryImpl implements ReservaRepository {
             Connection conn = this.conexion.conectarBD();
             System.out.println("Conexión exitosa con la base de datos");
 
-
-
             int [] contadores = new int[4];
             String [] tipoHabitaciones = {DOBLEUSOINDIVIDUAL.toString(),DOBLE.toString(),SUITE.toString(), JUNIORSUITE.toString()};
             this.sentencia = "SELECT COUNT(*) AS contadorTotalReservas FROM Reserva WHERE tipoHabitacion = ?  AND fechaLlegada <= (select CURRENT_DATE) and fechaSalida >=  (select CURRENT_DATE) "; //

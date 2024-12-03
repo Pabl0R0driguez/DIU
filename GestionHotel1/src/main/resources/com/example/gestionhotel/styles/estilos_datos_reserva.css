@@ -32,6 +32,18 @@ AnchorPane {
     -fx-font-size: 14px;
 }
 
+#textoFumador {
+    -fx-font-size: 5pt; /* Tamaño de letra 5pt */
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif; /* Fuente deseada */
+    -fx-text-fill: white; /* Color del texto */
+}
+
+#grupoRegimen{
+    -fx-text-fill: white; /* Letras blancas */
+    -fx-font-size: 14px;
+}
+
+
 .date-picker .text-field {
     -fx-background-color: #003366; /* Fondo azul */
     -fx-text-fill: white; /* Texto blanco */

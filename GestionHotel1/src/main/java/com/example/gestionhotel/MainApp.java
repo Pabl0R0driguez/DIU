@@ -39,7 +39,6 @@ public class MainApp extends Application {
     PersonEditDialogController personEditDialogController;
 
 
-
     public MainApp() throws SQLException, ExcepcionCliente {
         //Instanciamos los dos IMpl para conectar con la base de datos
         ClienteRepositoryImpl clienteRepository = new ClienteRepositoryImpl();
@@ -79,17 +78,13 @@ public class MainApp extends Application {
         Cliente.setContadorClientes(totalClientes);
 
         getHotelModelo().getReservaRepository().contarTotalReservas();
-        System.out.println("Total reservas dobles: "+ Reserva.getContadorHabitacionDobles());
+        System.out.println("Total reservas dobles: " + Reserva.getContadorHabitacionDobles());
 
-        System.out.println("Total reservas doble uso individual: "+ Reserva.getContadorHabitacionesDoblesIndividual());
+        System.out.println("Total reservas doble uso individual: " + Reserva.getContadorHabitacionesDoblesIndividual());
 
-        System.out.println("Total reservas junior: "+ Reserva.getContadorHabitacionesJunior());
+        System.out.println("Total reservas junior: " + Reserva.getContadorHabitacionesJunior());
 
-        System.out.println("Total reservas junior suite: "+ Reserva.getContadorHabitacionesJuniorSuite());
-
-
-
-
+        System.out.println("Total reservas junior suite: " + Reserva.getContadorHabitacionesJuniorSuite());
 
 
     }
@@ -114,13 +109,10 @@ public class MainApp extends Application {
     public ObservableList<Cliente> getClientesData() {
         return clienteLista;
     }
+
     public ObservableList<Reserva> getReservasData() {
         return reservaLista;
     }
-
-
-
-
 
 
     public HotelModelo getHotelModelo() {
@@ -134,6 +126,7 @@ public class MainApp extends Application {
     public void setDniSeleccionado(String dniSeleccionado) {
         this.dniSeleccionado = dniSeleccionado;
     }
+
     //Recogemos el nuevo DNI
     public String getDniSeleccionado() {
         return dniSeleccionado;
@@ -152,7 +145,6 @@ public class MainApp extends Application {
     public void setClienteSeleccionado(Cliente cliente) {
         this.cliente = cliente;
     }
-
 
 
     public void iniciarDiseñoRaiz() {
@@ -251,7 +243,7 @@ public class MainApp extends Application {
             controller.setCliente(cliente);
             controller.setMainApp(this);
 
-            controller.setBarraProgreso((double)Cliente.getContadorClientes() / (double)Cliente.getTotalClientes());
+            controller.setBarraIndicador((double) Cliente.getContadorClientes() / (double) Cliente.getTotalClientes());
 
             // Mostrar la ventana del diálogo y esperar a que se cierre
             dialogStage.showAndWait();
@@ -289,7 +281,7 @@ public class MainApp extends Application {
             controller.setDialogStage(dialogStage);
 
 
-            System.out.println("Mostrar reserva: " +  reserva);
+            System.out.println("Mostrar reserva: " + reserva);
 
             controller.setReserva(reserva);
             System.out.println(reserva);
@@ -392,14 +384,152 @@ public class MainApp extends Application {
         System.out.println("Total main:" + Reserva.getNumeroHabitacionesDobles());
 
         System.out.println("Contador main:" + Reserva.getContadorHabitacionDobles());
-                controller.setProgressBar(Reserva.getContadorHabitacionDobles()/(double)Reserva.getNumeroHabitacionesDobles());
-        controller.setProgressIndicator(Reserva.getContadorHabitacionDobles()/(double)Reserva.getNumeroHabitacionesDobles());
+        controller.setProgressBar(Reserva.getContadorHabitacionesDoblesIndividual() / (double) Reserva.getNumeroHabitacionesDoblesIndividual());
+        controller.setProgressIndicator(Reserva.getContadorHabitacionesDoblesIndividual() / (double) Reserva.getNumeroHabitacionesDoblesIndividual());
         dialogStage.showAndWait();
 
         return true;
     }
 
+    public boolean mostrarDoble() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainApp.class.getResource("/com/example/gestionhotel/Doble.fxml"));
 
+        AnchorPane page = (AnchorPane) loader.load();
+
+        // Crear una nueva ventana (Stage) para el diálogo
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Reservas");
+        dialogStage.initModality(Modality.NONE);  // Puedes probar con Modality.APPLICATION_MODAL si lo deseas
+        dialogStage.initOwner(primaryStage);
+        primaryStage.setWidth(850);  // Establece el ancho de la ventana principal
+        primaryStage.setHeight(480);
+        Scene scene = new Scene(page);
+        dialogStage.setScene(scene);
+
+
+        DobleController controller = loader.getController();
+        controller.setMainApp(this);
+        controller.setDialogStage(dialogStage);
+
+
+        controller.setProgressBar(Reserva.getContadorHabitacionDobles() / (double) Reserva.getNumeroHabitacionesDobles());
+        controller.setProgressIndicator(Reserva.getContadorHabitacionDobles() / (double) Reserva.getNumeroHabitacionesDobles());
+        dialogStage.showAndWait();
+
+        return true;
+    }
+
+    public boolean mostrarJuniorSuite() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainApp.class.getResource("/com/example/gestionhotel/JuniorSuite.fxml"));
+
+        AnchorPane page = (AnchorPane) loader.load();
+
+        // Crear una nueva ventana (Stage) para el diálogo
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Reservas");
+        dialogStage.initModality(Modality.NONE);  // Puedes probar con Modality.APPLICATION_MODAL si lo deseas
+        dialogStage.initOwner(primaryStage);
+        primaryStage.setWidth(850);  // Establece el ancho de la ventana principal
+        primaryStage.setHeight(480);
+        Scene scene = new Scene(page);
+        dialogStage.setScene(scene);
+
+
+        JuniorSuiteController controller = loader.getController();
+        controller.setMainApp(this);
+        controller.setDialogStage(dialogStage);
+
+
+        controller.setProgressBar(Reserva.getContadorHabitacionesJuniorSuite() / (double) Reserva.getNumeroHabitacionesJuniorSuite());
+        controller.setProgressIndicator(Reserva.getContadorHabitacionesJuniorSuite() / (double) Reserva.getNumeroHabitacionesJuniorSuite());
+        dialogStage.showAndWait();
+
+        return true;
+    }
+
+    public boolean mostrarSuite() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainApp.class.getResource("/com/example/gestionhotel/Suite.fxml"));
+
+        AnchorPane page = (AnchorPane) loader.load();
+
+        // Crear una nueva ventana (Stage) para el diálogo
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Reservas");
+        dialogStage.initModality(Modality.NONE);  // Puedes probar con Modality.APPLICATION_MODAL si lo deseas
+        dialogStage.initOwner(primaryStage);
+        primaryStage.setWidth(850);  // Establece el ancho de la ventana principal
+        primaryStage.setHeight(480);
+        Scene scene = new Scene(page);
+        dialogStage.setScene(scene);
+
+
+        SuiteController controller = loader.getController();
+        controller.setMainApp(this);
+        controller.setDialogStage(dialogStage);
+
+
+        controller.setProgressBar(Reserva.getContadorHabitacionesJunior() / (double) Reserva.getNumeroHabitacionesJunior());
+        controller.setProgressIndicator(Reserva.getContadorHabitacionesJunior() / (double) Reserva.getNumeroHabitacionesJunior());
+        dialogStage.showAndWait();
+
+        return true;
+    }
+
+//    public boolean mostrarEstadisticas() throws IOException {
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(MainApp.class.getResource("/com/example/gestionhotel/EstadisticasReservas.fxml"));
+//
+//        AnchorPane page = (AnchorPane) loader.load();
+//
+//        // Crear una nueva ventana (Stage) para el diálogo
+//        Stage dialogStage = new Stage();
+//        dialogStage.setTitle("Reservas");
+//        dialogStage.initModality(Modality.NONE);  // Puedes probar con Modality.APPLICATION_MODAL si lo deseas
+//        dialogStage.initOwner(primaryStage);
+//        primaryStage.setWidth(850);  // Establece el ancho de la ventana principal
+//        primaryStage.setHeight(480);
+//        Scene scene = new Scene(page);
+//        dialogStage.setScene(scene);
+//
+//
+//        ReservaEstadisticasController controller = loader.getController();
+//        controller.setMainApp(this);
+//        controller.setDialogStage(dialogStage);
+//
+//        dialogStage.showAndWait();
+//
+//        return true;
+//    }
+
+    public boolean mostrarWebView() throws IOException {
+
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/com/example/gestionhotel/webView.fxml"));
+
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Crear una nueva ventana (Stage) para el diálogo
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Reservas");
+            dialogStage.initModality(Modality.NONE);  // Puedes probar con Modality.APPLICATION_MODAL si lo deseas
+            dialogStage.initOwner(primaryStage);
+            primaryStage.setWidth(850);  // Establece el ancho de la ventana principal
+            primaryStage.setHeight(480);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            WebViewController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setDialogStage(dialogStage);
+
+            dialogStage.showAndWait();
+            return true;
+
+    }
 
     public static void main(String[] args) {
         launch();

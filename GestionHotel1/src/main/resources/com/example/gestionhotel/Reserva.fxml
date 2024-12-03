@@ -31,7 +31,10 @@
         <RadioButton fx:id="completa" layoutX="38.0" layoutY="303.0" mnemonicParsing="false" text="Pension completa" toggleGroup="$grupoRegimen" userData="Pension completa" />
 
 
-        <Label layoutX="315.0" layoutY="237.0" prefHeight="73.0" prefWidth="222.0" text="En virtud de la ley de sanidad se informa a los clientes de que solo podran fumar en las habitaciones reservadas para tal fin" />
+        <Label fx:id="textoFumador" layoutX="247.0" layoutY="237.0" prefHeight="73.0" prefWidth="321.0" text="w">
+         <font>
+            <Font size="6.0" />
+         </font></Label>
         <Button layoutX="74.0" layoutY="339.0" mnemonicParsing="false" onAction="#Limpiar" text="Limpiar" />
         <Button layoutX="465.0" layoutY="334.0" mnemonicParsing="false" onAction="#Cancelar" text="Cancelar" />
         <Button layoutX="352.0" layoutY="334.0" mnemonicParsing="false" onAction="#Aceptar" text="Aceptar" />

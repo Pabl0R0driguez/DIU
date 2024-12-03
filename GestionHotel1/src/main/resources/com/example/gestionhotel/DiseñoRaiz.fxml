@@ -19,19 +19,19 @@
             <Menu mnemonicParsing="false" text="Habitaciones">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#dobleIndividual" text="Doble de uso individual" />
-                  <MenuItem mnemonicParsing="false" text="Doble" />
-                  <MenuItem mnemonicParsing="false" text="Junior Suite" />
-                  <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                  <MenuItem mnemonicParsing="false" onAction="#doble" text="Doble" />
+                  <MenuItem mnemonicParsing="false" onAction="#juniorSuite" text="Junior Suite" />
+                  <MenuItem mnemonicParsing="false" onAction="#suite" text="Suite" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Estadisticas">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Mostrar" />
+                  <MenuItem mnemonicParsing="false" onAction="#estadisticas" text="Mostrar" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Ayuda">
+            <Menu mnemonicParsing="false" text="WebView">
                <items>
-                  <MenuItem mnemonicParsing="false" text="About" />
+                  <MenuItem mnemonicParsing="false" onAction="#webView" text="Mostrar" />
                </items>
             </Menu>
          </menus>

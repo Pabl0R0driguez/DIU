@@ -37,6 +37,42 @@ public class DiseñoRaizController {
         }
     }
 
+    @FXML
+    public void doble() throws IOException {
+        if (onClicked) {
+            mainApp.mostrarDoble();
+        }
+    }
+
+    @FXML
+    public void juniorSuite() throws IOException {
+        if (onClicked) {
+            mainApp.mostrarJuniorSuite();
+        }
+    }
+
+    @FXML
+    public void suite() throws IOException {
+        if (onClicked) {
+            mainApp.mostrarSuite();
+        }
+    }
+    @FXML
+    public void webView() throws IOException {
+        if (onClicked) {
+            mainApp.mostrarWebView();
+        }
+    }
+
+    @FXML
+    public void estadisticas() throws IOException {
+
+    }
+
+
+
+
+
 
 
     public void setMainApp(MainApp mainApp) {

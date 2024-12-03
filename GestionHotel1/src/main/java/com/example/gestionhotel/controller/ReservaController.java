@@ -39,6 +39,9 @@ public class ReservaController {
     @FXML
     private RadioButton completa;
 
+    @FXML
+    private Label textoFumador;
+
 
     private Reserva reserva;
 
@@ -61,12 +64,19 @@ public class ReservaController {
                 "Doble" , "Suite" , "Junior Suite" , "Doble uso Individual"
         );
 
-
-
         grupoRegimen = new ToggleGroup();
         aloj_des.setToggleGroup(grupoRegimen);
         media.setToggleGroup(grupoRegimen);
         completa.setToggleGroup(grupoRegimen);
+
+        // Manejar el evento cuando cambia el estado del CheckBox
+        fumador.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                textoFumador.setText("En virtud de la ley de sanidad se informa a los clientes de que solo podran fumar en las habitaciones reservadas para tal fin");
+            } else {
+                textoFumador.setText("");
+            }
+        });
 
 
     }

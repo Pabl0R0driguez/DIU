@@ -129,10 +129,12 @@ public class Reserva {
         this(0, null, null, 0, TipoHabitacion.DOBLE, false, RegimenAlojamiento.ALOJAMIENTO_DESAYUNO, DNI);
     }
 
-
-
-
-
+//    public double getOcupacionMediaPorTipoHabitacion() {
+//        // Retornar ocupación media basada en el tipo de habitación.
+//        // Este valor debería estar definido en tu lógica de negocio.
+//        double mediaHabitacion = getTipoHabitacion2() / getNumeroHabitaciones2();
+//        return this.mediaHabitacion; // Ejemplo.
+//    }
 
 
     // Getters
