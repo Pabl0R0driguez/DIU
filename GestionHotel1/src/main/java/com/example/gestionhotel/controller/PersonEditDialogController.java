@@ -9,10 +9,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PersonEditDialogController {
 
@@ -30,14 +33,15 @@ public class PersonEditDialogController {
     private TextField provinciaField;
     @FXML
     private ProgressIndicator barraIndicador;
-    @FXML
-    private ProgressBar barraProgreso;
+
+
 
     private Stage dialogStage;
     private Cliente cliente;
     private boolean okClicked = false;
     private MainApp mainApp;
     private static final String LETRAS_DNI = "TRWAGMYFPDXBNJZSQVHLCKE";
+
 
     private boolean EditMode; // Variable para determinar si estamos en modo edición
 
@@ -100,7 +104,10 @@ public class PersonEditDialogController {
                 cliente.setProvinicaProperty(provinciaField.getText());
                 cliente.setDniProperty(dniField.getText());
 
+                okClicked = true;
+                dialogStage.close();
             }
+
 
             }
             else { // Si estoy modificando
@@ -112,11 +119,11 @@ public class PersonEditDialogController {
                     cliente.setProvinicaProperty(provinciaField.getText());
                     cliente.setDniProperty(dniField.getText());
 
-
+                    okClicked = true;
+                    dialogStage.close();
                 }
             }
-            okClicked = true;
-            dialogStage.close();
+
         }
 
 

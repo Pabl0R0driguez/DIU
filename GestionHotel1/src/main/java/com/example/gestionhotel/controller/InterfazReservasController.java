@@ -1,16 +1,9 @@
 package com.example.gestionhotel.controller;
 
 import com.example.gestionhotel.MainApp;
-import com.example.gestionhotel.util.ClienteUtil;
 import com.example.gestionhotel.util.ReservaUtil;
 import com.example.gestionhotel.view.Cliente;
-import com.example.gestionhotel.view.RegimenAlojamiento;
 import com.example.gestionhotel.view.Reserva;
-import com.example.gestionhotel.view.TipoHabitacion;
-import eu.hansolo.toolbox.observables.ObservableList;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -35,7 +28,7 @@ public class InterfazReservasController {
     private TableColumn<Reserva, LocalDate> fechaLlegada;
 
     @FXML
-    private TableColumn<Reserva, Integer> codigo;
+    private TableColumn<Reserva, LocalDate> fechaSalida;
 
     @FXML
     private TableView<Reserva> tablaReservas;
@@ -63,7 +56,7 @@ public class InterfazReservasController {
     @FXML
     private void initialize() {
         fechaLlegada.setCellValueFactory(cellData -> cellData.getValue().fechaLlegadaProperty());
-        codigo.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().idReservaProperty().get()));
+        fechaSalida.setCellValueFactory(cellData -> cellData.getValue().fechaSalidaProperty());
 
         showReservasDetails(null);
 

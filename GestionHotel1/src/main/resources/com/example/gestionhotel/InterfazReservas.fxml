@@ -20,8 +20,8 @@
                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                             </columnResizePolicy>
                             <columns>
-                                <TableColumn fx:id="codigo" text="Codigo" />
                         <TableColumn fx:id="fechaLlegada" prefWidth="75.0" text="Fecha Llegada" />
+                                <TableColumn fx:id="fechaSalida" text="Fecha Salida" />
                             </columns>
                         </TableView>
                     </children>

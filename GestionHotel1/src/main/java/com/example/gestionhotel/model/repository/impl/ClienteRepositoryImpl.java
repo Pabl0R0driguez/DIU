@@ -30,7 +30,7 @@ public class ClienteRepositoryImpl implements ClienteRepository {
             System.out.println("Conexion exito");
             this.clientes = new ArrayList();
             this.stmt = conn.createStatement();
-            this.sentencia = "SELECT * FROM Clientes";
+            this.sentencia = "SELECT * FROM Clientes order by nombre ASC, apellidos ASC";
 
             ResultSet rs = this.stmt.executeQuery(this.sentencia);
 
