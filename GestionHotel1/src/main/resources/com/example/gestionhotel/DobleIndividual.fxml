@@ -5,18 +5,15 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0"  stylesheets="@styles/estilos_datos_persona.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionhotel.controller.DobleIndividualController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@styles/estilos_datos_persona.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionhotel.controller.DobleIndividualController">
       <children>
-         <ImageView fx:id="imageView"
-                    fitHeight="300.0"
-                    fitWidth="400.0"
-                    layoutX="100.0"
-                    layoutY="50.0"
-                    preserveRatio="true"
-                    pickOnBounds="true" />
+         <ImageView fx:id="imageView" fitHeight="300.0" fitWidth="400.0" layoutX="100.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
       </children>
-
-      <ProgressBar fx:id="progressBar" layoutX="153.0" layoutY="338.0" prefWidth="200.0" progress="0.0" />
-      <ProgressIndicator fx:id="progressIndicator" layoutX="383.0" layoutY="325.0" progress="0.0" />
+   <children>
+   
+         <ProgressBar fx:id="progressBar" layoutX="153.0" layoutY="338.0" prefWidth="200.0" progress="0.0" />
+         <ProgressIndicator fx:id="progressIndicator" layoutX="383.0" layoutY="325.0" progress="0.0" />
+      <Label layoutX="190.0" layoutY="11.0" text="Doble uso individual" underline="true" />
+   </children>
 
 </AnchorPane>

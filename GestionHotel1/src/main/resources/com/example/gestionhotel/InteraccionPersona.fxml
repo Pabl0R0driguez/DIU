@@ -41,10 +41,6 @@
             <Button layoutX="396.0" layoutY="320.0" mnemonicParsing="false" onAction="#botonCancelar" prefHeight="36.0" prefWidth="108.0" text="Cancelar" />
          </children>
       </HBox>
-      <ProgressIndicator fx:id="barraIndicador" layoutX="212.0" layoutY="307.0" prefHeight="56.0" prefWidth="42.0" progress="0.0" />
-      <ImageView fx:id="imagenPersona" fitHeight="70.0" fitWidth="148.0" layoutX="33.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-         </image>
-      </ImageView>
+      <ProgressIndicator fx:id="barraIndicador" layoutX="128.0" layoutY="307.0" prefHeight="62.0" prefWidth="56.0" progress="0.0" />
    </children>
 </AnchorPane>

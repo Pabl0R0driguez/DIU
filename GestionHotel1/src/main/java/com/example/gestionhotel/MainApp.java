@@ -508,31 +508,7 @@ public class MainApp extends Application {
         return true;
     }
 
-//    public boolean mostrarEstadisticas() throws IOException {
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(MainApp.class.getResource("/com/example/gestionhotel/EstadisticasReservas.fxml"));
-//
-//        AnchorPane page = (AnchorPane) loader.load();
-//
-//        // Crear una nueva ventana (Stage) para el diálogo
-//        Stage dialogStage = new Stage();
-//        dialogStage.setTitle("Reservas");
-//        dialogStage.initModality(Modality.NONE);  // Puedes probar con Modality.APPLICATION_MODAL si lo deseas
-//        dialogStage.initOwner(primaryStage);
-//        primaryStage.setWidth(850);  // Establece el ancho de la ventana principal
-//        primaryStage.setHeight(480);
-//        Scene scene = new Scene(page);
-//        dialogStage.setScene(scene);
-//
-//
-//        ReservaEstadisticasController controller = loader.getController();
-//        controller.setMainApp(this);
-//        controller.setDialogStage(dialogStage);
-//
-//        dialogStage.showAndWait();
-//
-//        return true;
-//    }
+
 
     public boolean mostrarWebView() throws IOException {
 
