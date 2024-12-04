@@ -128,9 +128,10 @@ public class ReservaController {
         System.out.println("reserva antes " + reserva.toString());
 
 
-        while(    !(fechaLlegada.getValue().isBefore(fechaSalida.getValue())  || fechaLlegada.getValue().isEqual(fechaSalida.getValue())  )  &&
+        while(!(fechaLlegada.getValue().isBefore(fechaSalida.getValue())  || fechaLlegada.getValue().isEqual(fechaSalida.getValue())  )  &&
                    (fechaLlegada.getValue().isBefore(LocalDate.now())   ||       fechaLlegada.getValue().isEqual(LocalDate.now())   )   &&
                    (fechaSalida.getValue().isAfter(LocalDate.now())  ||          fechaSalida.getValue().isEqual(LocalDate.now())) ) {
+
             Alert alert = new Alert(Alert.AlertType.ERROR); // Crear un cuadro de diálogo de tipo ERROR
             alert.setTitle("Fecha errónea");                   // Título del diálogo
             alert.setContentText("Introduzca una fecha válida ");           // Mensaje principal

@@ -1,11 +1,9 @@
-/* Fondo del AnchorPane */
 AnchorPane {
-    -fx-background-color: #005288; /* Fondo azul */
+    -fx-background-color: #005288;
 }
 
-/* Botones con fondo azul oscuro y letras blancas */
 .button {
-    -fx-background-color: #003366; /* Azul oscuro */
+    -fx-background-color: #003366;
     -fx-text-fill: white;
     -fx-font-size: 10pt;
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
@@ -13,104 +11,89 @@ AnchorPane {
     -fx-border-radius: 5;
 }
 
-/* Etiquetas con letras blancas */
 .label {
     -fx-font-size: 14px;
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
-    -fx-text-fill: white; /* Letras blancas */
+    -fx-text-fill: white;
     -fx-padding: 10 20 10 20;
     -fx-border-radius: 5;
 }
 
-/* Estilo para el DatePicker: Fondo azul y texto blanco en el campo de texto */
 .date-picker {
-    -fx-background-color: #003366; /* Fondo azul */
+    -fx-background-color: #003366;
     -fx-font-size: 14px;
 }
 
-/* El texto dentro del DatePicker se mantiene blanco */
 .date-picker .text-field {
-    -fx-background-color: #003366; /* Fondo azul */
-    -fx-text-fill: white; /* Texto blanco */
+    -fx-background-color: #003366;
+    -fx-text-fill: white;
 }
 
-/* Estilo para el calendario desplegable (popup) */
 .date-picker .popup {
-    -fx-background-color: #003366; /* Fondo azul para el calendario desplegable */
+    -fx-background-color: #003366;
 }
 
 .date-picker .calendar-popup {
-    -fx-background-color: #003366; /* Fondo azul oscuro para el calendario */
+    -fx-background-color: #003366;
 }
 
-/* Estilo para las celdas del calendario */
 .date-picker .day-cell {
-    -fx-background-color: #003366; /* Fondo azul de las celdas */
-    -fx-text-fill: white; /* Texto blanco para los días */
+    -fx-background-color: #003366;
+    -fx-text-fill: white;
 }
 
-/* Estilo cuando el ratón pasa sobre una celda del calendario */
 .date-picker .day-cell:hover {
-    -fx-background-color: #005288; /* Azul más claro cuando se pasa el ratón */
+    -fx-background-color: #005288;
 }
 
-/* Estilo para una celda seleccionada del calendario */
 .date-picker .day-cell.selected {
-    -fx-background-color: #005288; /* Fondo azul más claro para el día seleccionado */
-    -fx-text-fill: white; /* Texto blanco */
+    -fx-background-color: #005288;
+    -fx-text-fill: white;
 }
 
-/* Cambiar el color de las etiquetas dentro del DatePicker */
 .date-picker .label {
-    -fx-text-fill: black; /* Deja las etiquetas dentro del DatePicker con texto negro */
+    -fx-text-fill: black;
 }
 
-/* Spinner con estilo */
 .spinner .text-field {
-    -fx-text-fill: white; /* Texto blanco */
-    -fx-background-color: #003366; /* Fondo azul */
+    -fx-text-fill: white;
+    -fx-background-color: #003366;
 }
 
-/* Spinner buttons */
 .spinner .increment-button, .spinner .decrement-button {
-    -fx-background-color: #003366; /* Fondo azul */
-    -fx-text-fill: white; /* Texto blanco */
-    -fx-border-color: #005288; /* Borde azul claro */
+    -fx-background-color: #003366;
+    -fx-text-fill: white;
+    -fx-border-color: #005288;
 }
 
-/* Estilo del menú desplegable del Spinner */
 .spinner .list-cell {
-    -fx-background-color: #003366; /* Fondo azul para los elementos del menú */
-    -fx-text-fill: white; /* Texto blanco para los elementos del menú */
+    -fx-background-color: #003366;
+    -fx-text-fill: white;
 }
-/* Estilo para los elementos dentro del menú desplegable de Spinner y ComboBox */
+
 .spinner .list-cell, .combo-box .list-cell {
-    -fx-background-color: #003366; /* Fondo azul para los elementos del menú */
-    -fx-text-fill: white; /* Texto negro para los elementos del menú */
+    -fx-background-color: #003366;
+    -fx-text-fill: white;
 }
 
-/* Estilo para cuando se pasa el ratón sobre un elemento del menú */
 .spinner .list-cell:hover {
-    -fx-background-color: #003366; /* Azul más claro cuando se pasa el ratón */
-}
-/* Estilo cuando el ratón pasa sobre un elemento del menú */
-.spinner .list-cell:hover, .combo-box .list-cell:hover {
-    -fx-background-color: #005288; /* Azul más claro cuando se pasa el ratón */
-    -fx-text-fill: white; /* Texto blanco cuando el ratón pasa sobre la celda */
+    -fx-background-color: #003366;
 }
 
-/* ComboBox con estilo */
+.spinner .list-cell:hover, .combo-box .list-cell:hover {
+    -fx-background-color: #005288;
+    -fx-text-fill: white;
+}
+
 .combo-box {
     -fx-background-color: #003366;
     -fx-text-fill: white;
 }
 
-/* RadioButton con letras blancas */
 .radio-button {
-    -fx-text-fill: white; /* Letras blancas en el RadioButton */
+    -fx-text-fill: white;
 }
 
-/* Estilo global para asegurarse de que las letras en todos los componentes sean blancas */
 * {
     -fx-text-fill: white;
 }

@@ -1,42 +1,36 @@
-/* Fondo azul oscuro para el fondo de la pantalla */
 AnchorPane {
-    -fx-background-color: #003366; /* Azul oscuro */
+    -fx-background-color: #003366;
 }
 
 SplitPane{
-    -fx-background-color: #005288; /* Azul oscuro */
-
+    -fx-background-color: #005288;
 }
 
-/* Cambiar el color de los textos de los Label dentro del GridPane */
 GridPane Label {
-    -fx-text-fill: white; /* Color blanco para el texto de los Label */
-
+    -fx-text-fill: white;
 }
 
 Label{
-   -fx-text-fill: white;
+    -fx-text-fill: white;
     -fx-font-size: 10pt;
 }
 
 GridPane Text {
-    -fx-fill: white; /* Para cambiar el color del texto de los elementos Text */
+    -fx-fill: white;
 }
 
 GridPane TextField {
-    -fx-text-fill: white; /* Cambiar el color de los textos dentro de los campos de texto */
+    -fx-text-fill: white;
 }
 
-/* Fondo azul para la tabla */
 .table-view {
-    -fx-background-color: #005288; /* Fondo oscuro para la tabla */
+    -fx-background-color: #005288;
     -fx-control-inner-background: #005288;
     -fx-base: #005288;
 }
 
-/* Estilo de los botones: fondo azul oscuro y texto blanco */
 .button {
-    -fx-background-color: #003366; /* Azul oscuro */
+    -fx-background-color: #003366;
     -fx-text-fill: white;
     -fx-font-size: 10pt;
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
@@ -45,35 +39,30 @@ GridPane TextField {
 }
 
 .button:hover {
-    -fx-background-color: #005288; /* Azul más claro para el hover */
+    -fx-background-color: #005288;
 }
 
 .button:pressed {
-    -fx-background-color: #0a4a77; /* Azul aún más oscuro para cuando se presiona */
+    -fx-background-color: #0a4a77;
 }
 
-/* Fondo de las celdas de la tabla */
 .table-view .cell {
     -fx-background-color: #005288;
     -fx-text-fill: white;
 }
 
-/* Fondo de las cabeceras de la tabla */
 .table-view .column-header {
-    -fx-background-color: #003366; /* Azul oscuro para la cabecera */
+    -fx-background-color: #003366;
     -fx-text-fill: white;
     -fx-font-size: 14pt;
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
-/* Fondo de la barra de división en SplitPane */
 .split-pane:horizontal > .split-pane-divider {
-    -fx-background-color: white; /* Azul oscuro para la barra divisoria */
-    -fx-pref-width: 1px; /* Ancho de la barra divisoria (ajusta este valor para hacerlo más fino o grueso) */
-
+    -fx-background-color: white;
+    -fx-pref-width: 1px;
 }
 
-/* Fondo del VBox (específico para el contenedor de la derecha) */
 .vbox {
-    -fx-background-color: #003366; /* Azul oscuro para el contenedor */
+    -fx-background-color: #003366;
 }

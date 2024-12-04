@@ -12,7 +12,7 @@ public class Cliente {
     private final StringProperty localidadProperty;
     private final StringProperty provinicaProperty;
 
-    private static final int totalClientes = 50;
+    private static final int totalClientes = 150;
     private static int contadorClientes = 0;
 
     public Cliente(){

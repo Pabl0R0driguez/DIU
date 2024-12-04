@@ -218,7 +218,7 @@ public class MainApp extends Application {
     public boolean mostrarBuscarDNI() {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Escribe un DNI");
-        dialog.setHeaderText("Ingrese el DNI del cliente");
+        dialog.setHeaderText("Introduzca el DNI del cliente");
         dialog.setContentText("DNI:");
 
         // Espera a que el usuario le de al botón de aceptar
