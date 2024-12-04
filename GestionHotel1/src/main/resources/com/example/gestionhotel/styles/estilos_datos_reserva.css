@@ -13,17 +13,13 @@ AnchorPane {
     -fx-border-radius: 5;
 }
 
-.label {
-    -fx-font-size: 2pt;
-    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
-    -fx-padding: 10 20 10 20;
-    -fx-border-radius: 5;
-}
-
 /* Etiquetas con letras blancas */
 .label {
-    -fx-text-fill: white; /* Letras blancas */
     -fx-font-size: 14px;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-text-fill: white; /* Letras blancas */
+    -fx-padding: 10 20 10 20;
+    -fx-border-radius: 5;
 }
 
 /* Estilo para el DatePicker: Fondo azul y texto blanco en el campo de texto */
@@ -32,18 +28,7 @@ AnchorPane {
     -fx-font-size: 14px;
 }
 
-#textoFumador {
-    -fx-font-size: 5pt; /* Tamaño de letra 5pt */
-    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif; /* Fuente deseada */
-    -fx-text-fill: white; /* Color del texto */
-}
-
-#grupoRegimen{
-    -fx-text-fill: white; /* Letras blancas */
-    -fx-font-size: 14px;
-}
-
-
+/* El texto dentro del DatePicker se mantiene blanco */
 .date-picker .text-field {
     -fx-background-color: #003366; /* Fondo azul */
     -fx-text-fill: white; /* Texto blanco */
@@ -80,17 +65,52 @@ AnchorPane {
     -fx-text-fill: black; /* Deja las etiquetas dentro del DatePicker con texto negro */
 }
 
-
-
-
 /* Spinner con estilo */
 .spinner .text-field {
-    -fx-text-fill: white;
-    -fx-background-color: #003366;
+    -fx-text-fill: white; /* Texto blanco */
+    -fx-background-color: #003366; /* Fondo azul */
+}
+
+/* Spinner buttons */
+.spinner .increment-button, .spinner .decrement-button {
+    -fx-background-color: #003366; /* Fondo azul */
+    -fx-text-fill: white; /* Texto blanco */
+    -fx-border-color: #005288; /* Borde azul claro */
+}
+
+/* Estilo del menú desplegable del Spinner */
+.spinner .list-cell {
+    -fx-background-color: #003366; /* Fondo azul para los elementos del menú */
+    -fx-text-fill: white; /* Texto blanco para los elementos del menú */
+}
+/* Estilo para los elementos dentro del menú desplegable de Spinner y ComboBox */
+.spinner .list-cell, .combo-box .list-cell {
+    -fx-background-color: #003366; /* Fondo azul para los elementos del menú */
+    -fx-text-fill: white; /* Texto negro para los elementos del menú */
+}
+
+/* Estilo para cuando se pasa el ratón sobre un elemento del menú */
+.spinner .list-cell:hover {
+    -fx-background-color: #003366; /* Azul más claro cuando se pasa el ratón */
+}
+/* Estilo cuando el ratón pasa sobre un elemento del menú */
+.spinner .list-cell:hover, .combo-box .list-cell:hover {
+    -fx-background-color: #005288; /* Azul más claro cuando se pasa el ratón */
+    -fx-text-fill: white; /* Texto blanco cuando el ratón pasa sobre la celda */
 }
 
 /* ComboBox con estilo */
 .combo-box {
     -fx-background-color: #003366;
+    -fx-text-fill: white;
+}
+
+/* RadioButton con letras blancas */
+.radio-button {
+    -fx-text-fill: white; /* Letras blancas en el RadioButton */
+}
+
+/* Estilo global para asegurarse de que las letras en todos los componentes sean blancas */
+* {
     -fx-text-fill: white;
 }

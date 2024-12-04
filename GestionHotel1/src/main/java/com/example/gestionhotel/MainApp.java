@@ -17,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -174,6 +175,8 @@ public class MainApp extends Application {
             DiseñoRaizController controller = loader.getController();
             controller.setMainApp(this);
 
+
+
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -224,16 +227,15 @@ public class MainApp extends Application {
         result.ifPresent(DNI -> {
             setDniSeleccionado(DNI);
             System.out.println("DNI FFFF: " + DNI);
-//            InterfazPrincipalController interfazPrincipalController = getInterfazPrincipalController();
-//            interfazPrincipalController.seleccionarReservaPorDNI(DNI);
+
         });
 
+        dialog.close();
         // Si el DNI introducido no es cadena vacia, devuelve true, en DRC podemos seguir
         if (!dniSeleccionado.equals(""))
             return true;
         else
             return false;
-
     }
 
 
@@ -268,6 +270,7 @@ public class MainApp extends Application {
             controller.setDialogStage(dialogStage);
             controller.setCliente(cliente);
             controller.setMainApp(this);
+
 
             controller.setBarraIndicador((double) Cliente.getContadorClientes() / (double) Cliente.getTotalClientes());
 
@@ -557,6 +560,40 @@ public class MainApp extends Application {
             return true;
 
     }
+    public boolean mostrarEstadistica() {
+        try {
+            // Cargar la interfaz FXML para las estadísticas de reserva
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/com/example/gestionhotel/EstadisticasReservas.fxml"));
+            AnchorPane page = loader.load(); // Cargar la vista como AnchorPane
+
+            // Crear una nueva ventana (Stage) para mostrar el diálogo
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Estadísticas de Reservas");
+            dialogStage.initModality(Modality.WINDOW_MODAL); // Configura la modalidad del diálogo
+            dialogStage.initOwner(primaryStage); // Establece el Stage principal como propietario
+
+            // Configurar las dimensiones de la ventana
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Configurar el controlador
+            ReservaEstadisticasController controller = loader.getController();
+            controller.setMainApp(this);
+//            controller.modificar();
+
+            // Mostrar la ventana del diálogo
+            dialogStage.showAndWait();
+
+            return true;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
 
     public static void main(String[] args) {
         launch();

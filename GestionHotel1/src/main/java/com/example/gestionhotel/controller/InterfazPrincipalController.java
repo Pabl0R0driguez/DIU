@@ -177,10 +177,8 @@ public class InterfazPrincipalController {
                 // Seleccionamos al cliente de la tabla
                 tablaPersonas.getSelectionModel().select(cliente);
                 showClienteDetails(cliente);
-
-                stage.close();
                 bandera = true;
-                ;
+
             }
         }
 

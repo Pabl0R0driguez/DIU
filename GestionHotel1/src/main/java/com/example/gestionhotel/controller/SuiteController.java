@@ -48,8 +48,8 @@ public class SuiteController {
     public void initialize() {
         // Crear una lista con todas las imágenes
         imageList = new ArrayList<>();
-        imageList.add(new Image(getClass().getResource("/com/example/gestionhotel/images/h7.jpg").toString()));
-        imageList.add(new Image(getClass().getResource("/com/example/gestionhotel/images/h2.jpg").toString()));
+        imageList.add(new Image(getClass().getResource("/com/example/gestionhotel/images/a6.jpg").toString()));
+        imageList.add(new Image(getClass().getResource("/com/example/gestionhotel/images/a7.jpg").toString()));
 
 
         // Mostrar la primera imagen

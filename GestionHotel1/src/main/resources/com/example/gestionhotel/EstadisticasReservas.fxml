@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionhotel.controller.ReservaEstadisticasController">
+<AnchorPane prefHeight="532.0" prefWidth="712.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionhotel.controller.ReservaEstadisticasController">
     <children>
-        <AnchorPane layoutX="12.0" layoutY="6.0" prefHeight="450.0" prefWidth="620.0">
+        <AnchorPane layoutX="-9.0" layoutY="7.0" prefHeight="460.0" prefWidth="650.0">
             <children>
-                <BarChart fx:id="barChart" layoutX="60.0" layoutY="25.0" prefHeight="450.0" prefWidth="620.0" title="Estadísticas Reservas" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <BarChart fx:id="graficoBarras" layoutX="26.0" layoutY="86.0" prefHeight="395.0" prefWidth="684.0" AnchorPane.bottomAnchor="-21.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="-60.0" AnchorPane.topAnchor="86.0">
                     <xAxis>
-                        <CategoryAxis side="BOTTOM" fx:id="xAxis" />
+                        <CategoryAxis prefHeight="11.0" prefWidth="671.0" side="BOTTOM"  />
                     </xAxis>
                     <yAxis>
-                        <NumberAxis side="LEFT" />
+                        <NumberAxis prefHeight="381.0" prefWidth="27.0" side="LEFT" lowerBound="0" upperBound="100" autoRanging="false" />
                     </yAxis>
                 </BarChart>
+            <Label layoutX="236.0" layoutY="21.0" prefHeight="33.0" prefWidth="262.0" text="Estadisticas de reservas" underline="true">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <TextField fx:id="anio" layoutX="298.0" layoutY="66.0" prefHeight="29.0" prefWidth="54.0" text="2024" />
+            <Label layoutX="256.0" layoutY="70.0" text="Año:">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Button layoutX="369.0" layoutY="66.0" mnemonicParsing="false" onAction="#buscarEstadistica" text="Buscar" />
             </children>
         </AnchorPane>
     </children>

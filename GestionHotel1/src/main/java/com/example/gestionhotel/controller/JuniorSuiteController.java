@@ -48,8 +48,8 @@ public class JuniorSuiteController {
     public void initialize() {
         // Crear una lista con todas las imágenes
         imageList = new ArrayList<>();
-        imageList.add(new Image(getClass().getResource("/com/example/gestionhotel/images/h4.jpg").toString()));
-        imageList.add(new Image(getClass().getResource("/com/example/gestionhotel/images/h5.jpg").toString()));
+        imageList.add(new Image(getClass().getResource("/com/example/gestionhotel/images/a3.jpg").toString()));
+        imageList.add(new Image(getClass().getResource("/com/example/gestionhotel/images/a6.jpg").toString()));
 
         // Mostrar la primera imagen
         imageView.setImage(imageList.get(contadorImagenes));

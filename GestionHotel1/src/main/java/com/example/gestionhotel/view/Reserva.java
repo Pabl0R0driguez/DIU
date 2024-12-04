@@ -17,20 +17,35 @@ public class Reserva {
     private String DNI = String.valueOf(new SimpleStringProperty());
 
 
-    private static int numeroHabitacionesDoblesIndividual = 50;
+    private static int numeroHabitacionesDoblesIndividual = 40;
     private static int contadorHabitacionesDoblesIndividual = 0;
 
-    private static int numeroHabitacionesDobles = 50;
+    private static int numeroHabitacionesDobles = 40;
     private static int contadorHabitacionDobles = 0;
 
 
-    private static int numeroHabitacionesJunior = 50;
+    private static int numeroHabitacionesJunior = 20;
     private static int contadorHabitacionesJunior = 0;
 
 
-    private static int numeroHabitacionesJuniorSuite = 50;
+    private static int numeroHabitacionesJuniorSuite = 20;
     private static int contadorHabitacionesJuniorSuite = 0;
 
+
+    private static int totalNumeroHabitaciones = numeroHabitacionesDoblesIndividual
+            + numeroHabitacionesDobles + numeroHabitacionesJunior + numeroHabitacionesJuniorSuite;
+
+    // Array que contiene las resercas de un año
+    private static int [] contadorTotalReservasMes = new int[12];
+
+
+    public static int[] getContadorTotalReservasMes() {
+        return contadorTotalReservasMes;
+    }
+
+    public static void setContadorTotalReservasMes(int[] contadorTotalReservasMes) {
+        Reserva.contadorTotalReservasMes = contadorTotalReservasMes;
+    }
 
     public static int getContadorHabitacionesJuniorSuite() {
         return contadorHabitacionesJuniorSuite;
@@ -94,6 +109,14 @@ public class Reserva {
 
     public static void setNumeroHabitacionesDoblesIndividual(int numeroHabitacionesDoblesIndividual) {
         Reserva.numeroHabitacionesDoblesIndividual = numeroHabitacionesDoblesIndividual;
+    }
+
+    public static int getTotalNumeroHabitaciones() {
+        return totalNumeroHabitaciones;
+    }
+
+    public static void setTotalNumeroHabitaciones(int totalNumeroHabitaciones) {
+        Reserva.totalNumeroHabitaciones = totalNumeroHabitaciones;
     }
 
     public Reserva(){

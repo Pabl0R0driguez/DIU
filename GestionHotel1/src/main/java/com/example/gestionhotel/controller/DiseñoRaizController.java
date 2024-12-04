@@ -10,8 +10,6 @@ import java.io.IOException;
 
 public class DiseñoRaizController {
     private MainApp mainApp;
-    String dni;
-    InterfazPrincipalController interfazPrincipalController;
     boolean onClicked = true;
     Stage stage;
 
@@ -25,7 +23,9 @@ public class DiseñoRaizController {
         if (OnClick) {
             String dniSeleccionado = mainApp.getDniSeleccionado();
             mainApp.getInterfazPrincipalController().seleccionarReservaPorDNI(dniSeleccionado);  // la acción se realiza en el controlador de clientess.Dise
+
         }
+
 
     }
 
@@ -66,20 +66,18 @@ public class DiseñoRaizController {
 
     @FXML
     public void estadisticas() throws IOException {
-
+        if(onClicked){
+            mainApp.mostrarEstadistica();
+        }
     }
-
-
-
-
-
-
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }
 
-
+    public Stage getStage() {
+        return stage;
     }
+}
 
 

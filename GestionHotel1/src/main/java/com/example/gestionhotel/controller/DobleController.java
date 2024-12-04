@@ -4,10 +4,12 @@ import com.example.gestionhotel.MainApp;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -48,12 +50,18 @@ public class DobleController {
     public void initialize() {
         // Crear una lista con todas las imágenes
         imageList = new ArrayList<>();
-        imageList.add(new Image(getClass().getResource("/com/example/gestionhotel/images/h1.jpg").toString()));
-        imageList.add(new Image(getClass().getResource("/com/example/gestionhotel/images/h2.jpg").toString()));
-        imageList.add(new Image(getClass().getResource("/com/example/gestionhotel/images/h3.jpg").toString()));
+        imageList.add(new Image(getClass().getResource("/com/example/gestionhotel/images/a1.jpg").toString()));
+        imageList.add(new Image(getClass().getResource("/com/example/gestionhotel/images/a2.jpg").toString()));
+        imageList.add(new Image(getClass().getResource("/com/example/gestionhotel/images/a3.jpg").toString()));
 
         // Mostrar la primera imagen
         imageView.setImage(imageList.get(contadorImagenes));
+        // Configurar el tamaño del ImageView
+        imageView.setFitWidth(350);  // Ancho deseado
+        imageView.setFitHeight(250); // Alto deseado
+        imageView.setPreserveRatio(true); // Mantener la relación de aspecto
+        imageView.setSmooth(true); // Suavizar la imagen al redimensionarla
+        StackPane.setMargin(imageView, new Insets(100, 0, 0, 0)); // Arriba: 50px
 
         // Crear un Timeline para alternar imágenes automáticamente
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {

@@ -12,6 +12,8 @@ public interface ReservaRepository {
     void eliminarReserva(int var1) throws ExcepcionReserva;
     ArrayList<ReservaVO> listarReservasPorCliente(String var1) throws ExcepcionReserva;
     void contarTotalReservas() throws ExcepcionReserva;
+    int[] contarTotalReservasMes(int anio) throws ExcepcionReserva;
+
 
 
 }

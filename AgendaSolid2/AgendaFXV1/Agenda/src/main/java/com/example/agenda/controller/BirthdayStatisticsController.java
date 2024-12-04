@@ -14,7 +14,7 @@ import javafx.scene.chart.XYChart;
 
 import com.example.hotel.model.Reservation;
 
-public class HotelStatisticsController {
+public  class HotelStatisticsController {
     @FXML
     private BarChart<String, Integer> barChart;
 

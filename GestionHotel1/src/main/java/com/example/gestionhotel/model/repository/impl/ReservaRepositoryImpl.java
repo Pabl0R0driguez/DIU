@@ -125,7 +125,7 @@ public class ReservaRepositoryImpl implements ReservaRepository {
 
             this.reservas = new ArrayList<ReservaVO>(); // Lista para almacenar las reservas
             this.stmt = conn.createStatement();
-            this.sentencia = "SELECT * FROM Reserva WHERE DNI_cliente = '" + DNI + "'"; // Consulta a la tabla de reservas donde el DNI sea el seleccionado
+            this.sentencia = "SELECT * FROM Reserva WHERE DNI_cliente = '" + DNI + "' ORDER BY fechaLlegada ASC "; // Consulta a la tabla de reservas donde el DNI sea el seleccionado
 
             ResultSet rs = this.stmt.executeQuery(this.sentencia);
 
@@ -190,6 +190,36 @@ public class ReservaRepositoryImpl implements ReservaRepository {
         } catch (Exception e) {
             throw new ExcepcionReserva("No se pudo conectar");
         }
+    }
+
+    public int[] contarTotalReservasMes(int anio) throws ExcepcionReserva {
+        int[] contadoresReservaMes = new int[12]; // Array para los 12 meses
+        String sentencia = "SELECT COUNT(*) AS contadorTotalReservas " +
+                "FROM Reserva " +
+                "WHERE MONTH(fechaLlegada) = ? AND YEAR(fechaLlegada) = " + anio;
+        try (Connection conn = this.conexion.conectarBD();
+             PreparedStatement pstmt = conn.prepareStatement(sentencia)) {
+
+            System.out.println("Conexión exitosa con la base de datos");
+
+            for (int i = 1; i <= 12; i++) {
+                pstmt.setInt(1, i); // Mes
+
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        contadoresReservaMes[i - 1] = rs.getInt("contadorTotalReservas"); // Almacenamos el resultado
+                    }
+                }
+            }
+
+            // Establecer el contador de reservas en la clase Reserva
+            Reserva.setContadorTotalReservasMes(contadoresReservaMes);
+
+        } catch (SQLException e) {
+            throw new ExcepcionReserva("No se pudo conectar a la base de datos: " );
+        }
+
+        return contadoresReservaMes;
     }
 
 

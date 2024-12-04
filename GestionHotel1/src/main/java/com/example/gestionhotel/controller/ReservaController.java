@@ -118,6 +118,7 @@ public class ReservaController {
 
     @FXML
     void Cancelar(ActionEvent event) {
+        dialogStage.close();
         OKClicked=false;
     }
 

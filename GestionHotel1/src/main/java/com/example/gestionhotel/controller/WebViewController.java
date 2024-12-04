@@ -19,7 +19,7 @@ public class WebViewController {
         WebEngine webEngine = webView.getEngine();
 
         // Cargar la página web del hotel
-        String hotelUrl = "https://www.google.es"; // Cambia esta URL por la de tu hotel.
+        String hotelUrl = "https://www.eurostarshotels.com"; // Cambia esta URL por la de tu hotel.
         webEngine.load(hotelUrl);
     }
 

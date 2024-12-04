@@ -1,97 +1,144 @@
-//package com.example.gestionhotel.controller;
-//
-//import java.text.DateFormatSymbols;
-//import java.util.Arrays;
-//import java.util.List;
-//import java.util.Locale;
-//
-//import com.example.gestionhotel.MainApp;
-//import com.example.gestionhotel.view.Reserva;
-//import javafx.collections.FXCollections;
-//import javafx.collections.ObservableList;
-//import javafx.fxml.FXML;
-//import javafx.scene.chart.BarChart;
-//import javafx.scene.chart.CategoryAxis;
-//import javafx.scene.chart.XYChart;
-//import javafx.stage.Stage;
-//
-//
-//public class ReservaEstadisticasController {
-//    @FXML
-//    private BarChart<String, Integer> barChart;
-//
-//    @FXML
-//    private CategoryAxis xAxis;
-//
-//    private ObservableList<String> monthNames = FXCollections.observableArrayList();
-//
-//    private MainApp mainApp;
-//    private Stage stage;
-//
-//    /**
-//     * Initializes the controller class. This method is automatically called
-//     * after the fxml file has been loaded.
-//     */
-//    @FXML
-//    private void initialize() {
-//        // Get an array with the English month names.
-//        String[] months = DateFormatSymbols.getInstance(Locale.ENGLISH).getMonths();
-//        // Convert it to a list and add it to our ObservableList of months.
-//        monthNames.addAll(Arrays.asList(months));
-//
-//        // Assign the month names as categories for the horizontal axis.
-//        xAxis.setCategories(monthNames);
-//    }
-//
-//    /**
-//     * Sets the reservation data to show the statistics for.
-//     *
-//     * @param reservations
-//     */
-//    public void setReservationData(List<Reserva> reservations, int totalHabitaciones) {
-//        // Total de días por mes (usando 1-based index).
-//        int[] daysInMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-//
-//        // Verificar si es año bisiesto y ajustar febrero.
-//        int year = reservations.get(0).getFechaLlegada2().getYear(); // Ejemplo: obtener año de la primera reserva
-//        if (java.time.Year.isLeap(year)) {
-//            daysInMonth[1] = 29;
-//        }
-//
-//        // Acumulador de ocupación media por mes.
-//        double[] monthOccupancy = new double[12];
-//
-//        for (Reserva reservation : reservations) {
-//            int month = reservation.getFechaLlegada2().getMonthValue() - 1; // Mes 0-based.
-//            double ocupacionMedia = reservation.getOcupacionMediaPorTipoHabitacion(); // Método para obtener ocupación media.
-//            monthOccupancy[month] += ocupacionMedia;
-//        }
-//
-//        // Crear una serie para el gráfico.
-//        XYChart.Series<String, Double> series = new XYChart.Series<>();
-//        series.setName("Porcentaje de ocupación por mes");
-//
-//        // Calcular porcentaje y llenar datos del gráfico.
-//        for (int i = 0; i < monthOccupancy.length; i++) {
-//            double maxPossibleOccupancy = totalHabitaciones * daysInMonth[i];
-//            double percentage = (monthOccupancy[i] / maxPossibleOccupancy) * 100;
-//            series.getData().add(new XYChart.Data<>(monthNames.get(i), percentage));
-//        }
-//
-//        barChart.getData().clear(); // Limpiar datos existentes.
-//        barChart.getData().add(series); // Agregar la nueva serie.
-//    }
-//
-//
-//
-//
-//    public void setMainApp(MainApp mainApp) {
-//        this.mainApp = mainApp;
-//    }
-//
-//    public void setDialogStage(Stage dialogStage) {
-//        this.stage = dialogStage;
-//    }
-//    }
-//
-//
+package com.example.gestionhotel.controller;
+
+import com.example.gestionhotel.MainApp;
+import com.example.gestionhotel.view.Reserva;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+
+
+public class ReservaEstadisticasController {
+
+    @FXML
+    BarChart<String, Number> graficoBarras;
+
+    @FXML
+    TextField anio;
+
+    @FXML
+    private CategoryAxis ejeX;
+
+    @FXML
+    private NumberAxis ejeY;
+
+    MainApp mainApp;
+    int[] contarMediaPorMes;
+
+
+    XYChart.Series<String, Number> datos1 = new XYChart.Series<>();
+
+    @FXML
+    public void initialize() {
+
+    }
+
+
+
+    public String obtener_mes(int i) {
+        String mes = "";
+
+        switch (i) {
+            case 1:
+                mes = "Ene";
+                break;
+            case 2:
+                mes = "Feb";
+                break;
+            case 3:
+                mes = "Mar";
+                break;
+            case 4:
+                mes = "Abr";
+                break;
+            case 5:
+                mes = "May";
+                break;
+            case 6:
+                mes = "Jum";
+                break;
+            case 7:
+                mes = "Jul";
+                break;
+            case 8:
+                mes = "Ago";
+                break;
+            case 9:
+                mes = "Sep";
+                break;
+            case 10:
+                mes = "Oct";
+                break;
+            case 11:
+                mes = "Nov";
+                break;
+            case 12:
+                mes = "Dic";
+                break;
+        }
+        return mes;
+    }
+
+    public void mediaOcupacion(Integer anio) {
+
+        // Obtener el número de reservas por mes para el año seleccionado
+       contarMediaPorMes = mainApp.getHotelModelo().getReservaRepository().contarTotalReservasMes(anio);
+
+        // Recorrer los valores de las reservas por mes
+        for (int mes : contarMediaPorMes) {
+            System.out.println("Mes: " + mes);
+        }
+
+    }
+
+    public void dibujarGraficoBarras() {
+        int[] contadorreservas = Reserva.getContadorTotalReservasMes();
+
+        for (int mes : contadorreservas) {
+            System.out.println("dibujar Mes: " + mes);
+        }
+        int totalHabitaciones = Reserva.getTotalNumeroHabitaciones();
+
+        System.out.println("totalHabitaciones: " + totalHabitaciones);
+
+        String mes = "";
+        XYChart.Series<String, Number> datos = new XYChart.Series<>();
+        graficoBarras.getData().clear();
+
+
+
+        datos.setName(anio.getText());
+        for (int i = 0; i < contadorreservas.length; i++) {
+            Number porcentaje = ((float)contadorreservas[i] / (float)totalHabitaciones) * 100;
+            System.out.println("dibujar Mes: " + i + " reservas: " + contadorreservas[i]  + " porcentaje" + porcentaje);
+            mes = obtener_mes(i + 1);
+
+            datos.getData().add(new XYChart.Data<>(mes, porcentaje));
+        }
+
+
+        graficoBarras.getData().addAll(datos);
+    }
+
+    @FXML
+    public void buscarEstadistica (ActionEvent event) {
+        String an = anio.getText();
+        mediaOcupacion(Integer.valueOf(an));
+        dibujarGraficoBarras();
+
+    }
+
+
+    public void setMainApp(MainApp mainApp) {
+        this.mainApp = mainApp;
+    }
+
+
+}
+
+
