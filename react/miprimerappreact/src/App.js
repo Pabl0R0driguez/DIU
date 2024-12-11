@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import HelloComponents from './components/HelloComponents';
+import InputComponent from './components/InputComponent';
 
 class App extends Component {
   constructor() {
@@ -23,7 +24,7 @@ class App extends Component {
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <HelloComponents nombre={this.state.name}></HelloComponents>
-          <input value={this.state.name} onChange={this.changeName} />
+          <InputComponent nombre={this.state.name} changeName={this.changeName}></InputComponent>
         </header>
       </div >
     )
