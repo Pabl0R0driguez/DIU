@@ -1,25 +1,29 @@
-function HeaderComponent() {
+import "./HeaderComponent.css";
+
+// Le pasamos los props y ya podremos usarlo donde queramos 
+function HeaderComponent(props) {
+    const { greetings, links } = props;
+
     return (
-        <header>
-            <h1>Bienvenidos</h1>
+        <header className="header">
+            <h1 className="title">{greetings}</h1>
             <nav>
-                <ul>
-                    <l1>
-                        <a href="#">Home</a>
-                    </l1>
-                </ul>
-                <ul>
-                    <l1>
-                        <a href="#">Blog</a>
-                    </l1>
-                </ul> <ul>
-                    <l1>
-                        <a href="#">News</a>
-                    </l1>
-                </ul> <ul>
-                    <l1>
-                        <a href="#">Contact Us</a>
-                    </l1>
+                <ul className="header-list">
+                    <li>
+                        <a className="link" href="#">{links.home}</a>
+                    </li>
+
+                    <li>
+                        <a className="link" href="#">{links.blog}</a>
+                    </li>
+
+                    <li>
+                        <a className="link" href="#">{links.news}</a>
+                    </li>
+
+                    <li>
+                        <a className="link" href="#">{links.contact}</a>
+                    </li>
                 </ul>
             </nav>
         </header>

@@ -1,0 +1,23 @@
+.title {
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+.header {
+    background-color: blue;
+    color: white;
+}
+
+.header-list {
+    padding: 20px;
+    /* Elementos en línea*/
+    display: flex;
+    /* Espacios iguales*/
+    justify-content: space-around;
+
+    .link {
+        color: white;
+        text-decoration: none;
+    }
+}
