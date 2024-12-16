@@ -25,10 +25,10 @@ public class InterfazReservasController {
     private Label numeroHabLabel;
 
     @FXML
-    private TableColumn<Reserva, LocalDate> fechaLlegada;
+    private TableColumn<Reserva, LocalDate> fechaLlegada1;
 
     @FXML
-    private TableColumn<Reserva, LocalDate> fechaSalida;
+    private TableColumn<Reserva, LocalDate> fechaSalida2;
 
     @FXML
     private TableView<Reserva> tablaReservas;
@@ -55,8 +55,8 @@ public class InterfazReservasController {
 
     @FXML
     private void initialize() {
-        fechaLlegada.setCellValueFactory(cellData -> cellData.getValue().fechaLlegadaProperty());
-        fechaSalida.setCellValueFactory(cellData -> cellData.getValue().fechaSalidaProperty());
+        fechaLlegada1.setCellValueFactory(cellData -> cellData.getValue().fechaLlegadaProperty());
+        fechaSalida2.setCellValueFactory(cellData -> cellData.getValue().fechaSalidaProperty());
 
         showReservasDetails(null);
 
