@@ -1,6 +1,6 @@
 import "./PokemonList.css"
 import { useEffect, useState } from "react";
-import PokemonCard from "./PokemonCard.css"
+import PokemonCard from "./PokemonCard"; // Importa el componente correctamente.
 
 function PokemonList(props) {
 
