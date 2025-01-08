@@ -1,0 +1,122 @@
+/* Estilo global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Contenedor principal */
+  body {
+    background-color: #e7f5ff; /* Fondo azul suave */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ocupa toda la pantalla */
+    font-size: 18px;
+    color: #333; /* Color de texto oscuro */
+  }
+  
+  /* Contenedor del título */
+  h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Contenedor del número */
+  .numero {
+    font-size: 4rem;
+    font-weight: 700;
+    color: #1e90ff; /* Color azul brillante */
+    margin-bottom: 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  
+  /* Contenedor de los botones */
+  .botones {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  /* Estilo de los botones */
+  button {
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 150px; /* Ancho fijo para todos los botones */
+  }
+  
+  /* Botón de incrementar */
+  button:first-child {
+    background-color: #4CAF50; /* Verde para incrementar */
+    color: white;
+  }
+  
+  /* Botón de decrementar */
+  button:nth-child(2) {
+    background-color: #f44336; /* Rojo para decrementar */
+    color: white;
+  }
+  
+  /* Botón de limpiar */
+  button:last-child {
+    background-color: #007bff; /* Azul para limpiar */
+    color: white;
+  }
+  
+  /* Efecto hover para los botones */
+  button:hover {
+    opacity: 0.9;
+    transform: scale(1.1); /* Agranda el botón */
+  }
+  
+  /* Efecto al hacer clic (active) */
+  button:active {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Efecto de enfoque (focus) en los botones */
+  button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
+  }
+  
+  /* Animación para el número */
+  .numero {
+    transform: scale(1); /* Efecto de animación suave */
+    animation: bounce 1s ease infinite; /* Animación para hacerlo más divertido */
+  }
+  
+  /* Animación de rebote para el número */
+  @keyframes bounce {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  /* Estilos para la pequeña pantalla */
+  @media (max-width: 600px) {
+    .numero {
+      font-size: 3rem; /* Reducir tamaño del número en pantallas pequeñas */
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem; /* Reducir tamaño de los botones */
+    }
+  }
+  

@@ -1,0 +1,86 @@
+/* Estilo general para el contenedor de la página */
+.appContainer {
+  background-color: #282c34; /* Fondo oscuro */
+  min-height: 100vh;          /* Al menos el alto de la pantalla */
+  display: flex;
+  flex-direction: column;     /* Distribución en columna */
+  justify-content: center;    /* Centra los elementos verticalmente */
+  align-items: center;        /* Centra los elementos horizontalmente */
+  color: #fff;                /* Color de texto blanco */
+}
+
+/* Estilo para el título de la página */
+.title {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+/* Estilos específicos para la calculadora */
+.container {
+  padding: 20px;
+  background-color: #fff; /* Fondo blanco */
+  max-width: 400px;
+  width: 100%; /* Se adapta al 100% del ancho disponible */
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Estilo para la visualización de la calculadora */
+.display {
+  text-align: right;
+  margin-bottom: 20px;
+  color: #fff; /* Texto blanco */
+  font-size: 36px;
+  background-color: #808080; /* Fondo gris */
+  width: 100%;
+  padding: 15px;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.value {
+  font-size: 48px;
+}
+
+/* Estilo para las filas de botones */
+.row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+/* Estilo para los botones generales */
+.button {
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #fff; /* Fondo blanco */
+  color: #000; /* Texto negro */
+  border: 1px solid #ddd;
+  cursor: pointer;
+  font-size: 18px;
+  width: calc(25% - 10px); /* Ajusta el tamaño en pantallas más pequeñas */
+  margin: 5px;
+  transition: background-color 0.2s ease;
+}
+
+/* Estilo para los botones de operaciones */
+.buttonAccent {
+  background-color: #ff5722; /* Fondo naranja */
+  color: #fff; /* Texto blanco */
+  font-weight: bold;
+}
+
+/* Estilo para el botón 0 que ocupa el doble de espacio */
+.double {
+  width: calc(50% - 10px); /* Doble ancho para el botón 0 */
+}
+
+/* Efecto al pasar el ratón sobre los botones */
+.button:hover, .buttonAccent:hover {
+  background-color: #f1f1f1;
+}
