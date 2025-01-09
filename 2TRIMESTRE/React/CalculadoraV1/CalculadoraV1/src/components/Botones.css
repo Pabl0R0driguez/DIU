@@ -1,0 +1,68 @@
+.botones {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  padding: 20px;
+}
+
+.button {
+  font-size: 1.5rem;
+  font-weight: bold;
+  background-color: #f1f1f1;
+  border: none;
+  border-radius: 8px;
+  padding: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px #999;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.button:hover {
+  background-color: #e0e0e0;
+}
+
+.button:active {
+  box-shadow: 0 2px #666;
+  transform: translateY(2px);
+}
+
+.button.double {
+  grid-column: span 2;
+}
+
+.display {
+  background-color: #666;
+  color: white;
+  font-size: 2rem;
+  padding: 20px;
+  text-align: right;
+  border-radius: 8px;
+  margin: 20px;
+  box-shadow: inset 0 4px #999;
+}
+
+.app {
+  max-width: 400px;
+  margin: 50px auto;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+h1 {
+  background-color: #000000;
+  color: white;
+  text-align: center;
+  margin: 0;
+  padding: 20px;
+}
+
+.button:nth-child(4n) {
+  background-color: #f8981d;
+  color: white;
+}
+
+.button:nth-child(4n):hover {
+  background-color: #e0871a;
+}

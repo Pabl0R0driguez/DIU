@@ -1,0 +1,10 @@
+.display {
+  background-color: #666; /* Fondo gris */
+  color: white; /* Números en blanco */
+  font-size: 2rem;
+  padding: 20px;
+  text-align: right;
+  border-radius: 8px;
+  margin: 20px;
+  box-shadow: inset 0 4px #999;
+}
