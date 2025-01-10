@@ -58,7 +58,7 @@ h1 {
   padding: 20px;
 }
 
-.button:nth-child(4n) {
+.button:nth-child(4n + 5) {
   background-color: #f8981d;
   color: white;
 }
