@@ -1,0 +1,71 @@
+.calculator {
+      background-color: #f0f0f0;
+      padding: 30px; /* Aumentando el padding para hacer el fondo más grande */
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 360px; /* Aumentando el ancho del fondo de la calculadora */
+      margin: auto;
+      font-family: Arial, sans-serif;
+      text-align: center;
+  }
+  
+  .display {
+      width: calc(100% - 20px); /* Ajustando el ancho para que esté bien dentro del fondo */
+      height: 50px; /* Ajusta la altura según sea necesario */
+      text-align: right;
+      font-size: 1.5rem; /* Ajustando el tamaño del texto */
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      background-color: #fff;
+      color: #333;
+      box-sizing: border-box; /* Asegúrate de que el padding esté incluido en el ancho */
+  }
+  
+  .buttonRow {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+  }
+  
+  .boton {
+      width: 70px; /* Ajusta este valor si es necesario */
+      height: 70px; /* Cuadrado */
+      margin: 2.5px; /* Espacio entre botones */
+      font-size: 1.5rem;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+  
+  .button_ancho {
+      width: 165px; /* Dos casillas */
+      height: 65px;
+  }
+  
+  .operandos {
+      background-color: #ffbb56;
+      color: white;
+      width: 50; /* Dos casillas */
+      height: 60px;
+  }
+  
+  .boton {
+      background-color: #010101;
+      color: white;
+  }
+  
+  .boton2{
+      height: 65px;
+      width: 70px; /* Ajusta este valor si es necesario */
+
+  }
+  
+  
+  

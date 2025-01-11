@@ -58,7 +58,12 @@ h1 {
   padding: 20px;
 }
 
-.button:nth-child(4n + 5) {
+.button:nth-child(4n) {
+  background-color: #f8981d;
+  color: white;
+} 
+
+.button:nth-child(19) {
   background-color: #f8981d;
   color: white;
 }
@@ -66,3 +71,12 @@ h1 {
 .button:nth-child(4n):hover {
   background-color: #e0871a;
 }
+
+.button:nth-child(19):hover {
+  background-color: #f8981d;
+}
+
+.button:nth-child(1) {
+  background-color: #f81d1d;
+  color: white;
+} 
