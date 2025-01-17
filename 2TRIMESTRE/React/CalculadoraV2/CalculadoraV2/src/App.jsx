@@ -15,6 +15,8 @@ function App() {
       /* encodeURIComponent asegura que caracteres especiales como +, /, = no causen errores en la URL. */
       /* Si la expresión es "3 + 5", encodeURIComponent la convierte en "3%20%2B%205". */
       const response = await fetch(`https://api.mathjs.org/v4/?expr=${encodeURIComponent(expresion)}`);
+     
+      /* Comprueba si la  */
       if (!response.ok) {
         throw new Error(`Error al obtener el resultado: ${response.status}`);
       }
