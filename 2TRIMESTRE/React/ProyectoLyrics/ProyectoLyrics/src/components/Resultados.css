@@ -1,33 +1,70 @@
-.resultados-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* Resultados.css */
+
+/* Estilo para el contenedor principal */
+.container {
+    background-color: #f8f9fa; /* Fondo claro para el contenedor */
     padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
-.resultado-item {
-    width: 100%;
-    max-width: 600px;
-    background-color: #ffffff;
-    margin: 10px 0;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
+/* Estilo para el título */
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #343a40; /* Color del texto */
 }
 
-.resultado-item:hover {
-    transform: scale(1.02);
+/* Estilo de la tabla */
+.table {
+    border-collapse: collapse; /* Colapsar bordes */
+    width: 100%; /* Ancho completo */
+    margin: 20px 0; /* Margen vertical */
 }
 
-.resultado-title {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #333333;
-    margin-bottom: 10px;
+/* Estilo para las cabeceras de la tabla */
+.table thead th {
+    background-color: #007BFF; /* Color de fondo para el encabezado */
+    color: white; /* Color del texto */
+    padding: 15px; /* Relleno en las celdas */
+    border-bottom: 2px solid #0056b3; /* Línea inferior */
 }
 
-.resultado
+/* Estilo para las filas de la tabla */
+.table tbody tr {
+    transition: background-color 0.3s ease; /* Transición para el cambio de fondo */
+}
+
+/* Efecto hover en las filas */
+.table tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.1); /* Color de fondo en hover */
+}
+
+/* Estilo para las celdas */
+.table tbody td {
+    padding: 15px; /* Relleno en las celdas */
+    border-bottom: 1px solid #dee2e6; /* Línea entre filas */
+    color: #495057; /* Color del texto */
+}
+
+/* Estilo para la letra */
+pre {
+    white-space: pre-wrap; /* Permite el ajuste de línea */
+    word-wrap: break-word; /* Palabras largas se rompen */
+    background-color: #e9ecef; /* Fondo gris claro */
+    padding: 10px; /* Relleno */
+    border-radius: 5px; /* Bordes redondeados */
+    overflow-x: auto; /* Permite el desplazamiento horizontal */
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    h2 {
+        font-size: 1.5rem; /* Tamaño de fuente más pequeño para móviles */
+    }
+
+    .table {
+        font-size: 0.9rem; /* Tamaño de fuente más pequeño para la tabla */
+    }
+}

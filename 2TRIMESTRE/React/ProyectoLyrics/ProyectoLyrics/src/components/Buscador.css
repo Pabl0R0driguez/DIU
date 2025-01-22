@@ -1,13 +1,13 @@
 /* Buscador.css */
 
-.buscador-container {
+.contenedor {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 20px;
 }
 
-.buscador-input {
+.entrada {
     width: 300px;
     padding: 10px;
     border: 2px solid #ccc;
@@ -16,12 +16,12 @@
     transition: border-color 0.3s;
 }
 
-.buscador-input:focus {
+.entrada:focus {
     border-color: #007BFF;
     outline: none;
 }
 
-.buscador-button {
+.boton {
     padding: 10px 20px;
     margin-left: 10px;
     border: none;
@@ -33,6 +33,17 @@
     transition: background-color 0.3s;
 }
 
-.buscador-button:hover {
+.boton:hover {
     background-color: #0056b3;
+}
+
+.titulo {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.campo {
+    margin-bottom: 15px;
 }

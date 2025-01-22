@@ -1,5 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './Resultados.css';
 
 function Resultados({ resultados }) {
   return (
@@ -16,8 +17,8 @@ function Resultados({ resultados }) {
         <tbody>
           {resultados.map((resultado, index) => (
             <tr key={index}>
-              <td>{resultado.artist}</td>
-              <td>{resultado.song}</td>
+              <td>{resultado.artista}</td>
+              <td>{resultado.cancion}</td>
               <td>
                 <pre>{resultado.lyrics}</pre>
               </td>
