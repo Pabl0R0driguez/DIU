@@ -6,6 +6,8 @@ import Resultados from './components/Resultados';
 function App() {
   const [resultados, setResultados] = useState([]);
 
+  // Función que recibe un nuevo resultado y lo agrega al estado resultados.
+  // setResultados actualiza el estado resultados añadiendo el nuevo resultado al array resultados
   const handleSearch = (nuevoResultado) => {
     setResultados((prevResultados) => [...prevResultados, nuevoResultado]);
   };

@@ -23,13 +23,14 @@ function Buscador({ onSearch }) {
       const response = await fetch(`https://api.lyrics.ovh/v1/${artista}/${cancion}`);
        // Si la respuesta no es exitosa, lanzamos un error.
       if (!response.ok) {
-        throw new Error('No se encontró la letra. Verifica los datos ingresados.');
+        throw new Error('No se encontró la letra. Verifica los datos ingresados.' );
       }
       // Convertimos la respuesta a JSON.
       const data = await response.json();
+
+      // onSearch es una función que recibe los datos de la canción.
       onSearch({artista, cancion, lyrics:data.lyrics});
 
-      // Llamamos a la función onSearch con los datos obtenidos.
       } catch (error) {
       alert(error.message);
     } finally {
@@ -39,42 +40,47 @@ function Buscador({ onSearch }) {
     }
   };
 
-  // Retornamos el formulario.
-  return (
-    // Agregamos la clase container de Bootstrap.
-    <div className="contenedor">
-  <form onSubmit={handleSubmit}>
-    <div className="centrado">
-      <h1>Buscador de Canciones</h1>
-    </div>
-    <div className="campo">
-      <input
-        type="text"
-        className="entrada"
-        placeholder="Artista"
-        value={artista}
-        onChange={(e) => setArtista(e.target.value)}
-        required
-      />
-    </div>
-    <div className="campo">
-      <input
-        type="text"
-        className="entrada"
-        placeholder="Canción"
-        value={cancion}
-        onChange={(e) => setCancion(e.target.value)}
-        required
-      />
-    </div>
-    <div className="boton">
-      <button type="submit" className="boton" disabled={cargando}>
-        {cargando ? 'Buscando...' : 'Buscar'}
-      </button>
-    </div>
-  </form>
-</div>
+  // Retornamos el formulario con los campos de artista y canción.
+  // Al hacer submit se ejecuta la función handleSubmit.
+  // Si cargando es true, el botón se deshabilita y muestra el texto 'Buscando...'.
 
+  return (
+    <div className="container mt-4">
+      <form onSubmit={handleSubmit} className="row justify-content-center">
+        <div className="col-12 text-center mb-4">
+          <h1 className="display-5">Buscador de Canciones</h1>
+        </div>
+        <div className="col-md-6 col-12 mb-3">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Artista"
+            value={artista}
+            onChange={(e) => setArtista(e.target.value)}
+            required
+          />
+        </div>
+        <div className="col-md-6 col-12 mb-3">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Canción"
+            value={cancion}
+            onChange={(e) => setCancion(e.target.value)}
+            required
+          />
+        </div>
+        <div className="col-12 text-center">
+          <button
+            type="submit"
+            className="btn btn-primary w-50"
+            disabled={cargando}
+          >
+            {cargando ? 'Buscando...' : 'Buscar'}
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }
 
