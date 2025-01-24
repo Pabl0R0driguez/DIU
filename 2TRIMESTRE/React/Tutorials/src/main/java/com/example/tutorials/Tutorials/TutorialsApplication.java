@@ -1,4 +1,4 @@
-package com.example.tutorials;
+package com.example.tutorials.Tutorials;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,5 +9,5 @@ public class TutorialsApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TutorialsApplication.class, args);
 	}
--
+
 }
