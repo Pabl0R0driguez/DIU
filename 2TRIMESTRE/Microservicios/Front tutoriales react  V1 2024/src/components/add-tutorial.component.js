@@ -8,7 +8,6 @@ export default class TutorialAdd extends Component {
     super(props);
     this.state = {
       searchTitle: "", 
-      this.agregarTutorial = this.agregarTutorial.bind(this)
     };
 
     // Enlazo los métodos al contexto de la clase
@@ -45,22 +44,28 @@ export default class TutorialAdd extends Component {
 
     return (
       <div>
-        <div>
-          <form
-            onSubmit={this.agregarTutorial}
-            className="form-control"
-            placeholder="Añadir tutorial"
-            value={searchTitle}
-            onChange={this.onChangeSearchTitle} // Método para manejar cambios en el input
-          />
-        </div>
-        <div>
+      <form onSubmit={this.agregarTutorial}>
+
+          <div>
+            <h1>Añadir tutoriales</h1>
+          </div>
+
+          <div className="input-group mb-3">
+            <input
+              type="onSubmit"
+              className="form-control"
+              placeholder="Título del tutorial"
+              value={this.state.searchTitle}
+              onChange={this.onChangeSearchTitle}></input>
+            </div>  
+        
           <div className="input-group-append">
             <button className="btn btn-outline-secondary" type="submit">
               Añadir
-            </button>
+            </button> 
           </div>
-        </div>
+
+        </form>
       </div>
     );
   }
