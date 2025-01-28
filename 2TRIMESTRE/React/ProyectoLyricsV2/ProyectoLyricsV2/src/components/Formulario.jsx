@@ -23,6 +23,6 @@ const Formulario = ({artista,cancion,inputChange,buscar}) => {
             <button type="submit">Buscar</button>
         </form>
     );
-};
+};    
 
 export default Formulario;

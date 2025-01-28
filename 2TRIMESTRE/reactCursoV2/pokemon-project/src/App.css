@@ -1,0 +1,99 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f4f8;
+  color: #333;
+  height: 100vh; /* Ocupa toda la altura de la pantalla */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Centra verticalmente el contenido */
+}
+
+.app {
+  max-width: 1200px; /* Un ancho máximo para pantallas grandes */
+  width: 100%; /* Ocupa todo el ancho de la pantalla */
+  height: 100%; /* Asegura que ocupe toda la altura */
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column; /* Coloca los elementos en columna */
+  align-items: center; /* Alinea los elementos al centro */
+  justify-content: flex-start; /* Comienza desde la parte superior */
+}
+
+.selected-pokemon-container {
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #e9f5f5; /* Light turquoise */
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Ocupa todo el ancho disponible */
+  display: flex; /* Permite centrar el contenido */
+  flex-direction: column; /* Coloca el contenido en columna */
+  align-items: center; /* Centra el contenido horizontalmente */
+}
+
+.pokemon-selected-title {
+  font-size: 2rem;
+  color: #007f7f; /* Dark turquoise */
+  margin-bottom: 10px;
+}
+
+.titulo {
+  font-size: 2rem;
+  margin: 20px 0;
+  text-align: center;
+  color: #333;
+}
+
+.pokemon-list {
+  display: flex; /* Cambiamos a flex para mostrar en fila */
+  overflow-x: auto; /* Permitir desplazamiento horizontal */
+  padding: 10px 0;
+  gap: 20px; /* Espaciado entre las tarjetas */
+  list-style: none;
+  width: 100%; /* Ocupa todo el ancho disponible */
+}
+
+.pokemon-card {
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  flex: 0 0 auto; /* Evitar que las tarjetas se encojan */
+  min-width: 150px; /* Ancho mínimo de las tarjetas */
+  max-width: 200px; /* Ancho máximo para tarjetas más grandes */
+}
+
+.pokemon-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.pokemon-name {
+  font-size: 1.2rem;
+  margin: 5px 0;
+  font-weight: bold;
+}
+
+.pokemon-img {
+  width: 80px;
+  height: 80px;
+}
+
+.text {
+  font-size: 1rem;
+  color: #555;
+}
