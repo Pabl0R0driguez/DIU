@@ -54,6 +54,8 @@ function PokemonList(props) {
       El atributo key={pokemon.id} garantiza que React identifique de manera única 
       cada tarjeta (esto es importante para evitar problemas al renderizar listas dinámicas).
       */
+
+      // Cojemos la variable donde está toda la información de los pokemons y la recorremos
       const pokemonCards = pokemons.map((pokemon) => {
             return (
             <PokemonCard 

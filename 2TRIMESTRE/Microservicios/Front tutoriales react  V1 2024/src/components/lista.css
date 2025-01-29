@@ -1,0 +1,104 @@
+/* lista.css */
+
+/* Estilo del contenedor principal */
+.list {
+      margin: 20px auto;
+      max-width: 800px;
+  }
+  
+  /* Estilo del título de la lista */
+  h4 {
+      color: #333;
+      font-weight: bold;
+  }
+  
+  /* Estilo de los campos de entrada */
+  .input-group {
+      margin-bottom: 20px;
+  }
+  
+  .form-control {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 10px;
+      font-size: 16px;
+  }
+  
+  /* Estilo del botón de búsqueda */
+  .btn-outline-secondary {
+      border-color: #007bff;
+      background-color: #007bff;
+      color: white;
+      transition: background-color 0.3s, border-color 0.3s;
+  }
+  
+  .btn-outline-secondary:hover {
+      background-color: #0056b3;
+      border-color: #0056b3;
+  }
+  
+  /* Estilo de la lista de tutoriales */
+  .list-group {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+  }
+  
+  /* Estilo de los elementos de la lista */
+  .list-group-item {
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+      transition: background-color 0.3s;
+  }
+  
+  .list-group-item:hover {
+      background-color: #f8f9fa; /* Color de fondo al pasar el mouse */
+  }
+  
+  /* Estilo para el elemento de la lista activo */
+  .active {
+      background-color: #007bff;
+      color: white; /* Color del texto */
+  }
+  
+  /* Estilo para el botón de eliminar */
+  .btn-danger {
+      background-color: #dc3545;
+      border-color: #dc3545;
+      color: white;
+  }
+  
+  .btn-danger:hover {
+      background-color: #c82333;
+      border-color: #bd2130;
+  }
+  
+  /* Estilo del área de detalles del tutorial */
+  .col-md-6 {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 20px;
+      background-color: #f8f9fa; /* Color de fondo suave */
+      margin-top: 20px;
+  }
+  
+  label {
+      font-weight: bold;
+  }
+  
+  /* Estilo de los enlaces */
+  .badge {
+      background-color: #ffc107; /* Color de fondo del badge */
+      color: black; /* Color del texto del badge */
+  }
+  
+  .badge:hover {
+      background-color: #e0a800; /* Color de fondo al pasar el mouse */
+      color: white; /* Color del texto del badge al pasar el mouse */
+  }
+  
+  /* Estilo para el mensaje cuando no hay tutoriales seleccionados */
+  p {
+      color: #666;
+  }
+  

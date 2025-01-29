@@ -3,7 +3,13 @@ import "./PokemonCard.css";
 
 function PokemonCard(props) {
       // prop que pasamos a PokemonList
-      const{pokemon,selectedPokemon} = props;
+      const { pokemon, selectedPokemon } = props;
+
+      if (typeof selectedPokemon !== 'function') {
+            console.error('selectedPokemon is not a function');
+            return null;
+      }
+      
 
       return pokemon ? (
             <li className="pokemon-card" onClick={()=> selectedPokemon(pokemon)}>

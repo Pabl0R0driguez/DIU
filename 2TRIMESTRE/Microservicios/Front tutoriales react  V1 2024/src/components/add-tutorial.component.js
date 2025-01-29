@@ -1,70 +1,127 @@
 import React, { Component } from "react";
 import TutorialDataService from "../services/tutorial.service";
-import { Link } from "react-router-dom";
+import "./add.css"
 
 export default class TutorialAdd extends Component {
-  // Defino las variables de estado del componente que voy a usar
+  
   constructor(props) {
     super(props);
     this.state = {
+     
       searchTitle: "", 
+      searchDescription: "",
+      searchPublished: "" 
     };
 
-    // Enlazo los métodos al contexto de la clase
     this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
+    this.onChangeSearchDescription = this.onChangeSearchDescription.bind(this);
+    this.onChangeCheckBox = this.onChangeCheckBox.bind(this);
+
+    this.agregarTutorial = this.agregarTutorial.bind(this);
   }
 
-  // Creación de los métodos
   onChangeSearchTitle(event) {
     this.setState({
-      searchTitle: event.target.value, // Actualiza el estado con el valor del input
+      searchTitle: event.target.value,
     });
   }
 
+  onChangeSearchDescription(event) {
+    this.setState({
+       searchDescription: event.target.value });
+  }
 
-  agregarTutorial() {
-    const { searchTitle } = this.state; // Obtengo `searchTitle` del estado
+  onChangeCheckBox(option) {
+    this.setState({
+       searchPublished: option });
+  }
+
+  agregarTutorial(event) {
+    event.preventDefault(); // Evita el comportamiento por defecto del formulario
+
+    const { searchTitle, searchDescription, searchPublished } = this.state;
 
     // Llamo al método de la API para agregar un tutorial
-    TutorialDataService.create(searchTitle)
-      .then((response) => {
+    TutorialDataService.create({
+      title: searchTitle, 
+      description: searchDescription,
+      published: searchPublished === "publicado" // Verifica si es "publicado"
+    })
+      .then(() => {
         this.setState({
-          searchTitle: response.data.title, // Actualizo el estado con el título del tutorial
+          searchTitle: "",
+          searchDescription: "",
+          searchPublished: "" 
         });
-        console.log(response.data);
+        
+        this.props.onTutorialAdded();
       })
       .catch((e) => {
         console.log(e);
       });
   }
 
-  // Estructura de la página
   render() {
-    const { agregarTutorial } = this.state; // Obtengo `searchTitle` del estado
-
     return (
       <div>
-      <form onSubmit={this.agregarTutorial}>
-
+        <form onSubmit={this.agregarTutorial}>
           <div>
             <h1>Añadir tutoriales</h1>
           </div>
 
           <div className="input-group mb-3">
             <input
-              type="onSubmit"
+              type="text"
               className="form-control"
               placeholder="Título del tutorial"
               value={this.state.searchTitle}
-              onChange={this.onChangeSearchTitle}></input>
-            </div>  
-        
+              onChange={this.onChangeSearchTitle}
+              required
+            />
+          </div>  
+
+          <div className="input-group-append">
+            <input
+              type="text"
+              className="form-control"            
+              placeholder="Descripción del tutorial"
+              value={this.state.searchDescription}
+              onChange={this.onChangeSearchDescription}
+              required
+            />
+          </div>
+
+          <div>
+            <label>
+              <input
+                className="form-check-input"
+                type="radio"
+                name="published"
+                value="publicado"
+                checked={this.state.searchPublished === "publicado"}
+                onChange={() => this.onChangeCheckBox("publicado")}
+              />
+              Publicado
+            </label>
+
+            <label>
+              <input
+                className="form-check-input"
+                type="radio"
+                name="published"
+                value="no-publicado"
+                checked={this.state.searchPublished === "no-publicado"}
+                onChange={() => this.onChangeCheckBox("no-publicado")}
+              />
+              No publicado
+            </label>
+          </div>
+
           <div className="input-group-append">
             <button className="btn btn-outline-secondary" type="submit">
               Añadir
             </button> 
           </div>
-
         </form>
       </div>
     );

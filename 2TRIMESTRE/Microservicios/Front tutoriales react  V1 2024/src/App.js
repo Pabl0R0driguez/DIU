@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import Tutorial from "./components/tutorial.component";
+import EditTutorial from "./components/edit-tutorial.component";
 
 //import AddTutorial from "./components/add-tutorial.component";
 //Componente para editar componente
@@ -35,7 +37,9 @@ class App extends Component {
           {/*El en switch se renderizarán todas los compoentes cuta URL coicidan con la activa*/}
             <Route exact path={["/", "/tutorials"]} component={TutorialsList} />
             <Route exact path="/add" component={TutorialAdd} /> 
-          {/*  <Route path="/tutorials/:id" component={Tutorial} /> */}
+            <Route path="/tutorials/:id/edit" component={Tutorial} /> 
+            <Route path="/tutorials/:id" component={EditTutorial} /> 
+
           </Switch>
         </div>
       </div>
