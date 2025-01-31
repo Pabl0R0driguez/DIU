@@ -95,4 +95,4 @@ function EditTutorial() {
   )
 }
 
-export default AddTutorial
+export default EditTutorial
