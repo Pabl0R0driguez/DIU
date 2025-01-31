@@ -1,115 +1,98 @@
-import React, { Component } from "react";
-import TutorialDataService from "../services/tutorial.service";
+import React, { useEffect, useState } from 'react'
+import TutorialDataService from '../services/tutorial.service'
+import { use } from 'react';
 
-export default class EditTutorial extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            id: null,
-            title: "",
-            description: "",
-            published: false,
-        };
+function EditTutorial() {
 
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.updateTutorial = this.updateTutorial.bind(this);
-    }
+    const id = window.location.pathname.split('/')[2];
 
-    // Método que se llama cuando el componente se monta
-    componentDidMount() {
-        const { id } = this.props.match.params; // Obtener el ID del tutorial de los parámetros
-        this.getTutorial(id); // Obtener los datos del tutorial
-    }
+  // useState, para crear una varibale reactiva que se actualiza en tiempo real
+  const[tutorial, setTutorial] = useState({
+    id : id,
+    title: '',
+    description: '',
+    published: false
+  });
 
-    // Obtener el tutorial seleccionado por su ID
-    getTutorial(id) {
-        TutorialDataService.get(id)
-            .then(response => {
-                this.setState({
-                    id: response.data.id,
-                    title: response.data.title,
-                    description: response.data.description,
-                    published: response.data.published
-                });
-            })
-            .catch(error => {
-                console.error("Error al obtener el tutorial:", error.response ? error.response.data : error.message);
-            });
-    }
 
-    // Manejar el cambio de los inputs
-    handleInputChange(event) {
-        const { name, value } = event.target;
-        this.setState({ [name]: value });
-    }
+  // Usamos useEffect, esto significa que se ejecutará lo primero nada más cargue la página
+  // .then(response => { setTutorial(response.data) }) significa que se actualizará el tutorial con la respuesta de la petición
+  useEffect(() => {
+    TutorialDataService.get(id)
+    .then(response => {
+        document.getElementById('id').value = response.data.id;
+        tutorial.title = document.getElementById('titulo2').value = response.data.title;
+        tutorial.description = document.getElementById('descripcion2').value = response.data.description;
+        tutorial.published = document.getElementById('published').checked = response.data.published;
+    })
+  }, [])
 
-    // Actualizar el tutorial en la lista principal
-    updateTutorial(event) {
-        event.preventDefault(); // Prevenir el comportamiento por defecto del formulario
-        const { id, title, description, published } = this.state;
 
-        // Actualizar el tutorial en el servicio
-        TutorialDataService.update(id, {
-            title : title,
-            description: description,
-            published: published
-        })
-            .then(response => {
-                console.log("Tutorial actualizado:", response.data);
-                // Redirigir a la lista de tutoriales después de la actualización
-                this.props.history.push("/tutorials"); // Cambia esto a la ruta de tu lista de tutoriales
-            })
-            .catch(error => {
-                // Manejo de errores detallado
-                console.error("Error al actualizar el tutorial:", error.response ? error.response.data : error.message);
-            });
-    }
+  
+  // Métodos para manejar los cambios en los inputs
+  const editTutorial = (e) => {
+    e.preventDefault();
+    TutorialDataService.update(id, tutorial)
+  
+  }
 
-    render() {
-        const { title, description, published } = this.state; // Obtener el estado
-        return (
-            <div>
-                <h1>Editar Tutorial</h1>
-                <form onSubmit={this.updateTutorial}>
-                    <div>
-                        <label>Título:</label>
-                        <input
-                            type="text"
-                            name="title"
-                            value={title}
-                            onChange={this.handleInputChange}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label>Descripción:</label>
-                        <textarea
-                            name="description"
-                            value={description}
-                            onChange={this.handleInputChange}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label>Publicado:</label>
-                        <input
-                            type="radio"
-                            name="published"
-                            checked={published}
-                            onChange={() => this.setState({ published: true })}
-                        /> Publicado
+  // Actualizar el titulo
+  const setTitle = (e) => {
+   tutorial.title = e.target.value;
+  }
+  // Actualizar la descripción
+  const setDescription = (e) =>{
+    tutorial.description = e.target.value;
+  }
+  // Actualizar el estado de publicado
+  // Usamos checked para verificar si el checkbox está marcado
+  const setPublished = (e) => {
+    tutorial.published = e.target.checked;
+  }
 
-                        <input
-                            type="radio"
-                            name="published"
-                            checked={!published}
-                            onChange={() => this.setState({ published: false })}
-                        /> No Publicado
-                    </div>
 
-                    <button type="submit">Actualizar Tutorial</button>
-                </form>
-            </div>
-        );
-    }
+
+  return (
+    <form
+    onSubmit={editTutorial}>
+      <h1>Añadir Tutorial</h1>
+      <input
+      id='titulo2'
+      placeholder='Título'
+      className='añadir-titulo'
+      type='text'
+      onChange={setTitle}>
+      </input>
+      <br></br>
+
+      <br></br>
+
+      <input
+       id='descripcion2'
+      placeholder='Descripción'
+      className='añadir-descripcion'
+      type='text'
+      onChange={setDescription}
+      ></input>
+      <br></br>
+
+      <br></br>
+      Publicado:
+      <input
+      type='checkbox'
+      onChange={setPublished}>
+      </input>
+
+      <br></br>
+
+      <button
+       className='boton-añadir'
+       type='submit'>
+        Añadir
+      </button>
+
+    </form>
+  )
 }
+
+export default AddTutorial

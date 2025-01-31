@@ -1,22 +1,10 @@
 import React, { Component } from "react";
 import TutorialDataService from "../services/tutorial.service";
 import { Link } from "react-router-dom";
-import "./lista.css";
 
 export default class TutorialsList extends Component {
   constructor(props) {
     super(props);
-
-
-    this.state = {
-      tutorials: [], //lista de tutoriales
-      currentTutorial: null, //tutorial seleccionado de la lista
-      currentIndex: -1,
-      searchTitle: ""
-    };
-
-
-  
     this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
     this.retrieveTutorials = this.retrieveTutorials.bind(this);
     this.refreshList = this.refreshList.bind(this);
@@ -25,8 +13,14 @@ export default class TutorialsList extends Component {
     this.searchTitle = this.searchTitle.bind(this);
     //Hacemos el bind de los métodos porque al usar estos métodos en gestores de eventos los componentes basados
     //en clases pierden el ámbito.
-   
+    this.state = {
+      tutorials: [], //lista de tutoriales
+      currentTutorial: null, //tutorial seleccionado de la lista
+      currentIndex: -1,
+      searchTitle: ""
+    };
   }
+
   //Cuando se carga el componente, se realiza la petición de tutoriales a la API
   //El método retrieveTutorials provoca la actualización del estado, y por tanto la re-renderización del componente
   componentDidMount() {
