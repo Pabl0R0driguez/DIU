@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import TutorialDataService from '../services/tutorial.service';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'; // Usamos useHistory para redirigir a otra ventana
+import '../styles/tutorials.styles.css'; // Importar estilos personalizados
+
 
 function EditTutorial() {
     const id = window.location.pathname.split('/')[2];
+    const history = useHistory();
+
 
     // useState para crear una variable reactiva que se actualiza en tiempo real
     const [tutorial, setTutorial] = useState({
@@ -19,37 +24,30 @@ function EditTutorial() {
                 // Actualiza el estado directamente
                 setTutorial(response.data); 
             })
-            .catch(e => {
-                console.error(e); 
-            });
     }, [id]);
 
     // Manejar la edición del tutorial
     const editTutorial = (e) => {
         e.preventDefault();
         // Actualiza el tutorial
-        TutorialDataService.update(id, tutorial)
-            .then(response => {
-                console.log('Tutorial actualizado', response.data);
-            })
-            .catch(e => {
-                console.error(e);
-            });
+        TutorialDataService.update(id, tutorial).then(() => {
+            history.push('/tutorials');// Al actualizar redirigimos a la lista de tutoriales
+        })      
     };
 
     // Actualizar el título
     const setTitle = (e) => {
-        setTutorial({ ...tutorial, title: e.target.value }); // Usar setTutorial para actualizar
+        setTutorial({ ...tutorial, title: e.target.value });
     };
 
     // Actualizar la descripción
     const setDescription = (e) => {
-        setTutorial({ ...tutorial, description: e.target.value }); // Usar setTutorial para actualizar
+        setTutorial({ ...tutorial, description: e.target.value }); 
     };
 
     // Actualizar el estado de publicado
     const setPublished = (e) => {
-        setTutorial({ ...tutorial, published: e.target.checked }); // Usar setTutorial para actualizar
+        setTutorial({ ...tutorial, published: e.target.checked }); 
     };
 
     return (

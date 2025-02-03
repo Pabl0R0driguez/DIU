@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import TutorialDataService from '../services/tutorial.service'
+import '../styles/tutorials.styles.css'; // Importar estilos personalizados
+
 
 function AddTutorial() {
 

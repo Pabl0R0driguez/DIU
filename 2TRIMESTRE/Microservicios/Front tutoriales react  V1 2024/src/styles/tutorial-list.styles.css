@@ -1,0 +1,127 @@
+/* Estilos generales */
+body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f7f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+  }
+  
+  /* Contenedor principal */
+  .list {
+      width: 80%;
+      max-width: 800px;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Barra de búsqueda */
+  .input-group {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+  }
+  
+  .input-group .form-control {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+  }
+  
+  .input-group button {
+      margin-left: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+  }
+  
+  .input-group button:hover {
+      background: #0056b3;
+  }
+  
+  /* Lista de tutoriales */
+  .list-group {
+      padding: 0;
+  }
+  
+  .list-group-item {
+      list-style: none;
+      padding: 10px;
+      margin-bottom: 5px;
+      background: #ffffff;
+      border-radius: 5px;
+      cursor: pointer;
+      border: 1px solid #ddd;
+      transition: background 0.3s;
+  }
+  
+  .list-group-item:hover {
+      background: #f8f9fa;
+  }
+  
+  /* Tutorial activo (seleccionado) */
+  .list-group-item.active {
+      background: #007bff !important;
+      color: white !important;
+      border-color: #0056b3;
+  }
+  
+  /* Botón "Remove All" */
+  .btn-danger {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: background 0.3s;
+  }
+  
+  .btn-danger:hover {
+      background: #c82333;
+  }
+  
+  /* Detalles del tutorial */
+  h4 {
+      margin-top: 20px;
+      font-size: 1.5rem;
+      color: #333;
+  }
+  
+  label {
+      font-weight: bold;
+  }
+  
+  p {
+      font-style: italic;
+      color: #666;
+  }
+  
+  /* Botón de edición */
+  .badge-warning {
+      background: #ffc107;
+      padding: 8px 12px;
+      border-radius: 5px;
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+      transition: background 0.3s;
+      display: inline-block;
+      margin-top: 10px;
+  }
+  
+  .badge-warning:hover {
+      background: #e0a800;
+      color: black;
+  }
+  

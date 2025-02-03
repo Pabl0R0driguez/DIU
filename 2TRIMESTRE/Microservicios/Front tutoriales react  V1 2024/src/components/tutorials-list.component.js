@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import TutorialDataService from "../services/tutorial.service";
 import { Link } from "react-router-dom";
+import '../styles/tutorials.styles.css'; // Importar estilos personalizados
 
 export default class TutorialsList extends Component {
   constructor(props) {
