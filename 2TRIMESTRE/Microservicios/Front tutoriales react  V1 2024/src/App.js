@@ -33,8 +33,8 @@ class App extends Component {
           {/*El en switch se renderizarán todas los compoentes cuta URL coicidan con la activa*/}
             <Route exact path={["/", "/tutorials"]} component={TutorialsList} />
             <Route exact path="/add" component={AddTutorial} /> 
-           <Route path="/tutorials/:id/edit" component={Tutorial} /> 
-          <Route path="/tutorials/:id" component={EditTutorial} /> 
+{/*            <Route path="/tutorials/:id/edit" component={Tutorial} /> 
+ */}          <Route path="/tutorials/:id" component={EditTutorial} /> 
 
           </Switch>
         </div>
