@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7a983443-7c14-4b1e-9722-5df381db0870" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../2TRIMESTRE/Microservicios/Front tutoriales react  V1 2024/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../2TRIMESTRE/Microservicios/Front tutoriales react  V1 2024/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../2TRIMESTRE/Microservicios/Front tutoriales react  V1 2024/src/http-common.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../2TRIMESTRE/Microservicios/Front tutoriales react  V1 2024/src/http-common.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../2TRIMESTRE/Microservicios/Front tutoriales react  V1 2024/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../2TRIMESTRE/Microservicios/Front tutoriales react  V1 2024/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../2TRIMESTRE/ejemploreactapiexterna" beforeDir="false" />
-    </list>
+    <list default="true" id="7a983443-7c14-4b1e-9722-5df381db0870" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -86,7 +81,7 @@
       <workItem from="1731056400773" duration="22000" />
       <workItem from="1732231396698" duration="21000" />
       <workItem from="1736429517428" duration="47000" />
-      <workItem from="1738928320574" duration="3273000" />
+      <workItem from="1738928320574" duration="3488000" />
     </task>
     <servers />
   </component>
