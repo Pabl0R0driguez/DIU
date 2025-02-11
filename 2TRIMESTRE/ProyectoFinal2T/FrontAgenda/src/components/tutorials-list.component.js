@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import TutorialDataService from "../services/tutorial.service";
+import AgendaDataService from "../services/agenda.service";
+
 import { Link } from "react-router-dom";
 import '../styles/tutorials.styles.css'; // Importar estilos personalizados
 
@@ -7,7 +9,7 @@ export default class TutorialsList extends Component {
   constructor(props) {
     super(props);
     this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
-    this.retrieveTutorials = this.retrieveTutorials.bind(this);
+    this.retrievePersonas = this.retrievePersonas.bind(this);
     this.refreshList = this.refreshList.bind(this);
     this.setActiveTutorial = this.setActiveTutorial.bind(this);
     this.removeAllTutorials = this.removeAllTutorials.bind(this);
@@ -25,7 +27,7 @@ export default class TutorialsList extends Component {
   //Cuando se carga el componente, se realiza la petición de tutoriales a la API
   //El método retrieveTutorials provoca la actualización del estado, y por tanto la re-renderización del componente
   componentDidMount() {
-    this.retrieveTutorials();
+    this.retrievePersonas();
   }
 
   onChangeSearchTitle(e) {
@@ -36,8 +38,11 @@ export default class TutorialsList extends Component {
     });
   }
 
-  retrieveTutorials() {
-    TutorialDataService.getAll()
+  
+
+
+  retrievePersonas() {
+    AgendaDataService.getAllPersonas()
       .then(response => {
         this.setState({
           tutorials: response.data
@@ -50,7 +55,7 @@ export default class TutorialsList extends Component {
   }
 
   refreshList() {
-    this.retrieveTutorials();
+    this.retrievePersonas();
     this.setState({
       currentTutorial: null,
       currentIndex: -1
@@ -65,7 +70,7 @@ export default class TutorialsList extends Component {
   }
 
   removeAllTutorials() {
-    TutorialDataService.deleteAll()
+    TutorialDataService.deleteAllTutorial()
       .then(response => {
         console.log(response.data);
         this.refreshList();
@@ -98,7 +103,7 @@ export default class TutorialsList extends Component {
             <input
               type="text"
               className="form-control"
-              placeholder="Search by title"
+              placeholder="Buscar por nombre"
               value={searchTitle}
               onChange={this.onChangeSearchTitle}
             />
@@ -148,25 +153,44 @@ export default class TutorialsList extends Component {
           {/*se dibuja "Please click on a Tutorial..." ver más abajo.*/}
           {currentTutorial ? (
             <div>
-              <h4>Tutorial</h4>
+              <h4>Personas</h4>
               <div>
                 <label>
-                  <strong>Title:</strong>
+                  <strong>Nombre:</strong>
                 </label>{" "}
-                {currentTutorial.title}
+                {currentTutorial.nombre}
               </div>
               <div>
                 <label>
-                  <strong>Description:</strong>
+                  <strong>Apellidos:</strong>
                 </label>{" "}
-                {currentTutorial.description}
+                {currentTutorial.apellido}
               </div>
               <div>
                 <label>
-                  <strong>Status:</strong>
+                  <strong>Dirección:</strong>
                 </label>{" "}
-                {/* renderizado condicional */}
-                {currentTutorial.published ? "Published" : "Pending"}
+                {currentTutorial.direccion}
+              </div>
+              <div>
+                <label>
+                  <strong>Código Postal:</strong>
+                </label>{" "}
+                {currentTutorial.codigoPostal}
+              </div>
+
+              <div>
+                <label>
+                  <strong>Ciudad:</strong>
+                </label>{" "}
+                {currentTutorial.ciudad}
+              </div>
+
+              <div>
+                <label>
+                  <strong>Fecha de Nacimiento:</strong>
+                </label>{" "}
+                {currentTutorial.fechaNacimiento}
               </div>
 
               <Link

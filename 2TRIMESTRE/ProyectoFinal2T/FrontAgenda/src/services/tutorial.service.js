@@ -1,28 +1,28 @@
 import http from "../http-common";
 
 class TutorialDataService {
-  getAll() {
-    return http.get("/agenda");
+  getAllTutorials() {
+    return http.get("/tutorials");
   }
 
-  get(id) {
-    return http.get(`/agenda/${id}`);
+  getTutorial(id) {
+    return http.get(`/tutorials/${id}`);
   }
 
-  create(data) {
-    return http.post("/agenda", data);
+  createTutorial(data) {
+    return http.post("/tutorials", data);
   }
 
-  update(id, data) {
-    return http.put(`/agenda/${id}`, data);
+  updateTutorial(id, data) {
+    return http.put(`/tutorials/${id}`, data);
   }
 
-  delete(id) {
-    return http.delete(`/agenda/${id}`);
+  deleteTutorial(id) {
+    return http.delete(`/tutorials/${id}`);
   }
 
-  deleteAll() {
-    return http.delete(`/agenda`);
+  deleteAllTutorial() {
+    return http.delete(`/tutorials`);
   }
 
  // findByTitle(title) {
@@ -30,8 +30,8 @@ class TutorialDataService {
  // }
 
  
- findByTitle(nombre) {
-     return http.get(`/agenda/nombre/${nombre}`);
+ findByTitle(title) {
+     return http.get(`/tutorials/title/${title}`);
    }
 }
 

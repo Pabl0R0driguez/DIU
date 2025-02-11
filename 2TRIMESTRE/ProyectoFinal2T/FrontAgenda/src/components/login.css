@@ -1,0 +1,168 @@
+/* Estilos generales */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f1f5f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  h1 {
+    color: #333;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  /* Estilo del contenedor del formulario */
+  .mt-8 {
+    margin-top: 2rem;
+  }
+  
+  .border {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  
+  .md\:w-2\/4 {
+    width: 50%;
+  }
+  
+  .rounded {
+    border-radius: 10px;
+  }
+  
+  .py-8 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+  .px-4, .md\:px-8 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .bg-red-600 {
+    background-color: #e3342f;
+  }
+  
+  .bg-green-400 {
+    background-color: #34d399;
+  }
+  
+  .bg-red-500 {
+    background-color: #f56565;
+  }
+  
+  /* Estilo de los inputs */
+  input {
+    width: 100%;
+    padding: 0.8rem;
+    margin: 0.8rem 0;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  input:focus {
+    border-color: #4f9e9e;
+    outline: none;
+    box-shadow: 0 0 5px rgba(79, 158, 158, 0.4);
+  }
+  
+  input[type="email"],
+  input[type="password"] {
+    background-color: #f9fafb;
+  }
+  
+  button {
+    padding: 0.8rem;
+    border-radius: 8px;
+    border: none;
+    width: 100%;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Estilo de los botones */
+  .bg-green-400 {
+    background-color: #34d399;
+  }
+  
+  .bg-green-400:hover {
+    background-color: #2eae7d;
+  }
+  
+  .bg-red-500 {
+    background-color: #f56565;
+  }
+  
+  .bg-red-500:hover {
+    background-color: #e53e3e;
+  }
+  
+  .bg-red-600 {
+    background-color: #e3342f;
+  }
+  
+  .bg-red-600:hover {
+    background-color: #cc1f1a;
+  }
+  
+  /* Estilo de los mensajes de error */
+  .py-4 {
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+  }
+  
+  .bg-red-600 {
+    background-color: #e53e3e;
+    border-radius: 8px;
+  }
+  
+  /* Enlaces */
+  .text-blue-500 {
+    color: #3182ce;
+    text-decoration: none;
+  }
+  
+  .text-blue-500:hover {
+    text-decoration: underline;
+  }
+  
+  .text-center my-3 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Botón con Google */
+  button:focus {
+    outline: none;
+  }
+  
+  button.bg-red-500 {
+    background-color: #f56565;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  button.bg-red-500 svg {
+    margin-right: 0.8rem;
+  }
+  

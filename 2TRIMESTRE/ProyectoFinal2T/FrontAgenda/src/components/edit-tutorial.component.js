@@ -19,7 +19,7 @@ function EditTutorial() {
 
     // Usamos useEffect para cargar el tutorial cuando se monta el componente
     useEffect(() => {
-        TutorialDataService.get(id)
+        TutorialDataService.getTutorial(id)
             .then(response => {
                 // Actualiza el estado directamente
                 setTutorial(response.data); 
@@ -30,7 +30,7 @@ function EditTutorial() {
     const editTutorial = (e) => {
         e.preventDefault();
         // Actualiza el tutorial
-        TutorialDataService.update(id, tutorial).then(() => {
+        TutorialDataService.updateTutorial(id, tutorial).then(() => {
             history.push('/tutorials');// Al actualizar redirigimos a la lista de tutoriales
         })      
     };

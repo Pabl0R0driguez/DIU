@@ -1,42 +1,80 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { Link } from "@reach/router";
+import { signInWithGoogle } from "../firebase";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth"; // Corregido import
+import "./login.css"
 
-function Login() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+const SignIn = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Aquí puedes manejar el envío del formulario
-        console.log('Email:', email);
-        console.log('Password:', password);
-    };
+  // Obtén la instancia de Auth
+  const auth = getAuth();
 
-    return (
-        <div>
-            <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Email:</label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Password:</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                <button type="submit">Login</button>
-            </form>
-        </div>
-    );
-}
+  const signInWithEmailAndPasswordHandler = (event, email, password) => {
+    event.preventDefault();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Aquí puedes manejar el éxito del inicio de sesión
+        console.log("Signed in successfully!", userCredential.user);
+      })
+      .catch((error) => {
+        setError("Error signing in with password and email!");
+        console.error("Error signing in with password and email", error);
+      });
+  };
 
-export default Login;
+  const onChangeHandler = (event) => {
+    const { name, value } = event.currentTarget;
+
+    if (name === 'userEmail') {
+      setEmail(value);
+    } else if (name === 'userPassword') {
+      setPassword(value);
+    }
+  };
+
+  return (
+    <div className="mt-8">
+      <h1 className="text-3xl mb-2 text-center font-bold">Sign In</h1>
+      <div className="border border-blue-400 mx-auto w-11/12 md:w-2/4 rounded py-8 px-4 md:px-8">
+        {error !== null && <div className="py-4 bg-red-600 w-full text-white text-center mb-3">{error}</div>}
+        <form className="">
+          <label htmlFor="userEmail" className="block">
+            Email:
+          </label>
+          <input
+            type="email"
+            className="my-1 p-1 w-full"
+            name="userEmail"
+            value={email}
+            placeholder="E.g: prueba@gmail.com"
+            id="userEmail"
+            onChange={(event) => onChangeHandler(event)}
+          />
+          <label htmlFor="userPassword" className="block">
+            Password:
+          </label>
+          <input
+            type="password"
+            className="mt-1 mb-3 p-1 w-full"
+            name="userPassword"
+            value={password}
+            placeholder="Your Password"
+            id="userPassword"
+            onChange={(event) => onChangeHandler(event)}
+          />
+          <button
+            className="bg-green-400 hover:bg-green-500 w-full py-2 text-white"
+            onClick={(event) => { signInWithEmailAndPasswordHandler(event, email, password) }}
+          >
+            Sign in
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default SignIn;

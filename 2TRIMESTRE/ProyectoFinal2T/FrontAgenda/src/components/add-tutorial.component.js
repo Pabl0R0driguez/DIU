@@ -14,7 +14,7 @@ function AddTutorial() {
 
   // Métodos para manejar los cambios en los inputs
   const agregarTutorial = () => {
-    TutorialDataService.create(tutorial)
+    TutorialDataService.createTutorial(tutorial)
   
   }
 
