@@ -1,0 +1,100 @@
+body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f0f2f5;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    
+    .form-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+    
+    .responsive-form {
+      background-color: #ffffff;
+      padding: 4rem; /* Aumentamos el padding para hacer el formulario más espacioso */
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      max-width: 700px; /* Aumentamos el ancho máximo del formulario */
+      width: 90%; /* El formulario ocupará el 90% del ancho disponible en pantallas pequeñas */
+      min-height: 700px; /* Aumentamos la altura mínima para que el formulario ocupe más pantalla */
+    }
+    
+    .mb-4 {
+      color: white;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem; /* Añadimos más margen entre los grupos de inputs */
+      padding: 0;
+    }
+    
+    label {
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      display: block;
+      color: #495057;
+    }
+    
+    input[type="text"],
+    input[type="date"] {
+      width: 100%;
+      padding: 1.2rem; /* Aumentamos el padding dentro de los inputs para hacerlos más grandes */
+      font-size: 16px;
+      border: 1px solid #ced4da;
+      border-radius: 8px;
+      box-sizing: border-box;
+      margin-bottom: 1rem; /* Añadimos más espacio entre los inputs */
+    }
+    
+    input[type="text"]:focus,
+    input[type="date"]:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.25);
+      outline: none;
+    }
+    
+    .submit-btn {
+      width: 100%;
+      padding: 1.2rem; /* Aumentamos el tamaño del botón */
+      font-size: 18px;
+      font-weight: 600;
+      color: #ffffff;
+      background-color: #007bff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .submit-btn:hover {
+      background-color: #0056b3;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .submit-btn:focus {
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.25);
+    }
+    
+    @media (max-width: 576px) {
+      .responsive-form {
+        padding: 3rem; /* Ajustamos el padding para pantallas pequeñas */
+        min-height: 600px; /* Mantenemos una altura mínima razonable */
+      }
+    
+      .form-title {
+        font-size: 20px;
+      }
+    
+      .submit-btn {
+        font-size: 16px;
+      }
+    }
+    

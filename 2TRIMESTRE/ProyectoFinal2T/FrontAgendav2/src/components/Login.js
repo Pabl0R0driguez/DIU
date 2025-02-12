@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { auth } from '../firebase'; // Importa auth desde firebase.js
 import { signInWithEmailAndPassword } from 'firebase/auth'; // Usar el método de Firebase
-import "../styles/login.css"
 
 const Login = () => {
   const [email, setEmail] = useState('');

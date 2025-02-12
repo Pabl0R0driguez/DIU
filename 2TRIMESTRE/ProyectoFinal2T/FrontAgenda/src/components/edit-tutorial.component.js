@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import TutorialDataService from '../services/tutorial.service';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'; // Usamos useHistory para redirigir a otra ventana
-import '../styles/tutorials.styles.css'; // Importar estilos personalizados
 
 
 function EditTutorial() {

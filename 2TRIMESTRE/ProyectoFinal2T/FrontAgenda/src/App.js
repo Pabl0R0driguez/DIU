@@ -6,7 +6,7 @@ import TutorialsList from "./components/tutorials-list.component";
 import AddTutorial from "./components/add-tutorial.component";
 import EditTutorial from "./components/edit-tutorial.component";
 import SignIn from "./components/login";
-import { Sidebar4 } from "./components/Sidebar4";
+import { Sidebar4 } from "./components/MenuButton";
 
 
 function App() {

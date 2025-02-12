@@ -1,136 +1,122 @@
-import React, { useState } from 'react'
-import AgendaDataService from '../services/agenda.service'
-import '../styles/tutorials.styles.css'; // Importar estilos personalizados
-
+import React, { useState } from 'react';
+import AgendaDataService from '../services/agenda.service';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../styles/add.css'
 
 function AddTutorial() {
-
-  // useState, para crear una varibale reactiva que se actualiza en tiempo real
-  const[persona, setPersona] = useState({
+  const [persona, setPersona] = useState({
     nombre: '',
     apellido: '',
     direccion: '',
     codigoPostal: '',
     ciudad: '',
-    fechaNaciemiento: ''
+    fechaNaciemiento: '',
   });
 
-  // Métodos para manejar los cambios en los inputs
-  const agregarPersona = () => {
-    AgendaDataService.createPersona(persona)
-  
-  }
+  const agregarPersona = (e) => {
+    e.preventDefault();
+    AgendaDataService.createPersona(persona);
+  };
 
-  // Actualizar el titulo
-  const setNombre = (e) => {
-   persona.nombre = e.target.value;
-  }
-  // Actualizar la apellido
-  const setApellidos = (e) =>{
-    persona.apellido = e.target.value;
-  }
-
-  // Actualizar la descripción
-  const setDireccion = (e) =>{
-    persona.direccion = e.target.value;
-  }
-
-  // Actualizar la descripción
-  const setCodigoPostal = (e) =>{
-    persona.codigoPostal = e.target.value;
-  }
-
-  // Actualizar la descripción
-  const setCiudad = (e) =>{
-    persona.ciudad = e.target.value;
-  }
-
-  // Actualizar la descripción
-  const setFechaNacimiento = (e) =>{
-    persona.fechaNaciemiento = e.target.value;
-  }
-
-
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setPersona({
+      ...persona,
+      [name]: value,
+    });
+  };
 
   return (
-    <form
-    onSubmit={agregarPersona}>
-      <h1>Añadir Tutorial</h1>
-      <input
-       id='nombre'
-      placeholder='Introduce nombre'
-      className='añadir-nombre'
-      type='text'
-      onChange={setNombre}>
-      </input>
-      <br></br>
+    <div className="container mt-5">
+      <h3 className="mb-4 text-center">Añadir Persona</h3>
+      <form onSubmit={agregarPersona}>
+        <div className="row">
+          <div className="col-md-6 mb-3">
+            <label htmlFor="nombre"></label>
+            <input
+              id="nombre"
+              name="nombre"
+              type="text"
+              className="form-control"
+              placeholder="Introduce nombre"
+              value={persona.nombre}
+              onChange={handleChange}
+            />
+          </div>
 
-      <br></br>
+          <div className="col-md-6 mb-3">
+            <label htmlFor="apellidos"></label>
+            <input
+              id="apellidos"
+              name="apellido"
+              type="text"
+              className="form-control"
+              placeholder="Introduce apellido"
+              value={persona.apellido}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
 
-      <input
-       id='apellidos'
-      placeholder='Apellido'
-      className='añadir-apellido'
-      type='text'
-      onChange={setApellidos}
-      ></input>
-      <br></br>
+        <div className="mb-3">
+          <label htmlFor="direccion"></label>
+          <input
+            id="direccion"
+            name="direccion"
+            type="text"
+            className="form-control"
+            placeholder="Introduce dirección"
+            value={persona.direccion}
+            onChange={handleChange}
+          />
+        </div>
 
+        <div className="row">
+          <div className="col-md-6 mb-3">
+            <label htmlFor="codigoPostal"></label>
+            <input
+              id="codigoPostal"
+              name="codigoPostal"
+              type="text"
+              className="form-control"
+              placeholder="Introduce código postal"
+              value={persona.codigoPostal}
+              onChange={handleChange}
+            />
+          </div>
 
-      <input
-       id='direccion'
-      placeholder='Dirección'
-      className='añadir-dirección'
-      type='text'
-      onChange={setDireccion}
-      ></input>
-      <br></br>
+          <div className="col-md-6 mb-3">
+            <label htmlFor="ciudad"></label>
+            <input
+              id="ciudad"
+              name="ciudad"
+              type="text"
+              className="form-control"
+              placeholder="Introduce ciudad"
+              value={persona.ciudad}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
 
-      <input
-       id='codigoPostal'
-      placeholder='Código Postal'
-      className='añadir-codigoPostal'
-      type='text'
-      onChange={setCodigoPostal}
-      ></input>
-      <br></br>
+        <div className="mb-3">
+          <label htmlFor="fechaNacimiento"></label>
+          <input
+            id="fechaNacimiento"
+            name="fechaNaciemiento"
+            type="date"
+            className="form-control"
+            value={persona.fechaNaciemiento}
+            onChange={handleChange}
+          />
+        </div>
 
-      <input
-       id='ciudad'
-      placeholder='Ciudad'
-      className='añadir-ciudad'
-      type='text'
-      onChange={setCiudad}
-      ></input>
-      <br></br>
-
-      <input
-       id='fechaNacimiento'
-      placeholder='Fecha Nacimiento'
-      className='añadir-feechaNacimiento'
-      type='date'
-      onChange={setFechaNacimiento}
-      ></input>
-      <br></br>
-
-
-      {/* <br></br>
-      Publicado:
-      <input
-      type='checkbox'
-      onChange={setPublished}>
-      </input>
-
-      <br></br> */}
-
-      <button
-       className='boton-añadir'
-       type='submit'>
-        Añadir
-      </button>
-
-    </form>
-  )
+        <button type="submit" className="btn btn-primary">
+          Añadir
+        </button>
+      </form>
+    </div>
+  );
 }
 
-export default AddTutorial
+export default AddTutorial;
