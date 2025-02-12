@@ -18,7 +18,7 @@ public class Agenda {
     private String direccion;
     private String codigoPostal;
     private String ciudad;
-    private LocalDate fechaNacimiento;
+    private String fechaNacimiento;
 
 }
 

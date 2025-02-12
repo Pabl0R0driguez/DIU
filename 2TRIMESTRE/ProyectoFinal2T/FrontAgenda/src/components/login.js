@@ -1,80 +1,45 @@
-import React, { useState } from "react";
-import { Link } from "@reach/router";
-import { signInWithGoogle } from "../firebase";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth"; // Corregido import
-import "./login.css"
+import React, { useState } from 'react';
+import { auth } from '../firebase'; // Importa auth desde firebase.js
+import { signInWithEmailAndPassword } from 'firebase/auth'; // Usar el método de Firebase
+import "./styles/login.css"
 
-const SignIn = () => {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
 
-  // Obtén la instancia de Auth
-  const auth = getAuth();
-
-  const signInWithEmailAndPasswordHandler = (event, email, password) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Aquí puedes manejar el éxito del inicio de sesión
-        console.log("Signed in successfully!", userCredential.user);
-      })
-      .catch((error) => {
-        setError("Error signing in with password and email!");
-        console.error("Error signing in with password and email", error);
-      });
-  };
-
-  const onChangeHandler = (event) => {
-    const { name, value } = event.currentTarget;
-
-    if (name === 'userEmail') {
-      setEmail(value);
-    } else if (name === 'userPassword') {
-      setPassword(value);
+    try {
+      await signInWithEmailAndPassword(auth, email, password); 
+    } catch (error) {
+      setError('Error de inicio de sesión');
     }
   };
 
   return (
-    <div className="mt-8">
-      <h1 className="text-3xl mb-2 text-center font-bold">Sign In</h1>
-      <div className="border border-blue-400 mx-auto w-11/12 md:w-2/4 rounded py-8 px-4 md:px-8">
-        {error !== null && <div className="py-4 bg-red-600 w-full text-white text-center mb-3">{error}</div>}
-        <form className="">
-          <label htmlFor="userEmail" className="block">
-            Email:
-          </label>
-          <input
-            type="email"
-            className="my-1 p-1 w-full"
-            name="userEmail"
-            value={email}
-            placeholder="E.g: prueba@gmail.com"
-            id="userEmail"
-            onChange={(event) => onChangeHandler(event)}
-          />
-          <label htmlFor="userPassword" className="block">
-            Password:
-          </label>
-          <input
-            type="password"
-            className="mt-1 mb-3 p-1 w-full"
-            name="userPassword"
-            value={password}
-            placeholder="Your Password"
-            id="userPassword"
-            onChange={(event) => onChangeHandler(event)}
-          />
-          <button
-            className="bg-green-400 hover:bg-green-500 w-full py-2 text-white"
-            onClick={(event) => { signInWithEmailAndPasswordHandler(event, email, password) }}
-          >
-            Sign in
-          </button>
-        </form>
-      </div>
+    <div>
+      <form onSubmit={handleLogin}>
+        <h2>
+          Inicio de sesión
+        </h2>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Contraseña"
+        />
+        <button type="submit">Iniciar sesión</button>
+      </form>
+      {error && <p>{error}</p>}
     </div>
   );
 };
 
-export default SignIn;
+export default Login;

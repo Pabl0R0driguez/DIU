@@ -3,7 +3,7 @@ import TutorialDataService from "../services/tutorial.service";
 import AgendaDataService from "../services/agenda.service";
 
 import { Link } from "react-router-dom";
-import '../styles/tutorials.styles.css'; // Importar estilos personalizados
+import './styles/tutorialList.css'
 
 export default class TutorialsList extends Component {
   constructor(props) {
