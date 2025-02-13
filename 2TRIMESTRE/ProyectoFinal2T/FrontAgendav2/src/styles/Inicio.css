@@ -1,0 +1,91 @@
+.page-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    
+    .content-container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 80%;
+      max-width: 1200px;
+    }
+    
+    .search-section {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    
+    .search-input {
+      flex-grow: 1;
+      margin-right: 10px;
+    }
+    
+    .list-details-container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    
+    .persona-list,
+    .persona-details {
+      flex: 1;
+      min-width: 280px;
+    }
+    
+    .persona-item {
+      cursor: pointer;
+    }
+    
+    .persona-item.active {
+      background-color: #007bff;
+      color: white;
+    }
+    
+    .btn-warning {
+      margin-top: 10px;
+    }
+
+    .list-group-item {
+      background-color: white; /* Fondo oscuro para los ítems */
+      color: white; /* Texto blanco */
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 5px; /* Bordes redondeados para los ítems */
+      cursor: pointer; /* Apuntar al hacer clic */
+      transition: background-color 0.3s ease; /* Transición suave para el hover */
+    }
+    
+    /* Asegúrate de que tanto el fondo como el texto de la lista sean blancos */
+ul.list-group {
+      background-color: #ffffff; /* Fondo blanco para toda la lista */
+      padding: 0; /* Eliminar padding extra */
+    }
+    
+    .list-group-item {
+      background-color: #ffffff !important; /* Fondo blanco para los ítems de la lista */
+      color: #000 !important; /* Texto negro para los ítems de la lista */
+      padding: 15px !important;
+      margin-bottom: 10px !important;
+      border-radius: 5px !important;
+      cursor: pointer !important;
+      transition: background-color 0.3s ease !important;
+    }
+    
+    .list-group-item:hover {
+      background-color: #f1f1f1 !important; /* Color de fondo al pasar el cursor */
+    }
+    
+    h4 {
+      color: #333; /* Asegúrate de que el texto del título sea visible */
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+    
+   

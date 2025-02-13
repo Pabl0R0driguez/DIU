@@ -19,12 +19,9 @@ function App() {
 
   return (
     <div>
-      {/* Sidebar4 ya contiene los enlaces */}
       <Sidebar4 routes={routes} />
 
-      <div className="container mt-3">
         <Switch>
-          {/* Aquí generamos las rutas dinámicamente */}
           {routes.map((route) => (
             <Route
               key={route.name}
@@ -34,7 +31,6 @@ function App() {
             />
           ))}
         </Switch>
-      </div>
     </div>
   );
 }
