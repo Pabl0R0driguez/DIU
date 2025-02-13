@@ -1,17 +1,24 @@
 import React, { useState } from 'react';
-import { auth } from '../firebase'; // Importa auth desde firebase.js
-import { signInWithEmailAndPassword } from 'firebase/auth'; // Usar el método de Firebase
+import { auth } from '../firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useHistory } from "react-router-dom";
+import { use } from 'react';
+
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const history = useHistory(); 
 
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password); 
+      await signInWithEmailAndPassword(auth, email, password);
+      console.log("Sesión iniciado")
+      history.push("/profile"); 
     } catch (error) {
+      console.log("Error")
       setError('Error de inicio de sesión');
     }
   };
@@ -19,9 +26,7 @@ const Login = () => {
   return (
     <div>
       <form onSubmit={handleLogin}>
-        <h2>
-          Inicio de sesión
-        </h2>
+        <h2>Inicio de sesión</h2>
         <input
           type="email"
           value={email}
