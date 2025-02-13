@@ -125,7 +125,7 @@
   top: 0;
   left: 0;
   z-index: 2;
-  background: #771dff;
+  background: #007bff;
   width: 100%;
   padding: 0 20px;
   display: flex;
@@ -140,4 +140,34 @@
   font-size: 16px;
   color: white;
 }
+
+/* Ajuste del tamaño del botón */
+button {
+  padding: 5px 10px; /* Reduce el padding para que el botón sea más pequeño */
+  font-size: 14px; /* Tamaño de la fuente más pequeño */
+  background-color: transparent; /* Fondo transparente */
+  border: none; /* Sin borde */
+  display: flex; /* Alinea los elementos dentro del botón */
+  align-items: center; /* Centra verticalmente los elementos dentro del botón */
+}
+
+/* Ajuste de la imagen */
+button img {
+  width: 16px; /* Tamaño reducido de la imagen */
+  height: 16px; /* Tamaño reducido de la imagen */
+  margin-left: 5px; /* Añade un poco de espacio entre la imagen y el texto */
+  margin-right: 5px; /* Añade un poco de espacio entre la imagen y el texto */
+}
+
+/* Estilo adicional para el icono de "desplegar" */
+button .chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.desplegable{
+  background-color: #2d2f31;
+}
+
 

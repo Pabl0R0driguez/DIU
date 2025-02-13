@@ -1,6 +1,7 @@
-// src/firebase.js
-import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "firebase/auth"; // Asegúrate de importar estas funciones
+// firebase.js (v9 modular)
+import { initializeApp } from "firebase/app"; 
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth"; 
+import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore"; 
 
 // Configuración de Firebase
 const firebaseConfig = {
@@ -15,18 +16,42 @@ const firebaseConfig = {
 
 // Inicializar Firebase
 const app = initializeApp(firebaseConfig);
+
+// Obtener la autenticación y la base de datos
 const auth = getAuth(app);
+const db = getFirestore(app);
+
+// Proveedor de Google
 const googleProvider = new GoogleAuthProvider();
 
 // Función para iniciar sesión con Google
-const signInWithGoogle = () => {
-  return signInWithPopup(auth, googleProvider); // Iniciar sesión con Google
+const signInWithGoogle = () => signInWithPopup(auth, googleProvider);
+
+// Función para crear documento del usuario
+const generateUserDocument = async (userAuth, additionalData) => {
+  if (!userAuth) return null;
+
+  const userRef = doc(db, "users", userAuth.uid);
+  const userSnap = await getDoc(userRef);
+
+  // Si el documento no existe, lo creamos
+  if (!userSnap.exists()) {
+    const { email, displayName, photoURL } = userAuth;
+    try {
+      // Guardamos la información del usuario
+      await setDoc(userRef, {
+        displayName,
+        email,
+        photoURL,
+        ...additionalData
+      });
+    } catch (error) {
+      console.error("Error creando documento de usuario", error);
+    }
+  }
+
+  return userSnap.data();
 };
 
-// Función para iniciar sesión con email y contraseña
-const signInWithEmail = (email, password) => {
-  return signInWithEmailAndPassword(auth, email, password); // Iniciar sesión con email y contraseña
-};
-
-// Exportar la autenticación y las funciones
-export { auth, signInWithGoogle, signInWithEmail };
+// Exportar funciones
+export { auth, db, signInWithGoogle, generateUserDocument };

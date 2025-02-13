@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import AgendaDataService from '../services/agenda.service';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Form, Button, Row, Col, Container } from 'react-bootstrap';
+import "../styles/Añadir.css"
 
 function Añadir() {
   const [persona, setPersona] = useState({
@@ -26,95 +28,83 @@ function Añadir() {
   };
 
   return (
-    <div className="container mt-5">
-      <h3 className="mb-4 text-center">Añadir Persona</h3>
-      <form onSubmit={agregarPersona}>
-        <div className="row">
-          <div className="col-md-6 mb-3">
-            <label htmlFor="nombre"></label>
-            <input
-              id="nombre"
-              name="nombre"
+    <Container className="mt-5">
+      <h3 className="mb-4 text-center white-text">Añadir Persona</h3>
+      <Form onSubmit={agregarPersona}>
+        <Row className="mb-3">
+          <Form.Group as={Col} controlId="nombre">
+            <Form.Label>Nombre</Form.Label>
+            <Form.Control
               type="text"
-              className="form-control"
               placeholder="Introduce nombre"
+              name="nombre"
               value={persona.nombre}
               onChange={handleChange}
             />
-          </div>
+          </Form.Group>
 
-          <div className="col-md-6 mb-3">
-            <label htmlFor="apellidos"></label>
-            <input
-              id="apellidos"
-              name="apellido"
+          <Form.Group as={Col} controlId="apellido">
+            <Form.Label>Apellido</Form.Label>
+            <Form.Control
               type="text"
-              className="form-control"
               placeholder="Introduce apellido"
+              name="apellido"
               value={persona.apellido}
               onChange={handleChange}
             />
-          </div>
-        </div>
+          </Form.Group>
+        </Row>
 
-        <div className="mb-3">
-          <label htmlFor="direccion"></label>
-          <input
-            id="direccion"
-            name="direccion"
+        <Form.Group controlId="direccion" className="mb-3">
+          <Form.Label>Dirección</Form.Label>
+          <Form.Control
             type="text"
-            className="form-control"
             placeholder="Introduce dirección"
+            name="direccion"
             value={persona.direccion}
             onChange={handleChange}
           />
-        </div>
+        </Form.Group>
 
-        <div className="row">
-          <div className="col-md-6 mb-3">
-            <label htmlFor="codigoPostal"></label>
-            <input
-              id="codigoPostal"
-              name="codigoPostal"
+        <Row className="mb-3">
+          <Form.Group as={Col} controlId="codigoPostal">
+            <Form.Label>Código Postal</Form.Label>
+            <Form.Control
               type="text"
-              className="form-control"
               placeholder="Introduce código postal"
+              name="codigoPostal"
               value={persona.codigoPostal}
               onChange={handleChange}
             />
-          </div>
+          </Form.Group>
 
-          <div className="col-md-6 mb-3">
-            <label htmlFor="ciudad"></label>
-            <input
-              id="ciudad"
-              name="ciudad"
+          <Form.Group as={Col} controlId="ciudad">
+            <Form.Label>Ciudad</Form.Label>
+            <Form.Control
               type="text"
-              className="form-control"
               placeholder="Introduce ciudad"
+              name="ciudad"
               value={persona.ciudad}
               onChange={handleChange}
             />
-          </div>
-        </div>
+          </Form.Group>
+        </Row>
 
-        <div className="mb-3">
-          <label htmlFor="fechaNacimiento"></label>
-          <input
-            id="fechaNacimiento"
-            name="fechaNaciemiento"
+        <Form.Group controlId="fechaNaciemiento" className="mb-3">
+          <Form.Label>Fecha de Nacimiento</Form.Label>
+          <Form.Control
             type="date"
-            className="form-control"
+            name="fechaNaciemiento"
             value={persona.fechaNaciemiento}
             onChange={handleChange}
           />
-        </div>
+        </Form.Group>
 
-        <button type="submit" className="btn btn-primary">
+        <Button variant="primary" type="submit">
           Añadir
-        </button>
-      </form>
-    </div>
+        </Button>
+      </Form>
+    </Container>
   );
 }
 

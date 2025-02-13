@@ -1,91 +1,126 @@
 .page-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-      background-color: #f5f5f5;
-    }
-    
-    .content-container {
-      background-color: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      width: 80%;
-      max-width: 1200px;
-    }
-    
-    .search-section {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-    
-    .search-input {
-      flex-grow: 1;
-      margin-right: 10px;
-    }
-    
-    .list-details-container {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-    
-    .persona-list,
-    .persona-details {
-      flex: 1;
-      min-width: 280px;
-    }
-    
-    .persona-item {
-      cursor: pointer;
-    }
-    
-    .persona-item.active {
-      background-color: #007bff;
-      color: white;
-    }
-    
-    .btn-warning {
-      margin-top: 10px;
-    }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
 
-    .list-group-item {
-      background-color: white; /* Fondo oscuro para los ítems */
-      color: white; /* Texto blanco */
-      padding: 15px;
-      margin-bottom: 10px;
-      border-radius: 5px; /* Bordes redondeados para los ítems */
-      cursor: pointer; /* Apuntar al hacer clic */
-      transition: background-color 0.3s ease; /* Transición suave para el hover */
-    }
-    
-    /* Asegúrate de que tanto el fondo como el texto de la lista sean blancos */
+.content-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 1200px;
+}
+
+.search-section {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.list-details-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.persona-list,
+.persona-details {
+  flex: 1;
+  min-width: 280px;
+}
+
+.persona-item {
+  cursor: pointer;
+}
+
+.persona-item.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-warning {
+  margin-top: 10px;
+}
+
+.list-group-item {
+  background-color: white; /* Fondo blanco para los ítems */
+  color: #333; /* Texto de color negro predeterminado */
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
 ul.list-group {
-      background-color: #ffffff; /* Fondo blanco para toda la lista */
-      padding: 0; /* Eliminar padding extra */
-    }
-    
-    .list-group-item {
-      background-color: #ffffff !important; /* Fondo blanco para los ítems de la lista */
-      color: #000 !important; /* Texto negro para los ítems de la lista */
-      padding: 15px !important;
-      margin-bottom: 10px !important;
-      border-radius: 5px !important;
-      cursor: pointer !important;
-      transition: background-color 0.3s ease !important;
-    }
-    
-    .list-group-item:hover {
-      background-color: #f1f1f1 !important; /* Color de fondo al pasar el cursor */
-    }
-    
-    h4 {
-      color: #333; /* Asegúrate de que el texto del título sea visible */
-      font-size: 1.5rem;
-      margin-bottom: 20px;
-    }
-    
-   
+  background-color: #ffffff; /* Fondo blanco para toda la lista */
+  padding: 0;
+}
+
+.list-group-item:hover {
+  background-color: #007bff; /* Color de fondo al pasar el cursor */
+}
+
+/* Color de texto blanco para los detalles */
+h4 {
+  color: white !important; /* Título con texto blanco */
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+/* Estilo para los detalles de la persona */
+.persona-details div {
+  color: white !important; /* Color blanco para los detalles */
+  margin-bottom: 10px;
+}
+
+.lista{
+  color: white !important; /* Título con texto blanco */
+}
+
+/* Fondo oscuro para la sección de detalles */
+.persona-details {
+  background-color: #333; /* Fondo oscuro para los detalles */
+  padding: 20px;
+  border-radius: 8px;
+}
+
+/* Para los botones, aseguramos que el texto sea blanco */
+.btn-warning, .btn-danger {
+  color: white !important; /* Asegura que el texto de los botones sea blanco */
+}
+
+/* Asegúrate de que los detalles se alineen correctamente con la lista */
+.details-col {
+  padding-left: 20px;  /* Para dar espacio entre la lista y los detalles */
+  font-size: 1.2rem;  /* Aumenta el tamaño del texto en los detalles */
+}
+
+/* Estilo para los detalles de cada item */
+.detail-item {
+  margin-bottom: 10px;
+  font-size: 1.25rem;  /* Aumenta el tamaño del texto de cada detalle */
+}
+
+/* Asegúrate de que los títulos sean más grandes */
+h4 {
+  font-size: 1.75rem;  /* Aumenta el tamaño del texto para los títulos */
+  margin-bottom: 20px;
+}
+
+/* Estilo de la lista */
+.lista {
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);  /* Agrega sombra para separar visualmente los detalles */
+}

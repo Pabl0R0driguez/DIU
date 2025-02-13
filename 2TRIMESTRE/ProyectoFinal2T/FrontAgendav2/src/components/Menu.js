@@ -6,6 +6,7 @@ import login from "../assets/login.png";
 import desplegar from "../assets/desplegar.png";
 import { useHistory } from "react-router-dom"; // Importa useHistory
 
+
 const MenuButton = ({ name, img, onClick }) => {
   return (
     <button onClick={onClick}>
@@ -26,12 +27,14 @@ export const Dropdown1 = ({ items }) => {
   };
 
   return (
+    
     <div className={`dropdown-1 ${isOpen ? "open" : ""}`}>
-      <button onClick={() => setIsOpen(!isOpen)}>
-        <span className="material-symbols-outlined">
+      <span className="material-symbols-outlined">
           <img src={usuario} alt="User Icon" style={{ width: "24px", height: "24px" }} />
         </span>
         Pablo
+      <button className= "desplegable" onClick={() => setIsOpen(!isOpen)}>
+        
         <span className="chevron material-symbols-outlined">
           <img src={desplegar} alt="Login Icon" style={{ width: "24px", height: "24px" }} />
         </span>
@@ -42,7 +45,7 @@ export const Dropdown1 = ({ items }) => {
         <div className="menu-inner">
           <div className="main-menu">
             {items.map((item) => (
-              <MenuButton
+              <MenuButton className = "desplegable"
                 key={item.name}
                 name={item.displayName || item.name}
                 img={item.img}
