@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth"; 
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore"; 
 
+
 // Configuración de Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyBbMgMiFEvuerhGK1f8L-sHNrRE4ZVF6KQ",
