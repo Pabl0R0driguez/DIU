@@ -4,17 +4,14 @@ import { BrowserRouter } from "react-router-dom";
 
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import UserProvider from "./provider/UserProvider";
 
 ReactDOM.render(
-  /* BrowerRouter
-     Forma de parte de la librería react-router .Es una envoltura
-     para nuestra aplicación. Esta envoltura nos da acceso al API
-     de historia de HTML5 para mantener nuestra interfaz
-     gráfica en sincronía con la locación actual o URL.*/
-  <BrowserRouter>
+  <UserProvider> {/* Proveedor de Usuario envolviendo la aplicación */}
     <App />
-  </BrowserRouter>,
+  </UserProvider>,
   document.getElementById("root")
 );
+
 
 serviceWorker.unregister();

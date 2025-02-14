@@ -1,30 +1,31 @@
 import React, { createContext, useState, useEffect } from "react";
-import { auth } from "../firebase"; // Importa la instancia de Firebase
+import { auth } from "../firebase"; // Firebase Auth
 import { onAuthStateChanged } from "firebase/auth";
 
 // Crear el contexto
 export const UserContext = createContext();
 
+// Proveedor del contexto
 const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null); // Estado para el usuario
 
   useEffect(() => {
+    // Listener de autenticación de Firebase
     const unsubscribe = onAuthStateChanged(auth, (userAuth) => {
       if (userAuth) {
-        // Si hay un usuario autenticado, actualiza el estado con la información
+        // Si el usuario está autenticado, guardamos la información
         setUser({
           displayName: userAuth.displayName,
           email: userAuth.email,
           photoURL: userAuth.photoURL,
         });
       } else {
-        // Si no hay usuario autenticado, establece el estado como null
+        // Si no hay usuario autenticado
         setUser(null);
       }
     });
 
-    // Limpiar el listener cuando el componente se desmonta
-    return () => unsubscribe();
+    return () => unsubscribe(); // Limpieza del listener
   }, []);
 
   return (

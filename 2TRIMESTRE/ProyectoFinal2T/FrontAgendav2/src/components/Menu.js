@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "../styles/Menu.css";
 import usuario from "../assets/usuario.png";
 import login from "../assets/login.png";
-
+import { UserContext } from "../provider/UserProvider";
+import { useHistory } from "react-router-dom";
 import desplegar from "../assets/desplegar.png";
-import { useHistory } from "react-router-dom"; // Importa useHistory
-
 
 const MenuButton = ({ name, img, onClick }) => {
   return (
@@ -16,47 +15,47 @@ const MenuButton = ({ name, img, onClick }) => {
   );
 };
 
-
 export const Dropdown1 = ({ items }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const history = useHistory(); // Crea una instancia de useHistory
+  const history = useHistory();
 
-  // Manejar clic para redirigir
+  // Maneja casos en que el contexto sea null
+  const userContext = useContext(UserContext);
+  // Ponemos la interrogación para evitar desestrocuturar un objeto null
+  const email = userContext?.email || "Invitado"; // Si no hay usuario, muestra "Invitado"
+
   const handleClick = (path) => {
-    history.push(path); // Navega a la ruta proporcionada
+    history.push(path);
   };
 
   return (
-    
     <div className={`dropdown-1 ${isOpen ? "open" : ""}`}>
       <span className="material-symbols-outlined">
-          <img src={usuario} alt="User Icon" style={{ width: "24px", height: "24px" }} />
-        </span>
-        Pablo
-      <button className= "desplegable" onClick={() => setIsOpen(!isOpen)}>
-        
+        <img src={usuario} alt="User Icon" style={{ width: "24px", height: "24px" }} />
+      </span>
+      <h3 className="italic">{email}</h3>
+      <button className="desplegable" onClick={() => setIsOpen(!isOpen)}>
         <span className="chevron material-symbols-outlined">
           <img src={desplegar} alt="Login Icon" style={{ width: "24px", height: "24px" }} />
         </span>
       </button>
 
-
-      <div className="dropdown-1-menu">
-        <div className="menu-inner">
-          <div className="main-menu">
-            {items.map((item) => (
-              <MenuButton className = "desplegable"
-                key={item.name}
-                name={item.displayName || item.name}
-                img={item.img}
-                onClick={() => handleClick(item.path)} // Llama a handleClick con la ruta
-              />
-            ))}
+      {isOpen && (
+        <div className="dropdown-1-menu">
+          <div className="menu-inner">
+            <div className="main-menu">
+              {items.map((item) => (
+                <MenuButton
+                  key={item.name}
+                  name={item.displayName || item.name}
+                  img={item.img}
+                  onClick={() => handleClick(item.path)}
+                />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-
-      
+      )}
     </div>
   );
 };
