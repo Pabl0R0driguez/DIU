@@ -1,38 +1,36 @@
-import React, { createContext, useState, useEffect } from "react";
-import { auth } from "../firebase"; // Firebase Auth
-import { onAuthStateChanged } from "firebase/auth";
+import React, { Component, createContext } from "react";
+import { auth, generateUserDocument } from "../firebase";
 
-// Crear el contexto
-export const UserContext = createContext();
+// Manejar el contexto
+export const UserContext = createContext({ user: null });
 
-// Proveedor del contexto
-const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null); // Estado para el usuario
+// Inicializamos el usuario a null
+class UserProvider extends Component {
+  state = {
+    user: null
+  };
 
-  useEffect(() => {
-    // Listener de autenticación de Firebase
-    const unsubscribe = onAuthStateChanged(auth, (userAuth) => {
-      if (userAuth) {
-        // Si el usuario está autenticado, guardamos la información
-        setUser({
-          displayName: userAuth.displayName,
-          email: userAuth.email,
-          photoURL: userAuth.photoURL,
-        });
-      } else {
-        // Si no hay usuario autenticado
-        setUser(null);
-      }
+  
+  // Función asincrona que no bloquerá la aplicación
+  // Nos devuelve el usuario que se haya logueado
+  componentDidMount = async () => {
+    auth.onAuthStateChanged(async userAuth => {
+      const user = await generateUserDocument(userAuth);
+      this.setState({ user });
     });
 
-    return () => unsubscribe(); // Limpieza del listener
-  }, []);
 
-  return (
-    <UserContext.Provider value={user}>
-      {children}
-    </UserContext.Provider>
-  );
-};
+  };
+
+  render() {
+    const { user } = this.state;
+
+    return (
+      <UserContext.Provider value={user}>
+        {this.props.children}
+      </UserContext.Provider>
+    );
+  }
+}
 
 export default UserProvider;

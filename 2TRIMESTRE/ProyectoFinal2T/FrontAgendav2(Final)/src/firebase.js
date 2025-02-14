@@ -1,15 +1,18 @@
-// firebase.js (v9 modular)
 import { initializeApp } from "firebase/app"; 
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth"; 
+import { 
+  getAuth, 
+  GoogleAuthProvider, 
+  signInWithPopup, 
+  signInWithEmailAndPassword 
+} from "firebase/auth"; 
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore"; 
-
 
 // Configuración de Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyBbMgMiFEvuerhGK1f8L-sHNrRE4ZVF6KQ",
   authDomain: "loginproyectofinal-f76cb.firebaseapp.com",
   projectId: "loginproyectofinal-f76cb",
-  storageBucket: "loginproyectofinal-f76cb.firebasestorage.app",
+  storageBucket: "loginproyectofinal-f76cb.appspot.com",
   messagingSenderId: "991930152122",
   appId: "1:991930152122:web:fdf48ac05af4fa40067e83",
   measurementId: "G-41K341S8RX"
@@ -28,6 +31,10 @@ const googleProvider = new GoogleAuthProvider();
 // Función para iniciar sesión con Google
 const signInWithGoogle = () => signInWithPopup(auth, googleProvider);
 
+// Función para iniciar sesión con email y contraseña 
+const signInWithEmail = (email, password) => 
+  signInWithEmailAndPassword(auth, email, password);
+
 // Función para crear documento del usuario
 const generateUserDocument = async (userAuth, additionalData) => {
   if (!userAuth) return null;
@@ -39,7 +46,6 @@ const generateUserDocument = async (userAuth, additionalData) => {
   if (!userSnap.exists()) {
     const { email, displayName, photoURL } = userAuth;
     try {
-      // Guardamos la información del usuario
       await setDoc(userRef, {
         displayName,
         email,
@@ -55,4 +61,4 @@ const generateUserDocument = async (userAuth, additionalData) => {
 };
 
 // Exportar funciones
-export { auth, db, signInWithGoogle, generateUserDocument };
+export { auth, db, signInWithGoogle, signInWithEmail, generateUserDocument };

@@ -93,7 +93,7 @@ function Añadir() {
         <Form.Group controlId="fechaNaciemiento" className="mb-3">
           <Form.Label>Fecha de Nacimiento</Form.Label>
           <Form.Control
-            type="date"
+            type="text"
             name="fechaNaciemiento"
             value={persona.fechaNaciemiento}
             onChange={handleChange}

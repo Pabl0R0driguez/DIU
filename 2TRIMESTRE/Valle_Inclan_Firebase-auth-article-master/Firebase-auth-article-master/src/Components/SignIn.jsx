@@ -1,7 +1,11 @@
 import {useState} from "react";
 import { Link } from "@reach/router";
 import { signInWithGoogle } from "../firebase";
+import { signInWithEmail } from "../firebase";
+
 import { auth } from "../firebase";
+import React from "react";
+
 
 
 const SignIn = () => {
@@ -10,13 +14,15 @@ const SignIn = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
 
-    const signInWithEmailAndPasswordHandler = (event,email, password) => {
-        event.preventDefault();
-        auth.signInWithEmailAndPassword(email, password).catch(error => {
-        setError("Error signing in with password and email!");
-          console.error("Error signing in with password and email", error);
-        });
-      };
+    const signInWithEmailAndPasswordHandler = async (event, email, password) => {
+      event.preventDefault();
+      try {
+        await signInWithEmail(email, password);
+      } catch (error) {
+        setError("Error signing in with email and password!");
+        console.error("Error signing in", error);
+      }
+    };
       
       const onChangeHandler = (event) => {
           const {name, value} = event.currentTarget;

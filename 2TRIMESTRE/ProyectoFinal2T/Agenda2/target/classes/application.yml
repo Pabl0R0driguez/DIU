@@ -1,0 +1,12 @@
+server:
+  port: 8099
+spring:
+  application:
+    name:agendaService
+main:
+  allow-bean-definition-overriding: true
+data:
+  mongodb:
+    host: localhost
+    database: agenda_db
+    port: 27017

@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Router } from "@reach/router";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
+import React from "react";
 import UserProvider from "../providers/UserProvider";
 import ProfilePage from "./ProfilePage";
 import { UserContext } from "../providers/UserProvider";

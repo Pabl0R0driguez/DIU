@@ -20,7 +20,7 @@ const Login = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       console.log("Sesión iniciada");
-      history.push("/perfil"); 
+      history.push("/"); 
     } catch (error) {
       console.log("Error");
       setError('Error de inicio de sesión');
@@ -59,6 +59,19 @@ const Login = () => {
           Iniciar sesión
         </Button>
         {error && <Alert variant="danger" className="mt-3">{error}</Alert>}
+
+         <button
+                className="w-full py-3 bg-red-600 mt-4 text-white"
+                onClick={() => {
+                  auth.signOut().then(() => {
+                    window.location.href = "/login"; // Redirigir al login después de cerrar sesión
+                  }).catch((error) => {
+                    console.error("Error al cerrar sesión", error);
+                  });
+                }}
+              >
+                Sign out
+              </button>
       </Form>
     </div>
   );
