@@ -1,0 +1,72 @@
+/* Menu.css */
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif; /* Fuente moderna y limpia */
+  background-color: #f4f4f4; /* Fondo suave para un look minimalista */
+}
+
+.navbar-custom {
+  padding: 15px 40px; /* Espaciado para que la barra se vea más amplia */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra más fuerte para dar profundidad */
+  border-radius: 8px; /* Bordes redondeados para un look más suave */
+  background-color: #fff; /* Fondo blanco para un estilo limpio */
+  transition: all 0.3s ease; /* Transición suave para cambios */
+}
+
+.navbar-custom:hover {
+  transform: translateY(-4px); /* Efecto de elevación más pronunciado al pasar el ratón */
+}
+
+.navbar-brand {
+  font-size: 30px; /* Tamaño grande y moderno para el logo */
+  font-weight: 600; /* Hacemos la fuente un poco más gruesa para destacar */
+  color: #333; /* Color oscuro para el logo */
+  letter-spacing: 1px; /* Espaciado entre letras para mayor claridad */
+  text-transform: uppercase; /* Poner el texto en mayúsculas */
+}
+
+.navbar-brand:hover {
+  color: #ff5a5f; /* Cambia el color a un tono suave y elegante */
+}
+
+.nav-item-custom {
+  font-size: 18px; /* Tamaño adecuado para los enlaces */
+  padding: 12px 20px; /* Espaciado alrededor de los enlaces */
+  color: #333; /* Color oscuro para los enlaces */
+  font-weight: 500; /* Fuente más elegante */
+  text-transform: uppercase; /* Poner los enlaces en mayúsculas */
+  border-radius: 25px; /* Bordes redondeados */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave en hover */
+  margin: 0 10px; /* Espacio entre los elementos */
+}
+
+.nav-item-custom:hover {
+  background-color: rgba(0, 123, 255, 0.1); /* Fondo azul suave y sutil */
+  color: #007bff; /* Cambiar color del texto a azul cuando se pasa el ratón */
+  transform: translateY(-2px); /* Suave efecto de elevación para los enlaces */
+}
+
+.navbar-toggle {
+  background-color: #007bff; /* Icono de menú con fondo azul */
+  border: none; /* Quitar borde del icono */
+  border-radius: 50%; /* Hacer el icono circular */
+}
+
+.navbar-toggle:hover {
+  background-color: #0056b3; /* Efecto al pasar el ratón sobre el icono del menú */
+  transform: scale(1.1); /* Hacer que el icono se agrande ligeramente */
+}
+
+@media (max-width: 768px) {
+  .navbar-custom {
+    padding: 10px 20px; /* Menos padding en pantallas pequeñas */
+  }
+
+  .nav-item-custom {
+    font-size: 16px; /* Ajustar el tamaño del texto en pantallas pequeñas */
+    padding: 10px 15px; /* Reducir el padding para pantallas pequeñas */
+  }
+
+  .navbar-toggle {
+    padding: 10px; /* Tamaño del icono más grande */
+  }
+}

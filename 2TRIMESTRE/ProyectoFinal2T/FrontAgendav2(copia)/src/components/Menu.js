@@ -20,7 +20,7 @@ export const Dropdown1 = ({ items }) => {
   const history = useHistory();
 
   // Maneja casos en que el contexto sea null
-    const userContext = useContext(UserContext);
+  const userContext = useContext(UserContext);
   // Ponemos la interrogación para evitar desestrocuturar un objeto null
   const email = userContext?.email || "Invitado"; // Si no hay usuario, muestra "Invitado"
 
