@@ -11,8 +11,8 @@ import java.time.LocalDate;
 @Setter
 @Builder
 public class Agenda {
-
-    @Id private String id;
+    @Id
+    private String id;
     private String nombre;
     private String apellido;
     private String direccion;

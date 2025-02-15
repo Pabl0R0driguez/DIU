@@ -1,3 +1,20 @@
+/* Estilos globales */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f8f9fa;
+  color: #212529;
+  margin: 0;
+  padding: 0;
+}
+
+h4 {
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+/* Estilos para el contenedor de la página */
 .page-container {
   display: flex;
   justify-content: center;
@@ -7,6 +24,7 @@
   background-color: #f5f5f5;
 }
 
+/* Contenedor principal con fondo blanco */
 .content-container {
   background-color: white;
   padding: 20px;
@@ -16,45 +34,253 @@
   max-width: 1200px;
 }
 
-.search-section {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
+/* Estilos para el input de búsqueda */
+.buscador-input {
+  padding: 14px 18px;
+  font-size: 1rem;
+  border: 2px solid #ddd; /* Borde gris suave */
+  border-radius: 50px; /* Bordes muy redondeados */
+  width: 100%;
+  outline: none;
+  transition: all 0.3s ease;
+  background-color: #f7f8fa; /* Fondo claro */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
-.search-input {
-  flex-grow: 1;
-  margin-right: 10px;
+.buscador-input:focus {
+  border-color: #007bff; /* Azul al estar en foco */
+  box-shadow: 0 2px 12px rgba(0, 123, 255, 0.2); /* Resplandor suave */
+  background-color: #fff;
 }
 
-.list-details-container {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.persona-list,
-.persona-details {
-  flex: 1;
-  min-width: 280px;
-}
-
-.persona-item {
+/* Estilos para el botón de búsqueda */
+.buscador-btn {
+  padding: 12px 20px;
+  font-size: 1rem;
+  border: none;
+  background: linear-gradient(135deg, #007bff, #00c6ff); /* Degradado de azul */
+  color: white;
+  border-radius: 50px; /* Bordes redondeados */
+  font-weight: 600;
+  text-transform: uppercase;
   cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2); /* Sombra sutil */
+  margin-left: 10px;
 }
 
-.persona-item.active {
-  background-color: #007bff;
+.buscador-btn:hover {
+  background: linear-gradient(135deg, #0056b3, #0088cc); /* Cambio de degradado */
+  transform: translateY(-4px); /* Eleva el botón */
+}
+
+.buscador-btn:active {
+  background: linear-gradient(135deg, #003366, #006f99); /* Degradado más oscuro */
+  transform: translateY(2px); /* Efecto de presionar */
+}
+
+/* Estilo para el contenedor de las tarjetas */
+.cartas-container {
+  margin-top: 20px;
+}
+
+.card {
+  min-height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Estilo para los botones de acción dentro de las tarjetas */
+.btn-info, .btn-danger, .btn-warning {
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  border-radius: 30px;
+}
+
+.btn-info {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.btn-danger {
+  background-color: #dc3545;
   color: white;
 }
 
 .btn-warning {
+  background-color: #ffc107;
+  color: white;
+}
+
+/* Estilos para la caja de detalles que se expanden */
+.detail-item {
+  margin-bottom: 10px;
+  font-size: 1.25rem;
+}
+
+
+/* Estilo para el botón dentro del Card */
+.card-body .btn {
   margin-top: 10px;
 }
 
+/* Efectos al pasar el ratón sobre las tarjetas */
+.card:hover {
+  transform: translateY(-10px); /* Eleva ligeramente la tarjeta */
+  transition: transform 0.3s ease;
+}
+
+/* Estilo para la fila de búsqueda */
+.buscador-container .col-md-6 {
+  margin-bottom: 20px;
+}
+
+/* Estilo del contenedor de las filas */
+.row {
+  margin-bottom: 20px;
+}
+
+/* Fondo del cuerpo de la página */
+body {
+  background-color: #f8f9fa;
+}
+
+/* Estilos para las tarjetas */
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Estilo general de las tarjetas */
+.card-body {
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+/* Sombra sutil para resaltar los botones */
+.btn {
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Estilo de la tarjeta de persona seleccionada */
+.card.selected {
+  border: 2px solid #007bff;
+  box-shadow: 0px 4px 12px rgba(0, 123, 255, 0.2);
+}
+
+/* Botón de eliminar */
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+  border-radius: 50px;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  margin-left: 10px;
+}
+
+/* Para las tarjetas con el botón expandido */
+.collapse {
+  transition: all 0.3s ease;
+}
+
+.card-body .collapse {
+  margin-top: 10px;
+}
+
+.card-body .detail-item {
+  margin-bottom: 8px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.card-body .btn-warning {
+  background-color: #ffc107;
+  color: white;
+  border-radius: 30px;
+}
+
+/* Fondo claro de la página */
+body {
+  background-color: #f8f9fa;
+}
+
+/* Colores y sombras para los detalles */
+.persona-details {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Colores y bordes */
+h4 {
+  color: #ffffff !important;
+  font-size: 1.75rem;
+}
+
+.persona-details div {
+  color: #ffffff !important;
+  margin-bottom: 10px;
+}
+
+.lista {
+  color: #ffffff !important;
+}
+
+/* Lista de personas */
+.lista {
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para los botones */
+.btn-warning,
+.btn-danger {
+  color: white !important;
+}
+
+.details-col {
+  padding-left: 20px;
+  font-size: 1.2rem;
+}
+
+.detail-item {
+  margin-bottom: 10px;
+  font-size: 1.25rem;
+}
+
+/* List group de detalles */
+ul.list-group {
+  background-color: #ffffff;
+  padding: 0;
+}
+
 .list-group-item {
-  background-color: white; /* Fondo blanco para los ítems */
-  color: #333; /* Texto de color negro predeterminado */
+  background-color: white;
+  color: #333;
   padding: 15px;
   margin-bottom: 10px;
   border-radius: 5px;
@@ -62,65 +288,41 @@
   transition: background-color 0.3s ease;
 }
 
-ul.list-group {
-  background-color: #ffffff; /* Fondo blanco para toda la lista */
-  padding: 0;
-}
-
 .list-group-item:hover {
-  background-color: #007bff; /* Color de fondo al pasar el cursor */
+  background-color: #007bff;
 }
 
-/* Color de texto blanco para los detalles */
-h4 {
-  color: white !important; /* Título con texto blanco */
-  font-size: 1.5rem;
-  margin-bottom: 20px;
+/* Estilo para el botón de Eliminar y Editar */
+.btn-warning,
+.btn-danger {
+  padding: 6px 14px; /* Reducir tamaño del botón */
+  font-size: 0.9rem; /* Font más pequeña */
+  border-radius: 25px; /* Bordes más redondeados */
+  font-weight: 500; /* Menos peso en la fuente */
 }
 
-/* Estilo para los detalles de la persona */
-.persona-details div {
-  color: white !important; /* Color blanco para los detalles */
-  margin-bottom: 10px;
+/* Botón de Eliminar (Danger) */
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
 }
 
-.lista{
-  color: white !important; /* Título con texto blanco */
+/* Botón de Editar (Warning) */
+.btn-warning {
+  background-color: #ffc107;
+  color: white;
 }
 
-/* Fondo oscuro para la sección de detalles */
-.persona-details {
-  background-color: #333; /* Fondo oscuro para los detalles */
-  padding: 20px;
-  border-radius: 8px;
+/* Efectos al pasar el ratón por encima */
+.btn-warning:hover,
+.btn-danger:hover {
+  background-color: #e0a800; /* Color más oscuro para hover (editar) */
+  background-color: #c82333; /* Color más oscuro para hover (eliminar) */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
 }
 
-/* Para los botones, aseguramos que el texto sea blanco */
-.btn-warning, .btn-danger {
-  color: white !important; /* Asegura que el texto de los botones sea blanco */
-}
-
-/* Asegúrate de que los detalles se alineen correctamente con la lista */
-.details-col {
-  padding-left: 20px;  /* Para dar espacio entre la lista y los detalles */
-  font-size: 1.2rem;  /* Aumenta el tamaño del texto en los detalles */
-}
-
-/* Estilo para los detalles de cada item */
-.detail-item {
-  margin-bottom: 10px;
-  font-size: 1.25rem;  /* Aumenta el tamaño del texto de cada detalle */
-}
-
-/* Asegúrate de que los títulos sean más grandes */
-h4 {
-  font-size: 1.75rem;  /* Aumenta el tamaño del texto para los títulos */
-  margin-bottom: 20px;
-}
-
-/* Estilo de la lista */
-.lista {
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);  /* Agrega sombra para separar visualmente los detalles */
+/* Botón activo al hacer clic */
+.btn-warning:active,
+.btn-danger:active {
+  transform: translateY(2px); /* Efecto de presionar */
 }

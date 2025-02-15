@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 import java.util.Collections;
 import java.util.List;
@@ -37,11 +40,18 @@ public class AgendaServiceImpl implements AgendaService {
     }
 
     @Override
-    public AgendaDto save(AgendaDto Tutorial) {
-        Agenda tutorials = AgendaMapper.agendaMapperDtoToEntity(Tutorial);
-        Agenda savedTutorialEntity = agendaRepository.save(tutorials);
-        return AgendaMapper.agendaMapperEntityToDto(savedTutorialEntity);
+    public AgendaDto save(AgendaDto agendaDto) {
+        // Convierte el DTO a la entidad de MongoDB
+        Agenda agenda = AgendaMapper.agendaMapperDtoToEntity(agendaDto);
+
+        // Guarda la entidad Agenda en la base de datos. El id será generado automáticamente
+        Agenda savedAgenda = agendaRepository.save(agenda);
+
+        // Convierte la entidad guardada de nuevo a DTO y la devuelve
+        return AgendaMapper.agendaMapperEntityToDto(savedAgenda);
     }
+
+
 
     @Override
     public List<AgendaDto> findByNameContaining(String title) {
@@ -52,6 +62,10 @@ public class AgendaServiceImpl implements AgendaService {
     public AgendaDto updateAgendas(AgendaDto tutorial, String id) {
         return null;
     }
+
+
+
+
 
     @Override
     public ResponseEntity deletePersona(String id) {

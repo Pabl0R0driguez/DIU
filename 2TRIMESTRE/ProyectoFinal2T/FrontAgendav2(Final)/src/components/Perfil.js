@@ -2,12 +2,11 @@ import React, { useContext } from "react";
 import { UserContext } from "../provider/UserProvider";
 import { Redirect } from "react-router-dom"; // Para redirigir al login si no está autenticado
 import { auth } from "../firebase";
+import '../styles/Perfil.css';  // Importa el archivo CSS
 
 const Perfil = () => {
   const user = useContext(UserContext); // Obtiene el contexto del usuario
 
-  console.log(user);
-  
   // Si no hay usuario autenticado, redirigir a /login
   if (!user) {
     return <Redirect to="/login" />;
@@ -16,35 +15,44 @@ const Perfil = () => {
   const { photoURL, displayName, email } = user;
 
   return (
-    <div className="mx-auto w-11/12 md:w-2/4 py-8 px-4 md:px-8">
-      <div className="flex border flex-col items-center md:flex-row md:items-start border-blue-400 px-3 py-4">
-        <div
-          style={{
-            background: `url(${photoURL || 'https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg'}) no-repeat center center`,
-           
-            backgroundSize: "cover",
-            height: "200px",
-            width: "200px",
-          }}
-          className="border border-blue-300"
-        ></div>
-        <div className="md:pl-4">
-          <h2 className="text-2xl font-semibold">{displayName}</h2>
-          <h3 className="italic">{email}</h3>
+    <div className="container py-5">
+      <div className="row justify-content-center">
+        <div className="col-md-8 col-lg-6">
+          <div className="card shadow-lg rounded">
+            {/* Imagen de fondo (ajustada a tamaño más pequeño) */}
+            <div className="card-img-top perfil-img" style={{ backgroundImage: `url(${photoURL || 'https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg'})` }}></div>
+
+            <div className="card-body text-center">
+              {/* Imagen circular del usuario ajustada */}
+              <div className="mb-4">
+                <img
+                  src={photoURL || 'https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg'}
+                  alt={displayName}
+                  className="rounded-circle border perfil-img-circle"
+                />
+              </div>
+
+              {/* Nombre y correo */}
+              <h2 className="card-title text-uppercase font-weight-bold">{displayName}</h2>
+              <p className="card-text text-uppercase text-muted">{email}</p>
+
+              {/* Botón de Cerrar sesión */}
+              <button
+                className="btn btn-danger btn-block mt-4 py-2 text-uppercase font-weight-bold"
+                onClick={() => {
+                  auth.signOut().then(() => {
+                    window.location.href = "/login"; // Redirigir al login después de cerrar sesión
+                  }).catch((error) => {
+                    console.error("Error al cerrar sesión", error);
+                  });
+                }}
+              >
+                Cerrar sesión
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-      <button
-        className="w-full py-3 bg-red-600 mt-4 text-white"
-        onClick={() => {
-          auth.signOut().then(() => {
-            window.location.href = "/login"; // Redirigir al login después de cerrar sesión
-          }).catch((error) => {
-            console.error("Error al cerrar sesión", error);
-          });
-        }}
-      >
-        Sign out
-      </button>
     </div>
   );
 };

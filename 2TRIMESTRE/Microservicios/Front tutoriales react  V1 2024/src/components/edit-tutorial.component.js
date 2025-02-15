@@ -5,7 +5,7 @@ import '../styles/tutorials.styles.css'; // Importar estilos personalizados
 
 
 function EditTutorial() {
-    const id = window.location.pathname.split('/')[2];
+    const   id = window.location.pathname.split('/')[2];
     const history = useHistory();
 
 

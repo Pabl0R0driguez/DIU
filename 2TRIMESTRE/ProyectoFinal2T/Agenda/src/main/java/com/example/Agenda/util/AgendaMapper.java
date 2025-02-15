@@ -7,6 +7,8 @@ import com.example.Agenda.model.AgendaDto;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import java.time.LocalDate;
+
 public class AgendaMapper {
 
     public static Agenda agendaMapperDtoToEntity(AgendaDto agendaDto){
@@ -17,28 +19,29 @@ public class AgendaMapper {
                 .direccion(agendaDto.getDireccion())
                 .codigoPostal(agendaDto.getCodigoPostal())
                 .ciudad(agendaDto.getCiudad())
-                .fechaNacimiento(agendaDto.getFechaNacimiento())
+                // Convierte la fecha de String a LocalDate si es necesario
+                .fechaNacimiento(agendaDto.getFechaNacimiento() != null ? LocalDate.parse(agendaDto.getFechaNacimiento()) : null)
                 .build();
     }
 
     public static AgendaDto agendaMapperEntityToDto(Agenda agenda){
         return AgendaDto.builder()
+                .id(agenda.getId())
                 .nombre(agenda.getNombre())
                 .apellido(agenda.getApellido())
                 .direccion(agenda.getDireccion())
                 .codigoPostal(agenda.getCodigoPostal())
                 .ciudad(agenda.getCiudad())
-                .fechaNacimiento(agenda.getFechaNacimiento())
+                // Si es necesario, también se podría convertir a String aquí, dependiendo de cómo quieras enviar la fecha al frontend
+                .fechaNacimiento(agenda.getFechaNacimiento() != null ? agenda.getFechaNacimiento().toString() : null)
                 .build();
     }
-
 
     public static List<Agenda> agendaListMapperDtoToEntity(List<AgendaDto> agendaDtoList) {
         return agendaDtoList.stream()
                 .map(AgendaMapper::agendaMapperDtoToEntity)
                 .collect(Collectors.toList());
     }
-
 
     public static List<AgendaDto> agendaListMapperEntityToDto(List<Agenda> tutorialsList) {
         return tutorialsList.stream()
