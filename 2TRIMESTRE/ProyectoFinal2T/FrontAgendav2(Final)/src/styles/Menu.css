@@ -1,17 +1,17 @@
 .navbar-custom {
   padding: 15px 40px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  background-color: #fff;
+  box-shadow: none; /* Sin sombra */
+  border-radius: 0; /* Sin bordes redondeados */
+  background: linear-gradient(to right, #0b79ee, #1b1a1a) !important; /* Degradado de azul a negro */
   transition: all 0.3s ease;
   display: flex; /* Aseguramos un flex layout */
   align-items: center; /* Alineamos todos los elementos verticalmente */
 }
 
 .navbar-brand h3 {
-  font-size: 24px; /* Tamaño más grande para destacar el nombre */
-  font-weight: 600; /* Mismo peso que el enlace de inicio */
-  color: #333; /* Color uniforme */
+  font-size: 18px; /* Tamaño cambiado para coincidir con los enlaces */
+  font-weight: 500; /* Peso igual que el de los enlaces */
+  color: #ffffff; /* Color del texto en blanco */
   text-transform: uppercase; /* Mantener estilo en mayúsculas */
   margin: 0; /* Quitar márgenes adicionales */
   letter-spacing: 1px; /* Espaciado entre letras igual */
@@ -19,19 +19,13 @@
   line-height: 1.5; /* Alineación vertical perfecta */
 }
 
-.navbar-brand img {
-  margin-left: 10px; /* Espacio entre el texto y la imagen */
-  vertical-align: middle; /* Alineación con el texto */
-}
-
-
 .nav-item-custom {
   font-size: 18px; /* Igual al tamaño de la marca */
   padding: 12px 20px;
-  color: #333;
+  color: #ffffff !important; /* Color del texto en blanco */
   font-weight: 500;
   text-transform: uppercase;
-  border-radius: 25px;
+  border-radius: 25px; /* Esquinas redondeadas para los enlaces */
   transition: background-color 0.3s ease, color 0.3s ease;
   margin: 0 10px;
   display: flex;
@@ -39,33 +33,32 @@
 }
 
 .nav-item-custom:hover {
-  background-color: rgba(0, 123, 255, 0.1);
-  color: #007bff;
-  transform: translateY(-2px);
+  background-color: rgba(255, 255, 255, 0.2); /* Color de fondo en hover */
+  color: #007bff; /* Cambiado a azul para el texto en hover */
 }
 
 .navbar-toggle {
-  background-color: #007bff;
-  border: none;
-  border-radius: 50%;
+  background-color: #007bff; /* Color del botón de toggle */
+  border: none; /* Sin borde */
+  border-radius: 50%; /* Esquinas redondeadas */
 }
 
 .navbar-toggle:hover {
-  background-color: #0056b3;
-  transform: scale(1.1);
+  background-color: #0056b3; /* Color en hover */
+  transform: scale(1.1); /* Efecto de aumento en hover */
 }
 
 @media (max-width: 768px) {
   .navbar-custom {
-    padding: 10px 20px;
+    padding: 10px 20px; /* Ajustes para pantallas pequeñas */
   }
 
   .nav-item-custom {
-    font-size: 16px;
-    padding: 10px 15px;
+    font-size: 16px; /* Tamaño del texto en pantallas pequeñas */
+    padding: 10px 15px; /* Espaciado en pantallas pequeñas */
   }
 
   .navbar-toggle {
-    padding: 10px;
+    padding: 10px; /* Ajustes para el botón de toggle */
   }
 }

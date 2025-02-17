@@ -3,11 +3,10 @@ import { auth } from '../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useHistory } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, Button, Alert } from 'react-bootstrap'; 
+import { Form, Button, Alert, Container, Row, Col } from 'react-bootstrap'; 
 import "../styles/Login.css"; // Importar el archivo CSS
-
-// Usar import para la imagen
-import menu from "../assets/menu.png";
+import Footer from "./Footer";
+import login from "../assets/login1.png";
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -28,48 +27,50 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
-      <Form onSubmit={handleLogin} className="login-form">
-        <h2 className="text-center mb-4">Bienvenido</h2>
-        
-        {/* Imagen centrada encima del campo de email */}
-        <div className="text-center mb-3">
-          <img src={menu}  alt="User Icon"
-                style={{
-                  width: "82px",
-                  height: "82px",
-                  borderRadius: "50%", // Hacemos la imagen circular
-                  border: "1px solid #ccc", // Borde para mejorar el contraste
-                }} />
-        </div>
+    <div className="d-flex flex-column min-vh-100">
+      <Container className="flex-grow-1 d-flex justify-content-center align-items-center" style={{ maxHeight: "875px" }}> {/* Aumentar la altura máxima a 500px */}
+        <Form onSubmit={handleLogin} className="login-form w-100" style={{ maxWidth: "300px" }}> {/* Mantener el ancho en 300px */}
+          <h2 className="text-center mb-4">Bienvenido</h2>
 
-      
+          <div className="text-center mb-3">
+            <img src={login} alt="User Icon"
+                 style={{
+                   width: "82px",
+                   height: "82px",
+                   borderRadius: "50%",
+                   border: "1px solid #ccc",
+                 }} />
+          </div>
 
-        <Form.Group controlId="formEmail" className="mb-3">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="input-field"
-          />
-        </Form.Group>
-        <Form.Group controlId="formPassword" className="mb-3">
-          <Form.Label>Contraseña</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Contraseña"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="input-field"
-          />
-        </Form.Group>
-        <Button variant="primary" type="submit" className="login-button w-100">
-          Iniciar sesión
-        </Button>
-        {error && <Alert variant="danger" className="mt-3">{error}</Alert>}
-      </Form>
+          <Form.Group controlId="formEmail" className="mb-3">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="input-field"
+            />
+          </Form.Group>
+          <Form.Group controlId="formPassword" className="mb-3">
+            <Form.Label>Contraseña</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="input-field"
+            />
+          </Form.Group>
+          <Button variant="primary" type="submit" className="login-button w-100">
+            Iniciar sesión
+          </Button>
+          {error && <Alert variant="danger" className="mt-3">{error}</Alert>}
+        </Form>
+      </Container>
+
+      <Footer></Footer>
+
     </div>
   );
 };

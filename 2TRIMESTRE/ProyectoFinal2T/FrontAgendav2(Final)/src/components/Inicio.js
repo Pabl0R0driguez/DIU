@@ -4,6 +4,13 @@ import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/Inicio.css";
 import { Card, Button, Container, Row, Col, Form, Collapse } from "react-bootstrap";
+import informacion from "../assets/informacion.png";
+import editar from "../assets/editar.png";
+import borrar from "../assets/borrar.png";
+
+
+
+
 
 export default class Inicio extends Component {
   constructor(props) {
@@ -45,6 +52,8 @@ export default class Inicio extends Component {
   retrievePersonas() {
     AgendaDataService.getAllPersonas()
       .then((response) => {
+        console.log(response.data)
+        console.log("Dddddddddddddd")
         this.setState({
           personas: response.data,
         });
@@ -85,16 +94,23 @@ export default class Inicio extends Component {
   }
 
   removePersona(persona) {
-    if (!persona) return;
+    if (!persona || !persona.id) {
+      console.error("Persona o persona.id no válidos", persona);
+      return;
+    }
+  
+    console.log("Eliminando persona con ID:", persona.id);  // Verifica que se pasa un ID válido
+  
     AgendaDataService.deletePersona(persona.id)
       .then((response) => {
-        this.refreshList();
+        console.log("Persona eliminada correctamente", response);
+        this.refreshList(); // Refresca la lista para mostrar los cambios
       })
       .catch((e) => {
         console.error("Error al eliminar la persona:", e);
       });
   }
-
+  
   searchPersona() {
     AgendaDataService.findByNombre(this.state.searchPersona)
       .then((response) => {
@@ -135,91 +151,169 @@ export default class Inicio extends Component {
         </Row>
 
         <Row className="mt-2 cartas-container">
-          {personas &&
-            personas.map((persona, index) => (
-              <Col md={5} lg={3} className="mb-3" key={persona.id}>
-                <Card
-                  className={`h-100 p-3 ${selectedIndex === index ? "border-primary" : ""}`}
-                  onClick={() => this.selectPersona(index)}
+        {personas &&
+  personas.map((persona, index) => (
+    <Col md={5} lg={3} className="mb-3" key={persona.id}>
+      <Card
+        className={`h-100 p-3 ${selectedIndex === index ? "border-primary" : ""}`}
+        onClick={() => this.setState({ selectedIndex: selectedIndex === index ? -1 : index })}
+        style={{
+          cursor: "pointer",
+          fontFamily: "'Poppins', sans-serif",
+          minHeight: "250px",
+          textAlign: "center",
+        }}
+      >
+        <Card.Body
+          className="d-flex flex-column justify-content-center align-items-center"
+          style={{ height: "100%" }}
+        >
+          <Card.Title
+            style={{
+              fontSize: "1.5rem",
+              fontWeight: "600",
+              textAlign: "center",
+              marginBottom: "1rem",
+            }}
+          >
+            {persona.nombre} {persona.apellido}
+          </Card.Title>
+
+          {selectedIndex === index && (
+            <Button
+              variant="info"
+              size="sm"
+              onClick={(e) => {
+                e.stopPropagation();
+                this.togglePersonaDetails(index);  // Toggle de los detalles
+              }}
+            >
+              {expandedIndex === index ? "Ocultar Detalles" : "Ver Detalles"}
+            </Button>
+          )}
+
+          <Collapse in={expandedIndex === index}>
+            <div className="mt-3">
+              <div className="detail-item">
+                <strong>Dirección:</strong> {persona.direccion}
+              </div>
+              <div className="detail-item">
+                <strong>Código Postal:</strong> {persona.codigoPostal}
+              </div>
+              <div className="detail-item">
+                <strong>Ciudad:</strong> {persona.ciudad}
+              </div>
+              <div className="detail-item">
+                <strong>Fecha de Nacimiento:</strong> {persona.fechaNacimiento}
+              </div>
+              <div className="button-container">
+                {/* Botón de editar */}
+                <Link
+                  to={`/editar/${persona.id}`}  // Asegúrate de que la ruta esté bien formada
+                  className="btn btn-sm square-btn mt-2"
                   style={{
-                    cursor: "pointer",
-                    fontFamily: "'Poppins', sans-serif",
-                    minHeight: "250px",
-                    textAlign: "center",
+                    backgroundColor: '#ffc107',
+                    border: 'none',
+                    width: '50px',
+                    height: '50px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
                   }}
                 >
-                  <Card.Body
-                    className="d-flex flex-column justify-content-center align-items-center"
-                    style={{ height: "100%" }}
-                  >
-                    <Card.Title
-                      style={{
-                        fontSize: "1.5rem",
-                        fontWeight: "600",
-                        textAlign: "center",
-                        marginBottom: "1rem",
-                      }}
-                    >
-                      {persona.nombre} {persona.apellido}
-                    </Card.Title>
+                  <img
+                    src={editar}  // Imagen de editar
+                    alt="Editar"
+                    className="icon-btn"
+                    style={{
+                      width: '80%',
+                      height: '80%',
+                      objectFit: 'contain'
+                    }}
+                  />
+                </Link>
 
-                    {selectedIndex === index && (
-                      <Button
-                        variant="info"
-                        size="sm"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          this.togglePersonaDetails(index);
-                        }}
-                      >
-                        Ver Detalles
-                      </Button>
-                    )}
+                {/* Botón de eliminar */}
+                <Button
+                  variant="danger"
+                  className="btn-sm square-btn mt-2"
+                  onClick={(e) => {
+                    e.stopPropagation(); // Evita que el evento se propague a la tarjeta
+                    this.removePersona(persona);  // Elimina la persona
+                  }}
+                  style={{
+                    backgroundColor: '#d32f2f',
+                    border: 'none',
+                    width: '50px',
+                    height: '50px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}
+                >
+                  <img
+                    src={borrar}  // Imagen de eliminar
+                    alt="Eliminar"
+                    className="icon-btn"
+                    style={{
+                      width: '80%',
+                      height: '80%',
+                      objectFit: 'contain'
+                    }}
+                  />
+                </Button>
 
-                    <Collapse in={expandedIndex === index}>
-                      <div className="mt-3">
-                        <div className="detail-item">
-                          <strong>Dirección:</strong> {persona.direccion}
-                        </div>
-                        <div className="detail-item">
-                          <strong>Código Postal:</strong> {persona.codigoPostal}
-                        </div>
-                        <div className="detail-item">
-                          <strong>Ciudad:</strong> {persona.ciudad}
-                        </div>
-                        <div className="detail-item">
-                          <strong>Fecha de Nacimiento:</strong> {persona.fechaNacimiento}
-                        </div>
-                        <Link to={`/editar/${persona.id}`} className="btn btn-warning mt-2">
-                          Editar
-                        </Link>
-                        
-                          <Button
-                          variant="danger"
-                          className="mt-2 ml-2"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            this.removePersona(persona);
-                          }}
-                        >
-                          Eliminar
-                        </Button>
+                {/* Botón de tutoriales */}
+                <Link
+                  to={`/añadirtutoriales/`}
+                  className="btn btn-sm square-btn mt-2"
+                  style={{
+                    backgroundColor: '#4caf50',
+                    border: 'none',
+                    width: '50px',
+                    height: '50px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}
+                >
+                  <img
+                    src={informacion}  // Imagen de tutoriales
+                    alt="Tutoriales"
+                    className="icon-btn"
+                    style={{
+                      width: '80%',
+                      height: '80%',
+                      objectFit: 'contain'
+                    }}
+                  />
+                </Link>
+              </div>
+            </div>
+          </Collapse>
+        </Card.Body>
+      </Card>
 
-                          <Link  to={`/añadirtutoriales/`}> 
-                        <Button
-                          variant="danger"
-                          className="mt-2 ml-2"
-                        >
-                          Tutoriales
-                        </Button>
-                        </Link>
-                        
-                      </div>
-                    </Collapse>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
+      
+    </Col>
+
+    
+  ))}
+  
+     {/*  <footer className="w-100 text-center py-3">
+        <Container className="spacing"> 
+          <Row>
+            <Col>
+              <p>&copy; 2025 Tu Empresa. Todos los derechos reservados.</p>
+              <p>
+                <a href="/privacy-policy" className="text-decoration-none">Política de Privacidad</a> | 
+                <a href="/terms-of-service" className="text-decoration-none"> Términos de Servicio</a>
+              </p>
+            </Col>
+          </Row>
+        </Container>
+      </footer>
+ */}
         </Row>
       </Container>
     );

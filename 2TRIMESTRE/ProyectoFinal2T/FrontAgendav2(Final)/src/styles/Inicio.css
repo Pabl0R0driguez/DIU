@@ -1,17 +1,18 @@
-/* Estilos globales */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
+/* Fondo general con imagen y gradiente */
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #f8f9fa;
+  background-image: url('../assets/fondo.jpg'), linear-gradient(135deg, #567cce, #4c65dd); /* Fondo con imagen y gradiente */
+  background-size: cover; /* Asegúrate de que la imagen cubra todo el fondo */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
   color: #212529;
   margin: 0;
   padding: 0;
+  min-height: 100vh; /* Asegura que el fondo cubra toda la ventana */
 }
 
-h4 {
-  font-weight: 600;
-  margin-bottom: 1rem;
+.content-container {
+  background-attachment: fixed;
 }
 
 /* Estilos para el contenedor de la página */
@@ -21,36 +22,67 @@ h4 {
   align-items: center;
   min-height: 100vh;
   padding: 20px;
-  background-color: #f5f5f5;
+  background-color: rgba(255, 255, 255, 0.85); /* Fondo ligeramente transparente */
+  border-radius: 10px; /* Bordes redondeados para suavizar el contorno */
+  position: relative; /* Permite que el fondo de la página se vea detrás */
+  z-index: 2; /* Hace que el contenedor esté por encima del fondo */
 }
 
-/* Contenedor principal con fondo blanco */
+/* Fondo blanco con sombra para las tarjetas */
 .content-container {
   background-color: white;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra sutil para resaltar */
   width: 80%;
   max-width: 1200px;
 }
 
-/* Estilos para el input de búsqueda */
+/* Estilos para los botones cuadrados */
+.square-btn {
+  width: 40px;      /* Ajusta el tamaño del botón cuadrado */
+  height: 40px;     /* El alto es igual al ancho para hacerlo cuadrado */
+  display: flex;    /* Usamos flexbox para centrar la imagen */
+  justify-content: center; /* Centra la imagen horizontalmente */
+  align-items: center;    /* Centra la imagen verticalmente */
+  border-radius: 5px;  /* Bordes ligeramente redondeados (opcional) */
+  text-align: center; /* Asegura que cualquier texto dentro se centre */
+  overflow: hidden;  /* Asegura que la imagen no sobresalga del cuadrado */
+  background-color: #ffc107;  /* Fondo del botón (opcional) */
+  border: none;      /* Elimina cualquier borde del link */
+}
+
+/* Estilos para la imagen dentro del botón cuadrado */
+.square-btn img {
+  width: 100%;      /* La imagen ocupa todo el ancho del botón */
+  height: 100%;     /* La imagen ocupa toda la altura del botón */
+  object-fit: cover;  /* La imagen cubre el área del contenedor sin distorsionarse */
+}
+
+/* Fondo del input de búsqueda */
 .buscador-input {
   padding: 14px 18px;
   font-size: 1rem;
-  border: 2px solid #ddd; /* Borde gris suave */
-  border-radius: 50px; /* Bordes muy redondeados */
+  border: 2px solid #ddd;
+  border-radius: 50px;
   width: 100%;
   outline: none;
   transition: all 0.3s ease;
-  background-color: #f7f8fa; /* Fondo claro */
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  background-color: #f7f8fa;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.buscador-input:focus {
-  border-color: #007bff; /* Azul al estar en foco */
-  box-shadow: 0 2px 12px rgba(0, 123, 255, 0.2); /* Resplandor suave */
-  background-color: #fff;
+/* Fondo de las tarjetas */
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #ffffff, #f3f4f8); /* Fondo de las tarjetas con gradiente suave */
+}
+
+.card:hover {
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada al pasar el ratón */
+  transform: translateY(-10px);
 }
 
 /* Estilos para el botón de búsqueda */
@@ -60,151 +92,57 @@ h4 {
   border: none;
   background: linear-gradient(135deg, #007bff, #00c6ff); /* Degradado de azul */
   color: white;
-  border-radius: 50px; /* Bordes redondeados */
+  border-radius: 50px;
   font-weight: 600;
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2); /* Sombra sutil */
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
   margin-left: 10px;
 }
+
+/* Estilos para los botones cuadrados alineados */
+.button-container {
+  display: flex;
+  justify-content: flex-start;  /* Alinea los botones de izquierda a derecha */
+  gap: 10px;  /* Espacio entre los botones */
+}
+
+.square-btn {
+  width: 50px; /* Tamaño del botón cuadrado */
+  height: 50px; /* El alto es igual al ancho para hacerlo cuadrado */
+  display: flex; /* Flexbox para centrar la imagen */
+  justify-content: center; /* Centra la imagen horizontalmente */
+  align-items: center; /* Centra la imagen verticalmente */
+  border-radius: 5px; /* Bordes ligeramente redondeados (opcional) */
+  overflow: hidden; /* Asegura que la imagen no sobresalga */
+  background-color: #ffc107; /* Fondo del botón (opcional) */
+  border: none; /* Elimina borde del link */
+}
+
+.square-btn img {
+  width: 100%; /* Imagen cubre todo el botón */
+  height: 100%; /* Imagen cubre todo el botón */
+  object-fit: cover; /* La imagen cubre el área sin distorsionarse */
+}
+
+/* Puedes agregar más estilos según necesites */
+
 
 .buscador-btn:hover {
-  background: linear-gradient(135deg, #0056b3, #0088cc); /* Cambio de degradado */
-  transform: translateY(-4px); /* Eleva el botón */
+  background: linear-gradient(135deg, #0056b3, #0088cc);
+  transform: translateY(-4px);
 }
 
-.buscador-btn:active {
-  background: linear-gradient(135deg, #003366, #006f99); /* Degradado más oscuro */
-  transform: translateY(2px); /* Efecto de presionar */
-}
-
-/* Estilo para el contenedor de las tarjetas */
-.cartas-container {
-  margin-top: 20px;
-}
-
-.card {
-  min-height: 250px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.card-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
-/* Estilo para los botones de acción dentro de las tarjetas */
-.btn-info, .btn-danger, .btn-warning {
-  font-size: 0.9rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  border-radius: 30px;
-}
-
-.btn-info {
-  background-color: #17a2b8;
-  color: white;
-}
-
-.btn-danger {
-  background-color: #dc3545;
-  color: white;
-}
-
-.btn-warning {
-  background-color: #ffc107;
-  color: white;
-}
-
-/* Estilos para la caja de detalles que se expanden */
-.detail-item {
-  margin-bottom: 10px;
-  font-size: 1.25rem;
-}
-
-
-/* Estilo para el botón dentro del Card */
-.card-body .btn {
-  margin-top: 10px;
-}
-
-/* Efectos al pasar el ratón sobre las tarjetas */
-.card:hover {
-  transform: translateY(-10px); /* Eleva ligeramente la tarjeta */
-  transition: transform 0.3s ease;
-}
-
-/* Estilo para la fila de búsqueda */
-.buscador-container .col-md-6 {
-  margin-bottom: 20px;
-}
-
-/* Estilo del contenedor de las filas */
-.row {
-  margin-bottom: 20px;
-}
-
-/* Fondo del cuerpo de la página */
-body {
-  background-color: #f8f9fa;
-}
-
-/* Estilos para las tarjetas */
-.card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card:hover {
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-/* Estilo general de las tarjetas */
-.card-body {
-  padding: 15px;
-  border-radius: 10px;
-  text-align: center;
-}
-
-/* Sombra sutil para resaltar los botones */
-.btn {
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.btn:hover {
-  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
-  transform: translateY(-2px);
-}
-
-/* Estilo de la tarjeta de persona seleccionada */
+/* Card seleccionada con un borde suave */
 .card.selected {
   border: 2px solid #007bff;
-  box-shadow: 0px 4px 12px rgba(0, 123, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
 }
 
-/* Botón de eliminar */
-.btn-danger {
-  background-color: #dc3545;
-  color: white;
-  border-radius: 50px;
-  font-weight: bold;
-  text-transform: uppercase;
-  padding: 10px 20px;
-  margin-left: 10px;
-}
-
-/* Para las tarjetas con el botón expandido */
-.collapse {
-  transition: all 0.3s ease;
-}
-
+/* Detalles del card expandido */
 .card-body .collapse {
+  transition: all 0.3s ease;
   margin-top: 10px;
 }
 
@@ -220,109 +158,65 @@ body {
   border-radius: 30px;
 }
 
-/* Fondo claro de la página */
-body {
-  background-color: #f8f9fa;
+/* Fondo del contenedor de las tarjetas */
+.cartas-container {
+  margin-top: 20px;
 }
 
-/* Colores y sombras para los detalles */
-.persona-details {
-  background-color: #333;
-  color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Colores y bordes */
-h4 {
-  color: #ffffff !important;
-  font-size: 1.75rem;
-}
-
-.persona-details div {
-  color: #ffffff !important;
-  margin-bottom: 10px;
-}
-
-.lista {
-  color: #ffffff !important;
-}
-
-/* Lista de personas */
-.lista {
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Estilo para los botones */
-.btn-warning,
-.btn-danger {
-  color: white !important;
-}
-
-.details-col {
-  padding-left: 20px;
-  font-size: 1.2rem;
-}
-
-.detail-item {
-  margin-bottom: 10px;
-  font-size: 1.25rem;
-}
-
-/* List group de detalles */
-ul.list-group {
-  background-color: #ffffff;
-  padding: 0;
-}
-
-.list-group-item {
-  background-color: white;
-  color: #333;
+.card-body {
   padding: 15px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  border-radius: 10px;
+  text-align: center;
+}
+/* Contenedor principal */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
 }
 
-.list-group-item:hover {
-  background-color: #007bff;
+/* Estilos de la imagen del usuario */
+.user-icon {
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
 }
 
-/* Estilo para el botón de Eliminar y Editar */
-.btn-warning,
-.btn-danger {
-  padding: 6px 14px; /* Reducir tamaño del botón */
-  font-size: 0.9rem; /* Font más pequeña */
-  border-radius: 25px; /* Bordes más redondeados */
-  font-weight: 500; /* Menos peso en la fuente */
-}
-
-/* Botón de Eliminar (Danger) */
-.btn-danger {
-  background-color: #dc3545;
+/* FOOTER CURVADO */
+.footer {
+  position: relative;
+  background: #343a40;
   color: white;
+  padding: 50px 0;
+  text-align: center;
+  margin-top: auto;
 }
 
-/* Botón de Editar (Warning) */
-.btn-warning {
-  background-color: #ffc107;
+.footer-wave {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: url("data:image/svg+xml;charset=UTF-8,%3Csvg viewBox='0 0 1440 320' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23343a40' fill-opacity='1' d='M0,192L80,202.7C160,213,320,235,480,218.7C640,203,800,149,960,138.7C1120,128,1280,160,1360,176L1440,192L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z'%3E%3C/path%3E%3C/svg%3E") no-repeat center;
+  background-size: cover;
+  height: 60px;
+}
+
+/* Enlaces del footer */
+.footer a {
   color: white;
+  text-decoration: none;
+  transition: 0.3s;
 }
 
-/* Efectos al pasar el ratón por encima */
-.btn-warning:hover,
-.btn-danger:hover {
-  background-color: #e0a800; /* Color más oscuro para hover (editar) */
-  background-color: #c82333; /* Color más oscuro para hover (eliminar) */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+.footer a:hover {
+  text-decoration: underline;
 }
 
-/* Botón activo al hacer clic */
-.btn-warning:active,
-.btn-danger:active {
-  transform: translateY(2px); /* Efecto de presionar */
+.spacing {
+  margin-top: 120px; /* Aumenta el valor a 60px o más según sea necesario */
 }

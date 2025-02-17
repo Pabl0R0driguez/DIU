@@ -1,111 +1,149 @@
-import React, { useState, useEffect } from "react";
+import React, { Component } from "react";
 import TutorialDataService from "../services/tutorial.service";
 import { Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/Tutoriales.css";  // Asegúrate de importar el CSS
+import { Card, Button, Container, Row, Col, Form, Collapse } from "react-bootstrap";
 
-const TutorialsList = () => {
-  const [tutorials, setTutorials] = useState([]);
-  const [currentTutorial, setCurrentTutorial] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState(-1);
-  const [searchTitle, setSearchTitle] = useState("");
+export default class TutorialsList extends Component {
+  constructor(props) {
+    super(props);
+    this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
+    this.retrieveTutorials = this.retrieveTutorials.bind(this);
+    this.setActiveTutorial = this.setActiveTutorial.bind(this);
+    this.searchTitle = this.searchTitle.bind(this);
+    this.toggleTutorialDetails = this.toggleTutorialDetails.bind(this);
 
-  // Cargar tutoriales al montar el componente
-  useEffect(() => {
-    retrieveTutorials();
-  }, []);
+    this.state = {
+      tutorials: [],
+      currentTutorial: null,
+      currentIndex: -1,
+      searchTitle: "",
+      expandedIndex: null,
+    };
+  }
 
-  const retrieveTutorials = () => {
+  componentDidMount() {
+    this.retrieveTutorials();
+  }
+
+  onChangeSearchTitle(e) {
+    const searchTitle = e.target.value;
+    this.setState({ searchTitle });
+  }
+
+  toggleTutorialDetails(index) {
+    this.setState({
+      expandedIndex: this.state.expandedIndex === index ? null : index,
+    });
+  }
+
+  retrieveTutorials() {
     TutorialDataService.getAllTutorials()
       .then(response => {
-        setTutorials(response.data);
+        this.setState({
+          tutorials: response.data,
+        });
       })
       .catch(e => {
         console.log(e);
       });
-  };
+  }
 
-  const onChangeSearchTitle = (e) => {
-    setSearchTitle(e.target.value);
-  };
-
-  const searchTitleHandler = () => {
-    TutorialDataService.findByTitle(searchTitle)
+  searchTitle() {
+    TutorialDataService.findByTitle(this.state.searchTitle)
       .then(response => {
-        setTutorials(response.data);
+        this.setState({
+          tutorials: response.data,
+        });
       })
       .catch(e => {
         console.log(e);
       });
-  };
+  }
 
-  const setActiveTutorial = (tutorial, index) => {
-    setCurrentTutorial(tutorial);
-    setCurrentIndex(index);
-  };
+  setActiveTutorial(tutorial, index) {
+    this.setState({
+      currentTutorial: tutorial,
+      currentIndex: index,
+    });
+  }
 
-  const removeAllTutorials = () => {
-    TutorialDataService.deleteAll()
-      .then(response => {
-        retrieveTutorials();
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
+  render() {
+    const { searchTitle, tutorials, currentIndex, expandedIndex } = this.state;
 
-  return (
-    <div className="tutorials-list-container">
-      <div className="search-bar">
-        <input
-          type="text"
-          className="search-input"
-          placeholder="Search by title"
-          value={searchTitle}
-          onChange={onChangeSearchTitle}
-        />
-        <button className="search-btn" onClick={searchTitleHandler}>
-          Search
-        </button>
-      </div>
+    return (
+      <Container className="mt-5">
+        <Row className="mb-3 align-items-center buscador-container">
+          <Col md={12}>
+            <div className="d-flex">
+              <Form.Control
+                type="text"
+                placeholder="Buscar por título"
+                value={searchTitle}
+                onChange={this.onChangeSearchTitle}
+                className="buscador-input"
+              />
+              <Button
+                variant="primary"
+                size="sm"
+                className="buscador-btn"
+                onClick={this.searchTitle}
+              >
+                Buscar
+              </Button>
+            </div>
+          </Col>
+        </Row>
 
-      <div className="tutorials">
-        <h4 className="tutorials-title">Tutorials List</h4>
-        <ul className="tutorials-list">
-          {tutorials.map((tutorial, index) => (
-            <li
-              key={index}
-              className={`tutorial-item ${index === currentIndex ? "active" : ""}`}
-              onClick={() => setActiveTutorial(tutorial, index)}
-            >
-              {tutorial.title}
-            </li>
+        <Row className="mt-2 cartas-container">
+          {tutorials && tutorials.map((tutorial, index) => (
+            <Col md={5} lg={3} className="mb-3" key={tutorial.id}>
+              <Card
+                className={`h-100 p-3 ${currentIndex === index ? "border-primary" : ""}`}
+                onClick={() => this.setActiveTutorial(tutorial, index)}
+                style={{
+                  cursor: "pointer",
+                  fontFamily: "'Poppins', sans-serif",
+                  minHeight: "250px",
+                  textAlign: "center",
+                }}
+              >
+                <Card.Body className="d-flex flex-column justify-content-center align-items-center" style={{ height: "100%" }}>
+                  <Card.Title style={{ fontSize: "1.5rem", fontWeight: "600", marginBottom: "1rem" }}>
+                    {tutorial.title}
+                  </Card.Title>
+
+                  <Button
+                    variant="info"
+                    size="sm"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      this.toggleTutorialDetails(index);
+                    }}
+                  >
+                    {expandedIndex === index ? "Ocultar Detalles" : "Ver Detalles"}
+                  </Button>
+
+                  <Collapse in={expandedIndex === index}>
+                    <div className="mt-3">
+                      <div className="detail-item">
+                        <strong>Descripción:</strong> {tutorial.description}
+                      </div>
+                      <div className="detail-item">
+                        <strong>Estado:</strong> {tutorial.published ? "Publicado" : "Pendiente"}
+                      </div>
+                      <Link to={`/tutorials/${tutorial.id}`} className="btn btn-sm mt-2">
+                        Editar
+                      </Link>
+                    </div>
+                  </Collapse>
+                </Card.Body>
+              </Card>
+            </Col>
           ))}
-        </ul>
-      </div>
-
-      <div className="tutorial-detail">
-        {currentTutorial ? (
-          <div>
-            <h4>Details</h4>
-            <div><strong>Title:</strong> {currentTutorial.title}</div>
-            <div><strong>Description:</strong> {currentTutorial.description}</div>
-            <div><strong>Status:</strong> {currentTutorial.published ? "Published" : "Pending"}</div>
-            <Link to={`/tutorials/${currentTutorial.id}`} className="edit-btn">
-              Edit
-            </Link>
-          </div>
-        ) : (
-          <div className="no-tutorial">
-            <p>Please click on a tutorial...</p>
-          </div>
-        )}
-      </div>
-
-      <button className="remove-all-btn" onClick={removeAllTutorials}>
-        Remove All Tutorials
-      </button>
-    </div>
-  );
-};
-
-export default TutorialsList;
+        </Row>
+      </Container>
+    );
+  }
+}

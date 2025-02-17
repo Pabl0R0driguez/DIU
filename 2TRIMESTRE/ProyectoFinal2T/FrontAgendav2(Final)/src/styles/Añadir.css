@@ -1,4 +1,36 @@
-.white-text {
-      color: white;
-    }
-    
+/* Añadir.css */
+
+.form-control-custom {
+  border-radius: 10px;
+  border: 1px solid #ced4da;
+  padding: 10px;
+  transition: border-color 0.3s ease;
+}
+
+.form-control-custom:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+h3 {
+  font-family: 'Poppins', sans-serif;
+  color: #3b3b3b;
+}
+
+.card {
+  background-color: #ffffff;
+}
+
+.card-shadow {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}

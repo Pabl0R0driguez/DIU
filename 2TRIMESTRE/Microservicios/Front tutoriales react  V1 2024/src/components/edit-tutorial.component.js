@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Form, Button, Container, Row, Col } from 'react-bootstrap'; // Importar react-bootstrap
 import TutorialDataService from '../services/tutorial.service';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'; // Usamos useHistory para redirigir a otra ventana
-import '../styles/tutorials.styles.css'; // Importar estilos personalizados
-
+import { useHistory } from 'react-router-dom'; // Usamos useHistory para redirigir
+import '../styles/add-edit.css'; // Importar estilos personalizados
 
 function EditTutorial() {
-    const   id = window.location.pathname.split('/')[2];
+    const id = window.location.pathname.split('/')[2];
     const history = useHistory();
 
-
-    // useState para crear una variable reactiva que se actualiza en tiempo real
     const [tutorial, setTutorial] = useState({
         id: id,
         title: '',
@@ -17,77 +15,92 @@ function EditTutorial() {
         published: false,
     });
 
-    // Usamos useEffect para cargar el tutorial cuando se monta el componente
+    // Cargar el tutorial cuando se monta el componente
     useEffect(() => {
         TutorialDataService.get(id)
             .then(response => {
-                // Actualiza el estado directamente
-                setTutorial(response.data); 
+                setTutorial(response.data);
             })
+            .catch(err => console.log(err));
     }, [id]);
 
     // Manejar la edición del tutorial
     const editTutorial = (e) => {
         e.preventDefault();
-        // Actualiza el tutorial
-        TutorialDataService.update(id, tutorial).then(() => {
-            history.push('/tutorials');// Al actualizar redirigimos a la lista de tutoriales
-        })      
+        TutorialDataService.update(id, tutorial)
+            .then(() => {
+                history.push('/tutorials'); // Redirigir a la lista de tutoriales
+            })
+            .catch(err => console.log(err));
     };
 
-    // Actualizar el título
+    // Handlers para actualizar el estado
     const setTitle = (e) => {
         setTutorial({ ...tutorial, title: e.target.value });
     };
 
-    // Actualizar la descripción
     const setDescription = (e) => {
-        setTutorial({ ...tutorial, description: e.target.value }); 
+        setTutorial({ ...tutorial, description: e.target.value });
     };
 
-    // Actualizar el estado de publicado
     const setPublished = (e) => {
-        setTutorial({ ...tutorial, published: e.target.checked }); 
+        setTutorial({ ...tutorial, published: e.target.checked });
     };
 
     return (
-        <form onSubmit={editTutorial}>
-            <h1>Editar Tutorial</h1>
-            <input
-                id='titulo2'
-                placeholder='Título'
-                className='añadir-titulo'
-                type='text'
-                value={tutorial.title}
-                onChange={setTitle}
-            />
-            <br></br>
+        <Container className="full-width-container mt-4">
+            <Row>
+                <Col md={12} className="mb-4">
+                    <h1 className="mb-4 text-center">Editar Tutorial</h1>
 
-            <br></br>
+                    <Form onSubmit={editTutorial} className="w-100">
+                        <Row>
+                            <Col md={8} className="mx-auto">
+                                {/* Título */}
+                                <Form.Group controlId="formTitle">
+                                    <Form.Label>Título</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="Título"
+                                        value={tutorial.title}
+                                        onChange={setTitle}
+                                        className="form-control-lg"
+                                    />
+                                </Form.Group>
 
-            <input
-                id='descripcion2'
-                placeholder='Descripción'
-                className='añadir-descripcion'
-                type='text'
-                value={tutorial.description}
-                onChange={setDescription}
-            />
-            <br></br>
+                                {/* Descripción */}
+                                <Form.Group controlId="formDescription" className="mt-3">
+                                    <Form.Label>Descripción</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="Descripción"
+                                        value={tutorial.description}
+                                        onChange={setDescription}
+                                        className="form-control-lg"
+                                    />
+                                </Form.Group>
 
-            <br></br>
-            Publicado:
-            <input
-                type='checkbox'
-                checked={tutorial.published} // Usar checked para reflejar el estado
-                onChange={setPublished}
-            />
-            <br></br>
+                                {/* Publicado */}
+                                <Form.Group controlId="formPublished" className="mt-3">
+                                    <Form.Check
+                                        type="checkbox"
+                                        label="Publicado"
+                                        checked={tutorial.published}
+                                        onChange={setPublished}
+                                        className="form-check-lg"
+                                    />
+                                </Form.Group>
 
-            <button className='boton-añadir' type='submit'>
-                Actualizar
-            </button>
-        </form>
+                                {/* Botón de actualizar */}
+                                <Button className="mt-4 w-100" variant="primary" type="submit" size="lg">
+                                    Act Tutorial
+                                </Button>
+                            </Col>
+                        </Row>
+                    </Form>
+                </Col>
+            </Row>
+        </Container>
     );
 }
 

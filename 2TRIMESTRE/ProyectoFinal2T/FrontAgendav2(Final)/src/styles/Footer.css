@@ -1,0 +1,23 @@
+/* src/styles/Footer.css */
+.footer-custom {
+      background-color: transparent; /* Hacer el fondo transparente */
+      padding: 1rem 60px; /* Aumentar el espaciado horizontal */
+      position: fixed; /* Cambiar a estático para que no esté fijo en la parte inferior */
+      bottom: 0; /* Ajustado a la parte inferior */
+      left: 0; /* Ajustado a la izquierda */
+      right: 0; /* Ajustado a la derecha */
+      width: 100%; /* Asegúrate de que cubra todo el ancho */
+      /* Quitar sombra para que parezca unido al fondo */
+      z-index: 1000; /* Asegúrate de que esté encima de otros elementos */
+    }
+    
+    .footer-link {
+      margin: 0 10px; /* Espacio entre los enlaces */
+      color: white; /* Color azul */
+      text-decoration: none; /* Sin subrayado */
+    }
+    
+    .footer-link:hover {
+      text-decoration: underline; /* Subrayado al pasar el mouse */
+    }
+    

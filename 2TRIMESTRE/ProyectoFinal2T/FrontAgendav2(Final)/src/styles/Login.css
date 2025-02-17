@@ -1,10 +1,12 @@
 /* Login.css */
 .login-container {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   height: calc(100vh - 50px); /* Aumentamos el tamaño y lo hacemos más grande */
   padding: 20px;
+  height: auto;
   margin-top: -50px; /* Esto acerca el contenedor del login a la navbar */
 }
 .login-form {
@@ -67,4 +69,8 @@ h2 {
   font-size: 14px;
   text-align: center;
   margin-top: 15px;
+}
+
+.login-footer-spacing {
+  margin-top: 0px !important; /* Usar con precaución */
 }

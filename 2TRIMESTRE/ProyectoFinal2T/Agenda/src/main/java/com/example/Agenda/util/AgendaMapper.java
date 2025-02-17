@@ -20,7 +20,7 @@ public class AgendaMapper {
                 .codigoPostal(agendaDto.getCodigoPostal())
                 .ciudad(agendaDto.getCiudad())
                 // Convierte la fecha de String a LocalDate si es necesario
-                .fechaNacimiento(agendaDto.getFechaNacimiento() != null ? LocalDate.parse(agendaDto.getFechaNacimiento()) : null)
+                .fechaNacimiento(agendaDto.getFechaNacimiento())
                 .build();
     }
 

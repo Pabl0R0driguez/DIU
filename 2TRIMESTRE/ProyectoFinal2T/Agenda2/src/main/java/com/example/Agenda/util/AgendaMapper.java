@@ -23,6 +23,7 @@ public class AgendaMapper {
 
     public static AgendaDto agendaMapperEntityToDto(Agenda agenda){
         return AgendaDto.builder()
+                .id(agenda.getId())
                 .nombre(agenda.getNombre())
                 .apellido(agenda.getApellido())
                 .direccion(agenda.getDireccion())

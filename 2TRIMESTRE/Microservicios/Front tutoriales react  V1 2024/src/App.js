@@ -11,31 +11,24 @@ class App extends Component {
     return (
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
-          <Link to={"/tutorials"} className="navbar-brand">
-            Tutoriales
-          </Link>
+          <Link to={"/tutorials"} className="navbar-brand"> Tutoriales </Link>
+
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
-              <Link to={"/tutorials"} className="nav-link">
-                Tutorials
-              </Link>
+              <Link to={"/tutorials"} className="nav-link"> Tutorials </Link>
             </li>
             <li className="nav-item">
-              <Link to={"/add"} className="nav-link">
-                Add
-              </Link>
+              <Link to={"/add"} className="nav-link"> Add </Link>
             </li>
           </div>
         </nav>
 
         <div className="container mt-3">
-          <Switch>
-          {/*El en switch se renderizarán todas los compoentes cuta URL coicidan con la activa*/}
-            <Route exact path={["/", "/tutorials"]} component={TutorialsList} />
-            <Route exact path="/add" component={AddTutorial} /> 
-         <Route path="/tutorials/:id" component={EditTutorial} /> 
 
-          </Switch>
+            <Route exact path={["/tutorials"]} component={TutorialsList} />
+            <Route exact path="/add" component={AddTutorial} /> 
+            <Route path="/tutorials/:id" component={EditTutorial} /> 
+            
         </div>
       </div>
     );

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import TutorialDataService from "../services/tutorial.service";
 import { Link } from "react-router-dom";
+import { Form, Button, ListGroup, Card, Col, Row, Container, ProgressBar } from "react-bootstrap";
 import '../styles/tutorials.styles.css'; // Importar estilos personalizados
 
 export default class TutorialsList extends Component {
@@ -10,27 +11,24 @@ export default class TutorialsList extends Component {
     this.retrieveTutorials = this.retrieveTutorials.bind(this);
     this.refreshList = this.refreshList.bind(this);
     this.setActiveTutorial = this.setActiveTutorial.bind(this);
-    this.removeAllTutorials = this.removeAllTutorials.bind(this);
+    this.removeTutorial = this.removeTutorial.bind(this);
     this.searchTitle = this.searchTitle.bind(this);
-    //Hacemos el bind de los métodos porque al usar estos métodos en gestores de eventos los componentes basados
-    //en clases pierden el ámbito.
+
     this.state = {
-      tutorials: [], //lista de tutoriales
-      currentTutorial: null, //tutorial seleccionado de la lista
+      tutorials: [],
+      currentTutorial: null,
       currentIndex: -1,
-      searchTitle: ""
+      searchTitle: "",
+      progress: 0,  
     };
   }
 
-  //Cuando se carga el componente, se realiza la petición de tutoriales a la API
-  //El método retrieveTutorials provoca la actualización del estado, y por tanto la re-renderización del componente
   componentDidMount() {
     this.retrieveTutorials();
   }
 
   onChangeSearchTitle(e) {
     const searchTitle = e.target.value;
-
     this.setState({
       searchTitle: searchTitle
     });
@@ -40,13 +38,22 @@ export default class TutorialsList extends Component {
     TutorialDataService.getAll()
       .then(response => {
         this.setState({
-          tutorials: response.data
+          tutorials: response.data,
+        }, () => {
+          this.updateProgress();
         });
-        console.log(response.data);
       })
       .catch(e => {
         console.log(e);
       });
+  }
+
+  updateProgress() {
+    const maxTutorials = 10; 
+    const currentProgress = (this.state.tutorials.length / maxTutorials) * 100;
+    this.setState({
+      progress: Math.min(currentProgress, 100), // Para asegurarse de no superar el 100%
+    });
   }
 
   refreshList() {
@@ -64,14 +71,14 @@ export default class TutorialsList extends Component {
     });
   }
 
-  removeAllTutorials() {
-    TutorialDataService.deleteAll()
-      .then(response => {
-        console.log(response.data);
+  removeTutorial(tutorial) {
+    if (!tutorial) return;
+    TutorialDataService.deleteTutorial(tutorial.id)
+      .then((response) => {
         this.refreshList();
       })
-      .catch(e => {
-        console.log(e);
+      .catch((e) => {
+        console.error("Error al eliminar el tutorial:", e);
       });
   }
 
@@ -81,7 +88,6 @@ export default class TutorialsList extends Component {
         this.setState({
           tutorials: response.data
         });
-        console.log(response.data);
       })
       .catch(e => {
         console.log(e);
@@ -89,103 +95,108 @@ export default class TutorialsList extends Component {
   }
 
   render() {
-    const { searchTitle, tutorials, currentTutorial, currentIndex } = this.state;
-    //ponemos los distintos elementos del estado en variables para simplificar su acceso dentro del método
+    const { searchTitle, tutorials, currentTutorial, currentIndex, progress } = this.state;
+
     return (
-      <div className="list row">
-        <div className="col-md-8">
-          <div className="input-group mb-3">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Search by title"
-              value={searchTitle}
-              onChange={this.onChangeSearchTitle}
-            />
-            <div className="input-group-append">
-              <button
-                className="btn btn-outline-secondary"
-                type="button"
-                onClick={this.searchTitle}
-              >
-                Search
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-6">
-          <h4>Tutorials List</h4>
+      <>
+        {/* Barra de Progreso */}
+        <Container fluid className="contenedor">
+          <Row className="mb-4">
+            <Col md={12}>
+              <h4 className="text-center">Progreso de Tutoriales</h4>
+              <ProgressBar animated now={progress} label={`${Math.round(progress)}%`} />
+            </Col>
+          </Row>
 
-          <ul className="list-group">
-            {/*El operedor && lógico. Los dos elementos tienen que ser true, en este caso no vacio, para que se ejecute la sentencia */}
-            {/*si tutorials está vacio , no se ejecuta el map*/}
+          <Row>
+            {/* Fila de búsqueda */}
+            <Col md={12} className="mb-4">
+              <Row>
+                <Col md={8}>
+                  <Form.Group className="mb-3">
+                    <Form.Control
+                      type="text"
+                      placeholder="Search by title"
+                      value={searchTitle}
+                      onChange={this.onChangeSearchTitle}
+                      className="form-control-lg"
+                    />
+                  </Form.Group>
+                </Col>
+                <Col md={4}>
+                  <Button
+                    variant="primary"
+                    onClick={this.searchTitle}
+                    size="lg"
+                    className="w-100"
+                  >
+                    Search
+                  </Button>
+                </Col>
+              </Row>
+            </Col>
 
-            {tutorials &&
-              tutorials.map((tutorial, index) => (
-                <li
-              /* Cambiamos la clase del elemento de la lista seleccionado. Ponemos fondo azul*/
-                  className={
-                    "list-group-item " +
-                    (index === currentIndex ? "active" : "")
-                  }
-                  onClick={() => this.setActiveTutorial(tutorial, index)}
-                  key={index}
-                >
-                  {tutorial.title}
-                </li>
-              ))}
-          </ul>
+            {/* Fila de lista de tutoriales y detalles */}
+            <Col md={12} className="mb-4">
+              <Row>
+                {/* Columna de la lista de tutoriales */}
+                <Col md={5}>
+                  <h4 className="mb-4">Tutorials List</h4>
+                  <ListGroup>
+                    {tutorials &&
+                      tutorials.map((tutorial, index) => (
+                        <ListGroup.Item
+                          action
+                          active={index === currentIndex}
+                          onClick={() => this.setActiveTutorial(tutorial, index)}
+                          key={index}
+                          className="list-group-item-lg"
+                        >
+                          {tutorial.title}
+                        </ListGroup.Item>
+                      ))}
+                  </ListGroup>
 
-          <button
-            className="m-3 btn btn-sm btn-danger"
-            onClick={this.removeAllTutorials}
-          >
-            Remove All
-          </button>
-        </div>
-        <div className="col-md-6">
-          {/*Renderizado condicional. Si current tutorial el null se dibuja lo de abajo. Si no,*/}
-          {/*se dibuja "Please click on a Tutorial..." ver más abajo.*/}
-          {currentTutorial ? (
-            <div>
-              <h4>Tutorial</h4>
-              <div>
-                <label>
-                  <strong>Title:</strong>
-                </label>{" "}
-                {currentTutorial.title}
-              </div>
-              <div>
-                <label>
-                  <strong>Description:</strong>
-                </label>{" "}
-                {currentTutorial.description}
-              </div>
-              <div>
-                <label>
-                  <strong>Status:</strong>
-                </label>{" "}
-                {/* renderizado condicional */}
-                {currentTutorial.published ? "Published" : "Pending"}
-              </div>
+                  <Button
+                    variant="danger"
+                    className="mt-4 w-100"
+                    size="lg"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      this.removeTutorial(tutorials[currentIndex]); // Eliminar el tutorial seleccionado
+                    }}
+                  >
+                    Eliminar
+                  </Button>
+                </Col>
 
-              <Link
-                //Como hemos incluido en el switch esta ruta, /tutorials/+id se renderizará el componente
-                // tutorials cuando se pulse el enlace.
-                to={"/tutorials/" + currentTutorial.id}
-                className="badge badge-warning"
-              >
-                Edit
-              </Link>
-            </div>
-          ) : (
-            <div>
-              <br />
-              <p>Please click on a Tutorial...</p>
-            </div>
-          )}
-        </div>
-      </div>
+                {/* Columna de detalles del tutorial */}
+                <Col md={7}> 
+                {currentTutorial ? (<h2>Detalles del elemento</h2> ) : ("")}
+                  {currentTutorial ? (
+                    <Card>
+                      <Card.Body>
+                        <Card.Title>{currentTutorial.title}</Card.Title>
+                        <Card.Text>
+                          <strong>Description:</strong> {currentTutorial.description}
+                        </Card.Text>
+                        <Card.Text>
+                          <strong>Status:</strong> {currentTutorial.published ? "Published" : "Pending"}
+                        </Card.Text>
+                        <Link to={"/tutorials/" + currentTutorial.id} className="btn btn-warning btn-lg w-100">
+                          Edit
+                        </Link>
+                      </Card.Body>
+                    </Card>
+                  ) : (
+                    <h6>Selecciona un tutorial para mostrar la información</h6>
+                  )}
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Container>
+      </>
     );
   }
 }

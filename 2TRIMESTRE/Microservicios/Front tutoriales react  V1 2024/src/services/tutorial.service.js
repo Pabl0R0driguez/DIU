@@ -17,7 +17,7 @@ class TutorialDataService {
     return http.put(`/tutorials/${id}`, data);
   }
 
-  delete(id) {
+  deleteTutorial(id) {
     return http.delete(`/tutorials/${id}`);
   }
 
