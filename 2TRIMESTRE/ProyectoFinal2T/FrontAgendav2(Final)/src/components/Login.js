@@ -3,7 +3,7 @@ import { auth } from '../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useHistory } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, Button, Alert, Container, Row, Col } from 'react-bootstrap'; 
+import { Form, Button, Alert, Container } from 'react-bootstrap'; 
 import "../styles/Login.css"; // Importar el archivo CSS
 import Footer from "./Footer";
 import login from "../assets/login1.png";

@@ -7,7 +7,6 @@ import Inicio from "./components/Inicio"; // Importamos el componente Inicio
 import Añadir from "./components/Añadir"; // Importamos el componente Añadir
 import Perfil from "./components/Perfil";
 import Tutoriales from "./components/Tutoriales";
-import AñadirTut from "./components/AñadirTut";
 
 import Editar from "./components/Editar";
 import Login from "./components/Login"; // Importamos el componente Login
@@ -50,7 +49,6 @@ return (
       <Route path="/editar/" component={Editar} /> 
       
       <Route path="/tutoriales/" component={Tutoriales} /> 
-      <Route path="/añadirtutoriales/" component={AñadirTut} /> 
 
 
 

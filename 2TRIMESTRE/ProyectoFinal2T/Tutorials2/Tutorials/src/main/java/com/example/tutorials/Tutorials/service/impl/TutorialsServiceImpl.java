@@ -66,6 +66,7 @@ public class TutorialsServiceImpl implements TutorialsService {
             existingTutorial.setDescription(tutorial.getDescription());
             existingTutorial.setPublished(tutorial.getPublished());
 
+
             Tutorials updatedTutorial = tutorialsRepository.save(existingTutorial);
 
             return TutorialsMapper.tutorialsMapperEntityToDto(updatedTutorial);

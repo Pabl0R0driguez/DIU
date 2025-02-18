@@ -58,8 +58,10 @@ export function Menu() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
             <Nav.Link href="/" className="nav-item-custom">Inicio</Nav.Link>
+            {!userContext ? (
+            null
+          ) : <Nav.Link href="/añadir" className="nav-item-custom">Añadir</Nav.Link>}
             <Nav.Link href="/tutoriales" className="nav-item-custom">Tutoriales</Nav.Link>
-            <Nav.Link href="/añadir" className="nav-item-custom">Añadir</Nav.Link>
             {!userContext ? (
               <Nav.Link href="/login" className="nav-item-custom">Login</Nav.Link>
             ) : null}

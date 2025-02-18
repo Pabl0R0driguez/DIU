@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,6 +22,7 @@ public class AgendaDto {
     private String codigoPostal;
     private String ciudad;
     private String fechaNacimiento;
+    private List<String> tutoriales;
 
 
 }

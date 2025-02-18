@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AgendaDataService from '../services/agenda.service';
+import TutorialDataService from '../services/tutorial.service';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, Button, Row, Col, Container, Card } from 'react-bootstrap';
+import { Form, Button, Row, Col, Container, Card, Modal, ListGroup } from 'react-bootstrap';
 import "../styles/Añadir.css";
 
 function Añadir() {
+  // Estado para los datos de la persona
   const [persona, setPersona] = useState({
     nombre: '',
     apellido: '',
@@ -12,20 +14,39 @@ function Añadir() {
     codigoPostal: '',
     ciudad: '',
     fechaNacimiento: '',
+    // Campo para guardar los tutoriales asignados
+    tutoriales: []
   });
 
+  // Estados para la selección de tutoriales
+  const [availableTutorials, setAvailableTutorials] = useState([]);
+  const [selectedTutorials, setSelectedTutorials] = useState([]);
+  const [showTutorialModal, setShowTutorialModal] = useState(false);
+
+  // Cargar los tutoriales disponibles cuando el componente se monte
+  useEffect(() => {
+    TutorialDataService.getAllTutorials()
+      .then((response) => {
+        setAvailableTutorials(response.data);
+      })
+      .catch((error) => {
+        console.error('Error al cargar tutoriales:', error);
+      });
+  }, []);
+
+  // Función para agregar persona
   const agregarPersona = (e) => {
     e.preventDefault();
-  
-    const personaData = { ...persona };
-  
-    // Verificar que 'fechaNacimiento' tenga un valor antes de enviar los datos
+
+    // Combinar los datos de la persona con los tutoriales seleccionados
+    const personaData = { ...persona, tutoriales: selectedTutorials };
+
     if (!personaData.fechaNacimiento) {
       console.log("Error: La fecha de nacimiento es obligatoria.");
       return;
     }
-  
-    // Hacemos la llamada al servicio
+
+    // Llamada al servicio para crear persona
     AgendaDataService.createPersona(personaData)
       .then((response) => {
         console.log('Persona agregada:', response.data);
@@ -34,8 +55,8 @@ function Añadir() {
         console.error('Error al agregar persona:', error);
       });
   };
-  
 
+  // Manejar cambios en los campos del formulario
   const handleChange = (e) => {
     const { name, value } = e.target;
     setPersona({
@@ -44,13 +65,25 @@ function Añadir() {
     });
   };
 
+  // Función para alternar la selección de tutoriales
+  const toggleTutorialSelection = (tutorialId) => {
+    if (selectedTutorials.includes(tutorialId)) {
+      setSelectedTutorials(selectedTutorials.filter(id => id !== tutorialId));
+    } else {
+      setSelectedTutorials([...selectedTutorials, tutorialId]);
+    }
+  };
+
+  const openTutorialModal = () => setShowTutorialModal(true);
+  const closeTutorialModal = () => setShowTutorialModal(false);
+
   return (
     <Container
       className="d-flex justify-content-center align-items-center"
       style={{
-        minHeight: 'calc(100vh - 56px)', // Ajustamos la altura para tener en cuenta la navbar de Bootstrap (56px es la altura típica)
+        minHeight: 'calc(100vh - 56px)',
         fontFamily: "'Poppins', sans-serif",
-        marginTop: '2rem', // Añadimos margen superior para separarlo un poco de la navbar
+        marginTop: '2rem',
       }}
     >
       <Card style={{ width: '100%', maxWidth: '600px', padding: '2rem', borderRadius: '20px', boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)' }}>
@@ -74,7 +107,6 @@ function Añadir() {
                 }}
               />
             </Form.Group>
-
             <Form.Group as={Col} controlId="apellido">
               <Form.Label style={{ fontWeight: '600' }}>Apellido</Form.Label>
               <Form.Control
@@ -124,7 +156,6 @@ function Añadir() {
                 }}
               />
             </Form.Group>
-
             <Form.Group as={Col} controlId="ciudad">
               <Form.Label style={{ fontWeight: '600' }}>Ciudad</Form.Label>
               <Form.Control
@@ -143,20 +174,32 @@ function Añadir() {
           </Row>
 
           <Form.Group controlId="fechaNacimiento" className="mb-4">
-          <Form.Label style={{ fontWeight: '600' }}>Fecha de Nacimiento</Form.Label>
-          <Form.Control
-            type="date"
-            name="fechaNacimiento" // Aquí es donde capturas el valor
-            value={persona.fechaNacimiento} // El valor se asigna a persona.fechaNacimiento
-            onChange={handleChange} // Se actualiza el estado cuando el usuario cambia la fecha
-            style={{
-              borderRadius: '10px',
-              border: '1px solid #ced4da',
-              padding: '10px',
-            }}
-          />
-        </Form.Group>
+            <Form.Label style={{ fontWeight: '600' }}>Fecha de Nacimiento</Form.Label>
+            <Form.Control
+              type="date"
+              name="fechaNacimiento"
+              value={persona.fechaNacimiento}
+              onChange={handleChange}
+              style={{
+                borderRadius: '10px',
+                border: '1px solid #ced4da',
+                padding: '10px',
+              }}
+            />
+          </Form.Group>
 
+          {/* Campo para seleccionar tutoriales */}
+          <Form.Group className="mb-4">
+            <Form.Label style={{ fontWeight: '600' }}>Tutoriales asignados</Form.Label>
+            <div>
+              {selectedTutorials.length > 0
+                ? `Seleccionados: ${selectedTutorials.join(", ")}`
+                : "Ningún tutorial seleccionado"}
+            </div>
+            <Button variant="secondary" className="mt-2" onClick={openTutorialModal}>
+              Seleccionar Tutoriales
+            </Button>
+          </Form.Group>
 
           <Button
             variant="primary"
@@ -178,6 +221,33 @@ function Añadir() {
           </Button>
         </Form>
       </Card>
+
+      {/* Modal para seleccionar tutoriales */}
+      <Modal show={showTutorialModal} onHide={closeTutorialModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Seleccionar Tutoriales</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <ListGroup>
+            {availableTutorials.map((tutorial) => (
+              <ListGroup.Item key={tutorial.id}>
+                <Form.Check 
+                  type="checkbox"
+                  id={`tutorial-${tutorial.id}`}
+                  label={tutorial.title}
+                  checked={selectedTutorials.includes(tutorial.id)}
+                  onChange={() => toggleTutorialSelection(tutorial.id)}
+                />
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={closeTutorialModal}>
+            Confirmar selección
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 }

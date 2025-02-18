@@ -18,6 +18,7 @@ public class AgendaMapper {
                 .codigoPostal(agendaDto.getCodigoPostal())
                 .ciudad(agendaDto.getCiudad())
                 .fechaNacimiento(agendaDto.getFechaNacimiento())
+                .tutoriales(agendaDto.getTutoriales())
                 .build();
     }
 
@@ -30,6 +31,7 @@ public class AgendaMapper {
                 .codigoPostal(agenda.getCodigoPostal())
                 .ciudad(agenda.getCiudad())
                 .fechaNacimiento(agenda.getFechaNacimiento())
+                .tutoriales(agenda.getTutoriales())
                 .build();
     }
 

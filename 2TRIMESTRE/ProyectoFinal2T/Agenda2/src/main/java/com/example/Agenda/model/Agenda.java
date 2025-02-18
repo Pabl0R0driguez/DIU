@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,6 +20,8 @@ public class Agenda {
     private String codigoPostal;
     private String ciudad;
     private String fechaNacimiento;
+    private List<String> tutoriales;
+
 
 }
 

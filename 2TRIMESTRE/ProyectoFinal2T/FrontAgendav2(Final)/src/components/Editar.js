@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import AgendaDataService from '../services/agenda.service';
-import { useHistory , useLocation} from 'react-router-dom';
+import TutorialDataService from '../services/tutorial.service';
+import { useHistory, useLocation } from 'react-router-dom';
+import { Modal, ListGroup, Form, Button, Container } from 'react-bootstrap';
 
 function EditPersona(props) {
   const id = window.location.pathname.split('/')[2];
   const history = useHistory();
-  console.log("ID de la persona:", id); // Verifica que el ID se extrae correctamente
   const location = useLocation();
   const updatePersonaInList = location.state?.updatePersonaInList;
-  // useState para crear una variable reactiva que se actualiza en tiempo real
+
+  // Inicializar el estado de la persona
   const [persona, setPersona] = useState({
     id: id,
     nombre: '',
@@ -17,190 +19,184 @@ function EditPersona(props) {
     codigoPostal: '',
     ciudad: '',
     fechaNacimiento: '',
+    tutoriales: [] // Campo para tutoriales asignados
   });
 
+  const [availableTutorials, setAvailableTutorials] = useState([]);
+  const [selectedTutorials, setSelectedTutorials] = useState([]);
+  const [showTutorialModal, setShowTutorialModal] = useState(false);
+
   useEffect(() => {
-  AgendaDataService.getPersona(id)
-    .then(response => {
-      setPersona(response.data);
-    })
-    .catch(error => {
-      console.error("Error al obtener la persona:", error);
-    });
-}, [id]);
+    // Cargar tutoriales disponibles
+    TutorialDataService.getAllTutorials()
+      .then(response => {
+        setAvailableTutorials(response.data);
+      })
+      .catch(error => {
+        console.error('Error al cargar tutoriales:', error);
+      });
+
+    // Obtener la persona por ID
+    AgendaDataService.getPersona(id)
+      .then(response => {
+        console.log(response.data); // Verifica la estructura
+        setPersona(response.data);
+        setSelectedTutorials(response.data.tutoriales || []); // Asegúrate de que sea un array
+      })
+      .catch(error => {
+        console.error("Error al obtener la persona:", error);
+      });
+  }, [id]);
 
   const editPersona = (e) => {
-      e.preventDefault();
-      AgendaDataService.updatePersona(id, persona)
-        .then(() => {
-          console.log("Persona actualizada en el servidor.");
-          if (updatePersonaInList) {
-            updatePersonaInList(persona); // Llama directamente a la función
-          }
-          history.push("/"); // Redirige después de la actualización
-        })
-        .catch((error) => {
-          console.error("Error al actualizar la persona:", error);
-        });
-    };
+    e.preventDefault();
+    const personaData = { ...persona, tutoriales: selectedTutorials }; // Combina tutoriales seleccionados
 
-  // Funciones para actualizar cada campo de la persona
-  const setNombre = (e) => {
-    setPersona({ ...persona, nombre: e.target.value });
+    // Actualizar la persona en el servidor
+    AgendaDataService.updatePersona(id, personaData)
+      .then(() => {
+        console.log("Persona actualizada en el servidor.");
+        if (updatePersonaInList) {
+          updatePersonaInList(personaData); // Actualiza la lista
+        }
+        history.push("/"); // Redirige después de la actualización
+      })
+      .catch((error) => {
+        console.error("Error al actualizar la persona:", error);
+      });
   };
 
-  const setApellidos = (e) => {
-    setPersona({ ...persona, apellido: e.target.value });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setPersona({
+      ...persona,
+      [name]: value, // Actualiza el campo correspondiente en el estado
+    });
   };
 
-  const setDireccion = (e) => {
-    setPersona({ ...persona, direccion: e.target.value });
+  const toggleTutorialSelection = (tutorialId) => {
+    if (selectedTutorials.includes(tutorialId)) {
+      setSelectedTutorials(selectedTutorials.filter(id => id !== tutorialId));
+    } else {
+      setSelectedTutorials([...selectedTutorials, tutorialId]);
+    }
   };
 
-  const setCodigoPostal = (e) => {
-    setPersona({ ...persona, codigoPostal: e.target.value });
-  };
-
-  const setCiudad = (e) => {
-    setPersona({ ...persona, ciudad: e.target.value });
-  };
-
-  const setFechaNacimiento = (e) => {
-    setPersona({ ...persona, fechaNacimiento: e.target.value });
-  };
+  const openTutorialModal = () => setShowTutorialModal(true);
+  const closeTutorialModal = () => setShowTutorialModal(false);
 
   return (
-    <div className="edit-persona-container" style={{ minHeight: '100vh', fontFamily: "'Poppins', sans-serif", padding: '2rem' }}>
+    <Container className="edit-persona-container" style={{ minHeight: '100vh', fontFamily: "'Poppins', sans-serif", padding: '2rem' }}>
       <div className="card" style={{ maxWidth: '600px', margin: '0 auto', padding: '2rem', borderRadius: '10px', boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)' }}>
         <h3 className="mb-4 text-center" style={{ fontWeight: 'bold', color: '#3b3b3b' }}>Editar Persona</h3>
         <form onSubmit={editPersona}>
-          <div className="form-group mb-4">
-            <label htmlFor="nombre" style={{ fontWeight: '600' }}>Nombre</label>
-            <input
-              id="nombre"
-              className="form-control"
+          {/* Campos del formulario */}
+          <Form.Group className="mb-4">
+            <Form.Label>Nombre</Form.Label>
+            <Form.Control
               type="text"
-              placeholder="Introduce nombre"
               name="nombre"
               value={persona.nombre}
-              onChange={setNombre}
-              style={{
-                borderRadius: '10px',
-                border: '1px solid #ced4da',
-                padding: '10px',
-              }}
+              onChange={handleChange}
+              required
             />
-          </div>
-
-          <div className="form-group mb-4">
-            <label htmlFor="apellido" style={{ fontWeight: '600' }}>Apellido</label>
-            <input
-              id="apellido"
-              className="form-control"
+          </Form.Group>
+          <Form.Group className="mb-4">
+            <Form.Label>Apellido</Form.Label>
+            <Form.Control
               type="text"
-              placeholder="Introduce apellido"
               name="apellido"
               value={persona.apellido}
-              onChange={setApellidos}
-              style={{
-                borderRadius: '10px',
-                border: '1px solid #ced4da',
-                padding: '10px',
-              }}
+              onChange={handleChange}
+              required
             />
-          </div>
-
-          <div className="form-group mb-4">
-            <label htmlFor="direccion" style={{ fontWeight: '600' }}>Dirección</label>
-            <input
-              id="direccion"
-              className="form-control"
+          </Form.Group>
+          <Form.Group className="mb-4">
+            <Form.Label>Dirección</Form.Label>
+            <Form.Control
               type="text"
-              placeholder="Introduce dirección"
               name="direccion"
               value={persona.direccion}
-              onChange={setDireccion}
-              style={{
-                borderRadius: '10px',
-                border: '1px solid #ced4da',
-                padding: '10px',
-              }}
+              onChange={handleChange}
+              required
             />
-          </div>
-
-          <div className="form-group mb-4">
-            <label htmlFor="codigoPostal" style={{ fontWeight: '600' }}>Código Postal</label>
-            <input
-              id="codigoPostal"
-              className="form-control"
+          </Form.Group>
+          <Form.Group className="mb-4">
+            <Form.Label>Código Postal</Form.Label>
+            <Form.Control
               type="text"
-              placeholder="Introduce código postal"
               name="codigoPostal"
               value={persona.codigoPostal}
-              onChange={setCodigoPostal}
-              style={{
-                borderRadius: '10px',
-                border: '1px solid #ced4da',
-                padding: '10px',
-              }}
+              onChange={handleChange}
+              required
             />
-          </div>
-
-          <div className="form-group mb-4">
-            <label htmlFor="ciudad" style={{ fontWeight: '600' }}>Ciudad</label>
-            <input
-              id="ciudad"
-              className="form-control"
+          </Form.Group>
+          <Form.Group className="mb-4">
+            <Form.Label>Ciudad</Form.Label>
+            <Form.Control
               type="text"
-              placeholder="Introduce ciudad"
               name="ciudad"
               value={persona.ciudad}
-              onChange={setCiudad}
-              style={{
-                borderRadius: '10px',
-                border: '1px solid #ced4da',
-                padding: '10px',
-              }}
+              onChange={handleChange}
+              required
             />
-          </div>
-
-          <div className="form-group mb-4">
-            <label htmlFor="fechaNacimiento" style={{ fontWeight: '600' }}>Fecha de Nacimiento</label>
-            <input
-              id="fechaNacimiento"
-              className="form-control"
+          </Form.Group>
+          <Form.Group className="mb-4">
+            <Form.Label>Fecha de Nacimiento</Form.Label>
+            <Form.Control
               type="date"
               name="fechaNacimiento"
               value={persona.fechaNacimiento}
-              onChange={setFechaNacimiento}
-              style={{
-                borderRadius: '10px',
-                border: '1px solid #ced4da',
-                padding: '10px',
-              }}
+              onChange={handleChange}
+              required
             />
-          </div>
+          </Form.Group>
 
-          <button
-            type="submit"
-            className="btn btn-primary w-100"
-            style={{
-              borderRadius: '10px',
-              fontWeight: '600',
-              padding: '12px',
-              fontSize: '1rem',
-              backgroundColor: '#007bff',
-              borderColor: '#007bff',
-              transition: 'all 0.3s ease',
-            }}
-            onMouseEnter={(e) => (e.target.style.backgroundColor = '#0056b3')}
-            onMouseLeave={(e) => (e.target.style.backgroundColor = '#007bff')}
-          >
+          {/* Campo para tutoriales asignados */}
+          <Form.Group className="mb-4">
+            <Form.Label style={{ fontWeight: '600' }}>Tutoriales asignados</Form.Label>
+            <div>
+              {selectedTutorials.length > 0
+                ? `Seleccionados: ${selectedTutorials.join(", ")}`
+                : "Ningún tutorial seleccionado"}
+            </div>
+            <Button variant="secondary" className="mt-2" onClick={openTutorialModal}>
+              Seleccionar Tutoriales
+            </Button>
+          </Form.Group>
+          <Button type="submit" className="btn btn-primary w-100" style={{ borderRadius: '10px', padding: '12px' }}>
             Actualizar
-          </button>
+          </Button>
         </form>
       </div>
-    </div>
+
+      {/* Modal para seleccionar tutoriales */}
+      <Modal show={showTutorialModal} onHide={closeTutorialModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Seleccionar Tutoriales</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <ListGroup>
+            {availableTutorials.map((tutorial) => (
+              <ListGroup.Item key={tutorial.id}>
+                <Form.Check
+                  type="checkbox"
+                  id={`tutorial-${tutorial.id}`}
+                  label={tutorial.title}
+                  checked={selectedTutorials.includes(tutorial.id)}
+                  onChange={() => toggleTutorialSelection(tutorial.id)}
+                />
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={closeTutorialModal}>
+            Confirmar selección
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </Container>
   );
 }
 

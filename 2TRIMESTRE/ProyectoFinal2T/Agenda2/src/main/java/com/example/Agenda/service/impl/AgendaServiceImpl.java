@@ -78,6 +78,7 @@ public class AgendaServiceImpl implements AgendaService {
             existingTutorial.setDireccion(agenda.getDireccion());
             existingTutorial.setCodigoPostal(agenda.getCodigoPostal());
             existingTutorial.setFechaNacimiento(agenda.getFechaNacimiento());
+            existingTutorial.setTutoriales(agenda.getTutoriales());
 
 
 
