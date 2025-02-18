@@ -11,8 +11,10 @@ public interface AgendaService {
     Optional<AgendaDto> getPersonaById(String id);
     AgendaDto save(AgendaDto Tutorial);
     List<AgendaDto> findByNameContaining(String title);
-    AgendaDto updateAgendas(AgendaDto tutorial, String id);
     ResponseEntity deletePersona(String id);
+
+    AgendaDto updateAgendas(AgendaDto agenda);
+
     ResponseEntity deleteAllPersonas();
 }
 

@@ -1,202 +1,180 @@
-import React, { Component } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import TutorialDataService from "../services/tutorial.service";
 import { Link } from "react-router-dom";
-import { Form, Button, ListGroup, Card, Col, Row, Container, ProgressBar } from "react-bootstrap";
-import '../styles/tutorials.styles.css'; // Importar estilos personalizados
+import { Form, Button, Card, Col, Row, Container, ProgressBar, Table } from "react-bootstrap";
+import "../styles/tutorials.styles.css";
+import { ProgressContext } from "../context/ProgressContext";
 
-export default class TutorialsList extends Component {
-  constructor(props) {
-    super(props);
-    this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
-    this.retrieveTutorials = this.retrieveTutorials.bind(this);
-    this.refreshList = this.refreshList.bind(this);
-    this.setActiveTutorial = this.setActiveTutorial.bind(this);
-    this.removeTutorial = this.removeTutorial.bind(this);
-    this.searchTitle = this.searchTitle.bind(this);
+const TutorialsList = () => {
+  const [tutorials, setTutorials] = useState([]);
+  const [currentTutorial, setCurrentTutorial] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(-1);
+  const [searchTitle, setSearchTitle] = useState("");
+  const { progress, setProgress } = useContext(ProgressContext);
 
-    this.state = {
-      tutorials: [],
-      currentTutorial: null,
-      currentIndex: -1,
-      searchTitle: "",
-      progress: 0,  
-    };
-  }
+  useEffect(() => {
+    retrieveTutorials();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  componentDidMount() {
-    this.retrieveTutorials();
-  }
+  const onChangeSearchTitle = (e) => {
+    setSearchTitle(e.target.value);
+  };
 
-  onChangeSearchTitle(e) {
-    const searchTitle = e.target.value;
-    this.setState({
-      searchTitle: searchTitle
-    });
-  }
-
-  retrieveTutorials() {
+  const retrieveTutorials = () => {
     TutorialDataService.getAll()
-      .then(response => {
-        this.setState({
-          tutorials: response.data,
-        }, () => {
-          this.updateProgress();
-        });
+      .then((response) => {
+        setTutorials(response.data);
+        updateProgress(response.data);
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
-  }
+  };
 
-  updateProgress() {
-    const maxTutorials = 10; 
-    const currentProgress = (this.state.tutorials.length / maxTutorials) * 100;
-    this.setState({
-      progress: Math.min(currentProgress, 100), // Para asegurarse de no superar el 100%
-    });
-  }
+  const updateProgress = (tutorialsData) => {
+    const maxTutorials = 10;
+    const currentProgress = (tutorialsData.length / maxTutorials) * 100;
+    const newProgress = Math.min(currentProgress, 100);
+    setProgress(newProgress);
+  };
 
-  refreshList() {
-    this.retrieveTutorials();
-    this.setState({
-      currentTutorial: null,
-      currentIndex: -1
-    });
-  }
+  const refreshList = () => {
+    retrieveTutorials();
+    setCurrentTutorial(null);
+    setCurrentIndex(-1);
+  };
 
-  setActiveTutorial(tutorial, index) {
-    this.setState({
-      currentTutorial: tutorial,
-      currentIndex: index
-    });
-  }
+  const setActiveTutorial = (tutorial, index) => {
+    setCurrentTutorial(tutorial);
+    setCurrentIndex(index);
+  };
 
-  removeTutorial(tutorial) {
+  const removeTutorial = (tutorial) => {
     if (!tutorial) return;
     TutorialDataService.deleteTutorial(tutorial.id)
-      .then((response) => {
-        this.refreshList();
+      .then(() => {
+        refreshList();
       })
       .catch((e) => {
         console.error("Error al eliminar el tutorial:", e);
       });
-  }
+  };
 
-  searchTitle() {
-    TutorialDataService.findByTitle(this.state.searchTitle)
-      .then(response => {
-        this.setState({
-          tutorials: response.data
-        });
+  const searchTitleFunc = () => {
+    TutorialDataService.findByTitle(searchTitle)
+      .then((response) => {
+        setTutorials(response.data);
+        updateProgress(response.data);
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
-  }
+  };
 
-  render() {
-    const { searchTitle, tutorials, currentTutorial, currentIndex, progress } = this.state;
+  return (
+    <Container fluid className="contenedor" style={{ marginTop: "70px" }}>
+      <Row className="mb-4">
+        <Col md={12}>
+          <h4 className="text-center">Progreso de Tutoriales</h4>
+          <ProgressBar animated now={progress} label={`${Math.round(progress)}%`} />
+        </Col>
+      </Row>
 
-    return (
-      <>
-        {/* Barra de Progreso */}
-        <Container fluid className="contenedor">
-          <Row className="mb-4">
-            <Col md={12}>
-              <h4 className="text-center">Progreso de Tutoriales</h4>
-              <ProgressBar animated now={progress} label={`${Math.round(progress)}%`} />
-            </Col>
-          </Row>
-
+      <Row>
+        {/* Fila de búsqueda */}
+        <Col md={12} className="mb-4">
           <Row>
-            {/* Fila de búsqueda */}
-            <Col md={12} className="mb-4">
-              <Row>
-                <Col md={8}>
-                  <Form.Group className="mb-3">
-                    <Form.Control
-                      type="text"
-                      placeholder="Search by title"
-                      value={searchTitle}
-                      onChange={this.onChangeSearchTitle}
-                      className="form-control-lg"
-                    />
-                  </Form.Group>
-                </Col>
-                <Col md={4}>
-                  <Button
-                    variant="primary"
-                    onClick={this.searchTitle}
-                    size="lg"
-                    className="w-100"
-                  >
-                    Search
-                  </Button>
-                </Col>
-              </Row>
+            <Col md={8}>
+              <Form.Group className="mb-3">
+                <Form.Control
+                  type="text"
+                  placeholder="Search by title"
+                  value={searchTitle}
+                  onChange={onChangeSearchTitle}
+                  className="form-control-lg"
+                />
+              </Form.Group>
             </Col>
-
-            {/* Fila de lista de tutoriales y detalles */}
-            <Col md={12} className="mb-4">
-              <Row>
-                {/* Columna de la lista de tutoriales */}
-                <Col md={5}>
-                  <h4 className="mb-4">Tutorials List</h4>
-                  <ListGroup>
-                    {tutorials &&
-                      tutorials.map((tutorial, index) => (
-                        <ListGroup.Item
-                          action
-                          active={index === currentIndex}
-                          onClick={() => this.setActiveTutorial(tutorial, index)}
-                          key={index}
-                          className="list-group-item-lg"
-                        >
-                          {tutorial.title}
-                        </ListGroup.Item>
-                      ))}
-                  </ListGroup>
-
-                  <Button
-                    variant="danger"
-                    className="mt-4 w-100"
-                    size="lg"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      this.removeTutorial(tutorials[currentIndex]); // Eliminar el tutorial seleccionado
-                    }}
-                  >
-                    Eliminar
-                  </Button>
-                </Col>
-
-                {/* Columna de detalles del tutorial */}
-                <Col md={7}> 
-                {currentTutorial ? (<h2>Detalles del elemento</h2> ) : ("")}
-                  {currentTutorial ? (
-                    <Card>
-                      <Card.Body>
-                        <Card.Title>{currentTutorial.title}</Card.Title>
-                        <Card.Text>
-                          <strong>Description:</strong> {currentTutorial.description}
-                        </Card.Text>
-                        <Card.Text>
-                          <strong>Status:</strong> {currentTutorial.published ? "Published" : "Pending"}
-                        </Card.Text>
-                        <Link to={"/tutorials/" + currentTutorial.id} className="btn btn-warning btn-lg w-100">
-                          Edit
-                        </Link>
-                      </Card.Body>
-                    </Card>
-                  ) : (
-                    <h6>Selecciona un tutorial para mostrar la información</h6>
-                  )}
-                </Col>
-              </Row>
+            <Col md={4}>
+              <Button variant="primary" onClick={searchTitleFunc} size="lg" className="w-100">
+                Search
+              </Button>
             </Col>
           </Row>
-        </Container>
-      </>
-    );
-  }
-}
+        </Col>
+
+        {/* Fila de lista de tutoriales y detalles */}
+        <Col md={12} className="mb-4">
+          <Row>
+            {/* Columna de la tabla de tutoriales */}
+            <Col md={7}>
+              <h4 className="mb-4">Tutorials List</h4>
+              <Table striped bordered hover responsive>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Título</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tutorials &&
+                    tutorials.map((tutorial, index) => (
+                      <tr
+                        key={index}
+                        onClick={() => setActiveTutorial(tutorial, index)}
+                        style={{ cursor: "pointer" }}
+                        className={index === currentIndex ? "table-primary" : ""}
+                      >
+                        <td>{index + 1}</td>
+                        <td>{tutorial.title}</td>
+                      </tr>
+                    ))}
+                </tbody>
+              </Table>
+              <Button
+                variant="danger"
+                className="mt-4 w-100"
+                size="lg"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  removeTutorial(tutorials[currentIndex]);
+                }}
+                disabled={currentIndex === -1}
+              >
+                Eliminar
+              </Button>
+            </Col>
+
+            {/* Columna de detalles del tutorial */}
+            <Col md={5}>
+              {currentTutorial ? (
+                <>
+                  <h2>Detalles del Tutorial</h2>
+                  <Card>
+                    <Card.Body>
+                      <Card.Title>{currentTutorial.title}</Card.Title>
+                      <Card.Text>
+                        <strong>Descripción:</strong> {currentTutorial.description}
+                      </Card.Text>
+                      <Card.Text>
+                        <strong>Estado:</strong> {currentTutorial.published ? "Published" : "Pending"}
+                      </Card.Text>
+                      <Link to={`/tutorials/${currentTutorial.id}`} className="btn btn-warning btn-lg w-100">
+                        Edit
+                      </Link>
+                    </Card.Body>
+                  </Card>
+                </>
+              ) : (
+                <h6>Selecciona un tutorial para mostrar la información</h6>
+              )}
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+    </Container>
+  );
+};
+
+export default TutorialsList;

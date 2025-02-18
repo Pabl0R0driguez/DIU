@@ -8,6 +8,14 @@ body, .contenedor {
     flex-direction: column;
   }
 
+  .navbar{
+    position: static; /* Cambiar a estático para que no esté fijo en la parte inferior */
+
+  }
+
+  body {
+    padding-top: 0px; /* Ajusta este valor según la altura de tu navbar */
+  }
   
   
   .container-fluid {

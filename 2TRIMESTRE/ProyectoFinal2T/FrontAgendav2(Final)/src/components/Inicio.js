@@ -40,7 +40,7 @@ export default class Inicio extends Component {
 
   onChangeSearchPersona(e) {
     const searchPersona = e.target.value;
-    this.setState({ searchPersona });
+    this.setState({ searchPersona:searchPersona });
   }
 
   togglePersonaDetails(index) {
@@ -55,7 +55,7 @@ export default class Inicio extends Component {
         console.log(response.data)
         console.log("Dddddddddddddd")
         this.setState({
-          personas: response.data,
+          personas: response.data
         });
       })
       .catch((e) => {
@@ -112,16 +112,24 @@ export default class Inicio extends Component {
   }
   
   searchPersona() {
-    AgendaDataService.findByNombre(this.state.searchPersona)
+    const { searchPersona } = this.state;
+    console.log("Buscando por nombre:", searchPersona); // Log agregado
+
+    if (!searchPersona.trim()) {
+      this.retrievePersonas(); // Si el campo está vacío, se listan todas
+      return;
+    }
+  
+    AgendaDataService.findByNombre(searchPersona)
       .then((response) => {
-        this.setState({
-          personas: response.data,
-        });
+        this.setState({ personas: response.data });
       })
       .catch((e) => {
-        console.log(e);
+        console.error("Error en la búsqueda:", e);
       });
   }
+  
+  
 
   render() {
     const { searchPersona, personas, selectedIndex, currentPersona, expandedIndex } = this.state;
@@ -131,19 +139,19 @@ export default class Inicio extends Component {
         <Row className="mb-3 align-items-center buscador-container">
           <Col md={12}>
             <div className="d-flex">
-              <Form.Control
-                type="text"
-                placeholder="Buscar por nombre"
-                value={searchPersona}
-                onChange={this.onChangeSearchPersona}
-                className="buscador-input"
-              />
+            <Form.Control
+                      type="text"
+                      placeholder="Search by title"
+                      value={searchPersona}
+                      onChange={this.onChangeSearchPersona}
+                      className="form-control-lg"
+                    />
               <Button
                 variant="primary"
                 size="sm"
                 className="buscador-btn"
-                onClick={this.searchPersona}
-              >
+                onClick={() => this.searchPersona()}  // Ahora sin parámetro
+                >
                 Buscar
               </Button>
             </div>

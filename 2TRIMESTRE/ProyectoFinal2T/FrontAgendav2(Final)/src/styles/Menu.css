@@ -2,7 +2,6 @@
   padding: 15px 40px;
   box-shadow: none; /* Sin sombra */
   border-radius: 0; /* Sin bordes redondeados */
-  background: linear-gradient(to right, #0b79ee, #1b1a1a) !important; /* Degradado de azul a negro */
   transition: all 0.3s ease;
   display: flex; /* Aseguramos un flex layout */
   align-items: center; /* Alineamos todos los elementos verticalmente */

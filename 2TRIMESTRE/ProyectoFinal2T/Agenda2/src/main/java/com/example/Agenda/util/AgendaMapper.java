@@ -41,8 +41,8 @@ public class AgendaMapper {
     }
 
 
-    public static List<AgendaDto> agendaListMapperEntityToDto(List<Agenda> tutorialsList) {
-        return tutorialsList.stream()
+    public static List<AgendaDto> agendaListMapperEntityToDto(List<Agenda> agendaList) {
+        return agendaList.stream()
                 .map(AgendaMapper::agendaMapperEntityToDto)
                 .collect(Collectors.toList());
     }

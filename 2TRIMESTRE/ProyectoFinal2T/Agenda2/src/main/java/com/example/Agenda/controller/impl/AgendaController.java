@@ -47,7 +47,7 @@ public class AgendaController implements AgendaAPI {
         @Override
         @PutMapping("/agenda/{id}")
         public AgendaDto updateAgendas(@RequestBody AgendaDto tutorial, @PathVariable String id) {
-            return agendaService.updateAgendas(tutorial, id);
+            return agendaService.updateAgendas(tutorial);
         }
 
         @Override

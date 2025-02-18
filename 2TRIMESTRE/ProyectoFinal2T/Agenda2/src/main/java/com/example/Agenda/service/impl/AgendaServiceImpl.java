@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -44,14 +43,13 @@ public class AgendaServiceImpl implements AgendaService {
     }
 
     @Override
-    public List<AgendaDto> findByNameContaining(String title) {
-        return Collections.emptyList();
+    public List<AgendaDto> findByNameContaining(String nombre) {
+        List<Agenda> agendaOptional = agendaRepository.findByNombreContaining(nombre);
+
+        return AgendaMapper.agendaListMapperEntityToDto(agendaOptional);
     }
 
-    @Override
-    public AgendaDto updateAgendas(AgendaDto tutorial, String id) {
-        return null;
-    }
+
 
     @Override
     public ResponseEntity deletePersona(String id) {
@@ -68,6 +66,29 @@ public class AgendaServiceImpl implements AgendaService {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al eliminar el tutorial");
         }
     }
+    @Override
+    public AgendaDto updateAgendas(AgendaDto agenda) {
+        Optional<Agenda> existingTutorialOptional = agendaRepository.findById(agenda.getId());
+
+        if (existingTutorialOptional.isPresent()) {
+            Agenda existingTutorial = existingTutorialOptional.get();
+            existingTutorial.setNombre(agenda.getNombre());
+            existingTutorial.setApellido(agenda.getApellido());
+            existingTutorial.setCiudad(agenda.getCiudad());
+            existingTutorial.setDireccion(agenda.getDireccion());
+            existingTutorial.setCodigoPostal(agenda.getCodigoPostal());
+            existingTutorial.setFechaNacimiento(agenda.getFechaNacimiento());
+
+
+
+            Agenda updatedTutorial = agendaRepository.save(existingTutorial);
+
+            return AgendaMapper.agendaMapperEntityToDto(updatedTutorial);
+        } else {
+            return null;
+        }
+    }
+
 
 
     @Override

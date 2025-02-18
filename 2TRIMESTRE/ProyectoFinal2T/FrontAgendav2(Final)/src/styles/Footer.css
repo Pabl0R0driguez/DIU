@@ -2,7 +2,7 @@
 .footer-custom {
       background-color: transparent; /* Hacer el fondo transparente */
       padding: 1rem 60px; /* Aumentar el espaciado horizontal */
-      position: fixed; /* Cambiar a estático para que no esté fijo en la parte inferior */
+      position: static; /* Cambiar a estático para que no esté fijo en la parte inferior */
       bottom: 0; /* Ajustado a la parte inferior */
       left: 0; /* Ajustado a la izquierda */
       right: 0; /* Ajustado a la derecha */
