@@ -14,7 +14,6 @@ const TutorialsList = () => {
 
   useEffect(() => {
     retrieveTutorials();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onChangeSearchTitle = (e) => {
