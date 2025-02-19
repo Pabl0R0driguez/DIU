@@ -4,11 +4,12 @@ import TutorialDataService from '../services/tutorial.service';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Modal, ListGroup, Form, Button, Container } from 'react-bootstrap';
 
-function EditPersona(props) {
-  const id = window.location.pathname.split('/')[2];
-  const history = useHistory();
-  const location = useLocation();
-  const updatePersonaInList = location.state?.updatePersonaInList;
+function EditPersona() {
+  const id = window.location.pathname.split('/')[2]; // Obtenemos el id de la persona desde la URL
+  const history = useHistory(); // Lo usamos para redirigir después de actualizar
+  const location = useLocation(); // Accedemos a los datos enviados desde otro componente.
+  const updatePersonaInList = location.state?.updatePersonaInList; // recibe una función para actualizar la lista de personas en el componente anterior.
+
 
   // Inicializar el estado de la persona
   const [persona, setPersona] = useState({
@@ -19,11 +20,17 @@ function EditPersona(props) {
     codigoPostal: '',
     ciudad: '',
     fechaNacimiento: '',
+
     tutoriales: [] // Campo para tutoriales asignados
   });
 
-  const [availableTutorials, setAvailableTutorials] = useState([]);
+  // Lista de tutoriales disponibles obtenidos desde el servidor.
+  const [availableTutorials, setAvailableTutorials] = useState([]); 
+
+  // Lista de tutoriales asignados a la persona
   const [selectedTutorials, setSelectedTutorials] = useState([]);
+
+  // Controla la visibilidad de los tutoriales
   const [showTutorialModal, setShowTutorialModal] = useState(false);
 
   useEffect(() => {
@@ -69,8 +76,7 @@ function EditPersona(props) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setPersona({
-      ...persona,
-      [name]: value, // Actualiza el campo correspondiente en el estado
+      ...persona, [name]: value, // Actualiza el campo correspondiente en el estado
     });
   };
 
