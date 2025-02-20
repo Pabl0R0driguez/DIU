@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import ProductDataService from "../services/product.service"; // Asegúrate de que el nombre del archivo sea correcto
 import { Link } from "react-router-dom";
-import { Button, Card, Col, Row, Container, ProgressBar, Table } from "react-bootstrap";
+import { Button, Card, Col, Row, Container, ProgressBar, Table, Form } from "react-bootstrap";
 import "../styles/tutorials.styles.css"; // Considera renombrar este archivo si ya no es específico de tutoriales
 import { ProgressContext } from "../context/ProgressContext";
 
@@ -11,6 +11,10 @@ const ProductsList = () => {
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [searchTitle, setSearchTitle] = useState("");
   const { progress, setProgress } = useContext(ProgressContext);
+   const [product, setProduct] = useState({
+      stock:0
+    });
+
 
   useEffect(() => {
     retrieveProducts();
@@ -31,13 +35,23 @@ const ProductsList = () => {
       });
   };
   
-
+// Barra de progreso con stock
   const updateProgress = (productsData) => {
-    const maxProducts = 10; // Puedes ajustar este valor según tus necesidades
+    const maxProducts = 10; 
     const currentProgress = (productsData.length / maxProducts) * 100;
     const newProgress = Math.min(currentProgress, 100);
     setProgress(newProgress);
   };
+ 
+
+/* const updateProgress = (productsData) => {
+  const totalStock = productsData.reduce((sum, product) => sum + product.stock, 0); // Suma el stock total de todos los productos
+  const maxStock = 1000; // Puedes ajustar este valor según tus necesidades (esto representaría el máximo de stock que deseas como 100%)
+  const currentProgress = (totalStock / maxStock) * 100; // Calcula el progreso como un porcentaje
+  const newProgress = Math.min(currentProgress, 100); // Asegura que el progreso no pase del 100%
+  setProgress(newProgress);
+}; */
+
 
   const refreshList = () => {
     retrieveProducts();
@@ -61,20 +75,53 @@ const ProductsList = () => {
       });
   };
 
-  const searchTitleFunc = () => {
-    ProductDataService.findByTitle(searchTitle)
-      .then((response) => {
-        setProducts(response.data);
-        updateProgress(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+
+  const onChangeSearchTitle = (e) => {
+    setSearchTitle(e.target.value);
   };
+
+const searchTitleFunc = () => {
+  ProductDataService.getAll()
+    .then((response) => {
+      const filteredProducts = response.data.filter((product) =>
+        product.name.toLowerCase().includes(searchTitle.toLowerCase())
+      );
+      setProducts(filteredProducts);
+      updateProgress(filteredProducts);
+    })
+    .catch((e) => {
+      console.log("Error en la búsqueda:", e);
+    });
+};
 
 
   return (
-    <Container fluid className="contenedor" style={{ marginTop: "70px" }}>
+
+
+                      
+            <Container fluid className="contenedor" style={{ marginTop: "70px" }}>
+          <Form className="mb-3">
+            <Row className="align-items-center">
+              <Col md={9} className="mb-3">
+                <Form.Control
+                  type="text"
+                  placeholder="Buscar por nombre..."
+                  value={searchTitle}
+                  onChange={onChangeSearchTitle}
+                />
+              </Col>
+              <Col md={3} className="mb-3">
+                <Button
+                  variant="primary"
+                  className="w-100"
+                  onClick={searchTitleFunc}
+                >
+                  Buscar
+                </Button>
+              </Col>
+            </Row>
+          </Form>
+
       <Row className="mb-4">
         <Col md={12}>
           <h4 className="text-center">Progreso de Productos</h4>
@@ -97,6 +144,7 @@ const ProductsList = () => {
                     <th>Nombre</th>
                     <th>Marca</th>
                     <th>Precio</th>
+                    <th>Stock</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -112,6 +160,8 @@ const ProductsList = () => {
                         <td>{product.name}</td>
                         <td>{product.brand}</td>
                         <td>{product.price.toFixed(2)} €</td> 
+                        <td>{product.stock}</td> 
+
                       </tr>
                     ))}
                 </tbody>
@@ -152,9 +202,17 @@ const ProductsList = () => {
                       <Link to={`/products/${currentProduct.id}`} className="btn btn-warning btn-lg w-100">
                         Editar
                       </Link>
-                      <Link to={`/comprar/${currentProduct.id}`} className="btn btn-warning btn-lg w-100">
+
+
+                      {/* Si el producto está activo se puede comprar , sino saldrá como desabilitado el botón */}
+                      {currentProduct.active  ? (
+                          <Link to={`/comprar/${currentProduct.id}`} className="btn btn-warning btn-lg w-100">
+                          Comprar
+                          </Link>
+                      ) : ( <button className="btn btn-warning btn-lg w-100" disabled>
                         Comprar
-                      </Link>
+                      </button>)}
+                     
                     </Card.Body>
                   </Card>
                 </>

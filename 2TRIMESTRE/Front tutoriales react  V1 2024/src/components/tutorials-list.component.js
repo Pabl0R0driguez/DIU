@@ -89,7 +89,7 @@ const TutorialsList = () => {
               <Form.Group className="mb-3">
                 <Form.Control
                   type="text"
-                  placeholder="Search by title"
+                  placeholder="Buscar"
                   value={searchTitle}
                   onChange={onChangeSearchTitle}
                   className="form-control-lg"
