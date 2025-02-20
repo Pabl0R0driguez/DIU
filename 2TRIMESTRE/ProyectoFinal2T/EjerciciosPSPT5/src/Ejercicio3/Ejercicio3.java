@@ -31,34 +31,38 @@ public class Ejercicio3 {
 
             //EL RECEPTOR DEL MENSAJE
             //VERIFICA CON LA CLAVE PÚBLICA EL MENSAJE FIRMADO
-            //AL OBJETO Signature se le suministran los datos a verificar
+            //AL OBJETO Signature SE LE SUMIST LOS DATOS A VERIFICAR
             Signature verificadsa = Signature.getInstance("SHA256withDSA");
             verificadsa.initVerify(clavepub);
             verificadsa.update(mensaje.getBytes());
             boolean check = verificadsa.verify(firma);
 
-            // Almacenamos la clave privada en un fichero binario
+            // Pimero guardaremos la clave privada en un fichero binario y luego escribiremos
+            // la clave pública en un archivo
             PKCS8EncodedKeySpec pkcs8 = new PKCS8EncodedKeySpec(clavepriv.getEncoded());
             FileOutputStream outpriv = new FileOutputStream("Clave.privada");
-            outpriv.write(pkcs8.getEncoded()); // Escribo la clave pública en el archivo
+            outpriv.write(pkcs8.getEncoded());
             outpriv.close();
 
-            // Almacenamos la clave publica en un fichero binario
+            // Aqui
             X509EncodedKeySpec x509 = new X509EncodedKeySpec(clavepub.getEncoded());
             FileOutputStream outpub = new FileOutputStream("Clave.publica");
             outpub.write(x509.getEncoded()); // Escribo la clave privada en el archivo
             outpub.close();
 
-            // Si todo ha funcionado correctamente mostramos mensajes de éxito
+
             if (check) {
-                System.out.println("FIRMA VERIFICADA CON CLAVE PÚBLICA");
-                System.out.println("CLAVES ALMACENADAS EN LOS FICHEROS");
-            }else {System.out.println("FIRMA NO VERIFICADA");}
+                System.out.println("Firma con clave pública aceptada");
+                System.out.println("Clave guardada con éxito");
+            }else {System.out.println("Error");}
 
         } catch (NoSuchAlgorithmException el) {
             el.printStackTrace();
+
         } catch (InvalidKeyException e2) {
             e2.printStackTrace();
+
+
         } catch (SignatureException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {

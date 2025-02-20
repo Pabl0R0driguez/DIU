@@ -1,10 +1,8 @@
-import React, { useState,useContext } from 'react';
+import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap'; // Importar componentes de Bootstrap
 import ProductDataService from '../services/product.service'; // Asegúrate de que la ruta sea correcta
 import '../styles/add-edit.css'; // Importar estilos personalizados
-import { ProgressContext } from "../context/ProgressContext";
 import { useHistory } from 'react-router-dom'; // Importar useNavigate de React Router
-
 
 
 function AddProduct() {
@@ -14,8 +12,9 @@ function AddProduct() {
     price: 0.0,
     active: false
   });
+
   const history = useHistory(); // Inicializar useNavigate
-  const { progress } = useContext(ProgressContext);
+
 
   const agregarProducto = (e) => {
     e.preventDefault(); // Evitar recargar la página
@@ -23,14 +22,12 @@ function AddProduct() {
       .then(response => {
         // Si el producto se guarda correctamente
         console.log('Producto agregado:', response.data);
-        history.push("/")
+        history.push("/");
       })
       .catch(e => {
         console.error('Error al agregar producto:', e);
       });
   };
-
-  
 
   const setName = (e) => {
     setProduct({ ...product, name: e.target.value }); // Usar spread operator para actualizar el estado
@@ -124,11 +121,9 @@ function AddProduct() {
                 </Form.Group>
 
                 {/* Botón de añadir */}
-                {process === 100 ? (""
-                ) : (
                 <Button className="mt-4 w-100" variant="primary" type="submit" size="lg">
                   Añadir Producto
-                </Button>)}
+                </Button>
                 
               </Col>
             </Row>

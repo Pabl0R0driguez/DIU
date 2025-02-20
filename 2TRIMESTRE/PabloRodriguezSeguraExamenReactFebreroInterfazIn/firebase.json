@@ -1,0 +1,17 @@
+{
+  "hosting": {
+    "public": "build",
+    "site": "diu-proyectos-6e192",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
