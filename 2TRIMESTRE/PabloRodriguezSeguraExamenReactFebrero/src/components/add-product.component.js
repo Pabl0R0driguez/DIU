@@ -35,9 +35,15 @@ function AddProduct() {
     setProduct({ ...product, price: parseFloat(e.target.value) }); // Convertir el precio a un número
   };
 
+  const setStock = (e) => {
+    setProduct({ ...product, stock: e.target.value });
+  };
+
   const setActive = (e) => {
     setProduct({ ...product, active: e.target.checked });
   };
+
+
 
   return (
     <Container fluid className="full-width-container mt-4">
@@ -80,6 +86,18 @@ function AddProduct() {
                     placeholder="Precio del producto"
                     value={product.price}
                     onChange={setPrice}
+                    className="form-control-lg"
+                    step="0.01" // Permitir ingresar decimales
+                  />
+                </Form.Group>
+
+                <Form.Group controlId="formPrice" className="mt-3">
+                  <Form.Label>Stock</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Precio del producto"
+                    value={product.stock}
+                    onChange={setStock}
                     className="form-control-lg"
                     step="0.01" // Permitir ingresar decimales
                   />

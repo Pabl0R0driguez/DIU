@@ -146,8 +146,14 @@ const ProductsList = () => {
                       <Card.Text>
                         <strong>Estado:</strong> {currentProduct.active ? "Activo" : "Inactivo"}
                       </Card.Text>
+                      <Card.Text>
+                        <strong>Stock:</strong> {currentProduct.stock}
+                      </Card.Text>
                       <Link to={`/products/${currentProduct.id}`} className="btn btn-warning btn-lg w-100">
                         Editar
+                      </Link>
+                      <Link to={`/comprar/${currentProduct.id}`} className="btn btn-warning btn-lg w-100">
+                        Comprar
                       </Link>
                     </Card.Body>
                   </Card>

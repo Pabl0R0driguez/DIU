@@ -4,7 +4,7 @@ import ProductDataService from '../services/product.service'; // Asegúrate de q
 import { useHistory } from 'react-router-dom'; // Usamos useHistory para redirigir
 import '../styles/add-edit.css'; // Importar estilos personalizados
 
-function EditProduct() {
+function ComprarProducto() {
     const id = window.location.pathname.split('/')[2]; // Obtener ID del producto desde la URL
     const history = useHistory();
 
@@ -57,10 +57,6 @@ function EditProduct() {
         setProduct({ ...product, price: parseFloat(e.target.value) });
     };
 
-    const setStock = (e) => {
-        setProduct({ ...product, stock: e.target.value });
-      };
-
     const setActive = (e) => {
         setProduct({ ...product, active: e.target.checked });
     };
@@ -69,7 +65,7 @@ function EditProduct() {
         <Container className="full-width-container mt-4">
             <Row>
                 <Col md={12} className="mb-4">
-                    <h1 className="mb-4 text-center">Editar Producto</h1>
+                    <h1 className="mb-4 text-center">Comprar Producto</h1>
 
                     <Form onSubmit={editProduct} className="w-100">
                         <Row>
@@ -80,60 +76,27 @@ function EditProduct() {
                                         type="text"
                                         placeholder="Nombre del producto"
                                         value={product.name}
-                                        onChange={setName}
+                                        readOnly
                                         className="form-control-lg"
                                     />
                                 </Form.Group>
 
-                                <Form.Group controlId="formBrand" className="mt-3">
-                                    <Form.Label>Marca</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        placeholder="Marca del producto"
-                                        value={product.brand}
-                                        onChange={setBrand}
-                                        className="form-control-lg"
-                                    />
-                                </Form.Group>
+            
+                               
+                            <Form.Group controlId="formStock" className="mt-3">
+                                <Form.Label>Stock</Form.Label>
+                                <Form.Control
+                                    type="number"
+                                    placeholder="Número de stock"
+                                    value={product.stock}
+                                    onChange={(e) => setProduct({ ...product, stock: parseInt(e.target.value) })}
+                                    className="form-control-lg"
+                                />
+                            </Form.Group>
 
-                                <Form.Group controlId="formPrice" className="mt-3">
-                                    <Form.Label>Precio</Form.Label>
-                                    <Form.Control
-                                        type="number"
-                                        placeholder="Precio del producto"
-                                        value={product.price}
-                                        onChange={setPrice}
-                                        className="form-control-lg"
-                                        step="0.01" // Permite ingresar decimales
-                                    />
-                                </Form.Group>
-
-                                <Form.Group controlId="formPrice" className="mt-3">
-                                    <Form.Label>Stock</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        placeholder="Precio del producto"
-                                        value={product.price}
-                                        onChange={setStock}
-                                        className="form-control-lg"
-                                        step="0.01" // Permite ingresar decimales
-                                    />
-                                </Form.Group>
-
-
-
-                                <Form.Group controlId="formActive" className="mt-3">
-                                    <Form.Check
-                                        type="checkbox"
-                                        label="Activo"
-                                        checked={product.active}
-                                        onChange={setActive}
-                                        className="form-check-lg"
-                                    />
-                                </Form.Group>
-
+                            
                                 <Button className="mt-4 w-100" variant="primary" type="submit" size="lg">
-                                    Actualizar Producto
+                                    Comprar Producto
                                 </Button>
                             </Col>
                         </Row>
@@ -144,4 +107,4 @@ function EditProduct() {
     );
 }
 
-export default EditProduct;
+export default ComprarProducto;
