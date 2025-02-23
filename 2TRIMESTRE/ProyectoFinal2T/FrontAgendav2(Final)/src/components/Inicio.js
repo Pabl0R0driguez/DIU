@@ -1,24 +1,21 @@
-import React, { useContext,useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import AgendaDataService from "../services/agenda.service";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/Inicio.css";
-import { Card, Button, Container, Row, Col, Form, Collapse, ProgressBar } from "react-bootstrap";
+import { Modal, Button, Container, Row, Col, Form, Table, ProgressBar } from "react-bootstrap";
 import informacion from "../assets/informacion.png";
 import editar from "../assets/editar.png";
 import borrar from "../assets/borrar.png";
 import { UserContext } from "../provider/UserProvider";
-
+import Fondo from "../assets/videofondo.mp4"
 
 const Inicio = () => {
   const [personas, setPersonas] = useState([]);
   const [searchPersona, setSearchPersona] = useState("");
-  const [expandedIndex, setExpandedIndex] = useState(null);
-  const [selectedIndex, setSelectedIndex] = useState(null);
+  const [selectedPersona, setSelectedPersona] = useState(null);
   const [progress, setProgress] = useState(0);
   const userContext = useContext(UserContext);
-
-
 
   useEffect(() => {
     retrievePersonas();
@@ -26,10 +23,6 @@ const Inicio = () => {
 
   const onChangeSearchPersona = (e) => {
     setSearchPersona(e.target.value);
-  };
-
-  const togglePersonaDetails = (index) => {
-    setExpandedIndex(expandedIndex === index ? null : index);
   };
 
   const retrievePersonas = () => {
@@ -68,8 +61,21 @@ const Inicio = () => {
       .catch((e) => console.error("Error en la búsqueda:", e));
   };
 
+  const handlePersonaClick = (persona) => {
+    setSelectedPersona(persona);
+  };
+
+  const closeModal = () => {
+    setSelectedPersona(null);
+  };
+
   return (
     <Container className="mt-5">
+      <video id="background-video" autoPlay muted loop>
+        <source src= {Fondo} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
       <Row className="mb-4">
         <Col md={12}>
           <h4 className="text-center">Progreso de Tutoriales</h4>
@@ -94,55 +100,62 @@ const Inicio = () => {
         </Col>
       </Row>
 
-      <Row className="mt-2 cartas-container">
-        {personas.map((persona, index) => (
-          <Col md={5} lg={3} className="mb-3" key={persona.id}>
-            <Card
-              className={`h-100 p-3 ${selectedIndex === index ? "border-primary" : ""}`}
-              onClick={() => setSelectedIndex(selectedIndex === index ? null : index)}
-              style={{ cursor: "pointer", fontFamily: "'Poppins', sans-serif", minHeight: "250px", textAlign: "center" }}
-            >
-              <Card.Body className="d-flex flex-column justify-content-center align-items-center" style={{ height: "100%" }}>
-                <Card.Title style={{ fontSize: "1.5rem", fontWeight: "600", textAlign: "center", marginBottom: "1rem" }}>
-                  {persona.nombre} {persona.apellido}
-                </Card.Title>
-
-                {selectedIndex === index && (
-                  <Button variant="info" size="sm" onClick={(e) => { e.stopPropagation(); togglePersonaDetails(index); }}>
-                    {expandedIndex === index ? "Ocultar Detalles" : "Ver Detalles"}
-                  </Button>
-                )}
-
-                <Collapse in={expandedIndex === index}>
-                  <div className="mt-3">
-                    <div className="detail-item"><strong>Dirección:</strong> {persona.direccion}</div>
-                    <div className="detail-item"><strong>Código Postal:</strong> {persona.codigoPostal}</div>
-                    <div className="detail-item"><strong>Ciudad:</strong> {persona.ciudad}</div>
-                    <div className="detail-item"><strong>Fecha de Nacimiento:</strong> {persona.fechaNacimiento}</div>
-                    <div className="detail-item">
-                      <strong>Tutoriales:</strong> {persona.tutoriales?.length > 0 ? persona.tutoriales.join(", ") : "Ninguno"}
-                    </div>
-                    <div className="button-container">
-                    {!userContext ? ( ""): 
-                      <Link to={`/editar/${persona.id}`} className="btn btn-sm square-btn mt-2" style={btnStyle("#ffc107")}>
-                        <img src={editar} alt="Editar" className="icon-btn" style={iconStyle} />
-                      </Link>}
-                      {!userContext ? ( ""): 
-                      <Button variant="danger" className="btn-sm square-btn mt-2" onClick={(e) => { e.stopPropagation(); removePersona(persona); }} style={btnStyle("#d32f2f")}>
-                        <img src={borrar} alt="Eliminar" className="icon-btn" style={iconStyle} />
-                      </Button>}
-
-                      <Link to={{ pathname: `/tutoriales/`, state: { tutoriales: persona.tutoriales || [] } }} className="btn btn-sm square-btn mt-2" style={btnStyle("#4caf50")}>
-                        <img src={informacion} alt="Tutoriales" className="icon-btn" style={iconStyle} />
-                      </Link>
-                    </div>
-                  </div>
-                </Collapse>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
+      <Row className="mt-2 tabla-container">
+        <Table striped bordered hover responsive>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Apellido</th>
+           
+            </tr>
+          </thead>
+          <tbody>
+            {personas.map((persona) => (
+              <tr key={persona.id} onClick={() => handlePersonaClick(persona)} style={{ cursor: "pointer" }}>
+                <td>{persona.nombre}</td>
+                <td>{persona.apellido}</td>
+             
+               
+              </tr>
+            ))}
+          </tbody>
+        </Table>
       </Row>
+
+      {/* Modal para mostrar los detalles de la persona */}
+      <Modal show={selectedPersona !== null} onHide={closeModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Detalles de {selectedPersona?.nombre} {selectedPersona?.apellido}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="detail-item"><strong>Dirección:</strong> {selectedPersona?.direccion}</div>
+          <div className="detail-item"><strong>Código Postal:</strong> {selectedPersona?.codigoPostal}</div>
+          <div className="detail-item"><strong>Ciudad:</strong> {selectedPersona?.ciudad}</div>
+          <div className="detail-item"><strong>Fecha de Nacimiento:</strong> {selectedPersona?.fechaNacimiento}</div>
+          <div className="detail-item">
+            <strong>Tutoriales:</strong> {selectedPersona?.tutoriales?.length > 0 ? selectedPersona?.tutoriales.join(", ") : "Ninguno"}
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          {!userContext ? null : (
+            <>
+              {selectedPersona && selectedPersona.id && (
+                <>
+                  <Link to={`/editar/${selectedPersona.id}`} className="btn btn-sm square-btn" style={btnStyle("#ffc107")}>
+                    <img src={editar} alt="Editar" className="icon-btn" style={iconStyle} />
+                  </Link>
+                  <Button variant="danger" className="btn-sm square-btn" onClick={() => { removePersona(selectedPersona); closeModal(); }} style={btnStyle("#d32f2f")}>
+                    <img src={borrar} alt="Eliminar" className="icon-btn" style={iconStyle} />
+                  </Button>
+                  <Link to={{ pathname: `/tutoriales/`, state: { tutoriales: selectedPersona.tutoriales || [] } }} className="btn btn-sm square-btn" style={btnStyle("#4caf50")}>
+                    <img src={informacion} alt="Tutoriales" className="icon-btn" style={iconStyle} />
+                  </Link>
+                </>
+              )}
+            </>
+          )}
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 };
