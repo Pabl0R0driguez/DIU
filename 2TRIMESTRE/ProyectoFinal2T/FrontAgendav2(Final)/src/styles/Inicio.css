@@ -39,6 +39,21 @@
   background-color: #011b2f !important; /* Asegurarse que se aplique siempre */
   color: white !important;
 }
+/* En tu archivo Añadir.css */
+.btn-seleccionar-tutoriales {
+  background-color: #125b96;
+  border-color: #125b96;
+  color: white;
+  font-weight: 600;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-seleccionar-tutoriales:hover {
+  background-color: #0f4c75; /* Cambia el color al pasar el ratón */
+}
 
 
 /* Eliminar efectos hover */
@@ -59,6 +74,7 @@
 .custom-modal .modal-header {
   border-bottom: none; /* Sin borde inferior */
 }
+
 
 /* Centrado del Modal en la pantalla */
 .custom-modal .modal-dialog {

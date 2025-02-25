@@ -1,76 +1,46 @@
-/* Login.css */
 .login-container {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 50px); /* Aumentamos el tamaño y lo hacemos más grande */
+  height: calc(100vh - 50px);
   padding: 20px;
   height: auto;
-  margin-top: -50px; /* Esto acerca el contenedor del login a la navbar */
+  margin-top: -50px;
+  background: #125b96; /* Nuevo color de fondo */
 }
+
 .login-form {
   width: 100%;
-  max-width: 450px; /* Aumentamos el tamaño del formulario */
-  background: #ffffff;
+  max-width: 450px;
+  background: rgba(18, 91, 150, 0.8); /* Color con transparencia */
+  color: white; /* Texto en blanco */
   padding: 40px 30px;
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
-  color: #333;
-  font-size: 24px;
-  font-weight: 600;
-}
-
-.login-image {
-  width: 100px; /* Hacemos la imagen más grande */
-  height: 100px; /* Hacemos la imagen más grande */
-  border-radius: 50%; /* Aseguramos que la imagen sea circular */
-  margin-bottom: 20px; /* Espacio debajo de la imagen */
-  object-fit: cover; /* Asegura que la imagen no se distorsione */
-}
-
-/* Estilo de los campos de entrada */
-.input-field {
-  padding: 12px 15px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  font-size: 16px;
-  box-sizing: border-box;
-  transition: border-color 0.3s ease;
-}
-
-.input-field:focus {
-  border-color: #4e73df;
-  box-shadow: 0 0 8px rgba(78, 115, 223, 0.6);
-  outline: none;
-}
-
-/* Estilo del botón de login */
-.login-button {
-  background-color: #4e73df;
+/* Estilos del texto */
+h2, .form-label {
   color: white;
-  font-size: 16px;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  transition: background-color 0.3s ease;
+}
+
+/* Estilos de los campos de entrada */
+.input-field {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.input-field::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Botón */
+.login-button {
+  background-color: #011b2f;
 }
 
 .login-button:hover {
   background-color: #2e59d9;
-}
-
-/* Estilo de la alerta */
-.alert {
-  font-size: 14px;
-  text-align: center;
-  margin-top: 15px;
-}
-
-.login-footer-spacing {
-  margin-top: 0px !important; /* Usar con precaución */
 }

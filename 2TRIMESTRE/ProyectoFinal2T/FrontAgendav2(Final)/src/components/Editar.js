@@ -2,16 +2,15 @@ import React, { useEffect, useState } from 'react';
 import AgendaDataService from '../services/agenda.service';
 import TutorialDataService from '../services/tutorial.service';
 import { useHistory, useLocation } from 'react-router-dom';
-import { Modal, ListGroup, Form, Button, Container } from 'react-bootstrap';
+import { Modal, ListGroup, Form, Button, Container,Col, Row, Card } from 'react-bootstrap';
+import '../styles/Añadir.css';
 
 function EditPersona() {
-  const id = window.location.pathname.split('/')[2]; // Obtenemos el id de la persona desde la URL
-  const history = useHistory(); // Lo usamos para redirigir después de actualizar
-  const location = useLocation(); // Accedemos a los datos enviados desde otro componente.
-  const updatePersonaInList = location.state?.updatePersonaInList; // recibe una función para actualizar la lista de personas en el componente anterior.
+  const id = window.location.pathname.split('/')[2];
+  const history = useHistory();
+  const location = useLocation();
+  const updatePersonaInList = location.state?.updatePersonaInList;
 
-
-  // Inicializar el estado de la persona
   const [persona, setPersona] = useState({
     id: id,
     nombre: '',
@@ -20,63 +19,42 @@ function EditPersona() {
     codigoPostal: '',
     ciudad: '',
     fechaNacimiento: '',
-
-    tutoriales: [] // Campo para tutoriales asignados
+    tutoriales: []
   });
 
-  // Lista de tutoriales disponibles obtenidos desde el servidor.
-  const [availableTutorials, setAvailableTutorials] = useState([]); 
-
-  // Lista de tutoriales asignados a la persona
+  const [availableTutorials, setAvailableTutorials] = useState([]);
   const [selectedTutorials, setSelectedTutorials] = useState([]);
-
-  // Controla la visibilidad de los tutoriales
   const [showTutorialModal, setShowTutorialModal] = useState(false);
 
   useEffect(() => {
-    // Cargar tutoriales disponibles
     TutorialDataService.getAllTutorials()
-      .then(response => {
-        setAvailableTutorials(response.data);
-      })
-      .catch(error => {
-        console.error('Error al cargar tutoriales:', error);
-      });
+      .then(response => setAvailableTutorials(response.data))
+      .catch(error => console.error('Error al cargar tutoriales:', error));
 
-    // Obtener la persona por ID
     AgendaDataService.getPersona(id)
       .then(response => {
-        console.log(response.data); // Verifica la estructura
         setPersona(response.data);
-        setSelectedTutorials(response.data.tutoriales || []); // Asegúrate de que sea un array
+        setSelectedTutorials(response.data.tutoriales || []);
       })
-      .catch(error => {
-        console.error("Error al obtener la persona:", error);
-      });
+      .catch(error => console.error("Error al obtener la persona:", error));
   }, [id]);
 
   const editPersona = (e) => {
     e.preventDefault();
-    const personaData = { ...persona, tutoriales: selectedTutorials }; // Combina tutoriales seleccionados
-
-    // Actualizar la persona en el servidor
+    const personaData = { ...persona, tutoriales: selectedTutorials };
     AgendaDataService.updatePersona(id, personaData)
       .then(() => {
-        console.log("Persona actualizada en el servidor.");
-        if (updatePersonaInList) {
-          updatePersonaInList(personaData); // Actualiza la lista
-        }
-        history.push("/"); // Redirige después de la actualización
+        if (updatePersonaInList) updatePersonaInList(personaData);
+        history.push("/");
       })
-      .catch((error) => {
-        console.error("Error al actualizar la persona:", error);
-      });
+      .catch(error => console.error("Error al actualizar la persona:", error));
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setPersona({
-      ...persona, [name]: value, // Actualiza el campo correspondiente en el estado
+      ...persona,
+      [name]: value,
     });
   };
 
@@ -92,73 +70,83 @@ function EditPersona() {
   const closeTutorialModal = () => setShowTutorialModal(false);
 
   return (
-    <Container className="edit-persona-container" style={{ minHeight: '100vh', fontFamily: "'Poppins', sans-serif", padding: '2rem' }}>
-      <div className="card" style={{ maxWidth: '600px', margin: '0 auto', padding: '2rem', borderRadius: '10px', boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)' }}>
-        <h3 className="mb-4 text-center" style={{ fontWeight: 'bold', color: '#3b3b3b' }}>Editar Persona</h3>
-        <form onSubmit={editPersona}>
-          {/* Campos del formulario */}
-          <Form.Group className="mb-4">
-            <Form.Label>Nombre</Form.Label>
+    <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: 'calc(100vh - 56px)', fontFamily: "'Poppins', sans-serif", marginTop: '2rem' }}>
+      <Card style={{ width: '100%', maxWidth: '600px', padding: '2rem', borderRadius: '20px', boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)' }}>
+        <h3 className="mb-4 text-center" style={{ fontWeight: 'bold', color: '#125b96' }}>Editar Persona</h3>
+        <Form onSubmit={editPersona}>
+          <Row className="mb-4">
+            <Form.Group as={Col} controlId="nombre">
+              <Form.Label style={{ fontWeight: '600' }}>Nombre</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Introduce nombre"
+                name="nombre"
+                value={persona.nombre}
+                onChange={handleChange}
+                className="form-control-custom"
+              />
+            </Form.Group>
+            <Form.Group as={Col} controlId="apellido">
+              <Form.Label style={{ fontWeight: '600' }}>Apellido</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Introduce apellido"
+                name="apellido"
+                value={persona.apellido}
+                onChange={handleChange}
+                className="form-control-custom"
+              />
+            </Form.Group>
+          </Row>
+
+          <Form.Group controlId="direccion" className="mb-4">
+            <Form.Label style={{ fontWeight: '600' }}>Dirección</Form.Label>
             <Form.Control
               type="text"
-              name="nombre"
-              value={persona.nombre}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-4">
-            <Form.Label>Apellido</Form.Label>
-            <Form.Control
-              type="text"
-              name="apellido"
-              value={persona.apellido}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-4">
-            <Form.Label>Dirección</Form.Label>
-            <Form.Control
-              type="text"
+              placeholder="Introduce dirección"
               name="direccion"
               value={persona.direccion}
               onChange={handleChange}
-              required
+              className="form-control-custom"
             />
           </Form.Group>
-          <Form.Group className="mb-4">
-            <Form.Label>Código Postal</Form.Label>
-            <Form.Control
-              type="text"
-              name="codigoPostal"
-              value={persona.codigoPostal}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-4">
-            <Form.Label>Ciudad</Form.Label>
-            <Form.Control
-              type="text"
-              name="ciudad"
-              value={persona.ciudad}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-4">
-            <Form.Label>Fecha de Nacimiento</Form.Label>
+
+          <Row className="mb-4">
+            <Form.Group as={Col} controlId="codigoPostal">
+              <Form.Label style={{ fontWeight: '600' }}>Código Postal</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Introduce código postal"
+                name="codigoPostal"
+                value={persona.codigoPostal}
+                onChange={handleChange}
+                className="form-control-custom"
+              />
+            </Form.Group>
+            <Form.Group as={Col} controlId="ciudad">
+              <Form.Label style={{ fontWeight: '600' }}>Ciudad</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Introduce ciudad"
+                name="ciudad"
+                value={persona.ciudad}
+                onChange={handleChange}
+                className="form-control-custom"
+              />
+            </Form.Group>
+          </Row>
+
+          <Form.Group controlId="fechaNacimiento" className="mb-4">
+            <Form.Label style={{ fontWeight: '600' }}>Fecha de Nacimiento</Form.Label>
             <Form.Control
               type="date"
               name="fechaNacimiento"
               value={persona.fechaNacimiento}
               onChange={handleChange}
-              required
+              className="form-control-custom"
             />
           </Form.Group>
 
-          {/* Campo para tutoriales asignados */}
           <Form.Group className="mb-4">
             <Form.Label style={{ fontWeight: '600' }}>Tutoriales asignados</Form.Label>
             <div>
@@ -170,13 +158,28 @@ function EditPersona() {
               Seleccionar Tutoriales
             </Button>
           </Form.Group>
-          <Button type="submit" className="btn btn-primary w-100" style={{ borderRadius: '10px', padding: '12px' }}>
+
+          <Button
+            variant="primary"
+            type="submit"
+            className="w-100"
+            style={{
+              borderRadius: '10px',
+              fontWeight: '600',
+              padding: '12px',
+              fontSize: '1rem',
+              backgroundColor: '#125b96',
+              borderColor: '#125b96',
+              transition: 'all 0.3s ease',
+            }}
+            onMouseEnter={(e) => (e.target.style.backgroundColor = '#007bff')}
+            onMouseLeave={(e) => (e.target.style.backgroundColor = '#125b96')}
+          >
             Actualizar
           </Button>
-        </form>
-      </div>
+        </Form>
+      </Card>
 
-      {/* Modal para seleccionar tutoriales */}
       <Modal show={showTutorialModal} onHide={closeTutorialModal} centered>
         <Modal.Header closeButton>
           <Modal.Title>Seleccionar Tutoriales</Modal.Title>
@@ -205,5 +208,6 @@ function EditPersona() {
     </Container>
   );
 }
+
 
 export default EditPersona;
