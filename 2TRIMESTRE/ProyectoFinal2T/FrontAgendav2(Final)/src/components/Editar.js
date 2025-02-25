@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import AgendaDataService from '../services/agenda.service';
 import TutorialDataService from '../services/tutorial.service';
 import { useHistory, useLocation } from 'react-router-dom';
-import { Modal, ListGroup, Form, Button, Container,Col, Row, Card } from 'react-bootstrap';
+import { Modal, ListGroup, Form, Button, Container, Col, Row, Card } from 'react-bootstrap';
 import '../styles/Añadir.css';
 
 function EditPersona() {
@@ -19,7 +19,7 @@ function EditPersona() {
     codigoPostal: '',
     ciudad: '',
     fechaNacimiento: '',
-    tutoriales: []
+    tutoriales: [] // Guardaremos los títulos de los tutoriales
   });
 
   const [availableTutorials, setAvailableTutorials] = useState([]);
@@ -34,6 +34,7 @@ function EditPersona() {
     AgendaDataService.getPersona(id)
       .then(response => {
         setPersona(response.data);
+        // Al obtener la persona, cargamos los nombres de los tutoriales
         setSelectedTutorials(response.data.tutoriales || []);
       })
       .catch(error => console.error("Error al obtener la persona:", error));
@@ -41,6 +42,7 @@ function EditPersona() {
 
   const editPersona = (e) => {
     e.preventDefault();
+    // Guardamos solo los títulos de los tutoriales seleccionados
     const personaData = { ...persona, tutoriales: selectedTutorials };
     AgendaDataService.updatePersona(id, personaData)
       .then(() => {
@@ -59,10 +61,14 @@ function EditPersona() {
   };
 
   const toggleTutorialSelection = (tutorialId) => {
-    if (selectedTutorials.includes(tutorialId)) {
-      setSelectedTutorials(selectedTutorials.filter(id => id !== tutorialId));
-    } else {
-      setSelectedTutorials([...selectedTutorials, tutorialId]);
+    const tutorial = availableTutorials.find(tut => tut.id === tutorialId);
+
+    if (tutorial) {
+      if (selectedTutorials.includes(tutorial.title)) {
+        setSelectedTutorials(selectedTutorials.filter(title => title !== tutorial.title)); // Filtramos por título
+      } else {
+        setSelectedTutorials([...selectedTutorials, tutorial.title]); // Añadimos el título
+      }
     }
   };
 
@@ -154,7 +160,7 @@ function EditPersona() {
                 ? `Seleccionados: ${selectedTutorials.join(", ")}`
                 : "Ningún tutorial seleccionado"}
             </div>
-            <Button variant="secondary" className="mt-2" onClick={openTutorialModal}>
+            <Button className="button-custom mt-2" onClick={openTutorialModal}>
               Seleccionar Tutoriales
             </Button>
           </Form.Group>
@@ -180,24 +186,24 @@ function EditPersona() {
         </Form>
       </Card>
 
+      {/* Modal para seleccionar tutoriales */}
       <Modal show={showTutorialModal} onHide={closeTutorialModal} centered>
         <Modal.Header closeButton>
           <Modal.Title>Seleccionar Tutoriales</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <ListGroup>
+          <div className="tutorials-grid">
             {availableTutorials.map((tutorial) => (
-              <ListGroup.Item key={tutorial.id}>
-                <Form.Check
-                  type="checkbox"
-                  id={`tutorial-${tutorial.id}`}
-                  label={tutorial.title}
-                  checked={selectedTutorials.includes(tutorial.id)}
-                  onChange={() => toggleTutorialSelection(tutorial.id)}
-                />
-              </ListGroup.Item>
+              <div
+                key={tutorial.id}
+                className={`tutorial-card ${selectedTutorials.includes(tutorial.title) ? "selected" : ""}`}
+                onClick={() => toggleTutorialSelection(tutorial.id)}
+              >
+                <h5 className="tutorial-title">{tutorial.title}</h5>
+                <p className="tutorial-description">{tutorial.description || "Sin descripción"}</p>
+              </div>
             ))}
-          </ListGroup>
+          </div>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={closeTutorialModal}>
@@ -208,6 +214,5 @@ function EditPersona() {
     </Container>
   );
 }
-
 
 export default EditPersona;

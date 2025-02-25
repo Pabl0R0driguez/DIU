@@ -1,36 +1,58 @@
-/* Perfil.css */
+/* Estilo para la carta cuadrada */
+.perfil-card {
+  width: 400px; /* Ancho fijo para la carta */
+  height: 400px; /* Altura fija para hacerla cuadrada */
+  margin: 20px auto; /* Centrar la carta */
+  border-radius: 15px; /* Bordes redondeados */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Sombra suave para la carta */
+}
 
 /* Estilo para la imagen de fondo en la parte superior */
 .perfil-img {
   background-position: center;
   background-size: cover;
-  height: 300px; /* Aumenté el tamaño de la imagen de fondo */
+  height: 150px; /* Ajustar la altura de la imagen de fondo */
   border-top-left-radius: .5rem;
   border-top-right-radius: .5rem;
 }
 
 /* Estilo para la imagen circular del perfil */
 .perfil-img-circle {
-  width: 150px; /* Aumenté el tamaño de la imagen circular */
-  height: 150px; /* Aumenté el tamaño de la imagen circular */
+  width: 120px; /* Ajustar tamaño de la imagen circular */
+  height: 120px; /* Ajustar tamaño de la imagen circular */
   object-fit: cover;
   border: 4px solid #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  margin-top: -75px; /* Para superponer la imagen circular sobre la imagen de fondo */
+  margin-top: -60px; /* Superponer la imagen circular sobre la imagen de fondo */
+}
+
+/* Estilo del cuerpo de la carta */
+.card-body {
+  padding: 20px; /* Ajustar padding para que todo esté contenido */
+  text-align: center;
+}
+
+/* Estilo del título y el nombre */
+.card-title {
+  font-size: 20px; /* Título más grande */
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* Estilo del texto del correo */
+.card-text {
+  font-size: 14px;
+  color: #999;
 }
 
 /* Estilo del botón de cerrar sesión */
 .btn-danger {
   background-color: #d9534f;
   border-color: #d9534f;
+  width: 100%; /* Hacer el botón de cerrar sesión más ancho */
 }
 
 .btn-danger:hover {
   background-color: #c9302c;
   border-color: #c12e2a;
 }
-
-.login-footer-spacing {
-  margin-top: 1000px !important; /* Usar con precaución */
-}
-

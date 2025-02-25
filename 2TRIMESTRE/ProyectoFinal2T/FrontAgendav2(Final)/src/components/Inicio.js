@@ -3,17 +3,18 @@ import AgendaDataService from "../services/agenda.service";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/Inicio.css";
-import { Modal, Button, Container, Row, Col, Form, Table, ProgressBar } from "react-bootstrap";
+import { Modal, Button, Container, Row, Col, Form, Table } from "react-bootstrap";
 import informacion from "../assets/informacion.png";
 import editar from "../assets/editar.png";
 import borrar from "../assets/borrar.png";
 import { UserContext } from "../provider/UserProvider";
+import buscar1 from "../assets/buscar1.png";
+import "../styles/Inicio.css";
 
 const Inicio = () => {
   const [personas, setPersonas] = useState([]);
   const [searchPersona, setSearchPersona] = useState("");
   const [selectedPersona, setSelectedPersona] = useState(null);
-  const [progress, setProgress] = useState(0);
   const userContext = useContext(UserContext);
 
   useEffect(() => {
@@ -26,27 +27,8 @@ const Inicio = () => {
 
   const retrievePersonas = () => {
     AgendaDataService.getAllPersonas()
-      .then((response) => {
-        setPersonas(response.data);
-        updateProgress(response.data.length);
-      })
+      .then((response) => setPersonas(response.data))
       .catch((e) => console.log(e));
-  };
-
-  const updateProgress = (total) => {
-    const maxPersonas = 50;
-    setProgress(Math.min((total / maxPersonas) * 100, 100));
-  };
-
-  const removePersona = (persona) => {
-    if (!persona || !persona.id) {
-      console.error("Persona o persona.id no válidos", persona);
-      return;
-    }
-
-    AgendaDataService.deletePersona(persona.id)
-      .then(() => retrievePersonas())
-      .catch((e) => console.error("Error al eliminar la persona:", e));
   };
 
   const searchPersonaFunction = () => {
@@ -68,6 +50,12 @@ const Inicio = () => {
     setSelectedPersona(null);
   };
 
+  const removePersona = (persona) => {
+    AgendaDataService.deletePersona(persona.id)
+      .then(() => retrievePersonas())
+      .catch((e) => console.error("Error al eliminar la persona:", e));
+  };
+
   const btnStyle = (bgColor) => ({
     backgroundColor: bgColor,
     border: "none",
@@ -77,7 +65,7 @@ const Inicio = () => {
     justifyContent: "center",
     alignItems: "center",
   });
-  
+
   const iconStyle = {
     width: "80%",
     height: "80%",
@@ -87,13 +75,6 @@ const Inicio = () => {
   return (
     <div className="fondo-container">
       <Container id="contenido" className="mt-5">
-        {/* <Row className="mb-4">
-          <Col md={12}>
-            <h4 className="text-center">Progreso de Tutoriales</h4>
-            <ProgressBar animated now={progress} label={`${Math.round(progress)}%`} />
-          </Col>
-        </Row> */}
-  
         <Row className="mb-3 align-items-center buscador-container">
           <Col md={12}>
             <div className="d-flex">
@@ -102,17 +83,17 @@ const Inicio = () => {
                 placeholder="Buscar por nombre"
                 value={searchPersona}
                 onChange={onChangeSearchPersona}
-                className="form-control-lg"
+                className="modern-input"
               />
-              <Button variant="primary" size="sm" className="buscador-btn" onClick={searchPersonaFunction}>
-                Buscar
+              <Button variant="link" onClick={searchPersonaFunction} className="search-btn">
+                <img src={buscar1} alt="Buscar" className="search-icon" />
               </Button>
             </div>
           </Col>
         </Row>
-  
+
         <Row className="mt-2 tabla-container">
-        <Table striped bordered hover responsive className="modern-table">
+          <Table striped bordered hover responsive className="modern-table">
             <thead>
               <tr>
                 <th>Nombre</th>
@@ -121,18 +102,19 @@ const Inicio = () => {
             </thead>
             <tbody>
               {personas.map((persona) => (
-                <tr key={persona.id} onClick={() => handlePersonaClick(persona)} style={{ cursor: "pointer" }}>
+                <tr
+                  key={persona.id}
+                  onClick={() => handlePersonaClick(persona)}
+                  style={{ cursor: "pointer" }}
+                >
                   <td>{persona.nombre}</td>
                   <td>{persona.apellido}</td>
                 </tr>
               ))}
             </tbody>
           </Table>
-
-
         </Row>
-  
-        {/* Modal para mostrar los detalles de la persona */}
+
         <Modal show={selectedPersona !== null} onHide={closeModal} className="custom-modal">
           <Modal.Header closeButton>
             <Modal.Title>Detalles de {selectedPersona?.nombre} {selectedPersona?.apellido}</Modal.Title>
@@ -147,31 +129,24 @@ const Inicio = () => {
             </div>
           </Modal.Body>
           <Modal.Footer>
-    {/* Aquí puedes agregar los botones del modal */}
-            {!userContext ? null : (
+            {userContext && selectedPersona && selectedPersona.id && (
               <>
-                {selectedPersona && selectedPersona.id && (
-                  <>
-                    <Link to={`/editar/${selectedPersona.id}`} className="btn btn-sm square-btn" style={btnStyle("#ffc107")}>
-                      <img src={editar} alt="Editar" className="icon-btn" style={iconStyle} />
-                    </Link>
-                    <Button variant="danger" className="btn-sm square-btn" onClick={() => { removePersona(selectedPersona); closeModal(); }} style={btnStyle("#d32f2f")}>
-                      <img src={borrar} alt="Eliminar" className="icon-btn" style={iconStyle} />
-                    </Button>
-                    <Link to={{ pathname: `/tutoriales/`, state: { tutoriales: selectedPersona.tutoriales || [] } }} className="btn btn-sm square-btn" style={btnStyle("#4caf50")}>
-                      <img src={informacion} alt="Tutoriales" className="icon-btn" style={iconStyle} />
-                    </Link>
-                  </>
-                )}
+                <Link to={`/editar/${selectedPersona.id}`} className="btn btn-sm square-btn" style={btnStyle("#ffc107")}>
+                  <img src={editar} alt="Editar" className="icon-btn" style={iconStyle} />
+                </Link>
+                <Button variant="danger" className="btn-sm square-btn" onClick={() => { removePersona(selectedPersona); closeModal(); }} style={btnStyle("#d32f2f")}>
+                  <img src={borrar} alt="Eliminar" className="icon-btn" style={iconStyle} />
+                </Button>
+                <Link to={{ pathname: `/tutoriales/`, state: { tutoriales: selectedPersona.tutoriales || [] } }} className="btn btn-sm square-btn" style={btnStyle("#4caf50")}>
+                  <img src={informacion} alt="Tutoriales" className="icon-btn" style={iconStyle} />
+                </Link>
               </>
             )}
-            
           </Modal.Footer>
         </Modal>
-        
       </Container>
     </div>
   );
-}
+};
 
 export default Inicio;

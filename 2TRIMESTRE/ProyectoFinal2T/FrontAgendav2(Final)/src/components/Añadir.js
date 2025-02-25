@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import AgendaDataService from '../services/agenda.service';
 import TutorialDataService from '../services/tutorial.service';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, Button, Row, Col, Container, Card, Modal, ListGroup } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
+import { Form, Button, Row, Col, Container, Card, Modal } from 'react-bootstrap';
 import "../styles/Añadir.css";
 
 function Añadir() {
@@ -22,6 +23,7 @@ function Añadir() {
   const [availableTutorials, setAvailableTutorials] = useState([]);
   const [selectedTutorials, setSelectedTutorials] = useState([]);
   const [showTutorialModal, setShowTutorialModal] = useState(false);
+  const history = useHistory();
 
   // Cargar los tutoriales disponibles cuando el componente se monte
   useEffect(() => {
@@ -39,7 +41,7 @@ function Añadir() {
     e.preventDefault();
 
     // Combinar los datos de la persona con los tutoriales seleccionados
-    const personaData = { ...persona, tutoriales: selectedTutorials };
+    const personaData = { ...persona, tutoriales: selectedTutorials.map(tut => tut.title) }; // Aquí guardamos solo los nombres
 
     if (!personaData.fechaNacimiento) {
       console.log("Error: La fecha de nacimiento es obligatoria.");
@@ -49,6 +51,8 @@ function Añadir() {
     // Llamada al servicio para crear persona
     AgendaDataService.createPersona(personaData)
       .then((response) => {
+        history.push("/");
+
         console.log('Persona agregada:', response.data);
       })
       .catch((error) => {
@@ -67,10 +71,14 @@ function Añadir() {
 
   // Función para alternar la selección de tutoriales
   const toggleTutorialSelection = (tutorialId) => {
-    if (selectedTutorials.includes(tutorialId)) {
-      setSelectedTutorials(selectedTutorials.filter(id => id !== tutorialId));
-    } else {
-      setSelectedTutorials([...selectedTutorials, tutorialId]);
+    const tutorial = availableTutorials.find(tut => tut.id === tutorialId);
+
+    if (tutorial) {
+      if (selectedTutorials.some(tut => tut.id === tutorialId)) {
+        setSelectedTutorials(selectedTutorials.filter(tut => tut.id !== tutorialId));
+      } else {
+        setSelectedTutorials([...selectedTutorials, tutorial]);
+      }
     }
   };
 
@@ -101,7 +109,6 @@ function Añadir() {
                 value={persona.nombre}
                 onChange={handleChange}
                 className="form-control-custom"  // Cambié esta línea
-
               />
             </Form.Group>
             <Form.Group as={Col} controlId="apellido">
@@ -113,7 +120,6 @@ function Añadir() {
                 value={persona.apellido}
                 onChange={handleChange}
                 className="form-control-custom"  // Cambié esta línea
-
               />
             </Form.Group>
           </Row>
@@ -127,7 +133,6 @@ function Añadir() {
               value={persona.direccion}
               onChange={handleChange}
               className="form-control-custom"  // Cambié esta línea
-
             />
           </Form.Group>
 
@@ -141,20 +146,18 @@ function Añadir() {
                 value={persona.codigoPostal}
                 onChange={handleChange}
                 className="form-control-custom"  // Cambié esta línea
-
               />
             </Form.Group>
             <Form.Group as={Col} controlId="ciudad">
               <Form.Label style={{ fontWeight: '600' }}>Ciudad</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Introduce nombre"
-                name="nombre"
-                value={persona.nombre}
+                placeholder="Introduce ciudad"
+                name="ciudad"
+                value={persona.ciudad}
                 onChange={handleChange}
                 className="form-control-custom"  // Cambié esta línea
               />
-
             </Form.Group>
           </Row>
 
@@ -166,7 +169,6 @@ function Añadir() {
               value={persona.fechaNacimiento}
               onChange={handleChange}
               className="form-control-custom"  // Cambié esta línea
-
             />
           </Form.Group>
 
@@ -175,10 +177,10 @@ function Añadir() {
             <Form.Label style={{ fontWeight: '600' }}>Tutoriales asignados</Form.Label>
             <div>
               {selectedTutorials.length > 0
-                ? `Seleccionados: ${selectedTutorials.join(", ")}`
+                ? `Seleccionados: ${selectedTutorials.map(tut => tut.title).join(", ")}`
                 : "Ningún tutorial seleccionado"}
             </div>
-            <Button variant="secondary" className="mt-2" onClick={openTutorialModal}>
+            <Button className="button-custom mt-2" onClick={openTutorialModal}>
               Seleccionar Tutoriales
             </Button>
           </Form.Group>
@@ -210,19 +212,18 @@ function Añadir() {
           <Modal.Title>Seleccionar Tutoriales</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <ListGroup>
+          <div className="tutorials-grid">
             {availableTutorials.map((tutorial) => (
-              <ListGroup.Item key={tutorial.id}>
-                <Form.Check 
-                  type="checkbox"
-                  id={`tutorial-${tutorial.id}`}
-                  label={tutorial.title}
-                  checked={selectedTutorials.includes(tutorial.id)}
-                  onChange={() => toggleTutorialSelection(tutorial.id)}
-                />
-              </ListGroup.Item>
+              <div
+                key={tutorial.id}
+                className={`tutorial-card ${selectedTutorials.some(tut => tut.id === tutorial.id) ? "selected" : ""}`}
+                onClick={() => toggleTutorialSelection(tutorial.id)}
+              >
+                <h5 className="tutorial-title">{tutorial.title}</h5>
+                <p className="tutorial-description">{tutorial.description || "Sin descripción"}</p>
+              </div>
             ))}
-          </ListGroup>
+          </div>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={closeTutorialModal}>

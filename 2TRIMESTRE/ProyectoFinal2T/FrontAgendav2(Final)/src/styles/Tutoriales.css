@@ -33,7 +33,7 @@ body {
 }
 
 .modern-table thead {
-  background-color: #007bff;
+  background-color: #0d3e5f !important;
   color: #ffffff;
   font-size: 1.1rem;
 }
@@ -49,13 +49,9 @@ body {
   cursor: pointer;
 }
 
-.table-row:hover {
-  background-color: #f0f8ff;
-}
-
 /* Detalle del tutorial */
 .detail-row {
-  background-color: #f9f9f9;
+  background-color: #0d3e5f !important;
 }
 
 .detail-content {
@@ -64,13 +60,11 @@ body {
   line-height: 1.5;
 }
 
-/* Botón "Ver Más" */
-a.btn {
-  margin-top: 0.5rem;
-  transition: background-color 0.3s ease, color 0.3s ease;
+.detail-row:hover {
+  background-color: #08273b !important;
 }
 
-a.btn:hover {
-  background-color: #007bff;
-  color: #ffffff;
+.detail-row {
+  transition: background-color 0.3s ease;
 }
+

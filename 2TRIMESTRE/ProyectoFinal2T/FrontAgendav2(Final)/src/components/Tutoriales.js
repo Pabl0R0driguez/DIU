@@ -86,7 +86,6 @@ export default class TutorialsList extends Component {
           <Table borderless className="modern-table">
             <thead>
               <tr>
-                <th style={{ width: "8%" }}>#</th>
                 <th>Título</th>
               </tr>
             </thead>
@@ -97,7 +96,6 @@ export default class TutorialsList extends Component {
                     onClick={() => this.setActiveTutorial(tutorial, index)}
                     className="table-row"
                   >
-                    <td>{index + 1}</td>
                     <td>{tutorial.title}</td>
                   </tr>
                   <AnimatePresence>
