@@ -14,7 +14,6 @@ import UserProvider from "./provider/UserProvider"; // Correcta importación de 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"; // Importa Switch y Route de react-router-dom v5
 
 
-
 function App() {
 // Aquí asumo que tienes un estado para personas en App.js (o en un lugar global)
 const [personas, setPersonas] = useState([]);

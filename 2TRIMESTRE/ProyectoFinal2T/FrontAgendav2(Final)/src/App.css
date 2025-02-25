@@ -1,3 +1,17 @@
-.page dropdown-1-page{
-      background-color: aliceblue;
-}
+/* App.css */
+body {
+      background-image: url('./assets/fondonuevo.svg'); /* Ruta de tu fondo */
+      background-size: cover; /* Asegura que el fondo cubra toda la pantalla */
+      background-position: center; /* Centra el fondo */
+      background-attachment: fixed; /* El fondo no se moverá al hacer scroll */
+      margin: 0;
+      height: 100vh; /* Asegura que el fondo cubra toda la altura de la pantalla */
+    }
+    
+    /* Este estilo asegura que todos los componentes usen el fondo */
+    .App {
+      position: relative;
+      height: 100vh; /* Ajusta la altura de la aplicación */
+      z-index: 1;
+    }
+    

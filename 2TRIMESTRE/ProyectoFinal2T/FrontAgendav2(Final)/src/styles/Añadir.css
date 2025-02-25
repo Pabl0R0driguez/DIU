@@ -1,6 +1,15 @@
-/* Añadir.css */
+/* Formulario con fondo translúcido */
+.card {
+  background-color: rgba(1, 27, 47, 0.8); /* Fondo color #011b2f con opacidad del 80% */
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  color: white; /* Asegura que el texto dentro de la tarjeta sea blanco */
+}
 
+/* Ajustar los campos del formulario para que el fondo también sea translúcido */
 .form-control-custom {
+  background-color: rgba(1, 27, 47, 0.6); /* Fondo translúcido para los campos */
+  color: white; /* Color de texto blanco */
   border-radius: 10px;
   border: 1px solid #ced4da;
   padding: 10px;
@@ -8,29 +17,48 @@
 }
 
 .form-control-custom:focus {
-  border-color: #007bff;
+  border-color: #125b96;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-h3 {
-  font-family: 'Poppins', sans-serif;
-  color: #3b3b3b;
-}
-
-.card {
-  background-color: #ffffff;
-}
-
-.card-shadow {
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
+/* Eliminar el fondo blanco para los botones */
 .btn-primary {
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: #125b96; /* Fondo del botón */
+  border-color: #125b96;
+  color: white  !important; /* Color de texto blanco en el botón */
 }
 
 .btn-primary:hover {
-  background-color: #0056b3;
+  background-color: #125b96; /* Botón más opaco al pasar el ratón */
   border-color: #0056b3;
 }
+
+/* Color blanco para las etiquetas y el título */
+h3, label {
+  font-family: 'Poppins', sans-serif;
+  color : white  !important; /* Color blanco para el título y las etiquetas */
+}
+
+/* Modificar el color de los textos dentro de los botones */
+.btn-primary {
+  color: white  !important; /* Asegura que el texto dentro del botón también sea blanco */
+}
+
+/* Ajuste para los campos de formulario con fondo translúcido y texto blanco */
+.form-control-custom {
+  background-color: rgba(18, 91, 150, 0.6); /* Fondo de color #125b96 con opacidad 60% */
+  color: white  !important; /* Texto blanco */
+  border-radius: 10px;
+  border: 1px solid #ced4da;
+  padding: 10px;
+  transition: border-color 0.3s ease;
+}
+
+/* Cuando el campo tiene foco */
+.form-control-custom:focus {
+  background-color: rgba(18, 91, 150, 0.8); /* Fondo más opaco cuando tiene foco */
+  border-color: #125b96;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  color: white  !important;  /* Asegurar que el texto siga siendo blanco cuando tenga foco */
+}
+

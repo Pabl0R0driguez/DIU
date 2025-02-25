@@ -87,7 +87,7 @@ function Añadir() {
       }}
     >
       <Card style={{ width: '100%', maxWidth: '600px', padding: '2rem', borderRadius: '20px', boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)' }}>
-        <h3 className="mb-4 text-center" style={{ fontWeight: 'bold', color: '#3b3b3b' }}>
+        <h3 className="mb-4 text-center" style={{ fontWeight: 'bold', color: '#125b96' }}>
           Añadir Persona
         </h3>
         <Form onSubmit={agregarPersona}>
@@ -100,11 +100,8 @@ function Añadir() {
                 name="nombre"
                 value={persona.nombre}
                 onChange={handleChange}
-                style={{
-                  borderRadius: '10px',
-                  border: '1px solid #ced4da',
-                  padding: '10px',
-                }}
+                className="form-control-custom"  // Cambié esta línea
+
               />
             </Form.Group>
             <Form.Group as={Col} controlId="apellido">
@@ -115,11 +112,8 @@ function Añadir() {
                 name="apellido"
                 value={persona.apellido}
                 onChange={handleChange}
-                style={{
-                  borderRadius: '10px',
-                  border: '1px solid #ced4da',
-                  padding: '10px',
-                }}
+                className="form-control-custom"  // Cambié esta línea
+
               />
             </Form.Group>
           </Row>
@@ -132,11 +126,8 @@ function Añadir() {
               name="direccion"
               value={persona.direccion}
               onChange={handleChange}
-              style={{
-                borderRadius: '10px',
-                border: '1px solid #ced4da',
-                padding: '10px',
-              }}
+              className="form-control-custom"  // Cambié esta línea
+
             />
           </Form.Group>
 
@@ -149,27 +140,21 @@ function Añadir() {
                 name="codigoPostal"
                 value={persona.codigoPostal}
                 onChange={handleChange}
-                style={{
-                  borderRadius: '10px',
-                  border: '1px solid #ced4da',
-                  padding: '10px',
-                }}
+                className="form-control-custom"  // Cambié esta línea
+
               />
             </Form.Group>
             <Form.Group as={Col} controlId="ciudad">
               <Form.Label style={{ fontWeight: '600' }}>Ciudad</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Introduce ciudad"
-                name="ciudad"
-                value={persona.ciudad}
+                placeholder="Introduce nombre"
+                name="nombre"
+                value={persona.nombre}
                 onChange={handleChange}
-                style={{
-                  borderRadius: '10px',
-                  border: '1px solid #ced4da',
-                  padding: '10px',
-                }}
+                className="form-control-custom"  // Cambié esta línea
               />
+
             </Form.Group>
           </Row>
 
@@ -180,11 +165,8 @@ function Añadir() {
               name="fechaNacimiento"
               value={persona.fechaNacimiento}
               onChange={handleChange}
-              style={{
-                borderRadius: '10px',
-                border: '1px solid #ced4da',
-                padding: '10px',
-              }}
+              className="form-control-custom"  // Cambié esta línea
+
             />
           </Form.Group>
 
@@ -210,12 +192,12 @@ function Añadir() {
               fontWeight: '600',
               padding: '12px',
               fontSize: '1rem',
-              backgroundColor: '#007bff',
-              borderColor: '#007bff',
+              backgroundColor: '#125b96',
+              borderColor: '#125b96',
               transition: 'all 0.3s ease',
             }}
-            onMouseEnter={(e) => (e.target.style.backgroundColor = '#0056b3')}
-            onMouseLeave={(e) => (e.target.style.backgroundColor = '#007bff')}
+            onMouseEnter={(e) => (e.target.style.backgroundColor = '#007bff')}
+            onMouseLeave={(e) => (e.target.style.backgroundColor = '#125b96')}
           >
             Añadir
           </Button>
