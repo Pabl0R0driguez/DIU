@@ -40,6 +40,7 @@ const generateUserDocument = async (userAuth, additionalData) => {
   if (!userAuth) return null;
 
   const userRef = doc(db, "users", userAuth.uid);
+  /* Obternener persona de la base de datos */
   const userSnap = await getDoc(userRef);
 
   // Si el documento no existe, lo creamos

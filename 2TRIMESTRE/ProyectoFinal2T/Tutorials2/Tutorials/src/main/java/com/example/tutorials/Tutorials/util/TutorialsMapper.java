@@ -14,6 +14,7 @@ public class TutorialsMapper {
                 .description(tutorials.getDescription())
                 .published(tutorials.getPublished())
                 .persona(tutorials.getPersona())
+                .url(tutorials.getUrl())
                 .build();
     }
 
@@ -24,6 +25,7 @@ public class TutorialsMapper {
                 .description(tutorials.getDescription())
                 .published(tutorials.getPublished())
                 .persona(tutorials.getPersona())
+                .url(tutorials.getUrl())
                 .build();
     }
 

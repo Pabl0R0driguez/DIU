@@ -19,7 +19,6 @@ export default class TutorialsList extends Component {
 
   componentDidMount() {
     const { location } = this.props;
-    // Verificar si hay tutoriales pasados desde la ruta
     if (location.state && location.state.tutoriales) {
       this.setState({ tutorials: location.state.tutoriales });
     } else {
@@ -77,7 +76,6 @@ export default class TutorialsList extends Component {
           </Button>
         </div>
 
-        {/* Aquí si no tenemos tutoriales asociados se muestra ese mensaje, sino si se muestra la lista asociada */} 
         {tutorials.length === 0 ? (
           <div className="text-center">
             <h5>No hay tutoriales disponibles.</h5>
@@ -114,6 +112,11 @@ export default class TutorialsList extends Component {
                               <strong>Estado:</strong>{" "}
                               {tutorial.published ? "Publicado" : "Pendiente"}
                             </p>
+                            {tutorial.url && (
+                              <div className="image-container">
+                                <img src={tutorial.url} alt="Tutorial" className="tutorial-image"/>
+                              </div>
+                            )}
                           </div>
                         </td>
                       </motion.tr>
