@@ -1,28 +1,15 @@
-/* Estilos para la tabla moderna */
-.modern-table {
-  width: 100%;
-  border-radius: 10px;
-  border: none;
-  background-color: #333; /* Fondo oscuro para las filas */
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Sombra para un efecto elevado */
-}
-
-.modern-table thead {
-  background-color: #011b2f; /* Fondo azul oscuro para el encabezado */
-  color: white !important; /* Texto blanco en el encabezado */
-}
-
+/* Ajuste adicional para hacer la tabla aún más pequeña */
 .modern-table th, .modern-table td {
-  padding: 18px 25px;
+  padding: 8px 12px; /* Reducir aún más el padding de las celdas */
   text-align: left;
-  font-size: 16px;
+  font-size: 12px; /* Reducir aún más el tamaño de la fuente */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-weight: 500;
+  font-weight: 400; /* Peso de fuente más liviano */
   color: white !important; /* Letras blancas en las celdas */
 }
 
 .modern-table th {
-  font-size: 18px;
+  font-size: 14px; /* Reducir el tamaño de la fuente del encabezado */
   text-transform: uppercase;
   letter-spacing: 1px;
 }
@@ -35,11 +22,26 @@
   color: white !important; /* Letras blancas en las celdas */
   border-bottom: 1px solid #125b96; /* Línea sutil entre las filas */
 }
-.modern-table thead {
-  background-color: #011b2f !important; /* Asegurarse que se aplique siempre */
-  color: white !important;
+
+.modern-table {
+  width: 100%;
+  border-radius: 8px; /* Bordes más pequeños */
+  border: none;
+  background-color: #333; /* Fondo oscuro para las filas */
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); /* Sombra más ligera */
 }
-/* En tu archivo Añadir.css */
+
+.modern-table thead {
+  background-color: #011b2f; /* Fondo azul oscuro para el encabezado */
+  color: white !important; /* Texto blanco en el encabezado */
+}
+
+/* Reduce el tamaño general de la tabla */
+.modern-table thead, .modern-table tbody {
+  font-size: 12px; /* Reducir el tamaño de la fuente de todo el cuerpo de la tabla */
+}
+
+/* Estilos para el botón de seleccionar tutoriales */
 .btn-seleccionar-tutoriales {
   background-color: #125b96;
   border-color: #125b96;
@@ -55,68 +57,16 @@
   background-color: #0f4c75; /* Cambia el color al pasar el ratón */
 }
 
-
-/* Eliminar efectos hover */
+/* Eliminar efectos hover en la tabla */
 .modern-table tr:hover {
   background-color: inherit; /* No cambiar el fondo al pasar el ratón */
   transform: none; /* No hay transformaciones */
   box-shadow: none; /* Eliminar sombra */
-}/* Estilos para el Modal */
-.custom-modal .modal-content {
-  background-color: rgba(1, 27, 47, 0.9); /* Fondo oscuro con algo de transparencia */
-  color: white !important; /* Texto blanco */
-  border-radius: 15px; /* Bordes redondeados */
-  padding: 20px; /* Espaciado interno */
 }
 
-.custom-modal .modal-header {
-  border-bottom: none; /* Sin borde inferior */
-  color: white; /* Aseguramos que el texto del título sea blanco */
-}
 
-.custom-modal .modal-body {
-  padding: 20px; /* Espaciado interno en el cuerpo del modal */
-}
 
-/* Estilos para el Modal */
-.custom-modal .modal-content {
-  background-color: rgba(1, 27, 47, 0.9) !important; /* Fondo oscuro con transparencia */
-  color: white !important; /* Texto blanco */
-  border-radius: 15px !important; /* Bordes redondeados */
-  padding: 20px; /* Espaciado interno */
-}
-
-.custom-modal .modal-header {
-  border-bottom: none !important; /* Sin borde inferior */
-  color: white !important; /* Asegura que el texto del título sea blanco */
-}
-
-.custom-modal .modal-body {
-  padding: 20px; /* Espaciado interno en el cuerpo del modal */
-}
-
-.custom-modal .modal-footer {
-  border-top: none !important; /* Sin borde superior */
-}
-
-/* Centrado del Modal en la pantalla */
-.custom-modal .modal-dialog {
-  position: absolute !important; /* Usa posición absoluta para centrar */
-  top: 50% !important; /* Centrado vertical */
-  left: 50% !important; /* Centrado horizontal */
-  transform: translate(-50%, -50%) !important; /* Ajuste fino para centrar exactamente */
-  margin: 0 !important; /* Eliminar márgenes adicionales */
-  max-width: 500px !important; /* Ajusta el tamaño máximo del modal */
-}
-
-.custom-modal .modal-dialog .modal-content {
-  background-color: rgba(1, 27, 47) !important; /* Fondo oscuro con transparencia */
-}
-
-/* Para asegurar que el botón de cerrar sea visible */
-.custom-modal .modal-header .close {
-  color: white !important;
-}
+/* Estilos para el botón de búsqueda */
 .search-btn {
   background-color: transparent; /* Fondo transparente */
   border: none; /* Eliminar borde */
@@ -135,7 +85,10 @@
   height: 24px; /* Ajusta el tamaño del ícono */
   object-fit: contain;
 }
+
 .search-btn:hover {
   background-color: transparent; /* No hay cambio de fondo al pasar el ratón */
   box-shadow: none; /* Elimina cualquier sombra */
 }
+
+

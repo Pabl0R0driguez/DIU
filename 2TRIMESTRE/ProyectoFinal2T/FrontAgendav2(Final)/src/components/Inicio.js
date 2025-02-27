@@ -9,12 +9,15 @@ import editar from "../assets/editar.png";
 import borrar from "../assets/borrar.png";
 import { UserContext } from "../provider/UserProvider";
 import buscar1 from "../assets/buscar1.png";
+import { motion } from "framer-motion"; // Importamos framer-motion
 import "../styles/Inicio.css";
 
 const Inicio = () => {
   const [personas, setPersonas] = useState([]);
   const [searchPersona, setSearchPersona] = useState("");
   const [selectedPersona, setSelectedPersona] = useState(null);
+  const [modalState, setModalState] = useState("informacion"); // Estado para controlar qué modal mostrar
+  const [tutorials, setTutorials] = useState([]); // Para almacenar los tutoriales asociados
   const userContext = useContext(UserContext);
 
   useEffect(() => {
@@ -44,10 +47,11 @@ const Inicio = () => {
 
   const handlePersonaClick = (persona) => {
     setSelectedPersona(persona);
+    setModalState("informacion"); // Mostrar el modal de información por defecto al seleccionar una persona
   };
 
   const closeModal = () => {
-    setSelectedPersona(null);
+    setSelectedPersona(null); // Limpiar persona seleccionada
   };
 
   const removePersona = (persona) => {
@@ -70,6 +74,15 @@ const Inicio = () => {
     width: "80%",
     height: "80%",
     objectFit: "contain",
+  };
+
+  const showTutorials = (persona) => {
+    setTutorials(persona.tutoriales || []); // Cargamos los tutoriales de la persona
+    setModalState("tutoriales"); // Cambiar el estado para mostrar el modal de tutoriales
+  };
+
+  const closeTutorialModal = () => {
+    setModalState("informacion"); // Al cerrar el modal de tutoriales, volvemos al de información
   };
 
   return (
@@ -115,35 +128,90 @@ const Inicio = () => {
           </Table>
         </Row>
 
-        <Modal show={selectedPersona !== null} onHide={closeModal} className="custom-modal">
-          <Modal.Header closeButton>
-            <Modal.Title>Detalles de {selectedPersona?.nombre} {selectedPersona?.apellido}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <div className="detail-item"><strong>Dirección:</strong> {selectedPersona?.direccion}</div>
-            <div className="detail-item"><strong>Código Postal:</strong> {selectedPersona?.codigoPostal}</div>
-            <div className="detail-item"><strong>Ciudad:</strong> {selectedPersona?.ciudad}</div>
-            <div className="detail-item"><strong>Fecha de Nacimiento:</strong> {selectedPersona?.fechaNacimiento}</div>
-            <div className="detail-item">
-              <strong>Tutoriales:</strong> {selectedPersona?.tutoriales?.length > 0 ? selectedPersona?.tutoriales.join(", ") : "Ninguno"}
-            </div>
-          </Modal.Body>
-          <Modal.Footer>
-            {userContext && selectedPersona && selectedPersona.id && (
-              <>
-                <Link to={`/editar/${selectedPersona.id}`} className="btn btn-sm square-btn" style={btnStyle("#ffc107")}>
-                  <img src={editar} alt="Editar" className="icon-btn" style={iconStyle} />
-                </Link>
-                <Button variant="danger" className="btn-sm square-btn" onClick={() => { removePersona(selectedPersona); closeModal(); }} style={btnStyle("#d32f2f")}>
-                  <img src={borrar} alt="Eliminar" className="icon-btn" style={iconStyle} />
+        {/* Modal de Información de la Persona */}
+        {modalState === "informacion" && selectedPersona && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="custom-modal-container"
+          >
+            <Modal show={true} onHide={closeModal} className="custom-modal">
+              <Modal.Header closeButton>
+                <Modal.Title>Detalles de {selectedPersona?.nombre} {selectedPersona?.apellido}</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <div className="detail-item"><strong>Dirección:</strong> {selectedPersona?.direccion}</div>
+                <div className="detail-item"><strong>Código Postal:</strong> {selectedPersona?.codigoPostal}</div>
+                <div className="detail-item"><strong>Ciudad:</strong> {selectedPersona?.ciudad}</div>
+                <div className="detail-item"><strong>Fecha de Nacimiento:</strong> {selectedPersona?.fechaNacimiento}</div>
+                <div className="detail-item">
+                  <strong>Tutoriales:</strong> {selectedPersona?.tutoriales?.length > 0 ? selectedPersona?.tutoriales.join(", ") : "Ninguno"}
+                </div>
+              </Modal.Body>
+              <Modal.Footer>
+                {userContext && selectedPersona && selectedPersona.id && (
+                  <>
+                    <Link to={`/editar/${selectedPersona.id}`} className="btn btn-sm square-btn" style={btnStyle("#ffc107")}>
+                      <img src={editar} alt="Editar" className="icon-btn" style={iconStyle} />
+                    </Link>
+                    <Button variant="danger" className="btn-sm square-btn" onClick={() => { removePersona(selectedPersona); closeModal(); }} style={btnStyle("#d32f2f")}>
+                      <img src={borrar} alt="Eliminar" className="icon-btn" style={iconStyle} />
+                    </Button>
+                    <Button
+                      variant="link"
+                      onClick={() => showTutorials(selectedPersona)}
+                      style={btnStyle("#4caf50")}
+                    >
+                      <img src={informacion} alt="Información" className="icon-btn" style={iconStyle} />
+                    </Button>
+                  </>
+                )}
+              </Modal.Footer>
+            </Modal>
+          </motion.div>
+        )}
+
+        {/* Modal de Tutoriales */}
+        {modalState === "tutoriales" && (
+          <motion.div
+            initial={{ opacity: 0, x: 300 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -300 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            className="tutorial-modal-container"
+          >
+            <Modal show={true} onHide={closeTutorialModal}>
+              <Modal.Header closeButton>
+                <Modal.Title>Tutoriales</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                {tutorials.length > 0 ? (
+                  <ul>
+                    {tutorials.map((tutorial, index) => (
+                      <li key={index}>{tutorial}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>No hay tutoriales disponibles.</p>
+                )}
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={closeTutorialModal}>
+                  Cerrar
                 </Button>
-                <Link to={{ pathname: `/tutoriales/`, state: { tutoriales: selectedPersona.tutoriales || [] } }} className="btn btn-sm square-btn" style={btnStyle("#4caf50")}>
-                  <img src={informacion} alt="Tutoriales" className="icon-btn" style={iconStyle} />
-                </Link>
-              </>
-            )}
-          </Modal.Footer>
-        </Modal>
+                {/* Botón "Volver" */}
+                <Button
+                  variant="link"
+                  onClick={closeTutorialModal} // Volver a mostrar el modal de información
+                >
+                  Volver
+                </Button>
+              </Modal.Footer>
+            </Modal>
+          </motion.div>
+        )}
       </Container>
     </div>
   );

@@ -68,3 +68,63 @@ body {
   transition: background-color 0.3s ease;
 }
 
+/* Estilo para el Modal */
+.custom-modal .modal-content {
+  background-color: rgba(1, 27, 47, 0.9) !important; /* Fondo oscuro con algo de transparencia */
+  color: white !important; /* Texto blanco */
+  border-radius: 15px !important; /* Bordes redondeados */
+  padding: 20px; /* Espaciado interno */
+}
+
+.custom-modal .modal-header {
+  border-bottom: none !important; /* Sin borde inferior */
+  color: white !important; /* Título en blanco */
+}
+
+.custom-modal .modal-body {
+  padding: 20px; /* Espaciado interno en el cuerpo del modal */
+}
+
+.custom-modal .modal-footer {
+  border-top: none !important; /* Sin borde superior */
+}
+
+/* Centrado del Modal en la pantalla */
+.custom-modal .modal-dialog {
+  position: absolute !important; /* Usa posición absoluta para centrar */
+  top: 50% !important; /* Centrado vertical */
+  left: 50% !important; /* Centrado horizontal */
+  transform: translate(-50%, -50%) !important; /* Ajuste fino para centrar exactamente */
+  margin: 0 !important; /* Eliminar márgenes adicionales */
+  max-width: 500px !important; /* Tamaño máximo del modal */
+}
+
+.custom-modal .modal-dialog .modal-content {
+  background-color: rgba(1, 27, 47) !important; /* Fondo oscuro con transparencia */
+}
+
+/* Para asegurar que el botón de cerrar sea visible */
+.custom-modal .modal-header .close {
+  color: white !important;
+}
+
+.detail-item {
+  margin-bottom: 10px;
+}
+
+.tutorial-image {
+  width: 100%;
+  height: auto;
+  max-height: 200px; /* Ajuste de la imagen */
+  object-fit: cover;
+}
+
+
+.tutorial-image {
+  width: 100%;
+  height: auto;
+  max-height: 150px; /* Establece una altura máxima */
+  object-fit: cover;
+}
+
+

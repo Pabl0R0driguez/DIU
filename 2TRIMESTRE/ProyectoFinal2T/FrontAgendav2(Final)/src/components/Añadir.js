@@ -208,29 +208,50 @@ function Añadir() {
 
       {/* Modal para seleccionar tutoriales */}
       <Modal show={showTutorialModal} onHide={closeTutorialModal} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Seleccionar Tutoriales</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="tutorials-grid">
-            {availableTutorials.map((tutorial) => (
-              <div
-                key={tutorial.id}
-                className={`tutorial-card ${selectedTutorials.some(tut => tut.id === tutorial.id) ? "selected" : ""}`}
-                onClick={() => toggleTutorialSelection(tutorial.id)}
-              >
-                <h5 className="tutorial-title">{tutorial.title}</h5>
-                <p className="tutorial-description">{tutorial.description || "Sin descripción"}</p>
-              </div>
-            ))}
+  <Modal.Header closeButton>
+    <Modal.Title>Seleccionar Tutoriales</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    <div className="tutorials-grid">
+      {availableTutorials.map((tutorial) => (
+        <div
+          key={tutorial.id}
+          className={`tutorial-card ${selectedTutorials.some(tut => tut.id === tutorial.id) ? "selected" : ""}`}
+          onClick={() => toggleTutorialSelection(tutorial.id)}
+          style={{
+            border: "1px solid #ddd",
+            borderRadius: "10px",
+            padding: "10px",
+            marginBottom: "10px",
+            display: "flex",
+            alignItems: "center",
+            cursor: "pointer",
+            transition: "0.3s",
+            backgroundColor: selectedTutorials.some(tut => tut.id === tutorial.id) ? "#f0f8ff" : "#fff"
+          }}
+        >
+          <img
+            src={tutorial.url || "https://via.placeholder.com/80"} // Imagen por defecto si no hay URL
+            alt={tutorial.title}
+            style={{ width: "80px", height: "80px", borderRadius: "8px", marginRight: "10px", objectFit: "cover" }}
+          />
+          <div>
+            <h5 style={{ margin: 0, fontSize: "16px" }}>{tutorial.title}</h5>
+            <p style={{ fontSize: "14px", color: "#666", margin: "5px 0 0" }}>
+              {tutorial.description || "Sin descripción"}
+            </p>
           </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={closeTutorialModal}>
-            Confirmar selección
-          </Button>
-        </Modal.Footer>
-      </Modal>
+        </div>
+      ))}
+    </div>
+          </Modal.Body>
+      <Modal.Footer>
+        <Button variant="primary" onClick={closeTutorialModal}>
+          Confirmar selección
+        </Button>
+      </Modal.Footer>
+    </Modal>
+
     </Container>
   );
 }
