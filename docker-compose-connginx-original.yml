@@ -1,0 +1,52 @@
+version: '3'  # Usa la versión 3 de Docker Compose
+
+networks:
+  mired:
+    ipam:
+      config:
+        - subnet: 182.28.0.0/16
+          gateway: 182.28.0.1
+
+services:
+  nginx:
+    image: pablorodseg/nginx_proyectofinaldiu:2
+    ports:
+      - "80:80"
+    depends_on:
+      - app-tutorials
+      - app-agenda
+    networks:
+      mired:
+        ipv4_address: 182.28.0.14
+
+  db:
+    image: bitnami/mongodb:latest
+    container_name: mongodb_container
+    networks:
+      mired:
+        ipv4_address: 182.28.0.11
+    ports:
+      - "27017:27017"
+
+  app-tutorials:
+    image: pablorodseg/tutorials2025:2
+    container_name: tutorialsapp
+    networks:
+      mired:
+        ipv4_address: 182.28.0.12
+    ports:
+      - "8098:8098"  # Corregido el puerto (antes estaba "80:8098")
+    depends_on:
+      - db
+
+  app-agenda:
+    image: pablorodseg/agenda2025:2
+    container_name: agendaapp
+    networks:
+      mired:
+        ipv4_address: 182.28.0.13
+    ports:
+      - "8099:8099"
+    depends_on:
+      - db
+

@@ -1,0 +1,37 @@
+version: '3'  # Usa la versión 3 de Docker Compose
+
+
+
+services:
+  nginx:
+    image: pablorodseg/nginx_proyectofinaldiu:2
+    ports:
+      - "80:80"
+    depends_on:
+      - app-tutorials
+      - app-agenda
+   
+  db:
+    image: bitnami/mongodb:latest
+    container_name: mongodb_container
+    volumes:
+      - /home/pablo/mongo_data:/bitnami/mongodb
+    ports:
+      - "27017:27017"
+
+  app-tutorials:
+    image: pablorodseg/tutorials2025:2
+    container_name: tutorialsapp
+    ports:
+      - "8098:8098"  # Corregido el puerto (antes estaba "80:8098")
+    depends_on:
+      - db
+
+  app-agenda:
+    image: pablorodseg/agenda2025:2
+    container_name: agendaapp
+    ports:
+      - "8099:8099"
+    depends_on:
+      - db
+
