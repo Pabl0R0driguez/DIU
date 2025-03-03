@@ -18,14 +18,6 @@ function App() {
 // Aquí asumo que tienes un estado para personas en App.js (o en un lugar global)
 const [personas, setPersonas] = useState([]);
 
-// Función para actualizar persona en el estado
-const updatePersona = (updatedPersona) => {
-  setPersonas((prevPersonas) =>
-    prevPersonas.map((persona) =>
-      persona.id === updatedPersona.id ? updatedPersona : persona
-    )
-  );
-};
 
 return (
   <Router> {/* Envuelve toda la aplicación con Router */}

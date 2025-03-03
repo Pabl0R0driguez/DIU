@@ -34,12 +34,7 @@ const Login = () => {
 
           <div className="text-center mb-3">
             <img src={login} alt="User Icon"
-                 style={{
-                   width: "82px",
-                   height: "82px",
-                   borderRadius: "50%",
-                   border: "1px solid #ccc",
-                 }} />
+               ></img>
           </div>
 
           <Form.Group controlId="formEmail" className="mb-3">

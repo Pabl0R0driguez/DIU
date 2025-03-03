@@ -186,7 +186,7 @@ export default class TutorialsList extends Component {
             )}
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleCloseModal}>
+            <Button variant="danger" onClick={this.handleCloseModal}>
               Cerrar
             </Button>
           </Modal.Footer>

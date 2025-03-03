@@ -10,7 +10,6 @@ import borrar from "../assets/borrar.png";
 import { UserContext } from "../provider/UserProvider";
 import buscar1 from "../assets/buscar1.png";
 import { motion } from "framer-motion"; // Importamos framer-motion
-import "../styles/Inicio.css";
 
 const Inicio = () => {
   const [personas, setPersonas] = useState([]);
@@ -81,10 +80,13 @@ const Inicio = () => {
     setModalState("tutoriales"); // Cambiar el estado para mostrar el modal de tutoriales
   };
 
-  const closeTutorialModal = () => {
+  const volverTutorialModal = () => {
     setModalState("informacion"); // Al cerrar el modal de tutoriales, volvemos al de información
   };
 
+  const cerrarTutorialModal = () => {
+    setModalState(""); // Al cerrar el modal de tutoriales, volvemos al de información
+  };
   return (
     <div className="fondo-container">
       <Container id="contenido" className="mt-5">
@@ -182,7 +184,7 @@ const Inicio = () => {
             transition={{ duration: 0.5, ease: "easeInOut" }}
             className="tutorial-modal-container"
           >
-            <Modal show={true} onHide={closeTutorialModal}>
+            <Modal show={true} onHide={cerrarTutorialModal}>
               <Modal.Header closeButton>
                 <Modal.Title>Tutoriales</Modal.Title>
               </Modal.Header>
@@ -198,16 +200,18 @@ const Inicio = () => {
                 )}
               </Modal.Body>
               <Modal.Footer>
-                <Button variant="secondary" onClick={closeTutorialModal}>
-                  Cerrar
-                </Button>
-                {/* Botón "Volver" */}
-                <Button
-                  variant="link"
-                  onClick={closeTutorialModal} // Volver a mostrar el modal de información
-                >
-                  Volver
-                </Button>
+             
+
+                  <Button variant="primary" onClick={volverTutorialModal} className="btn-volver-cerrar">
+                    Volver
+                  </Button>
+
+                  <Button variant="danger" onClick={cerrarTutorialModal} className="btn-volver-cerrar">
+                    Cerrar
+                  </Button>
+
+                  
+
               </Modal.Footer>
             </Modal>
           </motion.div>

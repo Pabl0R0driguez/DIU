@@ -92,3 +92,13 @@
 }
 
 
+/* Estilo común para los botones Cerrar y Volver */
+.btn-volver-cerrar {
+  width: 100%; /* Para que ocupen el mismo tamaño dentro del contenedor */
+  height: 40px; /* O cualquier valor de altura que prefieras */
+  font-size: 14px; /* Asegura que el tamaño del texto sea consistente */
+  text-align: center; /* Centra el texto */
+  padding: 10px 20px; /* Ajusta el padding si es necesario */
+}
+
+/* Puedes añadir más personalización si lo necesitas */

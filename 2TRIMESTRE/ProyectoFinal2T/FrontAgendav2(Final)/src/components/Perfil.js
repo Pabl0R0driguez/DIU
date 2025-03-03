@@ -17,7 +17,7 @@ const Perfil = () => {
 
   return (
     <Container className="d-flex flex-column justify-content-start align-items-center min-vh-100">
-      <Row className="justify-content-center mt-3"> {/* Mover todo más arriba */}
+      <Row className="justify-content-center mt-3">
         <Col md={6} lg={8}>
           <Card className="shadow-lg rounded perfil-card">
             {/* Imagen de fondo del perfil */}
@@ -25,9 +25,6 @@ const Perfil = () => {
               className="card-img-top perfil-img" 
               style={{ 
                 backgroundImage: `url(${photoURL || 'https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg'})`, 
-                backgroundSize: 'cover', 
-                borderTopLeftRadius: '0.5rem', 
-                borderTopRightRadius: '0.5rem' 
               }} 
             ></div>
 

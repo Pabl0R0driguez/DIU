@@ -1,0 +1,353 @@
+/* Formulario con fondo translúcido */
+.card {
+  background-color: rgba(1, 27, 47, 0.8); /* Fondo color #011b2f con opacidad del 80% */
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  color: white; /* Asegura que el texto dentro de la tarjeta sea blanco */
+}
+
+/* Ajustar los campos del formulario para que el fondo también sea translúcido */
+.form-control-custom {
+  background-color: rgba(1, 27, 47, 0.6); /* Fondo translúcido para los campos */
+  color: white; /* Color de texto blanco */
+  border-radius: 10px;
+  border: 1px solid #ced4da;
+  padding: 10px;
+  transition: border-color 0.3s ease;
+}
+
+.form-control-custom:focus {
+  border-color: #125b96;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Eliminar el fondo blanco para los botones */
+.btn-primary {
+  background-color: #125b96; /* Fondo del botón */
+  border-color: #125b96;
+  color: white  !important; /* Color de texto blanco en el botón */
+}
+
+.btn-primary:hover {
+  background-color: #125b96; /* Botón más opaco al pasar el ratón */
+  border-color: #0056b3;
+}
+
+/* En tu archivo Añadir.css */
+.btn-seleccionar-tutoriales {
+  background-color: #125b96;
+  border-color: #125b96;
+  color: white;
+  font-weight: 600;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-seleccionar-tutoriales:hover {
+  background-color: #0f4c75; /* Cambia el color al pasar el ratón */
+}
+.button-custom {
+  background-color: #125b96 !important;
+  color: white !important;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-custom:hover {
+  background-color: #007bff !important;
+}
+
+
+/* Color blanco para las etiquetas y el título */
+h3, label {
+  font-family: 'Poppins', sans-serif;
+  color : white  !important; /* Color blanco para el título y las etiquetas */
+}
+
+/* Modificar el color de los textos dentro de los botones */
+.btn-primary {
+  color: white  !important; /* Asegura que el texto dentro del botón también sea blanco */
+}
+
+/* Ajuste para los campos de formulario con fondo translúcido y texto blanco */
+.form-control-custom {
+  background-color: rgba(18, 91, 150, 0.6); /* Fondo de color #125b96 con opacidad 60% */
+  color: white  !important; /* Texto blanco */
+  border-radius: 10px;
+  border: 1px solid #ced4da;
+  padding: 10px;
+  transition: border-color 0.3s ease;
+}
+
+/* Cuando el campo tiene foco */
+.form-control-custom:focus {
+  background-color: rgba(18, 91, 150, 0.8); /* Fondo más opaco cuando tiene foco */
+  border-color: #125b96;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  color: white  !important;  /* Asegurar que el texto siga siendo blanco cuando tenga foco */
+}
+
+/* ===== Estilos generales del modal ===== */
+.modal-content {
+  background-color: #f8f9fa;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+}
+
+/* Título del modal */
+.modal-title {
+  font-weight: bold;
+  color: #125b96;
+  text-align: center;
+}
+
+/* ===== Diseño de tarjetas en cuadrícula ===== */
+.tutorials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  padding: 10px;
+}
+
+/* ===== Tarjeta de tutorial ===== */
+.tutorial-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.tutorial-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Efecto de selección */
+.tutorial-card.selected {
+  border: 2px solid #007bff;
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+/* Título dentro de la tarjeta */
+.tutorial-title {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #125b96;
+  margin-top: 10px;
+}
+
+/* Botón de Confirmación */
+.confirm-button {
+  background-color: #125b96;
+  border-radius: 10px;
+  font-weight: 600;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.confirm-button:hover {
+  background-color: #007bff;
+}
+
+/* Estilos generales para el Modal */
+.custom-modal .modal-content {
+  background-color: rgba(1, 27, 47, 0.9); /* Fondo color #011b2f con algo de transparencia */
+  color: white !important; /* Texto blanco */
+  border-radius: 15px; /* Bordes redondeados */
+  padding: 20px; /* Espaciado interno */
+}
+
+/* Personaliza la cabecera del modal */
+.custom-modal .modal-header {
+  border-bottom: none; /* Sin borde inferior */
+  color: white !important; /* Color blanco en el texto del encabezado */
+  font-weight: bold;
+}
+
+/* Centrado del Modal en la pantalla */
+.custom-modal .modal-dialog {
+  position: fixed; /* Usar posición fija */
+  top: 50%; /* Centrado vertical */
+  left: 50%; /* Centrado horizontal */
+  transform: translate(-50%, -50%); /* Ajuste de la posición para estar en el centro */
+  max-width: 500px; /* Ajusta el tamaño máximo del modal */
+  margin: 0; /* Eliminar margen adicional */
+}
+
+/* Personaliza el cuerpo del modal */
+.custom-modal .modal-body {
+  padding: 20px; /* Espaciado interno en el cuerpo del modal */
+  color: white; /* Texto blanco */
+}
+
+/* Personaliza el pie de página del modal */
+.custom-modal .modal-footer {
+  border-top: none; /* Sin borde superior */
+}
+
+/* Para centrar el modal */
+.custom-modal .modal-dialog {
+  max-width: 500px; /* Puedes ajustar el tamaño */
+  margin: 0 auto; /* Centrado horizontal */
+}
+
+/* Personaliza los botones si lo deseas */
+.custom-modal .btn {
+  border-radius: 5px;
+  font-weight: bold;
+  color: white; /* Color blanco en los botones */
+  background-color: #125b96; /* Fondo de los botones */
+  border-color: #125b96; /* Borde de los botones */
+}
+
+/* Efecto hover para el botón */
+.custom-modal .btn:hover {
+  background-color: #0f4c75; /* Fondo más oscuro al pasar el ratón */
+  border-color: #0f4c75; /* Borde más oscuro al pasar el ratón */
+}
+
+.contenedor-formulario {
+  min-height: calc(100vh - 56px);
+  font-family: 'Poppins', sans-serif;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.formulario-card {
+  width: 100%;
+  max-width: 600px;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  background-color: rgba(1, 27, 47, 0.8);
+  color: white;
+}
+
+.titulo-formulario {
+  text-align: center;
+  font-weight: bold;
+  color: white;
+}
+
+.form-control-custom {
+  background-color: rgba(1, 27, 47, 0.6);
+  color: white;
+  border-radius: 10px;
+  border: 1px solid #ced4da;
+  padding: 10px;
+  transition: border-color 0.3s ease;
+}
+
+.form-control-custom:focus {
+  border-color: #125b96;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.boton-enviar {
+  width: 100%;
+  border-radius: 10px;
+  font-weight: 600;
+  padding: 12px;
+  font-size: 1rem;
+  background-color: #125b96;
+  border-color: #125b96;
+}
+
+.boton-enviar:hover {
+  background-color: #007bff;
+}
+
+.tutorial-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.tutorial-card.selected {
+  border: 2px solid #007bff;
+  background-color: #f0f8ff;
+}
+
+
+
+
+
+/* Estilos para la imagen dentro de la tarjeta del modal */
+.tutorial-img {
+  width: 100%; /* Hace que la imagen ocupe el ancho completo disponible */
+  max-width: 160px; /* Limita el tamaño máximo de la imagen */
+  max-height: 100px; /* Limita el tamaño máximo de la imagen */
+  object-fit: cover; /* Ajusta la imagen manteniendo su relación de aspecto */
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+.tutorials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.tutorial-card {
+  border: 1px solid #ddd;
+  padding: 16px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tutorial-card:hover {
+  background-color: #f9f9f9;
+}
+
+.tutorial-card.selected {
+  border: 2px solid #007bff;
+  background-color: #f0f8ff;
+}
+
+.tutorial-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.tutorial-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.tutorial-description {
+  font-size: 14px;
+  color: #666;
+}
+
+.confirm-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}

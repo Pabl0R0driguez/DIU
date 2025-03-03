@@ -1,9 +1,9 @@
-import '../styles/Menu.css'; // Asegúrate de agregar el archivo CSS
 import React, { useContext, useState } from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { UserContext } from "../provider/UserProvider";
 import { Link } from 'react-router-dom';
 import icono from "../assets/usuario.png";
+import "../styles/Menu.css"; // Asegúrate de importar el archivo CSS
 
 export function Menu() {
   const userContext = useContext(UserContext);
@@ -17,38 +17,16 @@ export function Menu() {
       <Container fluid>
         <Navbar.Brand href="#home" className="navbar-brand">
           <Link to="/perfil">
-            <button
-              style={{
-                display: "flex",
-                alignItems: "center",
-                border: "none",
-                background: "none",
-                cursor: "pointer",
-                padding: "0",
-              }}
-            >
+            <button className="user-button">
               {/* Nombre del usuario */}
-              <h3
-                className="italic"
-                style={{
-                  fontSize: "1rem",
-                  fontWeight: "bold",
-                  marginRight: "0.5rem", // Espacio entre el nombre y la imagen
-                  color: "#000",
-                }}
-              >
+              <h3 className="user-name">
                 {nombre}
               </h3>
               {/* Imagen del usuario */}
               <img
                 src={foto}
                 alt="User Icon"
-                style={{
-                  width: "32px",
-                  height: "32px",
-                  borderRadius: "50%", // Hacemos la imagen circular
-                  border: "1px solid #ccc", // Borde para mejorar el contraste
-                }}
+                className="user-icon"
               />
             </button>
           </Link>
@@ -58,9 +36,9 @@ export function Menu() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
             <Nav.Link href="/" className="nav-item-custom">Inicio</Nav.Link>
-            {!userContext ? (
-            null
-          ) : <Nav.Link href="/añadir" className="nav-item-custom">Añadir</Nav.Link>}
+            {userContext && (
+              <Nav.Link href="/añadir" className="nav-item-custom">Añadir</Nav.Link>
+            )}
             <Nav.Link href="/tutoriales" className="nav-item-custom">Tutoriales</Nav.Link>
             {!userContext ? (
               <Nav.Link href="/login" className="nav-item-custom">Login</Nav.Link>

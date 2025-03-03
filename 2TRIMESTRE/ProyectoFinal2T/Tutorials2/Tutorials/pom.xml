@@ -11,10 +11,10 @@
 	</parent>
 
 	<groupId>com.example</groupId>
-	<artifactId>Agenda</artifactId>
+	<artifactId>Tutorials</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Agenda</name>
-	<description>Microservicio Agenda</description>
+	<name>Tutorials</name>
+	<description>Microservicio Tutorials</description>
 
 	<properties>
 		<java.version>21</java.version>
