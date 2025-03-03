@@ -101,6 +101,10 @@ const Inicio = () => {
     <div className="fondo-container">
       <Container id="contenido" className="mt-5">
        
+
+   
+
+
         {/* Buscar personas */}
         <Row className="mb-3 align-items-center buscador-container">
           <Col md={12}>
@@ -126,12 +130,12 @@ const Inicio = () => {
           </Col>
         </Row>
 
-
         <Row className="justify-content-center">
           <Col xs={12} md={8} lg={6} className="text-center">
             <h2 className="contactos-title">Contactos</h2>
           </Col>
         </Row>
+
 
         <Row className="mt-2 tabla-container">
           <Table striped bordered hover responsive className="modern-table">

@@ -104,7 +104,7 @@ export default class TutorialsList extends Component {
 
         {tutorials.length === 0 ? (
           <div className="text-center">
-            <h5>No hay tutoriales disponibles.</h5>
+            <h5 className="c">No hay tutoriales disponibles.</h5>
           </div>
         ) : (
           <Table borderless className="modern-table">

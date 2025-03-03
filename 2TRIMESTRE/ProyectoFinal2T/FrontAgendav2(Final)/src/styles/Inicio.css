@@ -102,12 +102,13 @@
 }
 .contactos-title {
   color: white;
-  background-color: rgba(1, 27, 47, 0.8); /* Color con transparencia */
+  background-color: rgba(1, 27, 47, 0.7); /* Fondo completamente transparente */
   padding: 5px 10px;
   border-radius: 18px;
   font-size: 1.5rem; /* Tamaño adaptable */
   font-weight: bold;
   margin-bottom: 8px;
+  margin-top: 20px;
   display: inline-block; /* Hace que el fondo solo cubra el texto */
   width: 100%; /* Se adapta al tamaño de su contenedor */
   text-align: center; /* Centra el texto */

@@ -141,3 +141,7 @@ body {
   outline: none; /* Elimina el contorno en algunos navegadores al hacer clic */
   margin-left: 10px; /* Añadir espacio entre el input y el botón */
 }
+
+.c{
+ color: white;
+}

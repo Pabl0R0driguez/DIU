@@ -7,10 +7,9 @@ const Footer = () => {
   return (
     <footer className="footer-custom">
       <Container className="text-center">
-        <p style={{ margin: '0' }}>© {new Date().getFullYear()} Tu Empresa. Todos los derechos reservados.</p>
+        <p style={{ margin: '0' }}>© {new Date().getFullYear()} Agenda . Todos los derechos reservados.</p>
         <p>
-          <a href="/terminos" className="footer-link">Términos y condiciones</a> | 
-          <a href="/privacidad" className="footer-link"> Política de privacidad</a>
+          <p className="footer-link">Términos y condiciones | Política de privacidad</p>
         </p>
       </Container>
     </footer>

@@ -20,8 +20,8 @@ const [personas, setPersonas] = useState([]);
 
 
 return (
-  <Router> {/* Envuelve toda la aplicación con Router */}
-    <UserProvider> {/* UserProvider envuelve toda la aplicación */}
+  <Router> 
+    <UserProvider> 
       <Menu />
       <div className="container mt-3">
         <Switch>

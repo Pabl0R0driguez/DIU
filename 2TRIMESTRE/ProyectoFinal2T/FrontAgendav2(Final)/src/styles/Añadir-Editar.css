@@ -351,3 +351,111 @@ h3, label {
   border-radius: 4px;
   cursor: pointer;
 }
+/* Tarjeta de tutorial */
+.tutorial-card {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tutorial-card:hover {
+  background-color: #f9f9f9;
+}
+
+/* Tarjeta seleccionada */
+.tutorial-card.selected {
+  border: 2px solid #007bff; /* Bordes de la tarjeta seleccionada */
+  background-color: #f0f8ff; /* Color de fondo al seleccionar */
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3); /* Sombra más fuerte al seleccionar */
+}
+
+
+
+/* Imagen del tutorial */
+.tutorial-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+/* Título y descripción del tutorial */
+.tutorial-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.tutorial-description {
+  font-size: 14px;
+  color: #666;
+}
+
+
+/* Reducción del tamaño del modal */
+.custom-modal-sm .modal-dialog {
+  max-width: 350px; /* Reducir aún más el tamaño */
+  width: 100%; /* Asegura que el modal no sea más ancho que el contenedor */
+}
+
+/* Reducción del padding en el contenido del modal */
+.custom-modal-sm .modal-content {
+  padding: 5px; /* Menos padding para un tamaño más compacto */
+}
+
+/* Configuración para las tarjetas de tutoriales en dos columnas */
+.tutorials-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Dos columnas */
+  gap: 8px; /* Reduce el espacio entre los elementos */
+  max-height: 250px; /* Limita la altura total para el área de los tutoriales */
+  overflow-y: auto; /* Permite que aparezca una barra de desplazamiento si es necesario */
+}
+
+/* Estilos para cada tarjeta de tutorial */
+.tutorial-card {
+  border: 1px solid #ddd;
+  border-radius: 8px; /* Bordes más redondeados */
+  padding: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  height: 100px; /* Aumenté la altura de la tarjeta para hacerla más cuadrada */
+  width: 100%; /* Asegura que las tarjetas ocupen todo el espacio disponible */
+  aspect-ratio: 1; /* Establece una relación de aspecto 1:1 para hacer las tarjetas cuadradas */
+}
+
+.tutorial-card:hover {
+  transform: scale(1.05); /* Efecto al pasar el ratón */
+}
+
+.tutorial-card.selected {
+  border: 2px solid #4caf50; /* Resalta las tarjetas seleccionadas */
+}
+
+/* Estilo de la imagen dentro de la tarjeta */
+.tutorial-img {
+  width: 60px; /* Ajusté la imagen para que se ajuste mejor a la tarjeta */
+  height: 60px; /* Ajusté la imagen para que se ajuste mejor a la tarjeta */
+  object-fit: contain;
+  margin-bottom: 5px; /* Espacio entre la imagen y el título */
+}
+
+/* Estilos para el título de cada tutorial */
+.tutorial-title {
+  font-size: 0.9rem; /* Fuente más pequeña */
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+/* Descripción del tutorial */
+.tutorial-description {
+  font-size: 0.8rem; /* Fuente más pequeña */
+  color: #666;
+  margin-top: 5px;
+  display: none; /* Opcionalmente, puedes ocultar la descripción si no la necesitas */
+}

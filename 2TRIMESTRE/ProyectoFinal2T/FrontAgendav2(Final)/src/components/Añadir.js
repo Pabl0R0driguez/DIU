@@ -77,16 +77,16 @@ function Añadir() {
     }
   };
 
-    // Función para manejar el cambio en el campo de código postal
-    const handleCodigoPostalChange = (e) => {
-      // Permitimos solo números y que la longitud no sea mayor a 5
-      const value = e.target.value;
+  // Función para manejar el cambio en el campo de código postal
+  const handleCodigoPostalChange = (e) => {
+    // Permitimos solo números y que la longitud no sea mayor a 5
+    const value = e.target.value;
 
-      // Verificamos si la entrada solo contiene números y la longitud es menor o igual a 5
-      if (/^\d*$/.test(value) && value.length <= 5) {
-        setPersona({ ...persona, codigoPostal: value });
-      }
-    };
+    // Verificamos si la entrada solo contiene números y la longitud es menor o igual a 5
+    if (/^\d*$/.test(value) && value.length <= 5) {
+      setPersona({ ...persona, codigoPostal: value });
+    }
+  };
 
 
   const openTutorialModal = () => setShowTutorialModal(true);
