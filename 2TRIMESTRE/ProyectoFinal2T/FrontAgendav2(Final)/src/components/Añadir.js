@@ -28,15 +28,16 @@ function Añadir() {
 
 // Se ejecuta el montar el componente, mostramos lista de todos los tutoriales disponibles
 // Los guardamos en availableTutorials
-  useEffect(() => {
-    TutorialDataService.getAllTutorials()
-      .then((response) => {
-        setAvailableTutorials(response.data);
-      })
-      .catch((error) => {
-        console.error('Error al cargar tutoriales:', error);
-      });
-  }, []);
+useEffect(() => {
+  TutorialDataService.getAllTutorials()
+    .then((response) => {
+      setAvailableTutorials(response.data || []); // Evitar que sea null
+    })
+    .catch((error) => {
+      console.error("Error al cargar tutoriales:", error);
+      setAvailableTutorials([]); // Manejo de error
+    });
+}, []);
 
   const agregarPersona = (e) => {
     e.preventDefault();
@@ -77,16 +78,16 @@ function Añadir() {
     }
   };
 
-  // Función para manejar el cambio en el campo de código postal
-  const handleCodigoPostalChange = (e) => {
-    // Permitimos solo números y que la longitud no sea mayor a 5
-    const value = e.target.value;
+    // Función para manejar el cambio en el campo de código postal
+    const handleCodigoPostalChange = (e) => {
+      // Permitimos solo números y que la longitud no sea mayor a 5
+      const value = e.target.value;
 
-    // Verificamos si la entrada solo contiene números y la longitud es menor o igual a 5
-    if (/^\d*$/.test(value) && value.length <= 5) {
-      setPersona({ ...persona, codigoPostal: value });
-    }
-  };
+      // Verificamos si la entrada solo contiene números y la longitud es menor o igual a 5
+      if (/^\d*$/.test(value) && value.length <= 5) {
+        setPersona({ ...persona, codigoPostal: value });
+      }
+    };
 
 
   const openTutorialModal = () => setShowTutorialModal(true);
@@ -158,27 +159,28 @@ function Añadir() {
 
       
 
-      <Modal show={showTutorialModal} onHide={closeTutorialModal} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Seleccionar Tutoriales</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="tutorials-grid">
-            {availableTutorials.map((tutorial) => (
-              <div key={tutorial.id} className={`tutorial-card ${selectedTutorials.some(tut => tut.id === tutorial.id) ? "selected" : ""}`} onClick={() => toggleTutorialSelection(tutorial.id)}>
-                <img src={tutorial.url || "https://via.placeholder.com/80"} alt={tutorial.title} className="tutorial-img" />
-                <div>
-                  <h5 className="tutorial-title">{tutorial.title}</h5>
-                  <p className="tutorial-description">{tutorial.description || "Sin descripción"}</p>
-                </div>
-              </div>
-            ))}
+<Modal show={showTutorialModal} onHide={closeTutorialModal} centered className="custom-modal-sm">
+  <Modal.Header closeButton>
+    <Modal.Title>Seleccionar Tutoriales</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    <div className="tutorials-grid">
+      {availableTutorials.map((tutorial) => (
+        <div key={tutorial.id} className={`tutorial-card ${selectedTutorials.some(tut => tut.id === tutorial.id) ? "selected" : ""}`} onClick={() => toggleTutorialSelection(tutorial.id)}>
+          <img src={tutorial.url || "https://via.placeholder.com/80"} alt={tutorial.title} className="tutorial-img" />
+          <div>
+            <h5 className="tutorial-title">{tutorial.title}</h5>
+            <p className="tutorial-description">{tutorial.description || "Sin descripción"}</p>
           </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button className="confirm-button" onClick={closeTutorialModal}>Confirmar selección</Button>
-        </Modal.Footer>
-      </Modal>
+        </div>
+      ))}
+    </div>
+  </Modal.Body>
+  <Modal.Footer>
+    <Button className="confirm-button" onClick={closeTutorialModal}>Confirmar selección</Button>
+  </Modal.Footer>
+</Modal>
+
     </Container>
   );
 }

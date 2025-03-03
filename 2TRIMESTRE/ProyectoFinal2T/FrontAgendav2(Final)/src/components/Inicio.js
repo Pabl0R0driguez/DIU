@@ -34,11 +34,16 @@ const Inicio = () => {
   const retrievePersonas = () => {
     AgendaDataService.getAllPersonas()
       .then((response) => {
-        setAllPersonas(response.data); // Guardamos todas las personas obtenidas
-        setPersonas(response.data); // Inicializamos la lista de personas
+        setAllPersonas(response.data || []); // Si response.data es null, usa []
+        setPersonas(response.data || []);
       })
-      .catch((e) => console.log(e));
+      .catch((e) => {
+        console.log("Error al recuperar personas:", e);
+        setAllPersonas([]); // Evitar valores nulos en caso de error
+        setPersonas([]);
+      });
   };
+  
 
   const searchPersonaFunction = () => {
     if (!searchPersona.trim()) {
@@ -95,7 +100,7 @@ const Inicio = () => {
     setModalState("");
   };
 
-  const progreso = (allPersonas.length / totalPersonas) * 100;
+  const progreso = (allPersonas?.length / totalPersonas) * 100 || 0;
 
   return (
     <div className="fondo-container">

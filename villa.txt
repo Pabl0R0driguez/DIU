@@ -1,3 +1,9 @@
 https://w0.peakpx.com/wallpaper/851/362/HD-wallpaper-david-villa-for-spain-euro-2012.jpg
 https://estaticos-cdn.prensaiberica.es/clip/e6493c7a-2ec5-4922-8293-8058c12a2387_16-9-aspect-ratio_default_0.jpg
 https://images.ecestaticos.com/xZGxTj6xWhGHiqKYyOfOXaI99U0=/41x81:2271x1349/1600x900/filters:fill(white):format(jpg):quality(99):watermark(f.elconfidencial.com/file/bae/eea/fde/baeeeafde1b3229287b0c008f7602058.png,0,860,1)/f.elconfidencial.com/original/628/c27/1a3/628c271a34ccc40ac1a041207d99622f.jpg
+
+
+  const showTutorials = (persona) => {
+    setTutorials(persona.tutoriales || []);
+    setModalState("tutoriales");
+  };

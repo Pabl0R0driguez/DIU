@@ -38,7 +38,7 @@ export default class TutorialsList extends Component {
 
   // Llamada al servicio para recuperar todos los tutoriales
   retrieveTutorials = () => {
-    TutorialDataService.getAllTutorials()
+    TutorialDataService.getAllTutorials() || []
       .then(response => {
         this.setState({ tutorials: response.data });
       })

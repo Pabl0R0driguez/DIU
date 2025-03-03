@@ -1,7 +1,8 @@
 {
   "hosting": {
     "public": "build",
-    "site": "diu-proyectos-6e192",
+    "site":"loginproyectofinal-f76cb-9eb4b",
+    
     "ignore": [
       "firebase.json",
       "**/.*",
