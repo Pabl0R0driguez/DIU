@@ -77,6 +77,18 @@ function Añadir() {
     }
   };
 
+    // Función para manejar el cambio en el campo de código postal
+    const handleCodigoPostalChange = (e) => {
+      // Permitimos solo números y que la longitud no sea mayor a 5
+      const value = e.target.value;
+
+      // Verificamos si la entrada solo contiene números y la longitud es menor o igual a 5
+      if (/^\d*$/.test(value) && value.length <= 5) {
+        setPersona({ ...persona, codigoPostal: value });
+      }
+    };
+
+
   const openTutorialModal = () => setShowTutorialModal(true);
   const closeTutorialModal = () => setShowTutorialModal(false);
 
@@ -105,10 +117,18 @@ function Añadir() {
           </Form.Group>
 
           <Row className="mb-4">
-            <Form.Group as={Col} controlId="codigoPostal">
+          <Form.Group as={Col} controlId="codigoPostal">
               <Form.Label>Código Postal</Form.Label>
-              <Form.Control type="text" placeholder="Introduce código postal" name="codigoPostal" value={persona.codigoPostal} onChange={handleChange} className="form-control-custom" />
+              <Form.Control
+                type="text"
+                placeholder="Introduce código postal"
+                name="codigoPostal"
+                value={persona.codigoPostal}
+                onChange={(e) => handleCodigoPostalChange(e)} // Llamada al nuevo manejador
+                className="form-control-custom"
+              />
             </Form.Group>
+
             <Form.Group as={Col} controlId="ciudad">
               <Form.Label>Ciudad</Form.Label>
               <Form.Control type="text" placeholder="Introduce ciudad" name="ciudad" value={persona.ciudad} onChange={handleChange} className="form-control-custom" />

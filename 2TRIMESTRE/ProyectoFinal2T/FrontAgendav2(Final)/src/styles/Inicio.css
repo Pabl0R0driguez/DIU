@@ -121,3 +121,39 @@
 .N{
   background-color: #0b283f;
 }
+
+/* Contenedor de la barra de progreso */
+.progress-container {
+  display: flex;
+  justify-content: center; /* Centra la barra de progreso en la pantalla */
+  margin-bottom: 20px; /* Espaciado abajo */
+}
+
+/* Barra de progreso */
+.progress-bar {
+  height: 20px; /* Hacerla más gruesa (aumentar grosor) */
+}
+
+/* Barra de progreso con un color fijo, por ejemplo, verde */
+.progress-bar-1 {
+  background-color: #4caf50; /* El color verde será el mismo siempre */
+}
+
+/* Estilo del texto sobre la barra de progreso */
+.progress-bar-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  font-size: 14px; /* Tamaño del texto */
+  color: white;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Sombra de texto */
+}
+
+/* Asegurar que la barra esté en su contenedor y tenga espacio adecuado */
+.progress-bar-wrapper {
+  position: relative;
+  width: 100%; /* Ocupa el 100% del contenedor */
+  padding: 0 15px; /* Asegura que no se pegue a los bordes */
+}

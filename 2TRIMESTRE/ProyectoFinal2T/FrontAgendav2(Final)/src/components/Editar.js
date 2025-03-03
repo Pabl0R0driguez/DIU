@@ -72,6 +72,18 @@ function EditPersona() {
     }
   };
 
+        // Función para manejar el cambio en el campo de código postal
+    const handleCodigoPostalChange = (e) => {
+      // Permitimos solo números y que la longitud no sea mayor a 5
+      const value = e.target.value;
+
+      // Verificamos si la entrada solo contiene números y la longitud es menor o igual a 5
+      if (/^\d*$/.test(value) && value.length <= 5) {
+        setPersona({ ...persona, codigoPostal: value });
+      }
+    };
+
+
   const openTutorialModal = () => setShowTutorialModal(true);
   const closeTutorialModal = () => setShowTutorialModal(false);
 
@@ -125,7 +137,7 @@ function EditPersona() {
                 placeholder="Introduce código postal"
                 name="codigoPostal"
                 value={persona.codigoPostal}
-                onChange={handleChange}
+                onChange={(e) => handleCodigoPostalChange(e)} // Llamada al nuevo manejador
                 className="form-control-custom"
               />
             </Form.Group>

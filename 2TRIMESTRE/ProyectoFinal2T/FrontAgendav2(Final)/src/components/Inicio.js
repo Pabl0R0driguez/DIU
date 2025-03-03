@@ -3,21 +3,25 @@ import AgendaDataService from "../services/agenda.service";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/Inicio.css";
-import { Modal, Button, Container, Row, Col, Form, Table } from "react-bootstrap";
+import { Modal, Button, Container, Row, Col, Form, Table, ProgressBar } from "react-bootstrap"; // Importamos ProgressBar
 import informacion from "../assets/informacion.png";
 import editar from "../assets/editar.png";
 import borrar from "../assets/borrar.png";
 import { UserContext } from "../provider/UserProvider";
 import buscar1 from "../assets/buscar1.png";
-import { motion } from "framer-motion"; // Importamos framer-motion
+import { motion } from "framer-motion";
 
 const Inicio = () => {
-  const [personas, setPersonas] = useState([]);
-  const [searchPersona, setSearchPersona] = useState("");
+  const [personas, setPersonas] = useState([]); // Personas filtradas que se están mostrando
+  const [allPersonas, setAllPersonas] = useState([]); // Todas las personas de la base de datos
+  const [searchPersona, setSearchPersona] = useState(""); // Valor de la búsqueda
   const [selectedPersona, setSelectedPersona] = useState(null);
-  const [modalState, setModalState] = useState("informacion"); // Estado para controlar qué modal mostrar
-  const [tutorials, setTutorials] = useState([]); // Para almacenar los tutoriales asociados
+  const [modalState, setModalState] = useState("informacion");
+  const [tutorials, setTutorials] = useState([]);
   const userContext = useContext(UserContext);
+
+  // Total de personas para la barra de progreso (fijo en 50)
+  const totalPersonas = 50; 
 
   useEffect(() => {
     retrievePersonas();
@@ -29,28 +33,31 @@ const Inicio = () => {
 
   const retrievePersonas = () => {
     AgendaDataService.getAllPersonas()
-      .then((response) => setPersonas(response.data))
+      .then((response) => {
+        setAllPersonas(response.data); // Guardamos todas las personas obtenidas
+        setPersonas(response.data); // Inicializamos la lista de personas
+      })
       .catch((e) => console.log(e));
   };
 
   const searchPersonaFunction = () => {
     if (!searchPersona.trim()) {
-      retrievePersonas();
+      setPersonas(allPersonas); // Si no hay filtro, restauramos la lista completa
       return;
     }
 
     AgendaDataService.findByNombre(searchPersona)
-      .then((response) => setPersonas(response.data))
+      .then((response) => setPersonas(response.data)) // Actualizamos la lista filtrada
       .catch((e) => console.error("Error en la búsqueda:", e));
   };
 
   const handlePersonaClick = (persona) => {
     setSelectedPersona(persona);
-    setModalState("informacion"); // Mostrar el modal de información por defecto al seleccionar una persona
+    setModalState("informacion");
   };
 
   const closeModal = () => {
-    setSelectedPersona(null); // Limpiar persona seleccionada
+    setSelectedPersona(null);
   };
 
   const removePersona = (persona) => {
@@ -76,20 +83,25 @@ const Inicio = () => {
   };
 
   const showTutorials = (persona) => {
-    setTutorials(persona.tutoriales || []); // Cargamos los tutoriales de la persona
-    setModalState("tutoriales"); // Cambiar el estado para mostrar el modal de tutoriales
+    setTutorials(persona.tutoriales || []);
+    setModalState("tutoriales");
   };
 
   const volverTutorialModal = () => {
-    setModalState("informacion"); // Al cerrar el modal de tutoriales, volvemos al de información
+    setModalState("informacion");
   };
 
   const cerrarTutorialModal = () => {
-    setModalState(""); // Al cerrar el modal de tutoriales, volvemos al de información
+    setModalState("");
   };
+
+  const progreso = (allPersonas.length / totalPersonas) * 100;
+
   return (
     <div className="fondo-container">
       <Container id="contenido" className="mt-5">
+       
+        {/* Buscar personas */}
         <Row className="mb-3 align-items-center buscador-container">
           <Col md={12}>
             <div className="d-flex">
@@ -107,19 +119,26 @@ const Inicio = () => {
           </Col>
         </Row>
 
-           {/* 🔹 TÍTULO "CONTACTOS" RESPONSIVO */}
-      <Row className="justify-content-center">
-        <Col xs={12} md={8} lg={6} className="text-center">
-          <h2 className="contactos-title">Contactos</h2>
-        </Col>
-      </Row>
+         {/* Barra de progreso */}
+         <Row className="mb-3 progress-container">
+          <Col md={8}>
+            <ProgressBar now={progreso} label={`${Math.round(progreso)}%`} />
+          </Col>
+        </Row>
+
+
+        <Row className="justify-content-center">
+          <Col xs={12} md={8} lg={6} className="text-center">
+            <h2 className="contactos-title">Contactos</h2>
+          </Col>
+        </Row>
 
         <Row className="mt-2 tabla-container">
           <Table striped bordered hover responsive className="modern-table">
             <thead>
               <tr>
-                <th className="N">Nombre</th>
-                <th className="A">Apellido</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
               </tr>
             </thead>
             <tbody>
@@ -168,16 +187,15 @@ const Inicio = () => {
                     <Button variant="danger" className="btn-sm square-btn" onClick={() => { removePersona(selectedPersona); closeModal(); }} style={btnStyle("#d32f2f")}>
                       <img src={borrar} alt="Eliminar" className="icon-btn" style={iconStyle} />
                     </Button>
-                  
                   </>
                 )}
-                  <Button
-                      variant="link"
-                      onClick={() => showTutorials(selectedPersona)}
-                      style={btnStyle("#4caf50")}
-                    >
-                      <img src={informacion} alt="Información" className="icon-btn" style={iconStyle} />
-                    </Button>
+                <Button
+                  variant="link"
+                  onClick={() => showTutorials(selectedPersona)}
+                  style={btnStyle("#4caf50")}
+                >
+                  <img src={informacion} alt="Información" className="icon-btn" style={iconStyle} />
+                </Button>
               </Modal.Footer>
             </Modal>
           </motion.div>
@@ -208,18 +226,12 @@ const Inicio = () => {
                 )}
               </Modal.Body>
               <Modal.Footer>
-             
-
-                  <Button variant="primary" onClick={volverTutorialModal} className="btn-volver-cerrar">
-                    Volver
-                  </Button>
-
-                  <Button variant="danger" onClick={cerrarTutorialModal} className="btn-volver-cerrar">
-                    Cerrar
-                  </Button>
-
-                  
-
+                <Button variant="primary" onClick={volverTutorialModal} className="btn-volver-cerrar">
+                  Volver
+                </Button>
+                <Button variant="danger" onClick={cerrarTutorialModal} className="btn-volver-cerrar">
+                  Cerrar
+                </Button>
               </Modal.Footer>
             </Modal>
           </motion.div>

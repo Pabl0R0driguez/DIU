@@ -7,7 +7,6 @@ import "../styles/Menu.css"; // Asegúrate de importar el archivo CSS
 
 export function Menu() {
   const userContext = useContext(UserContext);
-  const [currentPersona, setCurrentPersona] = useState(null);
 
   const nombre = userContext?.displayName || "Invitado"; 
   const foto = userContext?.photoURL || icono;
