@@ -69,6 +69,7 @@
   transition: all 0.3s ease;
   display: flex; /* Aseguramos un flex layout */
   align-items: center; /* Alineamos todos los elementos verticalmente */
+  font-family: 'Roboto', sans-serif
 }
 
 .navbar-brand h3 {
@@ -80,6 +81,7 @@
   letter-spacing: 1px; /* Espaciado entre letras igual */
   display: inline; /* Para asegurarnos de que esté alineado con la imagen */
   line-height: 1.5; /* Alineación vertical perfecta */
+  
 }
 
 /* Estilos para los botones del usuario (nombre e imagen) */
@@ -96,10 +98,11 @@
 .user-name {
   font-size: 1rem;
   font-weight: bold;
-  margin-right: 0.5rem; /* Espacio entre el nombre y la imagen */
+  margin-right: 1rem !important; /* Espacio aumentado entre el nombre y la imagen */
   color: #000;
-  font-style: italic;
+  font-family: 'Roboto', sans-serif;
 }
+
 
 /* Estilos para la imagen del usuario */
 .user-icon {

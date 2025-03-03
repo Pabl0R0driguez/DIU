@@ -107,12 +107,19 @@ const Inicio = () => {
           </Col>
         </Row>
 
+           {/* 🔹 TÍTULO "CONTACTOS" RESPONSIVO */}
+      <Row className="justify-content-center">
+        <Col xs={12} md={8} lg={6} className="text-center">
+          <h2 className="contactos-title">Contactos</h2>
+        </Col>
+      </Row>
+
         <Row className="mt-2 tabla-container">
           <Table striped bordered hover responsive className="modern-table">
             <thead>
               <tr>
-                <th>Nombre</th>
-                <th>Apellido</th>
+                <th className="N">Nombre</th>
+                <th className="A">Apellido</th>
               </tr>
             </thead>
             <tbody>
@@ -161,15 +168,16 @@ const Inicio = () => {
                     <Button variant="danger" className="btn-sm square-btn" onClick={() => { removePersona(selectedPersona); closeModal(); }} style={btnStyle("#d32f2f")}>
                       <img src={borrar} alt="Eliminar" className="icon-btn" style={iconStyle} />
                     </Button>
-                    <Button
+                  
+                  </>
+                )}
+                  <Button
                       variant="link"
                       onClick={() => showTutorials(selectedPersona)}
                       style={btnStyle("#4caf50")}
                     >
                       <img src={informacion} alt="Información" className="icon-btn" style={iconStyle} />
                     </Button>
-                  </>
-                )}
               </Modal.Footer>
             </Modal>
           </motion.div>

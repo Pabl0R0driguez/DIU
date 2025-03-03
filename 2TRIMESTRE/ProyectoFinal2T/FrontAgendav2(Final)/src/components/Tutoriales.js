@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/Tutoriales.css";
 import { Container, Table, Button, Form, Modal } from "react-bootstrap";
 import { motion, AnimatePresence } from "framer-motion";
+import buscar1 from "../assets/buscar1.png"
 
 export default class TutorialsList extends Component {
   constructor(props) {
@@ -96,8 +97,9 @@ export default class TutorialsList extends Component {
             className="search-input"
           />
           <Button variant="primary" className="ms-2 search-btn" onClick={this.searchTitle}>
-            Buscar
+          <img src={buscar1} alt="Buscar" className="search-icon" />
           </Button>
+          
         </div>
 
         {tutorials.length === 0 ? (

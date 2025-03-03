@@ -128,3 +128,16 @@ body {
 }
 
 
+/* Estilos para el botón de búsqueda */
+.search-btn {
+  background-color: transparent; /* Fondo transparente */
+  border: none; /* Eliminar borde */
+  padding: 0; /* Eliminar padding */
+  width: auto; /* No necesita un tamaño fijo */
+  height: auto; /* No necesita un tamaño fijo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: none; /* Elimina el contorno en algunos navegadores al hacer clic */
+  margin-left: 10px; /* Añadir espacio entre el input y el botón */
+}
